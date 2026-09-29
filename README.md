@@ -35,6 +35,23 @@ Everything is wired to **natejennings99@gmail.com** (contact email, lead/booking
 2. **Resend (email)** — sign up at resend.com **with natejennings99@gmail.com**, create an API key and set `RESEND_API_KEY`. Lead, booking and payment notifications then reach your Gmail immediately. To also email clients (confirmations, auto-replies), verify your domain in Resend and set `EMAIL_FROM` (e.g. `Jennings Media <hello@yourdomain.com>`).
 3. **Supabase (database, logins, dashboards)** — required for bookings, the client dashboard and the admin. Until it's connected the contact form still delivers leads by email (step 2).
 
+## SEO & Google visibility
+
+Built in: per-page titles/descriptions and canonicals, Open Graph images, JSON-LD (Organization, Service, FAQ, VideoObject, OfferCatalog, ProfessionalService per city, breadcrumbs), `sitemap.xml` with images and videos, `robots.txt`, `llms.txt`, 8 service landing pages (`/services/[slug]`) and city pages (`/locations/washington-dc`, `/locations/tampa`).
+
+At launch:
+1. Set `NEXT_PUBLIC_SITE_URL` to the live domain (canonicals, sitemap and share images use it).
+2. **Google Search Console** — add the domain, verify (DNS record at GoDaddy, or set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`), then submit `https://YOUR-DOMAIN/sitemap.xml`.
+3. **Google Business Profile** — create/claim "Jennings Media" (service-area business: DC, Northern Virginia, Maryland, Tampa Bay), add the website, services and your best photos; ask happy clients for reviews.
+4. Keep the Instagram link in Admin → Settings → Business so it stays in the schema's `sameAs`.
+
+## Admin: managing the agency content (once Supabase is connected)
+
+- **Work** — case studies: client, industry, year, headline, summary, metrics (`value | label` per line), challenge/strategy/execution/results, client quote, cover, hover video and gallery. Only add results and quotes you can back up.
+- **Clients** — the "Trusted by" strip.
+- **Settings → Website** — hero video, trust line, up to four homepage stats (toggle "placeholders" to hide them) and the showreel film.
+- **Contact leads** — each inquiry shows what they need, services and budget.
+
 ## Agency site, brand & real work
 
 The public site is the **Jennings Media** agency site (`/`, `/work`, `/services`, `/about`, `/insights`, `/contact`); booking, dashboards and admin still run the real estate media business (`/pricing`, `/book`).
