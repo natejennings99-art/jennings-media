@@ -133,3 +133,17 @@ test("travel fee by city, radius and outside area", () => {
   assert.equal(far.outsideArea, true);
   assert.ok(far.feeCents >= policy.outside_area_fee_cents);
 });
+
+test("DMV addresses resolve to the right service area", () => {
+  const policy = DEFAULT_SETTINGS.service_area_policy;
+  const falls = calculateTravel(DEFAULT_SERVICE_AREAS, policy, { city: "Falls Church", state: "VA", postalCode: "22042", latitude: 38.8823, longitude: -77.1711 });
+  assert.equal(falls.areaName, "Northern Virginia");
+  assert.equal(falls.feeCents, 0);
+  const takoma = calculateTravel(DEFAULT_SERVICE_AREAS, policy, { city: "Takoma Park", state: "MD", postalCode: "20912", latitude: 38.9779, longitude: -77.0075 });
+  assert.equal(takoma.areaName, "Maryland suburbs");
+  const leesburg = calculateTravel(DEFAULT_SERVICE_AREAS, policy, { city: "Leesburg", state: "VA", postalCode: "20176", latitude: 39.1157, longitude: -77.5636 });
+  assert.equal(leesburg.areaName, "Extended Northern Virginia");
+  assert.ok(leesburg.feeCents >= 3500, "extended zone charges a travel fee");
+  const tampa = calculateTravel(DEFAULT_SERVICE_AREAS, policy, { city: "Tampa", state: "FL", postalCode: "33602", latitude: 27.9506, longitude: -82.4572 });
+  assert.equal(tampa.areaName, "Tampa Bay core");
+});
