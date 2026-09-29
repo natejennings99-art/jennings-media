@@ -16,7 +16,7 @@ export function FinalCta({ title = "Got something ambitious in mind?", kicker = 
         <div className="absolute inset-0 bg-gradient-to-b from-ink-950 via-transparent to-ink-950" />
       </div>
       <div className="gutter w-full py-28 text-center">
-        <SplitReveal as="h2" className="mx-auto max-w-[16ch] font-display text-[clamp(3rem,9vw,9.5rem)] text-bone-50">
+        <SplitReveal as="h2" id="cta-title" className="mx-auto max-w-[16ch] font-display text-[clamp(3rem,9vw,9.5rem)] text-bone-50">
           {title}
         </SplitReveal>
         <p className="mt-6 font-display text-[clamp(2rem,5vw,4.5rem)] text-accent-300">{kicker}</p>

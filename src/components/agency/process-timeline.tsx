@@ -35,7 +35,7 @@ export function ProcessTimeline() {
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
             <SectionLabel index="06" className="mb-8">Process</SectionLabel>
-            <SplitReveal as="h2" className="font-display text-section text-bone-50">
+            <SplitReveal as="h2" id="process-title" className="font-display text-section text-bone-50">
               From idea
               <br />
               to <span className="text-accent-300">impact.</span>

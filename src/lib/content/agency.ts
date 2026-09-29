@@ -3,7 +3,6 @@
  * stats live in the database (Admin → Work / Testimonials / Clients / Settings).
  */
 import { AGENCY_IMAGES as A } from "./agency-images";
-import { IMAGES } from "./images";
 
 export const HERO_KEYWORDS = ["IGNORE.", "FORGET.", "SKIP.", "SCROLL PAST."] as const;
 
@@ -118,14 +117,14 @@ export const PROCESS = [
 ] as const;
 
 export const INDUSTRIES = [
-  { name: "Hospitality", image: A.hotelPoolDusk },
-  { name: "Real Estate", image: IMAGES.heroDusk },
-  { name: "Technology", image: A.laptopDark },
-  { name: "Consumer Brands", image: A.headphones },
-  { name: "Lifestyle", image: A.fashionYellow },
-  { name: "Restaurants", image: A.restaurantMoody },
-  { name: "Professional Services", image: A.architectureWhite },
-  { name: "E-Commerce", image: A.shopping },
+  { name: "Hospitality", image: "/media/stock/hospitality.jpg", video: "/media/stock/hospitality.mp4" },
+  { name: "Real Estate", image: "/media/video/great-falls.jpg", video: "/media/video/great-falls.mp4" },
+  { name: "Technology", image: "/media/stock/technology.jpg", video: "/media/stock/technology.mp4" },
+  { name: "Consumer Brands", image: "/media/stock/consumer-brands.jpg", video: "/media/stock/consumer-brands.mp4" },
+  { name: "Lifestyle", image: "/media/stock/lifestyle.jpg", video: "/media/stock/lifestyle.mp4" },
+  { name: "Restaurants", image: "/media/stock/restaurants.jpg", video: "/media/stock/restaurants.mp4" },
+  { name: "Professional Services", image: "/media/stock/professional-services.jpg", video: "/media/stock/professional-services.mp4" },
+  { name: "E-Commerce", image: "/media/stock/e-commerce.jpg", video: "/media/stock/e-commerce.mp4" },
 ] as const;
 
 export const BUDGETS = ["Under $2,500", "$2,500–$5,000", "$5,000–$10,000", "$10,000–$25,000", "$25,000+"] as const;

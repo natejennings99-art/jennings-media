@@ -13,7 +13,7 @@ export const BRAND = {
   location: "Tampa, Florida",
   locationNote: "Working with brands everywhere",
   /** Shown only when set (Admin → Settings → Business overrides this). */
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "natejennings99@gmail.com",
   foundedYear: 2024,
   emblem: "/media/brand/emblem.jpg",
   instagram: "https://www.instagram.com/jennings_media/",
@@ -25,5 +25,6 @@ export const NAV = [
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
   { href: "/insights", label: "Insights" },
+  { href: "/book", label: "Book" },
   { href: "/contact", label: "Contact" },
 ] as const;

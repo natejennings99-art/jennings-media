@@ -10,7 +10,7 @@ export function Results({ stats }: { stats: MarketingStat[] }) {
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <SectionLabel index="03" className="mb-8">Results</SectionLabel>
-          <SplitReveal as="h2" className="font-display text-section text-bone-50">
+          <SplitReveal as="h2" id="results-title" className="font-display text-section text-bone-50">
             Creative that <span className="text-accent-300">performs.</span>
           </SplitReveal>
         </div>

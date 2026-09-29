@@ -1,28 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { InstagramIcon } from "@/components/ui/brand-icons";
 import type { Reel } from "@/lib/content/work";
 import { BRAND } from "@/lib/brand";
-import { prefersReducedMotion } from "@/lib/motion";
+import { AmbientVideo } from "@/components/experience/ambient-video";
 import { SplitReveal } from "@/components/experience/split-reveal";
 import { TransitionLink } from "@/components/experience/transition";
 import { SectionLabel } from "./section-label";
-
-/** Plays while mostly on screen, pauses otherwise — keeps concurrent decodes low. */
-function ReelVideo({ slug }: { slug: string }) {
-  const ref = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    const v = ref.current;
-    if (!v || prefersReducedMotion()) return;
-    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? v.play().catch(() => undefined) : v.pause()), { threshold: 0.6 });
-    io.observe(v);
-    return () => io.disconnect();
-  }, []);
-  return <video ref={ref} src={`/media/video/${slug}.mp4`} poster={`/media/video/${slug}.jpg`} muted loop playsInline preload="none" className="absolute inset-0 size-full object-cover" />;
-}
 
 export function ReelsWall({ reels }: { reels: Reel[] }) {
   const track = useRef<HTMLDivElement>(null);
@@ -85,7 +72,7 @@ export function ReelsWall({ reels }: { reels: Reel[] }) {
             <>
               <div className="relative aspect-[9/16] overflow-hidden rounded-xl bg-ink-900">
                 <Image src={`/media/video/${r.slug}.jpg`} alt={`${r.label} — ${r.kind}`} fill sizes="(min-width:1024px) 20vw, (min-width:640px) 32vw, 64vw" className="object-cover" />
-                <ReelVideo slug={r.slug} />
+                <AmbientVideo src={`/media/video/${r.slug}.mp4`} poster={`/media/video/${r.slug}.jpg`} threshold={0.6} className="absolute inset-0 size-full object-cover" />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/80 via-transparent to-ink-950/20" />
                 <span className="label absolute top-4 left-4 text-bone-50/80 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
                 <span className="label absolute top-4 right-4 flex items-center gap-1.5 text-bone-50/80">

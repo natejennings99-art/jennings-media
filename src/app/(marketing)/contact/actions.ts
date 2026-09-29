@@ -40,7 +40,26 @@ export async function submitInquiry(_: unknown, form: FormData): Promise<ActionR
 
   const ip = await clientIp();
   if (!rateLimit(`inquiry:${ip}`, 5, 60 * 60 * 1000)) return { ok: false, error: "You've sent a few messages already — we'll be in touch soon." };
-  if (!features.supabaseAdmin) return { ok: false, error: "Our inquiry form isn't connected yet. Please email us directly." };
+  const settings = await getSettings();
+  const brand = brandOf(settings);
+  const summary = [`Need: ${data.need}`, data.services.length ? `Services: ${data.services.join(", ")}` : "", `Budget: ${data.budget}`, "", data.message].join("\n");
+  const notify = (adminUrl: string) =>
+    after(async () => {
+      await sendLogged(
+        "admin_new_lead",
+        adminRecipients(settings),
+        adminNewLead(brand, { name: data.name, email: data.email, phone: data.phone, company: data.company, reason: "project", message: summary, adminUrl }),
+        { replyTo: data.email }
+      );
+      await sendLogged("contact_auto_reply", data.email, contactAutoReply(brand, { name: data.name.split(" ")[0] }), { replyTo: settings.email });
+    });
+
+  // No database yet: email is enough to get the lead to the inbox.
+  if (!features.supabaseAdmin) {
+    if (!features.email) return { ok: false, error: `Our form isn't connected yet — please email ${settings.email || "us"} directly.` };
+    notify(`mailto:${data.email}`);
+    return { ok: true, data: { name: data.name.split(" ")[0] } };
+  }
 
   const db = createAdminClient();
   const ipHash = hashIp(ip);
@@ -68,17 +87,6 @@ export async function submitInquiry(_: unknown, form: FormData): Promise<ActionR
     .single();
   if (error) return { ok: false, error: "Something went wrong. Please try again." };
 
-  const settings = await getSettings();
-  const brand = brandOf(settings);
-  const summary = [`Need: ${data.need}`, data.services.length ? `Services: ${data.services.join(", ")}` : "", `Budget: ${data.budget}`, "", data.message].filter((l) => l !== null).join("\n");
-  after(async () => {
-    await sendLogged(
-      "admin_new_lead",
-      adminRecipients(settings),
-      adminNewLead(brand, { name: data.name, email: data.email, phone: data.phone, company: data.company, reason: "project", message: summary, adminUrl: `${env.siteUrl}/admin/leads?focus=${lead.id}` }),
-      { replyTo: data.email }
-    );
-    await sendLogged("contact_auto_reply", data.email, contactAutoReply(brand, { name: data.name.split(" ")[0] }), { replyTo: settings.email });
-  });
+  notify(`${env.siteUrl}/admin/leads?focus=${lead.id}`);
   return { ok: true, data: { name: data.name.split(" ")[0] } };
 }

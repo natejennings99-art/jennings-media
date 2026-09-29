@@ -4,6 +4,9 @@ import { getStripe } from "@/lib/stripe/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { applyCheckoutSession } from "@/lib/booking/payments";
 import { features, serverEnv } from "@/lib/env";
+import { adminRecipients, brandOf, sendLogged } from "@/lib/notifications";
+import { adminEvent } from "@/lib/email/templates";
+import { getSettings } from "@/lib/data/public";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -14,6 +17,20 @@ export const dynamic = "force-dynamic";
  * Events: checkout.session.completed, checkout.session.async_payment_succeeded,
  * checkout.session.async_payment_failed, checkout.session.expired, charge.refunded
  */
+/** Custom-amount payments from /pay aren't bookings — just tell the owner the money arrived. */
+async function notifyAgencyPayment(session: Stripe.Checkout.Session) {
+  if (session.payment_status !== "paid") return;
+  const settings = await getSettings();
+  const amount = new Intl.NumberFormat("en-US", { style: "currency", currency: (session.currency ?? "usd").toUpperCase() }).format((session.amount_total ?? 0) / 100);
+  const payer = session.customer_details?.email ?? session.customer_email ?? "";
+  await sendLogged(
+    "admin_payment_received",
+    adminRecipients(settings),
+    adminEvent(brandOf(settings), `Payment received — ${amount}`, [`From: ${session.metadata?.name ?? ""} ${payer ? `<${payer}>` : ""}`, `For: ${session.metadata?.reference ?? ""}`], "https://dashboard.stripe.com/payments"),
+    { replyTo: payer || undefined }
+  );
+}
+
 export async function POST(request: NextRequest) {
   if (!features.stripe || !serverEnv.stripeWebhookSecret || !features.supabaseAdmin) {
     return NextResponse.json({ error: "Stripe webhooks are not configured" }, { status: 503 });
@@ -38,9 +55,12 @@ export async function POST(request: NextRequest) {
   try {
     switch (event.type) {
       case "checkout.session.completed":
-      case "checkout.session.async_payment_succeeded":
-        await applyCheckoutSession(event.data.object as Stripe.Checkout.Session);
+      case "checkout.session.async_payment_succeeded": {
+        const session = event.data.object as Stripe.Checkout.Session;
+        if (session.metadata?.kind === "agency_payment") await notifyAgencyPayment(session);
+        else await applyCheckoutSession(session);
         break;
+      }
       case "checkout.session.async_payment_failed": {
         const session = event.data.object as Stripe.Checkout.Session;
         await db.from("payments").update({ status: "failed" }).eq("stripe_checkout_session_id", session.id).eq("status", "pending");

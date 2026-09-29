@@ -16,7 +16,7 @@ export function FeaturedWork({ projects }: { projects: PortfolioProject[] }) {
       <div className="gutter mb-16 flex flex-col justify-between gap-8 sm:mb-24 lg:flex-row lg:items-end">
         <div>
           <SectionLabel index="02" className="mb-8">Case studies</SectionLabel>
-          <SplitReveal as="h2" className="font-display text-section text-bone-50">
+          <SplitReveal as="h2" id="work-title" className="font-display text-section text-bone-50">
             Selected work
           </SplitReveal>
         </div>

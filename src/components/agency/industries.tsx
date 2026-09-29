@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { INDUSTRIES } from "@/lib/content/agency";
-import { hasFinePointer } from "@/lib/motion";
+import { hasFinePointer, prefersReducedMotion } from "@/lib/motion";
 import { TransitionLink } from "@/components/experience/transition";
 import { SplitReveal } from "@/components/experience/split-reveal";
 import { cn } from "@/lib/utils";
@@ -43,7 +43,7 @@ export function Industries() {
   return (
     <section className="gutter py-24 sm:py-36" aria-labelledby="industries-title">
       <SectionLabel index="09" className="mb-8">Industries</SectionLabel>
-      <SplitReveal as="h2" className="font-display text-section text-bone-50">
+      <SplitReveal as="h2" id="industries-title" className="font-display text-section text-bone-50">
         We work where
         <br />
         culture <span className="text-accent-300">moves.</span>
@@ -70,6 +70,9 @@ export function Industries() {
           {INDUSTRIES.map((ind, i) => (
             <Image key={ind.name} src={ind.image} alt="" fill sizes="272px" className={cn("object-cover transition-opacity duration-300", active === i ? "opacity-100" : "opacity-0")} />
           ))}
+          {active !== null && !prefersReducedMotion() && (
+            <video key={INDUSTRIES[active].video} src={INDUSTRIES[active].video} autoPlay muted loop playsInline className="absolute inset-0 size-full object-cover" />
+          )}
         </div>
       </div>
     </section>

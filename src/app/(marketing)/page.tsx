@@ -38,7 +38,7 @@ export default async function HomePage() {
         <div className="gutter mb-14 grid gap-8 sm:mb-20 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
             <SectionLabel index="04" className="mb-8">Capabilities</SectionLabel>
-            <SplitReveal as="h2" className="font-display text-section text-bone-50">
+            <SplitReveal as="h2" id="services-title" className="font-display text-section text-bone-50">
               Strategy. Creative.
               <br />
               <span className="text-accent-300">Growth.</span>

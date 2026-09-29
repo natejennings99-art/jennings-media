@@ -23,6 +23,17 @@ Premium real estate media platform: marketing site, online booking with live pri
 ---
 
 
+## Getting paid & getting leads (natejennings99@gmail.com)
+
+Everything is wired to **natejennings99@gmail.com** (contact email, lead/booking/payment notifications, reply-to). It switches on as you add three free accounts — put the keys in `.env.local` (and in Vercel → Settings → Environment Variables):
+
+1. **Stripe (payments)** — create an account at stripe.com, add your bank under *Settings → Payouts*, then copy the keys from *Developers → API keys*: `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`. Add a webhook (*Developers → Webhooks*) pointing to `https://YOUR-DOMAIN/api/stripe/webhook` with events `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `checkout.session.expired`, `charge.refunded`, and set `STRIPE_WEBHOOK_SECRET`. Test first with the `sk_test_…` keys and card `4242 4242 4242 4242`.
+   - `/book` — real estate shoots: pay in full, deposit or pay later.
+   - `/pay` — any amount (invoices, deposits, retainers) for agency clients.
+   - Stripe emails you on every successful payment and sends the customer a receipt.
+2. **Resend (email)** — sign up at resend.com **with natejennings99@gmail.com**, create an API key and set `RESEND_API_KEY`. Lead, booking and payment notifications then reach your Gmail immediately. To also email clients (confirmations, auto-replies), verify your domain in Resend and set `EMAIL_FROM` (e.g. `Jennings Media <hello@yourdomain.com>`).
+3. **Supabase (database, logins, dashboards)** — required for bookings, the client dashboard and the admin. Until it's connected the contact form still delivers leads by email (step 2).
+
 ## Agency site, brand & real work
 
 The public site is the **Jennings Media** agency site (`/`, `/work`, `/services`, `/about`, `/insights`, `/contact`); booking, dashboards and admin still run the real estate media business (`/pricing`, `/book`).
@@ -31,6 +42,7 @@ The public site is the **Jennings Media** agency site (`/`, `/work`, `/services`
 - **Real work** — `src/lib/content/work.ts` holds the real case studies, client names, the vertical reels wall and showreel clips. Copy describes what was made only; add metrics, results and client quotes in Admin → Work when you have them.
 - **Media** — web copies of our own footage/photos are in `public/media` (~60 MB, H.264, no audio except `film.mp4`). Originals stay on the Desktop. Before launch, consider moving video to a CDN (Mux, Cloudflare Stream or Supabase Storage) and pasting the URLs in Admin.
 - **Stats** — the homepage numbers are conservative real figures in `src/lib/content/defaults.ts` (`marketing`); edit them there or in Admin → Settings → Website.
+- **Stock footage** — `public/media/stock` holds free Mixkit clips (see `SOURCES.txt`) used only as ambient visuals (Industries, the ink background); never shown as our work.
 - **Demo content** — the fictional sample brands are kept for demos only and hidden unless `SHOW_SAMPLE_CONTENT=true`.
 
 ## Features

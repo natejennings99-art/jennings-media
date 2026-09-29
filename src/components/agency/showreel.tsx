@@ -104,7 +104,7 @@ export function Showreel({ videoUrl, clips }: { videoUrl: string | null; clips: 
       <div className="gutter mb-12 grid gap-8 sm:mb-20 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-9">
           <SectionLabel index="01" className="mb-8">Showreel</SectionLabel>
-          <SplitReveal as="h2" className="font-display text-section text-bone-50">
+          <SplitReveal as="h2" id="showreel-title" className="font-display text-section text-bone-50">
             We make things
             <br />
             people <span className="text-accent-300">remember.</span>
