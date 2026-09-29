@@ -59,7 +59,7 @@ function Montage({ clips, active = true }: { clips: Clip[]; active?: boolean }) 
             muted
             loop
             playsInline
-            preload={i === 0 ? "auto" : "metadata"}
+            preload="none"
             className="absolute inset-0 size-full object-cover"
           />
         </div>
@@ -72,7 +72,17 @@ export function Showreel({ videoUrl, clips }: { videoUrl: string | null; clips: 
   const root = useRef<HTMLElement>(null);
   const frame = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
+  const [inView, setInView] = useState(false);
   const embed = embedUrl(videoUrl);
+
+  // Only load and cycle the preview reel while it's near the viewport.
+  useEffect(() => {
+    const el = frame.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { rootMargin: "300px 0px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useGSAP(
     () => {
@@ -123,7 +133,7 @@ export function Showreel({ videoUrl, clips }: { videoUrl: string | null; clips: 
           aria-label="Play showreel"
         >
           <div className="absolute inset-0 transition-transform duration-[1200ms] ease-(--ease-expo) group-hover:scale-[1.035]">
-            <Montage clips={clips} active={!open} />
+            <Montage clips={clips} active={!open && inView} />
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-ink-950/30" />
           <div className="label absolute top-5 left-5 flex items-center gap-2 text-bone-50 sm:top-7 sm:left-7">

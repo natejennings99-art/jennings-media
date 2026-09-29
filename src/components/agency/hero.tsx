@@ -58,14 +58,17 @@ export function Hero({ videoUrl, trustLine, clients }: { videoUrl: string | null
           <video
             ref={video}
             className="absolute inset-0 size-full object-cover opacity-60"
-            src={videoUrl}
             poster={videoUrl.startsWith("/media/") ? videoUrl.replace(/\.mp4$/, ".jpg") : undefined}
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
-          />
+          >
+            {/* Phones get a lighter 720p cut of the same film. */}
+            {videoUrl.endsWith("/media/video/hero.mp4") && <source src={videoUrl.replace("hero.mp4", "hero-mobile.mp4")} media="(max-width: 767px)" type="video/mp4" />}
+            <source src={videoUrl} type="video/mp4" />
+          </video>
         ) : (
           <HeroCanvas className="absolute inset-0 size-full" />
         )}
