@@ -1,0 +1,55 @@
+/**
+ * Placeholder photography (Unsplash License — free for commercial use).
+ * Replace with Jennings Media's own work: upload through Admin → Portfolio / Services,
+ * or set a hero image/video in Admin → Settings → Website.
+ */
+export function unsplash(id: string, width = 2000) {
+  return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&q=80`;
+}
+
+export const IMAGES = {
+  heroDusk: unsplash("1600596542815-ffad4c1539a9", 2400),
+  heroVilla: unsplash("1613490493576-7fde63acd811", 2400),
+  heroModern: unsplash("1600607687939-ce8a6c25118c", 2400),
+  heroInterior: unsplash("1600210492486-724fe5c67fb0", 2400),
+  exteriorLawn: unsplash("1600585154340-be6161a56a0c"),
+  exteriorModern: unsplash("1600047509807-ba8f99d2cdde"),
+  exteriorWhite: unsplash("1564013799919-ab600027ffc6"),
+  exteriorSuburban: unsplash("1568605114967-8130f3a36994"),
+  exteriorDusk: unsplash("1580587771525-78b9dba3b914"),
+  exteriorClassic: unsplash("1570129477492-45c003edd2be"),
+  exteriorLuxury: unsplash("1605276374104-dee2a0ed3cd6"),
+  villaTwilight: unsplash("1512917774080-9991f1c4c750"),
+  villaPool: unsplash("1613977257363-707ba9348227"),
+  poolNight: unsplash("1613977257592-4871e5fcd7c4"),
+  houseNight: unsplash("1605146769289-440113cc3d00"),
+  livingBright: unsplash("1600585154526-990dced4db0d"),
+  livingModern: unsplash("1600566753086-00f18fb6b3ea"),
+  livingLoft: unsplash("1560448204-e02f11c3d0e2"),
+  livingApartment: unsplash("1522708323590-d24dbb6b0267"),
+  livingCozy: unsplash("1493809842364-78817add7ffb"),
+  kitchenModern: unsplash("1600121848594-d8644e57abab"),
+  kitchenWhite: unsplash("1556912173-3bb406ef7e77"),
+  kitchenChef: unsplash("1600607687920-4e2a09cf159d"),
+  kitchenOpen: unsplash("1484154218962-a197022b5858"),
+  bedroomSuite: unsplash("1616594039964-ae9021a400a0"),
+  bedroomCalm: unsplash("1617806118233-18e1de247200"),
+  bedroomClassic: unsplash("1540518614846-7eded433c457"),
+  bathSpa: unsplash("1552321554-5fefe8c9ef14"),
+  bathModern: unsplash("1584622650111-993a426fbf0a"),
+  bathMarble: unsplash("1600566752355-35792bedcfea"),
+  aerialSuburb: unsplash("1449844908441-8829872d2607"),
+  aerialCoast: unsplash("1524813686514-a57563d77965"),
+  aerialStreets: unsplash("1558036117-15d82a90b9b1"),
+  officeInterior: unsplash("1497366216548-37526070297c"),
+  officeTower: unsplash("1486406146926-c627a92ad1ab"),
+  officeOpen: unsplash("1497366811353-6870744d04b2"),
+  droneFlying: unsplash("1473968512647-3e447244af8f"),
+  droneClose: unsplash("1508614589041-895b88991e3e"),
+  cameraGear: unsplash("1516035069371-29a1b244cc32"),
+  cameraLens: unsplash("1502920917128-1aa500764cbd"),
+  videoRig: unsplash("1492691527719-9d1e07e534b4"),
+  blueprint: unsplash("1503387762-592deb58ef4e"),
+  phoneSocial: unsplash("1611162617213-7d7a39e9b1d7"),
+  agentPortrait: unsplash("1573496359142-b8d87734a5a2"),
+} as const;
