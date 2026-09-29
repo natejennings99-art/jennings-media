@@ -118,3 +118,8 @@ export function formatPhone(phone: string | null | undefined) {
 export function absoluteUrl(path: string, base: string) {
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
+
+/** True when `iso` is more than `hours` hours in the future. */
+export function isMoreThanHoursAway(iso: string, hours: number) {
+  return new Date(iso).getTime() - Date.now() > hours * 3600 * 1000;
+}

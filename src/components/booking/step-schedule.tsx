@@ -55,18 +55,18 @@ export function StepSchedule({
 }) {
   const initialMonth = monthStart(slot?.date ?? (preferredDate && preferredDate >= today ? preferredDate : today));
   const [month, setMonth] = useState(initialMonth);
-  const [data, setData] = useState<AvailabilityResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [failed, setFailed] = useState(false);
-  const [day, setDay] = useState<string | null>(slot?.date ?? (preferredDate >= today ? preferredDate || null : null));
+  const [result, setResult] = useState<{ key: string; data: AvailabilityResponse | null; failed: boolean } | null>(null);
+  const [pickedDay, setDay] = useState<string | null>(slot?.date ?? (preferredDate >= today ? preferredDate || null : null));
   const requestKey = JSON.stringify(request);
+  const fetchKey = `${month}|${requestKey}|${today}`;
+  const loading = result?.key !== fetchKey;
+  const data = result?.data ?? null;
+  const failed = !loading && Boolean(result?.failed);
 
   useEffect(() => {
     const controller = new AbortController();
-    const from = month < monthStart(today) ? today : month === monthStart(today) ? today : month;
+    const from = month <= monthStart(today) ? today : month;
     const days = daysInMonth(month) - Number(from.slice(8)) + 1;
-    setLoading(true);
-    setFailed(false);
     fetch("/api/booking/availability", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -75,26 +75,20 @@ export function StepSchedule({
     })
       .then((r) => (r.ok ? r.json() : Promise.reject(r)))
       .then((json: AvailabilityResponse) => {
-        setData(json);
+        setResult({ key: fetchKey, data: json, failed: false });
         onOnSiteChange(json.onSite);
       })
       .catch((e) => {
-        if (e?.name !== "AbortError") setFailed(true);
-      })
-      .finally(() => setLoading(false));
+        if (e?.name !== "AbortError") setResult({ key: fetchKey, data: null, failed: true });
+      });
     return () => controller.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [month, requestKey, today]);
+  }, [fetchKey]);
 
   const byDate = useMemo(() => new Map((data?.days ?? []).map((d) => [d.date, d])), [data]);
+  // Fall back to the first open day in view when nothing (bookable) is picked.
+  const day = pickedDay && byDate.get(pickedDay)?.slots.length ? pickedDay : (data?.days.find((d) => d.slots.length)?.date ?? pickedDay);
   const selectedDay = day ? byDate.get(day) : undefined;
-
-  // Auto-select the first available day in view if none chosen.
-  useEffect(() => {
-    if (!data || (day && byDate.get(day)?.slots.length)) return;
-    const first = data.days.find((d) => d.slots.length);
-    if (first) setDay(first.date);
-  }, [data, day, byDate]);
 
   if (data && !data.onSite) {
     return (

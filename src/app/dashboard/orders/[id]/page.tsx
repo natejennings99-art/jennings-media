@@ -12,7 +12,7 @@ import { StatusBadge, PaymentBadge } from "@/components/ui/badge";
 import { buttonStyles } from "@/components/ui/button";
 import { BOOKING_STATUS_META, PROPERTY_TYPE_LABELS } from "@/lib/status";
 import { env, features } from "@/lib/env";
-import { formatCalendarDate, formatDate, formatDateTime, formatMoney, fullAddress } from "@/lib/utils";
+import { formatCalendarDate, formatDate, formatDateTime, formatMoney, fullAddress, isMoreThanHoursAway } from "@/lib/utils";
 import { payInvoice } from "@/app/dashboard/actions";
 
 export default async function OrderDetailPage({ params }: PageProps<"/dashboard/orders/[id]">) {
@@ -27,7 +27,7 @@ export default async function OrderDetailPage({ params }: PageProps<"/dashboard/
   const media = booking.status === "delivered" ? await signMedia(booking.media) : [];
   const due = booking.total_cents - booking.amount_paid_cents;
   const shareUrl = `${env.siteUrl}/p/${booking.share_token}`;
-  const canCancel = ["requested", "confirmed", "scheduled"].includes(booking.status) && (!appt || new Date(appt.starts_at).getTime() - Date.now() > 24 * 3600 * 1000);
+  const canCancel = ["requested", "confirmed", "scheduled"].includes(booking.status) && (!appt || isMoreThanHoursAway(appt.starts_at, 24));
   const p = booking.property;
 
   return (

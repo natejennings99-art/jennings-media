@@ -77,6 +77,8 @@ export function BookingWizard(props: WizardProps) {
     }
     if (!paymentOptions.includes(next.paymentOption)) next = { ...next, paymentOption: paymentOptions[0] ?? "later" };
     if (next.slot && new Date(next.slot.start).getTime() < Date.now()) next = { ...next, slot: null };
+    // Restoring from localStorage can only happen after hydration (no storage on the server).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDraft(next);
     setHydrated(true);
     if (saved && saved.step > 0 && !pkg && !svc) toast({ tone: "info", title: "Welcome back", description: "We saved your progress." });
