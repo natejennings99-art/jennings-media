@@ -610,7 +610,7 @@ export const SAMPLE_PORTFOLIO: PortfolioProject[] = [
     description: "Aerial reveals and a cinematic walkthrough for a resort-style estate with a pool pavilion.",
     services_performed: ["Cinematic Video", "Drone Video", "Photography"],
     cover_image_url: IMAGES.heroVilla, is_featured: true, sort_order: 20,
-    media: [photo(IMAGES.heroVilla, "Estate pool pavilion"), photo(IMAGES.villaPool, "Pool at golden hour"), photo(IMAGES.aerialCoast, "Aerial context", "drone"), photo(IMAGES.livingModern, "Great room")],
+    media: [photo(IMAGES.heroVilla, "Estate pool pavilion"), photo(IMAGES.villaPool, "Pool terrace"), photo(IMAGES.villaCourtyard, "Courtyard"), photo(IMAGES.aerialSuburb, "Aerial context", "drone"), photo(IMAGES.livingModern, "Great room")],
   }),
   project({
     id: PID(3), slug: "island-twilight", title: "Island Twilight", neighborhood: "Island district", property_type: "Single-family",
@@ -618,7 +618,7 @@ export const SAMPLE_PORTFOLIO: PortfolioProject[] = [
     description: "A golden-hour session timed to the minute for a glowing exterior and warm interiors.",
     services_performed: ["Twilight Photography", "Virtual Twilight"],
     cover_image_url: IMAGES.villaTwilight, is_featured: true, sort_order: 30,
-    media: [photo(IMAGES.villaTwilight, "Home at twilight"), photo(IMAGES.houseNight, "Front elevation at night"), photo(IMAGES.poolNight, "Pool lit at night")],
+    media: [photo(IMAGES.villaTwilight, "Home at twilight"), photo(IMAGES.houseNight, "Front elevation at night"), photo(IMAGES.poolNight, "Pool terrace")],
   }),
   project({
     id: PID(4), slug: "harbor-view-residence", title: "Harbor View Residence", neighborhood: "Downtown", property_type: "Condo",
@@ -633,8 +633,8 @@ export const SAMPLE_PORTFOLIO: PortfolioProject[] = [
     categories: ["drone", "residential"],
     description: "High-altitude drone stills showing water access, lot lines and neighborhood amenities.",
     services_performed: ["Drone Photography", "Drone Video"],
-    cover_image_url: IMAGES.aerialCoast, is_featured: true, sort_order: 50,
-    media: [photo(IMAGES.aerialCoast, "Coastal aerial", "drone"), photo(IMAGES.aerialSuburb, "Neighborhood aerial", "drone"), photo(IMAGES.aerialStreets, "Street grid from above", "drone")],
+    cover_image_url: IMAGES.aerialSuburb, is_featured: true, sort_order: 50,
+    media: [photo(IMAGES.aerialSuburb, "Neighborhood from above", "drone"), photo(IMAGES.aerialCoast, "Skyline aerial", "drone")],
   }),
   project({
     id: PID(6), slug: "midtown-office-suites", title: "Midtown Office Suites", neighborhood: "Business district", property_type: "Commercial office",
@@ -674,7 +674,7 @@ export const SAMPLE_PORTFOLIO: PortfolioProject[] = [
     description: "Moody, textured interiors and a 45-second reel for a converted warehouse loft.",
     services_performed: ["Social Media Reel", "Photography"],
     cover_image_url: IMAGES.livingLoft, is_featured: false, sort_order: 100,
-    media: [photo(IMAGES.livingLoft, "Loft living space"), photo(IMAGES.kitchenOpen, "Loft kitchen")],
+    media: [photo(IMAGES.livingLoft, "Loft living space"), photo(IMAGES.livingDining, "Dining area"), photo(IMAGES.kitchenOpen, "Loft kitchen")],
   }),
   project({
     id: PID(11), slug: "retail-plaza", title: "Retail Plaza", neighborhood: "Commercial corridor", property_type: "Retail",
@@ -682,15 +682,15 @@ export const SAMPLE_PORTFOLIO: PortfolioProject[] = [
     description: "Aerial and ground photography for a neighborhood retail center's leasing brochure.",
     services_performed: ["Drone Photography", "Photography", "Marketing Kit"],
     cover_image_url: IMAGES.officeTower, is_featured: false, sort_order: 110,
-    media: [photo(IMAGES.officeTower, "Retail building"), photo(IMAGES.aerialStreets, "Aerial of the corridor", "drone")],
+    media: [photo(IMAGES.officeTower, "Retail building"), photo(IMAGES.aerialCoast, "Aerial of the district", "drone")],
   }),
   project({
-    id: PID(12), slug: "white-oak-farmhouse", title: "White Oak Farmhouse", neighborhood: "Suburban", property_type: "Single-family",
+    id: PID(12), slug: "palm-court-residence", title: "Palm Court Residence", neighborhood: "Coastal", property_type: "Single-family",
     categories: ["photography", "drone", "residential"],
-    description: "Wide-open acreage photographed from the ground and the air.",
+    description: "A bright coastal home photographed from the ground and the air, with virtual twilight for the hero shot.",
     services_performed: ["Photography", "Drone Photography", "Virtual Twilight"],
-    cover_image_url: IMAGES.exteriorWhite, is_featured: false, sort_order: 120,
-    media: [photo(IMAGES.exteriorWhite, "Farmhouse exterior"), photo(IMAGES.exteriorLawn, "Front lawn"), photo(IMAGES.aerialSuburb, "Aerial view", "drone")],
+    cover_image_url: IMAGES.exteriorPalms, is_featured: false, sort_order: 120,
+    media: [photo(IMAGES.exteriorPalms, "Front elevation with palms"), photo(IMAGES.exteriorWhite, "Pool courtyard"), photo(IMAGES.livingArched, "Living room"), photo(IMAGES.aerialSuburb, "Aerial view", "drone")],
   }),
 ];
 
