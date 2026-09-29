@@ -41,10 +41,10 @@ export function ServicesList({ services }: { services: AgencyService[] }) {
                 className="group grid w-full grid-cols-[3rem_1fr_auto] items-center gap-4 py-6 text-left sm:grid-cols-[5rem_1fr_auto] lg:py-8 lg:gutter"
               >
                 <span className={cn("font-mono text-sm transition-colors", isActive ? "text-accent-300" : "text-mist-500")}>{s.number}</span>
-                <span className={cn("font-display text-[clamp(1.9rem,5vw,4.75rem)] transition-all duration-500 ease-(--ease-expo)", isActive ? "text-bone-50 lg:translate-x-4" : "text-bone-50/45")}>
+                <span className={cn("min-w-0 font-display text-[clamp(1.45rem,5.6vw,4.75rem)] break-words transition-all duration-500 ease-(--ease-expo)", isActive ? "text-bone-50 lg:translate-x-4" : "text-bone-50/45")}>
                   {s.title}
                 </span>
-                <span className={cn("grid size-11 place-items-center rounded-full border transition-all duration-500", isActive ? "rotate-45 border-accent-300 bg-accent-300 text-ink-950" : "border-white/20 text-bone-50")}>
+                <span className={cn("grid size-10 shrink-0 place-items-center rounded-full border transition-all duration-500 sm:size-11", isActive ? "rotate-45 border-accent-300 bg-accent-300 text-ink-950" : "border-white/20 text-bone-50")}>
                   <span className="lg:hidden">{isOpen ? <Plus className="size-4 rotate-45" /> : <Plus className="size-4" />}</span>
                   <ArrowUpRight className="hidden size-5 lg:block" />
                 </span>

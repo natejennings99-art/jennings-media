@@ -36,7 +36,7 @@ export default async function HomePage() {
       <ReelsWall reels={REELS} />
       <FramesGallery frames={FRAMES} />
       <Results stats={marketing.stats} />
-      <section className="py-24 sm:py-36" aria-labelledby="services-title">
+      <section className="overflow-x-clip py-24 sm:py-36" aria-labelledby="services-title">
         <div className="gutter mb-14 grid gap-8 sm:mb-20 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
             <SectionLabel index="04" className="mb-8">Capabilities</SectionLabel>

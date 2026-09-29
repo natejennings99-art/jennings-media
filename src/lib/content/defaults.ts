@@ -102,7 +102,7 @@ export const DEFAULT_SETTINGS: BusinessSettings = {
       { prefix: "", value: 4, suffix: "K", label: "Capture on every shoot" },
     ],
     stats_are_sample: false,
-    trust_line: "Trusted by agents, brokerages & local brands",
+    trust_line: "Trusted by brokerages, realtors & entrepreneurs in every industry",
     showreel_url: SHOWREEL_FILM,
   },
 };

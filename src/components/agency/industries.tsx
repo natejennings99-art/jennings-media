@@ -52,15 +52,15 @@ export function Industries() {
         {INDUSTRIES.map((ind, i) => (
           <li key={ind.name} onPointerEnter={() => setActive(i)} className="border-b border-white/10">
             <TransitionLink href={`/work?industry=${encodeURIComponent(ind.name)}`} className="group flex items-center justify-between gap-6 py-5 sm:py-7" data-cursor="view" data-cursor-label="Explore">
-              <span className="flex items-center gap-4 sm:gap-8">
+              <span className="flex min-w-0 items-center gap-4 sm:gap-8">
                 <span className="relative size-14 shrink-0 overflow-hidden rounded-md sm:hidden">
                   <Image src={ind.image} alt="" fill sizes="56px" className="object-cover" />
                 </span>
-                <span className={cn("font-display text-[clamp(2rem,6vw,5.5rem)] transition-all duration-500 ease-(--ease-expo)", active === null || active === i ? "text-bone-50" : "text-bone-50/25", active === i && "sm:translate-x-6 sm:text-accent-300")}>
+                <span className={cn("min-w-0 font-display text-[clamp(1.45rem,6.2vw,5.5rem)] break-words transition-all duration-500 ease-(--ease-expo)", active === null || active === i ? "text-bone-50" : "text-bone-50/25", active === i && "sm:translate-x-6 sm:text-accent-300")}>
                   {ind.name}
                 </span>
               </span>
-              <ArrowUpRight className={cn("size-8 shrink-0 transition-all duration-500", active === i ? "rotate-45 text-accent-300" : "text-mist-600")} />
+              <ArrowUpRight className={cn("size-6 shrink-0 transition-all duration-500 sm:size-8", active === i ? "rotate-45 text-accent-300" : "text-mist-600")} />
             </TransitionLink>
           </li>
         ))}

@@ -181,11 +181,11 @@ export const REAL_CASE_STUDIES: PortfolioProject[] = [
 /** Brands we've made work for (from delivered projects). */
 export const REAL_CLIENTS: Client[] = [
   "Elevate Property Group",
-  "Right Fit Realty",
-  "Smart Settlements",
   "Pet Grand Hotel",
-  "Lopez Realtors",
+  "Right Fit Realty",
   "Groom Guy",
+  "Smart Settlements",
+  "Lopez Realtors",
   "WAR Team",
   "Reynolds EmpowerHome Team",
 ].map((name, i) => ({
