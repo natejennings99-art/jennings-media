@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/marketing/legal-page";
+import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = { title: "Privacy Policy", alternates: { canonical: "/privacy" } };
 
 export default function PrivacyPage() {
   return (
     <LegalPage title="Privacy Policy" updated="September 29, 2026">
-      <p>This policy explains what information Jennings Media collects, how we use it and the choices you have. <strong>Have this reviewed by your attorney before launch.</strong></p>
+      <p>This policy explains what information {BRAND.name} collects, how we use it and the choices you have. <strong>Have this reviewed by your attorney before launch.</strong></p>
       <h2>Information we collect</h2>
       <p>Contact details you provide (name, email, phone, company, brokerage), property details and access instructions for booked shoots, billing information processed by Stripe (we never see or store full card numbers), and basic usage analytics.</p>
       <h2>How we use it</h2>

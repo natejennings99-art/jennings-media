@@ -31,7 +31,7 @@ export default async function PaymentsPage() {
                 <Badge tone={p.status === "succeeded" ? "green" : p.status.includes("refund") ? "violet" : "neutral"}>{titleCase(p.status)}</Badge>
                 <span className="w-24 text-right font-medium tabular-nums">{formatMoney(p.amount_cents - p.refunded_cents, p.currency, { exact: true })}</span>
                 {p.receipt_url && (
-                  <a href={p.receipt_url} target="_blank" rel="noreferrer" className="text-[13px] text-gold-200 hover:underline">
+                  <a href={p.receipt_url} target="_blank" rel="noreferrer" className="text-[13px] text-accent-200 hover:underline">
                     Receipt
                   </a>
                 )}

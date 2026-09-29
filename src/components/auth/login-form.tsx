@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Field, Input } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
 import { track } from "@/lib/analytics";
+import { BRAND } from "@/lib/brand";
 
 type Mode = "signin" | "signup" | "link";
 
@@ -123,7 +124,7 @@ export function LoginForm({ next, initialEmail, configured, initialError }: { ne
             htmlFor="password"
             hint={
               mode === "signin" ? (
-                <Link href="/forgot-password" className="text-gold-200 hover:underline">
+                <Link href="/forgot-password" className="text-accent-200 hover:underline">
                   Forgot password?
                 </Link>
               ) : (
@@ -153,14 +154,14 @@ export function LoginForm({ next, initialEmail, configured, initialError }: { ne
         {mode === "signup" ? (
           <>
             Already have an account?{" "}
-            <button type="button" className="text-gold-200 hover:underline" onClick={() => setMode("signin")}>
+            <button type="button" className="text-accent-200 hover:underline" onClick={() => setMode("signin")}>
               Sign in
             </button>
           </>
         ) : (
           <>
-            New to Jennings Media?{" "}
-            <button type="button" className="text-gold-200 hover:underline" onClick={() => setMode("signup")}>
+            New to {BRAND.name}?{" "}
+            <button type="button" className="text-accent-200 hover:underline" onClick={() => setMode("signup")}>
               Create an account
             </button>
           </>

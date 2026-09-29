@@ -32,8 +32,8 @@ export function StepPackage({
       <StepHeader eyebrow="Step 3 · Package" title="Bundle and save" description="Packages combine our most-requested services at a lower price. Keep your picks à la carte or switch to a package — your choice." />
 
       {best && (
-        <div className={cn("mb-6 flex items-start gap-4 rounded-2xl border p-5", best.kind === "saves" ? "border-emerald-400/30 bg-emerald-400/[0.07]" : "border-gold-300/30 bg-gold-300/[0.07]")}>
-          <span className={cn("grid size-10 shrink-0 place-items-center rounded-xl", best.kind === "saves" ? "bg-emerald-400/15 text-emerald-300" : "bg-gold-300/15 text-gold-200")}>
+        <div className={cn("mb-6 flex items-start gap-4 rounded-2xl border p-5", best.kind === "saves" ? "border-emerald-400/30 bg-emerald-400/[0.07]" : "border-accent-300/30 bg-accent-300/[0.07]")}>
+          <span className={cn("grid size-10 shrink-0 place-items-center rounded-xl", best.kind === "saves" ? "bg-emerald-400/15 text-emerald-300" : "bg-accent-300/15 text-accent-200")}>
             {best.kind === "saves" ? <TrendingDown className="size-5" /> : <Sparkles className="size-5" />}
           </span>
           <div className="min-w-0 flex-1">
@@ -62,7 +62,7 @@ export function StepPackage({
           aria-pressed={packageId === null}
           className={cn(
             "flex items-center justify-between rounded-2xl border p-5 text-left transition-all",
-            packageId === null ? "border-gold-300/70 bg-gold-300/[0.08]" : "border-white/10 hover:border-white/25"
+            packageId === null ? "border-accent-300/70 bg-accent-300/[0.08]" : "border-white/10 hover:border-white/25"
           )}
         >
           <div>
@@ -86,14 +86,14 @@ export function StepPackage({
               aria-pressed={active}
               className={cn(
                 "rounded-2xl border p-5 text-left transition-all duration-300",
-                active ? "border-gold-300/70 bg-gold-300/[0.08] shadow-[0_0_0_4px_rgb(230_201_152/0.08)]" : "border-white/10 hover:border-white/25"
+                active ? "border-accent-300/70 bg-accent-300/[0.08] shadow-[0_0_0_4px_rgb(230_201_152/0.08)]" : "border-white/10 hover:border-white/25"
               )}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="flex items-center gap-2 text-lg font-medium text-bone-50">
                     {pkg.name}
-                    {pkg.badge && <span className="rounded-full bg-gold-300/15 px-2 py-0.5 text-[11px] font-medium text-gold-200">{pkg.badge}</span>}
+                    {pkg.badge && <span className="rounded-full bg-accent-300/15 px-2 py-0.5 text-[11px] font-medium text-accent-200">{pkg.badge}</span>}
                   </p>
                   <p className="mt-0.5 text-[13px] text-mist-400">{pkg.tagline}</p>
                 </div>
@@ -108,7 +108,7 @@ export function StepPackage({
                     key={ps.service_id}
                     className={cn(
                       "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[12px]",
-                      selected.has(ps.service_id) ? "bg-gold-300/15 text-gold-100" : "bg-white/[0.06] text-mist-300"
+                      selected.has(ps.service_id) ? "bg-accent-300/15 text-accent-100" : "bg-white/[0.06] text-mist-300"
                     )}
                   >
                     <Check className="size-3" /> {names.get(ps.service_id)}

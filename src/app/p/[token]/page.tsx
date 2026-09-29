@@ -11,6 +11,7 @@ import { Logo } from "@/components/ui/misc";
 import { PROPERTY_TYPE_LABELS } from "@/lib/status";
 import { formatPhone } from "@/lib/utils";
 import type { Customer, MediaItem, Property } from "@/lib/types";
+import { BRAND } from "@/lib/brand";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { robots: { index: false, follow: false } };
@@ -100,7 +101,7 @@ export default async function PropertyWebsite({ params, searchParams }: PageProp
                   // eslint-disable-next-line @next/next/no-img-element
                   <img key={f.id} src={f.viewUrl} alt={f.title ?? "Floor plan"} className="w-full rounded-3xl bg-white p-4" />
                 ) : (
-                  <a key={f.id} href={f.viewUrl ?? "#"} target="_blank" rel="noreferrer" className="surface rounded-3xl p-6 text-gold-200 hover:underline">
+                  <a key={f.id} href={f.viewUrl ?? "#"} target="_blank" rel="noreferrer" className="surface rounded-3xl p-6 text-accent-200 hover:underline">
                     {f.title ?? f.file_name}
                   </a>
                 )
@@ -136,7 +137,7 @@ export default async function PropertyWebsite({ params, searchParams }: PageProp
         <footer className="border-t border-white/[0.07] py-8">
           <div className="container-page flex items-center justify-between text-[13px] text-mist-500">
             <span>Media by</span>
-            <Link href="/" aria-label="Jennings Media">
+            <Link href="/" aria-label={BRAND.name}>
               <Logo />
             </Link>
           </div>

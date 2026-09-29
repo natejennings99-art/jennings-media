@@ -29,13 +29,13 @@ export default async function PropertiesPage() {
               return (
                 <tr key={p.id} className="hover:bg-white/[0.025]">
                   <td className="px-4 py-3">
-                    {latest ? <Link href={`/admin/bookings/${latest.id}`} className="hover:text-gold-100">{p.address_line1}</Link> : p.address_line1}
+                    {latest ? <Link href={`/admin/bookings/${latest.id}`} className="hover:text-accent-100">{p.address_line1}</Link> : p.address_line1}
                     <p className="text-[12px] text-mist-500">{p.city}, {p.state}</p>
                   </td>
                   <td className="px-4 py-3 text-mist-300">{PROPERTY_TYPE_LABELS[p.property_type]}</td>
                   <td className="px-4 py-3 text-right tabular-nums">{p.square_feet?.toLocaleString() ?? "—"}</td>
                   <td className="px-4 py-3">
-                    <Link href={`/admin/customers/${p.customer.id}`} className="hover:text-gold-100">{p.customer.first_name} {p.customer.last_name}</Link>
+                    <Link href={`/admin/customers/${p.customer.id}`} className="hover:text-accent-100">{p.customer.first_name} {p.customer.last_name}</Link>
                   </td>
                   <td className="px-4 py-3 text-right tabular-nums">{p.bookings.length}</td>
                 </tr>

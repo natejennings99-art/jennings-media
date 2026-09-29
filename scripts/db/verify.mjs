@@ -298,6 +298,21 @@ check("usage limit enforced atomically", c1 === true && c2 === false);
 const badPercent = await throws(`insert into public.promo_codes (code, discount_type, discount_value) values ('BAD', 'percent', 150)`);
 check("percent discounts capped at 100", Boolean(badPercent));
 
+console.log("\n▶ Agency content");
+const [{ count: clientCount }] = await rows(`select count(*)::int as count from public.clients`);
+check("sample clients seeded", clientCount >= 6, `found ${clientCount}`);
+await as("anon", null, async () => {
+  check("anon reads published clients", (await rows(`select id from public.clients`)).length === clientCount);
+  const err = await throws(`insert into public.clients (name) values ('x')`);
+  check("anon cannot write clients", Boolean(err && /permission denied/.test(err)), err ?? "no error");
+});
+const [cs] = await rows(`select metrics, client_name from public.portfolio_projects where client_name is not null and is_sample limit 1`);
+check("case studies carry metrics", Boolean(cs) && Array.isArray(cs.metrics) && cs.metrics.length > 0);
+const [real] = await rows(`select count(*)::int as n from public.portfolio_projects where not is_sample and hover_video_url like '/media/%'`);
+check("real work seeded unflagged with video", real?.n >= 6, JSON.stringify(real));
+const leadErr = await throws(`insert into public.contact_leads (name, email, message, reason, services, budget) values ('A', 'a@b.co', 'Hello there', 'project', array['Paid Media'], '$5,000–$10,000')`);
+check("project inquiries accepted", leadErr === null, leadErr ?? "");
+
 console.log(`\n${failures === 0 ? "✅" : "❌"} ${passes} passed, ${failures} failed\n`);
 await db.close();
 process.exit(failures === 0 ? 0 : 1);

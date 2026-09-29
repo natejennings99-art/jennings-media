@@ -9,13 +9,17 @@ import {
   DEFAULT_SERVICE_AREAS,
   DEFAULT_SERVICES,
   DEFAULT_SETTINGS,
-  SAMPLE_PORTFOLIO,
-  SAMPLE_TESTIMONIALS,
 } from "@/lib/content/defaults";
+import { SAMPLE_AGENCY_TESTIMONIALS as SAMPLE_TESTIMONIALS, SAMPLE_CASE_STUDIES, SAMPLE_CLIENTS as SAMPLE_CLIENT_LIST } from "@/lib/content/samples";
+import { REAL_CASE_STUDIES, REAL_CLIENTS } from "@/lib/content/work";
+
+const SAMPLE_PORTFOLIO = [...REAL_CASE_STUDIES, ...SAMPLE_CASE_STUDIES];
+const SAMPLE_CLIENTS = [...REAL_CLIENTS, ...SAMPLE_CLIENT_LIST];
 import type {
   AddOn,
   BusinessSettings,
   Catalog,
+  Client,
   Package,
   PortfolioProject,
   Service,
@@ -48,6 +52,7 @@ export function mergeSettings(row: Partial<BusinessSettings> | null | undefined)
     analytics: { ...d.analytics, ...(row.analytics ?? {}) },
     social_links: { ...d.social_links, ...(row.social_links ?? {}) },
     service_area_policy: { ...d.service_area_policy, ...(row.service_area_policy ?? {}) },
+    marketing: { ...d.marketing, ...(row.marketing ?? {}) },
   };
 }
 
@@ -199,3 +204,25 @@ export const getTestimonials = unstable_cache(loadTestimonials, ["testimonials"]
   tags: [TAGS.content],
   revalidate: REVALIDATE,
 });
+
+async function loadClients(): Promise<Client[]> {
+  if (!features.supabase) return visible(SAMPLE_CLIENTS);
+  const { data, error } = await createPublicClient().from("clients").select("*").eq("is_published", true).order("sort_order");
+  if (error) {
+    console.error("[clients]", error.message);
+    return visible(SAMPLE_CLIENTS);
+  }
+  return visible((data ?? []) as Client[]);
+}
+
+export const getClients = unstable_cache(loadClients, ["clients"], {
+  tags: [TAGS.content],
+  revalidate: REVALIDATE,
+});
+
+/** Marketing stats, hidden when they're still placeholders (unless samples are shown). */
+export async function getMarketing() {
+  const { marketing } = await getSettings();
+  const showStats = !marketing.stats_are_sample || serverEnv.showSampleContent;
+  return { ...marketing, stats: showStats ? marketing.stats : [], trust_line: showStats ? marketing.trust_line : "" };
+}

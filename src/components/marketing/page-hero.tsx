@@ -23,7 +23,7 @@ export function PageHero({
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-ink-950/60 via-ink-950/75 to-ink-950" />
         </>
       )}
-      {!image && <div className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-96 w-[64rem] -translate-x-1/2 rounded-full bg-gold-400/[0.07] blur-3xl" />}
+      {!image && <div className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-96 w-[64rem] -translate-x-1/2 rounded-full bg-accent-400/[0.07] blur-3xl" />}
       <div className="container-page">
         <Eyebrow className="mb-6 animate-fade-up">{eyebrow}</Eyebrow>
         <h1 className="max-w-5xl animate-fade-up text-balance text-[clamp(2.75rem,7vw,6rem)] leading-[0.95] font-medium tracking-[-0.055em] text-bone-50 [animation-delay:100ms]">

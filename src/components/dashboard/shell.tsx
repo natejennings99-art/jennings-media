@@ -8,6 +8,7 @@ import { LogOut, Plus } from "lucide-react";
 import { Logo, Avatar } from "@/components/ui/misc";
 import { buttonStyles } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { BRAND } from "@/lib/brand";
 
 export interface NavItem {
   href: string;
@@ -37,7 +38,7 @@ export function AppShell({
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[260px_minmax(0,1fr)]">
       <aside className="sticky top-0 hidden h-dvh flex-col border-r border-white/[0.07] bg-ink-900/60 px-4 py-5 lg:flex">
-        <Link href="/" className="px-2" aria-label="Jennings Media home">
+        <Link href="/" className="px-2" aria-label="Home">
           <Logo />
         </Link>
         <p className="mt-6 mb-2 px-3 font-mono text-[10px] tracking-[0.2em] text-mist-600 uppercase">{area === "admin" ? "Studio admin" : "Client portal"}</p>
@@ -53,9 +54,9 @@ export function AppShell({
                   active ? "bg-white/[0.08] text-bone-50" : "text-mist-400 hover:bg-white/[0.04] hover:text-bone-100"
                 )}
               >
-                <item.icon className={cn("size-4.5", active ? "text-gold-200" : "text-mist-500 group-hover:text-mist-300")} strokeWidth={1.7} />
+                <item.icon className={cn("size-4.5", active ? "text-accent-200" : "text-mist-500 group-hover:text-mist-300")} strokeWidth={1.7} />
                 <span className="flex-1">{item.label}</span>
-                {item.badge ? <span className="rounded-full bg-gold-300 px-1.5 text-[10.5px] font-medium text-ink-950">{item.badge}</span> : null}
+                {item.badge ? <span className="rounded-full bg-accent-300 px-1.5 text-[10.5px] font-medium text-ink-950">{item.badge}</span> : null}
               </Link>
             );
           })}
@@ -80,7 +81,7 @@ export function AppShell({
             <Link href="/" className="lg:hidden" aria-label="Home">
               <Logo compact />
             </Link>
-            <div className="hidden text-sm text-mist-400 lg:block">{area === "admin" ? "Jennings Media Studio" : `Welcome back${user.name ? `, ${user.name.split(" ")[0]}` : ""}`}</div>
+            <div className="hidden text-sm text-mist-400 lg:block">{area === "admin" ? `${BRAND.name} Studio` : `Welcome back${user.name ? `, ${user.name.split(" ")[0]}` : ""}`}</div>
             <div className="flex items-center gap-2">
               {topAction ?? (
                 <Link href="/book" className={buttonStyles({ size: "sm" })}>

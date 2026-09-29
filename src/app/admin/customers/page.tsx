@@ -20,7 +20,7 @@ export default async function CustomersPage({ searchParams }: PageProps<"/admin/
     <div>
       <PageTitle title="Customers" description="Agents, brokers, managers and investors you work with." />
       <form className="mb-5">
-        <input name="q" defaultValue={q} placeholder="Search name, email, company, brokerage…" className="h-10 w-full max-w-sm rounded-full border border-white/10 bg-white/[0.03] px-4 text-sm outline-none focus:border-gold-300/50" />
+        <input name="q" defaultValue={q} placeholder="Search name, email, company, brokerage…" className="h-10 w-full max-w-sm rounded-full border border-white/10 bg-white/[0.03] px-4 text-sm outline-none focus:border-accent-300/50" />
       </form>
       {(customers ?? []).length === 0 ? (
         <EmptyState title="No customers yet" description="Customers are created automatically when someone books." />
@@ -43,7 +43,7 @@ export default async function CustomersPage({ searchParams }: PageProps<"/admin/
                 return (
                   <tr key={c.id} className="transition hover:bg-white/[0.025]">
                     <td className="px-4 py-3">
-                      <Link href={`/admin/customers/${c.id}`} className="font-medium hover:text-gold-100">
+                      <Link href={`/admin/customers/${c.id}`} className="font-medium hover:text-accent-100">
                         {c.first_name} {c.last_name}
                       </Link>
                       <p className="text-[12px] text-mist-500">{c.email}</p>

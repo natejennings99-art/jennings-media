@@ -75,12 +75,12 @@ export default async function AdminHome() {
           </CardBody>
         </Card>
         <Card>
-          <CardHeader title="Today's shoots" action={<Link href="/admin/calendar" className="text-[13px] text-gold-200 hover:underline">Calendar</Link>} />
+          <CardHeader title="Today's shoots" action={<Link href="/admin/calendar" className="text-[13px] text-accent-200 hover:underline">Calendar</Link>} />
           <CardBody className="space-y-3">
             {todays.length === 0 && <p className="text-sm text-mist-500">No shoots today.</p>}
             {todays.map((a) => (
               <Link key={a.id} href={`/admin/bookings/${a.booking_id}`} className="flex items-center gap-3 rounded-xl border border-white/[0.07] p-3 transition hover:border-white/20">
-                <span className="w-16 font-mono text-[12px] text-gold-200">{formatTime(a.starts_at, tz)}</span>
+                <span className="w-16 font-mono text-[12px] text-accent-200">{formatTime(a.starts_at, tz)}</span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm">{a.booking.property.address_line1}</span>
                   <span className="text-[12px] text-mist-500">{a.photographer?.name ?? "Unassigned"}</span>
@@ -97,7 +97,7 @@ export default async function AdminHome() {
           <CardBody className="space-y-2">
             {upcoming.length === 0 && <EmptyState icon={<CalendarDays className="size-5" />} title="Nothing scheduled" className="py-8" />}
             {upcoming.slice(0, 8).map((a) => (
-              <Link key={a.id} href={`/admin/bookings/${a.booking_id}`} className="flex items-center justify-between gap-3 py-1.5 text-sm hover:text-gold-100">
+              <Link key={a.id} href={`/admin/bookings/${a.booking_id}`} className="flex items-center justify-between gap-3 py-1.5 text-sm hover:text-accent-100">
                 <span className="truncate">{a.booking.property.address_line1}</span>
                 <span className="shrink-0 text-[12px] text-mist-500">{formatDateTime(a.starts_at, tz)}</span>
               </Link>
@@ -109,7 +109,7 @@ export default async function AdminHome() {
           <CardBody className="space-y-2">
             {(pending.data ?? []).length === 0 && <p className="text-sm text-mist-500">All caught up.</p>}
             {((pending.data ?? []) as unknown as { id: string; order_number: string; status: BookingStatus; property: { address_line1: string } }[]).map((b) => (
-              <Link key={b.id} href={`/admin/bookings/${b.id}`} className="flex items-center justify-between gap-3 py-1.5 text-sm hover:text-gold-100">
+              <Link key={b.id} href={`/admin/bookings/${b.id}`} className="flex items-center justify-between gap-3 py-1.5 text-sm hover:text-accent-100">
                 <span className="truncate">{b.property.address_line1}</span>
                 <StatusBadge status={b.status} />
               </Link>
@@ -121,7 +121,7 @@ export default async function AdminHome() {
           <CardBody className="space-y-2">
             {(invoices.data ?? []).length === 0 && <p className="text-sm text-mist-500">Nothing outstanding.</p>}
             {((invoices.data ?? []) as unknown as { id: string; invoice_number: string; amount_due_cents: number; due_date: string | null; booking_id: string; customer: { first_name: string; last_name: string } }[]).map((i) => (
-              <Link key={i.id} href={`/admin/invoices/${i.id}`} className="flex items-center justify-between gap-3 py-1.5 text-sm hover:text-gold-100">
+              <Link key={i.id} href={`/admin/invoices/${i.id}`} className="flex items-center justify-between gap-3 py-1.5 text-sm hover:text-accent-100">
                 <span className="truncate">
                   {i.invoice_number} · {i.customer.first_name} {i.customer.last_name}
                 </span>
@@ -134,11 +134,11 @@ export default async function AdminHome() {
 
       <div className="grid gap-6 xl:grid-cols-2">
         <Card>
-          <CardHeader title="New leads" action={<Link href="/admin/leads" className="text-[13px] text-gold-200 hover:underline">All leads</Link>} />
+          <CardHeader title="New leads" action={<Link href="/admin/leads" className="text-[13px] text-accent-200 hover:underline">All leads</Link>} />
           <CardBody className="space-y-2">
             {(leads.data ?? []).length === 0 && <p className="text-sm text-mist-500">No new inquiries.</p>}
             {(leads.data ?? []).map((l) => (
-              <Link key={l.id} href={`/admin/leads?focus=${l.id}`} className="flex items-center justify-between gap-3 py-1.5 text-sm hover:text-gold-100">
+              <Link key={l.id} href={`/admin/leads?focus=${l.id}`} className="flex items-center justify-between gap-3 py-1.5 text-sm hover:text-accent-100">
                 <span className="truncate">
                   {l.name} · <span className="text-mist-500">{String(l.reason).replace("_", " ")}</span>
                 </span>
@@ -148,10 +148,10 @@ export default async function AdminHome() {
           </CardBody>
         </Card>
         <Card>
-          <CardHeader title="Recent customers" action={<Link href="/admin/customers" className="text-[13px] text-gold-200 hover:underline">CRM</Link>} />
+          <CardHeader title="Recent customers" action={<Link href="/admin/customers" className="text-[13px] text-accent-200 hover:underline">CRM</Link>} />
           <CardBody className="space-y-2">
             {(customers.data ?? []).map((c) => (
-              <Link key={c.id} href={`/admin/customers/${c.id}`} className="flex items-center justify-between gap-3 py-1.5 text-sm hover:text-gold-100">
+              <Link key={c.id} href={`/admin/customers/${c.id}`} className="flex items-center justify-between gap-3 py-1.5 text-sm hover:text-accent-100">
                 <span className="truncate">
                   {c.first_name} {c.last_name} <span className="text-mist-500">· {c.company ?? c.email}</span>
                 </span>

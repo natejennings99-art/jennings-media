@@ -294,7 +294,7 @@ export function BookingWizard(props: WizardProps) {
           )}
         </div>
         <div className="mt-3 h-1 overflow-hidden rounded-full bg-white/10 lg:hidden">
-          <div className="h-full rounded-full bg-gold-300 transition-[width] duration-700 ease-(--ease-expo)" style={{ width: `${((step + 1) / STEPS.length) * 100}%` }} />
+          <div className="h-full rounded-full bg-accent-300 transition-[width] duration-700 ease-(--ease-expo)" style={{ width: `${((step + 1) / STEPS.length) * 100}%` }} />
         </div>
         <ol className="hidden items-center gap-2 lg:flex">
           {STEPS.map((s, i) => (
@@ -308,8 +308,8 @@ export function BookingWizard(props: WizardProps) {
                 <span
                   className={cn(
                     "grid size-7 place-items-center rounded-full border text-[12px] transition-all duration-500",
-                    i < step && "border-gold-300 bg-gold-300 text-ink-950",
-                    i === step && "border-gold-300 text-gold-200 shadow-[0_0_20px_rgb(230_201_152/0.35)]",
+                    i < step && "border-accent-300 bg-accent-300 text-ink-950",
+                    i === step && "border-accent-300 text-accent-200 shadow-[0_0_20px_rgb(230_201_152/0.35)]",
                     i > step && "border-white/15"
                   )}
                 >
@@ -317,7 +317,7 @@ export function BookingWizard(props: WizardProps) {
                 </span>
                 {s.label}
               </button>
-              {i < STEPS.length - 1 && <span className={cn("h-px flex-1 transition-colors duration-500", i < step ? "bg-gold-300/60" : "bg-white/10")} />}
+              {i < STEPS.length - 1 && <span className={cn("h-px flex-1 transition-colors duration-500", i < step ? "bg-accent-300/60" : "bg-white/10")} />}
             </li>
           ))}
         </ol>

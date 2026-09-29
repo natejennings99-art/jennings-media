@@ -12,6 +12,7 @@ import { LEAD_STATUS_META } from "@/lib/status";
 import { cn, formatDateTime } from "@/lib/utils";
 import { updateLead } from "@/app/admin/actions";
 import type { ContactLead } from "@/lib/types";
+import { BRAND } from "@/lib/brand";
 
 export function LeadsBoard({ leads, focus, timezone }: { leads: ContactLead[]; focus: string | null; timezone: string }) {
   const [active, setActive] = useState<string | null>(focus ?? leads[0]?.id ?? null);
@@ -62,7 +63,7 @@ export function LeadsBoard({ leads, focus, timezone }: { leads: ContactLead[]; f
               <p className="text-mist-400">{lead.company ?? ""}</p>
             </div>
             <div className="flex gap-2">
-              <a href={`mailto:${lead.email}?subject=${encodeURIComponent("Re: your Jennings Media inquiry")}`} className="inline-flex h-9 items-center gap-2 rounded-full bg-bone-50 px-4 text-[13px] font-medium text-ink-950"><Mail className="size-4" /> Reply</a>
+              <a href={`mailto:${lead.email}?subject=${encodeURIComponent(`Re: your ${BRAND.name} inquiry`)}`} className="inline-flex h-9 items-center gap-2 rounded-full bg-bone-50 px-4 text-[13px] font-medium text-ink-950"><Mail className="size-4" /> Reply</a>
               {lead.phone && <a href={`tel:${lead.phone}`} className="inline-flex h-9 items-center gap-2 rounded-full border border-white/15 px-4 text-[13px]"><Phone className="size-4" /> Call</a>}
             </div>
           </div>

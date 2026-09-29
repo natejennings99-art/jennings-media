@@ -41,7 +41,7 @@ export default async function AdminInvoicesPage({ searchParams }: PageProps<"/ad
             {rows.map((i) => (
               <tr key={i.id} className="hover:bg-white/[0.025]">
                 <td className="px-4 py-3">
-                  <Link href={`/admin/invoices/${i.id}`} className="font-mono text-[12.5px] text-gold-200 hover:underline">{i.invoice_number}</Link>
+                  <Link href={`/admin/invoices/${i.id}`} className="font-mono text-[12.5px] text-accent-200 hover:underline">{i.invoice_number}</Link>
                   <p className="text-[11.5px] text-mist-600">{i.booking?.order_number}</p>
                 </td>
                 <td className="px-4 py-3">{i.customer.first_name} {i.customer.last_name}</td>

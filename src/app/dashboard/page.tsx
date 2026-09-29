@@ -49,13 +49,13 @@ export default async function DashboardHome() {
 
           {next && (
             <Card className="relative overflow-hidden p-6 sm:p-8">
-              <div className="pointer-events-none absolute -top-20 -right-20 size-72 rounded-full bg-gold-300/10 blur-3xl" />
+              <div className="pointer-events-none absolute -top-20 -right-20 size-72 rounded-full bg-accent-300/10 blur-3xl" />
               <p className="eyebrow">Next up</p>
               <div className="mt-3 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
                 <div>
                   <p className="text-2xl font-medium tracking-[-0.03em] sm:text-3xl">{next.b.property.address_line1}</p>
                   <p className="mt-1 flex items-center gap-2 text-mist-300">
-                    <CalendarDays className="size-4 text-gold-300" />
+                    <CalendarDays className="size-4 text-accent-300" />
                     {next.appt ? formatDateTime(next.appt.starts_at, settings.timezone) : "We'll confirm your time shortly"}
                   </p>
                 </div>
@@ -76,7 +76,7 @@ export default async function DashboardHome() {
               { href: "/dashboard/invoices", icon: CreditCard, title: "Invoices & payments", body: balance ? `${formatMoney(balance)} outstanding` : "Everything is paid" },
             ].map((q) => (
               <Link key={q.href} href={q.href} className="surface group flex items-start gap-4 rounded-2xl p-5 transition hover:border-white/20">
-                <span className="grid size-10 place-items-center rounded-xl bg-gold-300/10 text-gold-200">
+                <span className="grid size-10 place-items-center rounded-xl bg-accent-300/10 text-accent-200">
                   <q.icon className="size-4.5" />
                 </span>
                 <span>
@@ -90,7 +90,7 @@ export default async function DashboardHome() {
           <section>
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-medium">Recent shoots</h2>
-              <Link href="/dashboard/orders" className="text-sm text-gold-200 hover:underline">
+              <Link href="/dashboard/orders" className="text-sm text-accent-200 hover:underline">
                 View all
               </Link>
             </div>

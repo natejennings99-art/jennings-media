@@ -1,13 +1,13 @@
 import type { BookingStatus, PaymentStatus } from "@/lib/types";
 
-export type Tone = "neutral" | "gold" | "green" | "amber" | "red" | "blue" | "violet";
+export type Tone = "neutral" | "accent" | "green" | "amber" | "red" | "blue" | "violet";
 
 export const BOOKING_STATUS_META: Record<BookingStatus, { label: string; tone: Tone; description: string }> = {
   requested: { label: "Requested", tone: "amber", description: "We received your booking and are confirming the details." },
   confirmed: { label: "Confirmed", tone: "blue", description: "Your booking is confirmed." },
   scheduled: { label: "Scheduled", tone: "violet", description: "Your photographer is assigned and on the calendar." },
-  shoot_completed: { label: "Shoot Completed", tone: "gold", description: "Capture is done — files are heading to editing." },
-  editing: { label: "Editing", tone: "gold", description: "Our editors are hand-finishing every image and clip." },
+  shoot_completed: { label: "Shoot Completed", tone: "accent", description: "Capture is done — files are heading to editing." },
+  editing: { label: "Editing", tone: "accent", description: "Our editors are hand-finishing every image and clip." },
   ready_for_delivery: { label: "Ready for Delivery", tone: "green", description: "Final quality check before delivery." },
   delivered: { label: "Delivered", tone: "green", description: "Your media is ready to download and share." },
   cancelled: { label: "Cancelled", tone: "red", description: "This booking was cancelled." },
@@ -51,7 +51,7 @@ export const INVOICE_STATUS_META: Record<string, { label: string; tone: Tone }> 
 };
 
 export const LEAD_STATUS_META: Record<string, { label: string; tone: Tone }> = {
-  new: { label: "New", tone: "gold" },
+  new: { label: "New", tone: "accent" },
   contacted: { label: "Contacted", tone: "blue" },
   qualified: { label: "Qualified", tone: "violet" },
   won: { label: "Won", tone: "green" },

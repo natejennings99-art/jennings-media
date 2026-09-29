@@ -68,10 +68,10 @@ export function StepProperty({
                   aria-pressed={active}
                   className={cn(
                     "flex min-h-20 flex-col items-center justify-center gap-2 rounded-2xl border px-2 py-3 text-center text-[12px] leading-tight transition-all duration-200",
-                    active ? "border-gold-300/70 bg-gold-300/[0.09] text-bone-50" : "border-white/10 text-mist-400 hover:border-white/25 hover:text-bone-100"
+                    active ? "border-accent-300/70 bg-accent-300/[0.09] text-bone-50" : "border-white/10 text-mist-400 hover:border-white/25 hover:text-bone-100"
                   )}
                 >
-                  <Icon className={cn("size-5", active ? "text-gold-200" : "")} strokeWidth={1.6} />
+                  <Icon className={cn("size-5", active ? "text-accent-200" : "")} strokeWidth={1.6} />
                   {label}
                 </button>
               );
@@ -139,7 +139,7 @@ export function StepProperty({
                 aria-pressed={value.arrival_window === w.value}
                 className={cn(
                   "rounded-2xl border px-3 py-3 text-left transition-all",
-                  value.arrival_window === w.value ? "border-gold-300/70 bg-gold-300/[0.09]" : "border-white/10 hover:border-white/25"
+                  value.arrival_window === w.value ? "border-accent-300/70 bg-accent-300/[0.09]" : "border-white/10 hover:border-white/25"
                 )}
               >
                 <span className="block text-sm text-bone-50">{w.label}</span>

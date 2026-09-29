@@ -41,7 +41,7 @@ export default async function AdminBookingsPage({ searchParams }: PageProps<"/ad
       <PageTitle title="Bookings" description={`${count ?? 0} bookings`} />
       <form className="mb-4">
         <input type="hidden" name="status" value={params.status ?? ""} />
-        <input name="q" defaultValue={params.q} placeholder="Search address, city or JM-order…" className="h-10 w-full max-w-sm rounded-full border border-white/10 bg-white/[0.03] px-4 text-sm outline-none focus:border-gold-300/50" />
+        <input name="q" defaultValue={params.q} placeholder="Search address, city or JM-order…" className="h-10 w-full max-w-sm rounded-full border border-white/10 bg-white/[0.03] px-4 text-sm outline-none focus:border-accent-300/50" />
       </form>
       <div className="no-scrollbar mb-5 flex gap-1.5 overflow-x-auto">
         {tabs.map((t) => (
@@ -71,13 +71,13 @@ export default async function AdminBookingsPage({ searchParams }: PageProps<"/ad
                 return (
                   <tr key={b.id} className="transition hover:bg-white/[0.025]">
                     <td className="px-4 py-3">
-                      <Link href={`/admin/bookings/${b.id}`} className="font-mono text-[12.5px] text-gold-200 hover:underline">
+                      <Link href={`/admin/bookings/${b.id}`} className="font-mono text-[12.5px] text-accent-200 hover:underline">
                         {b.order_number}
                       </Link>
                       <p className="text-[11.5px] text-mist-600">{formatDate(b.created_at, settings.timezone)}</p>
                     </td>
                     <td className="px-4 py-3">
-                      <Link href={`/admin/bookings/${b.id}`} className="hover:text-gold-100">
+                      <Link href={`/admin/bookings/${b.id}`} className="hover:text-accent-100">
                         {b.property.address_line1}
                       </Link>
                       <p className="text-[12px] text-mist-500">{b.property.city}</p>

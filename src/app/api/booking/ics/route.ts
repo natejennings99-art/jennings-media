@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { features, env } from "@/lib/env";
 import { fullAddress } from "@/lib/utils";
+import { BRAND } from "@/lib/brand";
 
 const stamp = (iso: string) => new Date(iso).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
 const escapeIcs = (s: string) => s.replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
@@ -25,13 +26,13 @@ export async function GET(request: NextRequest) {
   const ics = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Jennings Media//Booking//EN",
+    `PRODID:-//${BRAND.name}//Booking//EN`,
     "BEGIN:VEVENT",
     `UID:${id}@jenningsmedia`,
     `DTSTAMP:${stamp(new Date().toISOString())}`,
     `DTSTART:${stamp(appt.starts_at)}`,
     `DTEND:${stamp(appt.ends_at)}`,
-    `SUMMARY:${escapeIcs(`Jennings Media shoot · ${data.order_number}`)}`,
+    `SUMMARY:${escapeIcs(`${BRAND.name} shoot · ${data.order_number}`)}`,
     `LOCATION:${escapeIcs(address)}`,
     `DESCRIPTION:${escapeIcs(`Order ${data.order_number}. Manage: ${env.siteUrl}/dashboard/orders/${id}`)}`,
     "END:VEVENT",

@@ -221,6 +221,7 @@ export interface BusinessSettings {
   service_area_policy: ServiceAreaPolicy;
   hero_video_url: string | null;
   hero_image_url: string | null;
+  marketing: MarketingSettings;
 }
 
 export interface ServiceArea {
@@ -472,15 +473,15 @@ export interface MediaItem {
   created_at: string;
 }
 
-export const PORTFOLIO_CATEGORIES = [
-  "photography",
-  "video",
-  "drone",
-  "twilight",
-  "luxury",
-  "residential",
-  "commercial",
-] as const;
+export const PORTFOLIO_CATEGORIES = ["branding", "paid-media", "social", "creative", "web"] as const;
+
+export const PORTFOLIO_CATEGORY_LABELS: Record<(typeof PORTFOLIO_CATEGORIES)[number], string> = {
+  branding: "Branding",
+  "paid-media": "Paid Media",
+  social: "Social",
+  creative: "Creative",
+  web: "Web",
+};
 export type PortfolioCategory = (typeof PORTFOLIO_CATEGORIES)[number];
 
 export interface PortfolioMedia {
@@ -515,6 +516,53 @@ export interface PortfolioProject {
   is_sample: boolean;
   sort_order: number;
   media: PortfolioMedia[];
+  /* Case-study fields (agency "Work") */
+  client_name: string | null;
+  industry: string | null;
+  year: number | null;
+  headline: string | null;
+  summary: string | null;
+  metrics: CaseMetric[];
+  challenge: string | null;
+  strategy: string | null;
+  execution: string | null;
+  results: string | null;
+  hover_video_url: string | null;
+  testimonial_quote: string | null;
+  testimonial_author: string | null;
+  testimonial_role: string | null;
+}
+
+export interface CaseMetric {
+  value: string;
+  label: string;
+}
+
+export interface Client {
+  id: string;
+  name: string;
+  logo_url: string | null;
+  website_url: string | null;
+  sort_order: number;
+  is_published: boolean;
+  is_sample: boolean;
+}
+
+export interface MarketingStat {
+  prefix: string;
+  value: number;
+  suffix: string;
+  label: string;
+  decimals?: number;
+}
+
+export interface MarketingSettings {
+  stats: MarketingStat[];
+  /** Placeholder numbers are hidden in production unless SHOW_SAMPLE_CONTENT=true. */
+  stats_are_sample: boolean;
+  trust_line: string;
+  /** MP4, YouTube or Vimeo link for the showreel. Empty = image montage. */
+  showreel_url: string;
 }
 
 export interface Testimonial {
@@ -566,7 +614,7 @@ export interface Referral {
   created_at: string;
 }
 
-export type LeadReason = "booking" | "pricing" | "custom_quote" | "partnership" | "support" | "general";
+export type LeadReason = "project" | "booking" | "pricing" | "custom_quote" | "partnership" | "support" | "general";
 
 export interface ContactLead {
   id: string;
@@ -576,6 +624,9 @@ export interface ContactLead {
   phone: string | null;
   reason: LeadReason;
   message: string;
+  need: string | null;
+  services: string[];
+  budget: string | null;
   status: "new" | "contacted" | "qualified" | "won" | "lost" | "spam";
   customer_id: string | null;
   source_path: string | null;

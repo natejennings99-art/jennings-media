@@ -80,7 +80,7 @@ export function Lightbox({ items, index, onClose, onIndex }: { items: LightboxIt
           onLoad={() => setLoaded(true)}
           priority
         />
-        {!loaded && <div className="absolute inset-0 m-auto size-10 animate-spin rounded-full border-2 border-white/15 border-t-gold-300" />}
+        {!loaded && <div className="absolute inset-0 m-auto size-10 animate-spin rounded-full border-2 border-white/15 border-t-accent-300" />}
         {items.length > 1 && (
           <>
             <button type="button" onClick={() => go(-1)} className="absolute top-1/2 left-3 hidden size-12 -translate-y-1/2 place-items-center rounded-full border border-white/10 bg-ink-950/60 text-bone-50 backdrop-blur hover:bg-white/10 sm:grid" aria-label="Previous">

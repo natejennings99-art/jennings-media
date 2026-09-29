@@ -139,7 +139,7 @@ export function MediaGallery({ media, zipName, shareUrl }: { media: SignedMedia[
         })}
       </div>
       {items.filter((m) => m.storage_path).length > 1 && (
-        <button type="button" onClick={() => downloadAll(items, tab)} disabled={Boolean(zipping)} className="mt-4 inline-flex items-center gap-2 text-[13px] text-gold-200 hover:underline disabled:opacity-50">
+        <button type="button" onClick={() => downloadAll(items, tab)} disabled={Boolean(zipping)} className="mt-4 inline-flex items-center gap-2 text-[13px] text-accent-200 hover:underline disabled:opacity-50">
           {zipping === tab ? <Loader2 className="size-3.5 animate-spin" /> : <Download className="size-3.5" />} Download all {MEDIA_CATEGORY_META[tab].label.toLowerCase()}
         </button>
       )}

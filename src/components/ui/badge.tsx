@@ -5,7 +5,7 @@ import type { BookingStatus, PaymentStatus } from "@/lib/types";
 
 const tones: Record<Tone, string> = {
   neutral: "border-white/10 bg-white/[0.06] text-mist-300",
-  gold: "border-gold-300/25 bg-gold-300/10 text-gold-200",
+  accent: "border-accent-300/25 bg-accent-300/10 text-accent-200",
   green: "border-emerald-400/25 bg-emerald-400/10 text-emerald-200",
   amber: "border-amber-400/25 bg-amber-400/10 text-amber-200",
   red: "border-red-400/25 bg-red-400/10 text-red-200",
@@ -15,7 +15,7 @@ const tones: Record<Tone, string> = {
 
 const dots: Record<Tone, string> = {
   neutral: "bg-mist-400",
-  gold: "bg-gold-300",
+  accent: "bg-accent-300",
   green: "bg-emerald-400",
   amber: "bg-amber-400",
   red: "bg-red-400",

@@ -12,15 +12,18 @@ import {
   DEFAULT_SERVICE_AREAS,
   DEFAULT_SERVICES,
   DEFAULT_SETTINGS,
-  SAMPLE_PORTFOLIO,
-  SAMPLE_TESTIMONIALS,
 } from "../../src/lib/content/defaults";
+import { SAMPLE_AGENCY_TESTIMONIALS, SAMPLE_CASE_STUDIES as SAMPLE_ONLY_CASES, SAMPLE_CLIENTS as SAMPLE_ONLY_CLIENTS } from "../../src/lib/content/samples";
+import { REAL_CASE_STUDIES, REAL_CLIENTS } from "../../src/lib/content/work";
+
+const SAMPLE_CASE_STUDIES = [...REAL_CASE_STUDIES, ...SAMPLE_ONLY_CASES];
+const SAMPLE_CLIENTS = [...REAL_CLIENTS, ...SAMPLE_ONLY_CLIENTS];
 
 type Value = string | number | boolean | null | undefined | string[] | object;
 
 const JSONB_COLUMNS = new Set([
   "gallery", "price_tiers", "scheduling_rules", "payment_options", "scheduling", "referral_program",
-  "notifications", "analytics", "social_links", "service_area_policy",
+  "notifications", "analytics", "social_links", "service_area_policy", "metrics", "marketing",
 ]);
 
 function lit(value: Value, column = ""): string {
@@ -71,6 +74,7 @@ const parts: string[] = [
       analytics: s.analytics,
       social_links: s.social_links,
       service_area_policy: s.service_area_policy,
+      marketing: s.marketing,
     },
   ]),
   insert(
@@ -175,16 +179,31 @@ const parts: string[] = [
   ),
   insert(
     "portfolio_projects",
-    SAMPLE_PORTFOLIO.map((p) => ({
+    SAMPLE_CASE_STUDIES.map((p) => ({
       id: p.id,
       slug: p.slug,
       title: p.title,
-      neighborhood: p.neighborhood,
-      property_type: p.property_type,
-      categories: p.categories,
+      client_name: p.client_name,
+      industry: p.industry,
+      year: p.year,
+      headline: p.headline,
+      summary: p.summary,
       description: p.description,
+      categories: p.categories,
       services_performed: p.services_performed,
+      metrics: p.metrics,
+      challenge: p.challenge,
+      strategy: p.strategy,
+      execution: p.execution,
+      results: p.results,
       cover_image_url: p.cover_image_url,
+      hover_video_url: p.hover_video_url,
+      video_url: p.video_url,
+      city: p.city,
+      state: p.state,
+      testimonial_quote: p.testimonial_quote,
+      testimonial_author: p.testimonial_author,
+      testimonial_role: p.testimonial_role,
       is_featured: p.is_featured,
       is_published: p.is_published,
       is_sample: p.is_sample,
@@ -193,20 +212,13 @@ const parts: string[] = [
   ),
   insert(
     "portfolio_media",
-    SAMPLE_PORTFOLIO.flatMap((p) =>
-      p.media.map((m) => ({
-        id: m.id,
-        project_id: p.id,
-        kind: m.kind,
-        url: m.url,
-        alt: m.alt,
-        sort_order: m.sort_order,
-      }))
+    SAMPLE_CASE_STUDIES.flatMap((p) =>
+      p.media.map((m) => ({ id: m.id, project_id: p.id, kind: m.kind, url: m.url, alt: m.alt, sort_order: m.sort_order }))
     )
   ),
   insert(
     "testimonials",
-    SAMPLE_TESTIMONIALS.map((t) => ({
+    SAMPLE_AGENCY_TESTIMONIALS.map((t) => ({
       id: t.id,
       author_name: t.author_name,
       author_title: t.author_title,
@@ -218,6 +230,10 @@ const parts: string[] = [
       is_sample: t.is_sample,
       sort_order: t.sort_order,
     }))
+  ),
+  insert(
+    "clients",
+    SAMPLE_CLIENTS.map((c) => ({ id: c.id, name: c.name, sort_order: c.sort_order, is_published: c.is_published, is_sample: c.is_sample }))
   ),
 ];
 

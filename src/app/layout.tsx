@@ -1,46 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Archivo, Geist_Mono } from "next/font/google";
 import { ToastProvider } from "@/components/ui/toast";
 import { Analytics } from "@/components/analytics/analytics";
 import { getSettings } from "@/lib/data/public";
 import { env } from "@/lib/env";
+import { BRAND } from "@/lib/brand";
 import "./globals.css";
 
-const geist = Geist({ variable: "--font-geist", subsets: ["latin"], display: "swap" });
+const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"], axes: ["wdth"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.siteUrl),
   title: {
-    default: "Jennings Media — Real Estate Photography, Video & Drone",
-    template: "%s · Jennings Media",
+    default: `${BRAND.name} — ${BRAND.descriptor}`,
+    template: `%s · ${BRAND.name}`,
   },
-  description:
-    "Premium real estate photography, cinematic video, drone, floor plans, 3D tours and listing marketing. Book online in minutes — photos delivered next morning.",
-  applicationName: "Jennings Media",
-  keywords: [
-    "real estate photography",
-    "real estate video",
-    "drone photography",
-    "Matterport 3D tours",
-    "floor plans",
-    "virtual twilight",
-    "listing marketing",
-  ],
-  openGraph: {
-    type: "website",
-    siteName: "Jennings Media",
-    locale: "en_US",
-    url: "/",
-  },
-  twitter: { card: "summary_large_image" },
+  description: BRAND.description,
+  applicationName: BRAND.name,
+  keywords: ["creative agency", "marketing agency", "paid media", "brand strategy", "social media agency", "content production", "web design", "growth marketing"],
+  openGraph: { type: "website", siteName: BRAND.name, locale: "en_US", url: "/" },
+  twitter: { card: "summary_large_image", title: `${BRAND.name} — ${BRAND.descriptor}`, description: BRAND.description },
   alternates: { canonical: "/" },
   formatDetection: { telephone: false },
 };
@@ -56,11 +36,7 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const settings = await getSettings();
   return (
-    <html
-      lang="en"
-      data-scroll-behavior="smooth"
-      className={`${geist.variable} ${geistMono.variable} ${instrument.variable} scroll-smooth antialiased`}
-    >
+    <html lang="en" className={`${archivo.variable} ${geistMono.variable} antialiased`}>
       <body className="grain min-h-dvh overflow-x-clip">
         <ToastProvider>{children}</ToastProvider>
         <Analytics

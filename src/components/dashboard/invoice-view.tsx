@@ -91,7 +91,7 @@ export function InvoiceView({
         {invoice.tax_cents > 0 && <div className="flex justify-between"><dt className="text-mist-400">{settings.tax_label}</dt><dd>{formatMoney(invoice.tax_cents, c, { exact: true })}</dd></div>}
         <div className="flex justify-between border-t border-white/10 pt-2 text-base font-medium print:border-gray-300"><dt>Total</dt><dd>{formatMoney(invoice.total_cents, c, { exact: true })}</dd></div>
         <div className="flex justify-between"><dt className="text-mist-400">Paid</dt><dd>{formatMoney(invoice.amount_paid_cents, c, { exact: true })}</dd></div>
-        <div className="flex justify-between text-lg font-medium text-gold-200 print:text-black"><dt>Amount due</dt><dd>{formatMoney(invoice.amount_due_cents, c, { exact: true })}</dd></div>
+        <div className="flex justify-between text-lg font-medium text-accent-200 print:text-black"><dt>Amount due</dt><dd>{formatMoney(invoice.amount_due_cents, c, { exact: true })}</dd></div>
       </dl>
       {invoice.notes && <p className="mt-8 text-sm text-mist-400">{invoice.notes}</p>}
     </article>

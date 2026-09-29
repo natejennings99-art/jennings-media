@@ -33,9 +33,9 @@ export default async function ReferralsPage() {
     <div className="space-y-8">
       <PageTitle title="Refer & earn" description={`Give colleagues ${refereeOffer} their first shoot. Get ${formatMoney(program.referrer_reward_cents)} off your next one when they book.`} />
       <Card className="relative overflow-hidden p-6 sm:p-8">
-        <div className="pointer-events-none absolute -right-24 -bottom-24 size-72 rounded-full bg-gold-300/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 -bottom-24 size-72 rounded-full bg-accent-300/10 blur-3xl" />
         <p className="eyebrow">Your referral code</p>
-        <p className="mt-3 font-mono text-4xl tracking-[0.12em] text-gold-100">{code}</p>
+        <p className="mt-3 font-mono text-4xl tracking-[0.12em] text-accent-100">{code}</p>
         <div className="mt-6 flex flex-wrap gap-2">
           <CopyButton value={code} label="Copy code" />
           <CopyButton value={link} label="Copy booking link" />
@@ -52,7 +52,7 @@ export default async function ReferralsPage() {
           <ul className="mt-4 divide-y divide-white/[0.06]">
             {codes.map((c) => (
               <li key={c.id} className="flex items-center justify-between py-3 text-sm">
-                <span className="font-mono text-gold-100">{c.code}</span>
+                <span className="font-mono text-accent-100">{c.code}</span>
                 <span className="text-mist-400">{formatMoney(c.discount_value)} off</span>
                 <Badge tone={c.usage_count > 0 ? "neutral" : "green"}>{c.usage_count > 0 ? "Used" : "Available"}</Badge>
               </li>

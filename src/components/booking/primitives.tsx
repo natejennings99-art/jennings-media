@@ -37,7 +37,7 @@ export function ChoiceCard({
       className={cn(
         "relative rounded-2xl border transition-all duration-300 ease-(--ease-expo)",
         selected
-          ? "border-gold-300/70 bg-gold-300/[0.08] shadow-[0_0_0_4px_rgb(230_201_152/0.08)]"
+          ? "border-accent-300/70 bg-accent-300/[0.08] shadow-[0_0_0_4px_rgb(230_201_152/0.08)]"
           : "border-white/10 bg-white/[0.025] hover:border-white/25 hover:bg-white/[0.045]"
       )}
     >
@@ -52,7 +52,7 @@ export function ChoiceCard({
         <span
           className={cn(
             "absolute top-3.5 right-3.5 grid size-5 place-items-center rounded-full border transition-all duration-300",
-            selected ? "scale-100 border-gold-300 bg-gold-300 text-ink-950" : "scale-90 border-white/20 text-transparent"
+            selected ? "scale-100 border-accent-300 bg-accent-300 text-ink-950" : "scale-90 border-white/20 text-transparent"
           )}
           aria-hidden
         >

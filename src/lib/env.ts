@@ -1,3 +1,4 @@
+import { BRAND } from "@/lib/brand";
 /**
  * Centralised environment access. Public values (NEXT_PUBLIC_*) are inlined at
  * build time; everything else is server-only.
@@ -29,7 +30,7 @@ export const serverEnv = {
     return process.env.RESEND_API_KEY || "";
   },
   get emailFrom() {
-    return process.env.EMAIL_FROM || "Jennings Media <bookings@jenningsmedia.com>";
+    return process.env.EMAIL_FROM || `${BRAND.name} <onboarding@resend.dev>`;
   },
   get adminNotificationEmails() {
     return (process.env.ADMIN_NOTIFICATION_EMAILS || "")
@@ -53,8 +54,8 @@ export const serverEnv = {
     return Boolean(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_FROM_NUMBER);
   },
   get showSampleContent() {
-    if (process.env.SHOW_SAMPLE_CONTENT) return process.env.SHOW_SAMPLE_CONTENT === "true";
-    return process.env.NODE_ENV !== "production";
+    // Fictional demo content is opt-in everywhere now that real work is loaded.
+    return process.env.SHOW_SAMPLE_CONTENT === "true";
   },
 };
 

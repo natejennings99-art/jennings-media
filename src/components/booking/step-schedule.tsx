@@ -95,7 +95,7 @@ export function StepSchedule({
       <div>
         <StepHeader eyebrow="Step 5 · Schedule" title="No site visit needed" description="Everything in this order is produced by our studio team — there's nothing to schedule. We'll start as soon as you book." />
         <div className="flex items-center gap-3 rounded-2xl border border-white/10 p-5 text-sm text-mist-300">
-          <CalendarClock className="size-5 text-gold-300" /> Continue to your details.
+          <CalendarClock className="size-5 text-accent-300" /> Continue to your details.
         </div>
       </div>
     );
@@ -174,13 +174,13 @@ export function StepSchedule({
                   )}
                 >
                   {Number(date.slice(8))}
-                  {available && !active && <span className="absolute bottom-1.5 size-1 rounded-full bg-gold-300" />}
+                  {available && !active && <span className="absolute bottom-1.5 size-1 rounded-full bg-accent-300" />}
                 </button>
               );
             })}
             {loading && (
               <div className="absolute inset-0 grid place-items-center rounded-xl bg-ink-900/60 backdrop-blur-[2px]">
-                <Loader2 className="size-5 animate-spin text-gold-300" />
+                <Loader2 className="size-5 animate-spin text-accent-300" />
               </div>
             )}
           </div>
@@ -196,7 +196,7 @@ export function StepSchedule({
                 </p>
                 {selectedDay.sunset && (
                   <p className="flex items-center gap-1.5 text-[12px] text-mist-400">
-                    <Sunset className="size-3.5 text-gold-300" /> Sunset {new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: tz }).format(new Date(selectedDay.sunset))}
+                    <Sunset className="size-3.5 text-accent-300" /> Sunset {new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: tz }).format(new Date(selectedDay.sunset))}
                   </p>
                 )}
               </div>
@@ -217,11 +217,11 @@ export function StepSchedule({
                           aria-pressed={active}
                           className={cn(
                             "relative h-12 rounded-xl border text-sm tabular-nums transition-all duration-200",
-                            active ? "border-gold-300 bg-gold-300 font-medium text-ink-950" : preferred ? "border-gold-300/40 text-bone-50 hover:bg-gold-300/10" : "border-white/10 text-bone-100 hover:border-white/30"
+                            active ? "border-accent-300 bg-accent-300 font-medium text-ink-950" : preferred ? "border-accent-300/40 text-bone-50 hover:bg-accent-300/10" : "border-white/10 text-bone-100 hover:border-white/30"
                           )}
                         >
                           {s.label}
-                          {preferred && !active && <span className="absolute -top-1.5 right-1.5 rounded-full bg-gold-300 px-1.5 text-[9px] font-medium text-ink-950">Preferred</span>}
+                          {preferred && !active && <span className="absolute -top-1.5 right-1.5 rounded-full bg-accent-300 px-1.5 text-[9px] font-medium text-ink-950">Preferred</span>}
                         </button>
                       );
                     })}
@@ -245,7 +245,7 @@ export function StepSchedule({
             onRequestWithoutSlot(e.target.checked);
             if (e.target.checked) onSelect(null);
           }}
-          className="mt-0.5 size-4 accent-[#e6c998]"
+          className="mt-0.5 size-4 accent-[#ff5b24]"
         />
         <span>
           <span className="text-bone-100">I&rsquo;m flexible — contact me to schedule</span>

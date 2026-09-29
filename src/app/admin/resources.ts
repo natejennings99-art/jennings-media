@@ -231,7 +231,7 @@ const RESOURCES: Record<string, ResourceDef> = {
       name: text(80).pipe(z.string().min(2)),
       email: z.preprocess((v) => (v ? v : null), z.email().nullable()),
       phone: nullableText(30),
-      color: z.preprocess((v) => v || "#d9b98c", z.string().regex(/^#[0-9a-fA-F]{6}$/)),
+      color: z.preprocess((v) => v || "#ff5b24", z.string().regex(/^#[0-9a-fA-F]{6}$/)),
       bio: nullableText(1000),
       skills: lowerList,
       max_shoots_per_day: nullableInt(1, 20),

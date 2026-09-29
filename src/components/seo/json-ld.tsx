@@ -1,63 +1,79 @@
-import type { BusinessSettings, Service, ServiceArea } from "@/lib/types";
+import type { BusinessSettings, PortfolioProject } from "@/lib/types";
+import type { AgencyService, Article } from "@/lib/content/agency";
 import { env } from "@/lib/env";
-import { startingPrice } from "@/lib/pricing/engine";
+import { BRAND } from "@/lib/brand";
 
-/** Renders JSON-LD safely (escapes "<" to avoid breaking out of the script tag). */
+/** Renders JSON-LD safely (escapes "<" so it can't break out of the script tag). */
 export function JsonLd({ data }: { data: Record<string, unknown> | Record<string, unknown>[] }) {
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
-    />
-  );
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
 }
 
-export function localBusinessSchema(settings: BusinessSettings, areas: ServiceArea[]) {
-  const areaNames = [...new Set(areas.flatMap((a) => (a.cities.length ? a.cities.slice(0, 8) : [a.name])))];
+const ORG_ID = `${env.siteUrl}/#organization`;
+
+export function organizationSchema(settings: BusinessSettings) {
+  const sameAs = Object.values(settings.social_links).filter(Boolean);
   return {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "@id": `${env.siteUrl}/#business`,
-    name: settings.business_name,
-    description: "Professional real estate photography, cinematic video, drone, floor plans, 3D tours and property marketing.",
+    "@type": ["Organization", "ProfessionalService"],
+    "@id": ORG_ID,
+    name: BRAND.name,
+    description: BRAND.description,
     url: env.siteUrl,
-    image: `${env.siteUrl}/opengraph-image`,
     logo: `${env.siteUrl}/icon.svg`,
+    image: `${env.siteUrl}/opengraph-image`,
+    slogan: BRAND.tagline,
     ...(settings.email ? { email: settings.email } : {}),
     ...(settings.phone ? { telephone: settings.phone } : {}),
-    priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      ...(settings.address_line1 ? { streetAddress: settings.address_line1 } : {}),
       ...(settings.city ? { addressLocality: settings.city } : {}),
       ...(settings.state ? { addressRegion: settings.state } : {}),
-      ...(settings.postal_code ? { postalCode: settings.postal_code } : {}),
       addressCountry: settings.country,
     },
-    ...(settings.latitude && settings.longitude
-      ? { geo: { "@type": "GeoCoordinates", latitude: settings.latitude, longitude: settings.longitude } }
-      : {}),
-    areaServed: areaNames.map((name) => ({ "@type": "City", name: name.replace(/\b\w/g, (c) => c.toUpperCase()) })),
-    sameAs: Object.values(settings.social_links).filter(Boolean),
+    areaServed: "Worldwide",
+    ...(sameAs.length ? { sameAs } : {}),
   };
 }
 
-export function serviceSchema(service: Service, settings: BusinessSettings) {
-  return {
+export function agencyServicesSchema(services: AgencyService[]) {
+  return services.map((s) => ({
     "@context": "https://schema.org",
     "@type": "Service",
-    name: service.name,
-    serviceType: service.name,
-    description: service.description ?? service.tagline ?? undefined,
-    url: `${env.siteUrl}/services/${service.slug}`,
-    provider: { "@id": `${env.siteUrl}/#business`, "@type": "ProfessionalService", name: settings.business_name },
-    ...(service.image_url ? { image: service.image_url } : {}),
-    offers: {
-      "@type": "Offer",
-      priceCurrency: settings.currency.toUpperCase(),
-      price: (startingPrice(service) / 100).toFixed(2),
-      url: `${env.siteUrl}/book`,
-    },
+    name: s.title,
+    serviceType: s.title,
+    description: s.body,
+    url: `${env.siteUrl}/services#${s.slug}`,
+    provider: { "@id": ORG_ID },
+    areaServed: "Worldwide",
+  }));
+}
+
+export function caseStudySchema(p: PortfolioProject) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: `${p.client_name ?? ""} — ${p.title}`.replace(/^ — /, ""),
+    headline: p.headline ?? p.title,
+    description: p.summary ?? p.description ?? undefined,
+    image: p.cover_image_url ?? undefined,
+    url: `${env.siteUrl}/work/${p.slug}`,
+    creator: { "@id": ORG_ID },
+    ...(p.year ? { dateCreated: String(p.year) } : {}),
+  };
+}
+
+export function articleSchema(a: Article) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: a.title,
+    description: a.excerpt,
+    image: a.image,
+    datePublished: a.date,
+    dateModified: a.date,
+    author: { "@type": "Organization", name: BRAND.name, url: env.siteUrl },
+    publisher: { "@id": ORG_ID },
+    mainEntityOfPage: `${env.siteUrl}/insights/${a.slug}`,
   };
 }
 

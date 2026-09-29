@@ -95,9 +95,9 @@ export function MediaManager({ bookingId, media, delivered }: { bookingId: strin
           setDragOver(false);
           uploadFiles(e.dataTransfer.files);
         }}
-        className={cn("rounded-2xl border border-dashed p-6 text-center transition", dragOver ? "border-gold-300 bg-gold-300/5" : "border-white/15")}
+        className={cn("rounded-2xl border border-dashed p-6 text-center transition", dragOver ? "border-accent-300 bg-accent-300/5" : "border-white/15")}
       >
-        <UploadCloud className="mx-auto size-8 text-gold-300" strokeWidth={1.5} />
+        <UploadCloud className="mx-auto size-8 text-accent-300" strokeWidth={1.5} />
         <p className="mt-3 text-sm text-bone-100">Drag files here or choose files</p>
         <p className="text-[12px] text-mist-500">Uploads go straight to secure storage. Clients see files after delivery.</p>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
@@ -115,7 +115,7 @@ export function MediaManager({ bookingId, media, delivered }: { bookingId: strin
         </div>
         {progress && (
           <div className="mx-auto mt-4 h-1.5 max-w-sm overflow-hidden rounded-full bg-white/10">
-            <div className="h-full bg-gold-300 transition-all" style={{ width: `${(progress.done / progress.total) * 100}%` }} />
+            <div className="h-full bg-accent-300 transition-all" style={{ width: `${(progress.done / progress.total) * 100}%` }} />
           </div>
         )}
       </div>
@@ -148,14 +148,14 @@ export function MediaManager({ bookingId, media, delivered }: { bookingId: strin
                   {(m.mime_type ?? "").startsWith("video/") ? <Film className="size-7" /> : m.external_url ? <Link2 className="size-7" /> : <FileText className="size-7" />}
                 </span>
               )}
-              {m.is_featured && <Star className="absolute top-2 left-2 size-4 fill-gold-300 text-gold-300" />}
+              {m.is_featured && <Star className="absolute top-2 left-2 size-4 fill-accent-300 text-accent-300" />}
             </div>
             <div className="flex items-center justify-between gap-1 px-2 py-1.5">
               <span className="min-w-0 truncate text-[11px] text-mist-400" title={m.file_name}>
                 {m.file_name} · {m.external_url ? "link" : formatBytes(m.size_bytes)}
               </span>
               <span className="flex shrink-0">
-                <button type="button" title="Hero image" onClick={() => run(() => updateMedia(m.id, { is_featured: !m.is_featured }))} className="grid size-7 place-items-center rounded text-mist-500 hover:text-gold-200">
+                <button type="button" title="Hero image" onClick={() => run(() => updateMedia(m.id, { is_featured: !m.is_featured }))} className="grid size-7 place-items-center rounded text-mist-500 hover:text-accent-200">
                   <Star className="size-3.5" />
                 </button>
                 <button type="button" title={m.is_visible ? "Hide from client" : "Show to client"} onClick={() => run(() => updateMedia(m.id, { is_visible: !m.is_visible }))} className="grid size-7 place-items-center rounded text-mist-500 hover:text-bone-50">

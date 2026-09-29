@@ -46,7 +46,7 @@ export function StepAddOns({
                 footer={isSelected && perUnit ? <Stepper value={qty} max={linked?.max_quantity ?? a.max_quantity ?? 20} onChange={(v) => onQuantity(a.id, v)} label={`${a.name} quantity`} /> : undefined}
               >
                 <div className="flex items-start gap-3.5 pr-7">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-white/[0.05] text-gold-200">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-white/[0.05] text-accent-200">
                     <ServiceIcon name={a.icon ?? linked?.icon} className="size-4.5" />
                   </span>
                   <span>

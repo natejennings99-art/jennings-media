@@ -14,7 +14,7 @@ export default function BookLayout({ children }: LayoutProps<"/book">) {
     <div className="min-h-dvh">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-ink-950/80 backdrop-blur-2xl">
         <div className="container-page flex h-16 items-center justify-between">
-          <Link href="/" aria-label="Jennings Media home">
+          <Link href="/" aria-label="Home">
             <Logo />
           </Link>
           <div className="flex items-center gap-4">

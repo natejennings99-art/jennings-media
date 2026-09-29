@@ -85,14 +85,14 @@ export default async function ConfirmationPage({ searchParams }: PageProps<"/boo
         <div className="surface mt-12 animate-fade-up rounded-[28px] p-6 [animation-delay:320ms] sm:p-8">
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="flex gap-3">
-              <MapPin className="mt-0.5 size-5 shrink-0 text-gold-300" />
+              <MapPin className="mt-0.5 size-5 shrink-0 text-accent-300" />
               <div>
                 <p className="text-[12px] tracking-[0.12em] text-mist-500 uppercase">Property</p>
                 <p className="mt-1 text-bone-100">{fullAddress(booking.property)}</p>
               </div>
             </div>
             <div className="flex gap-3">
-              <Clock className="mt-0.5 size-5 shrink-0 text-gold-300" />
+              <Clock className="mt-0.5 size-5 shrink-0 text-accent-300" />
               <div>
                 <p className="text-[12px] tracking-[0.12em] text-mist-500 uppercase">Appointment</p>
                 <p className="mt-1 text-bone-100">
@@ -141,7 +141,7 @@ export default async function ConfirmationPage({ searchParams }: PageProps<"/boo
               <dd className="tabular-nums">{formatMoney(booking.amount_paid_cents, booking.currency, { exact: true })}</dd>
             </div>
             {due > 0 && booking.status !== "cancelled" && (
-              <div className="flex justify-between text-gold-200">
+              <div className="flex justify-between text-accent-200">
                 <dt>Balance due before delivery</dt>
                 <dd className="tabular-nums">{formatMoney(due, booking.currency, { exact: true })}</dd>
               </div>
@@ -167,7 +167,7 @@ export default async function ConfirmationPage({ searchParams }: PageProps<"/boo
             { icon: Download, title: "Get your media", body: "Photos arrive in your dashboard by the next morning." },
           ].map((s) => (
             <div key={s.title} className="surface rounded-2xl p-5">
-              <s.icon className="size-5 text-gold-300" />
+              <s.icon className="size-5 text-accent-300" />
               <p className="mt-3 font-medium">{s.title}</p>
               <p className="mt-1 text-[13.5px] text-mist-400">{s.body}</p>
             </div>

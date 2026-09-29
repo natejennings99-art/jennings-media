@@ -38,7 +38,7 @@ export default async function AdminPaymentsPage() {
             {rows.map((p) => (
               <tr key={p.id} className="hover:bg-white/[0.025]">
                 <td className="px-4 py-3 text-mist-400">{formatDateTime(p.paid_at ?? p.created_at, settings.timezone)}</td>
-                <td className="px-4 py-3">{p.booking ? <Link href={`/admin/bookings/${p.booking.id}`} className="font-mono text-[12.5px] text-gold-200 hover:underline">{p.booking.order_number}</Link> : "—"}</td>
+                <td className="px-4 py-3">{p.booking ? <Link href={`/admin/bookings/${p.booking.id}`} className="font-mono text-[12.5px] text-accent-200 hover:underline">{p.booking.order_number}</Link> : "—"}</td>
                 <td className="px-4 py-3">{p.customer ? `${p.customer.first_name} ${p.customer.last_name}` : "—"}</td>
                 <td className="px-4 py-3 text-mist-300">{p.provider === "stripe" ? "Stripe card" : titleCase(p.method)} · {p.kind}</td>
                 <td className="px-4 py-3"><Badge tone={p.status === "succeeded" ? "green" : p.status.includes("refund") ? "violet" : p.status === "failed" ? "red" : "neutral"}>{titleCase(p.status)}</Badge></td>

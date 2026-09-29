@@ -36,7 +36,7 @@ function Chip({ ev, compact, timezone, dragging, onDrag }: { ev: CalendarEvent; 
         onDrag(ev.id);
       }}
       onDragEnd={() => onDrag(null)}
-      className={cn("block cursor-grab overflow-hidden rounded-lg border-l-[3px] bg-white/[0.07] px-2 py-1 text-[11.5px] leading-tight transition hover:bg-white/[0.12] active:cursor-grabbing", ev.held && "opacity-60", ev.done && "opacity-50", dragging && "ring-1 ring-gold-300")}
+      className={cn("block cursor-grab overflow-hidden rounded-lg border-l-[3px] bg-white/[0.07] px-2 py-1 text-[11.5px] leading-tight transition hover:bg-white/[0.12] active:cursor-grabbing", ev.held && "opacity-60", ev.done && "opacity-50", dragging && "ring-1 ring-accent-300")}
       style={{ borderColor: ev.color }}
       title={`${ev.title} — ${ev.subtitle}`}
     >
@@ -151,7 +151,7 @@ export function AdminCalendar({
                     onDrop={(e) => drop(e.dataTransfer.getData("text/plain"), d, null)}
                     className={cn("min-h-28 border-r border-b border-white/[0.05] p-1.5", !inMonth && "bg-black/20", blocked && "bg-[repeating-linear-gradient(135deg,transparent,transparent_6px,rgb(255_255_255/0.03)_6px,rgb(255_255_255/0.03)_12px)]")}
                   >
-                    <button type="button" onClick={() => nav(d, "day")} className={cn("mb-1 grid size-6 place-items-center rounded-full text-[12px]", d === today ? "bg-gold-300 text-ink-950" : inMonth ? "text-mist-300" : "text-mist-600")}>
+                    <button type="button" onClick={() => nav(d, "day")} className={cn("mb-1 grid size-6 place-items-center rounded-full text-[12px]", d === today ? "bg-accent-300 text-ink-950" : inMonth ? "text-mist-300" : "text-mist-600")}>
                       {Number(d.slice(8))}
                     </button>
                     <div className="space-y-1">
@@ -171,7 +171,7 @@ export function AdminCalendar({
           <div className="grid min-w-[760px]" style={{ gridTemplateColumns: `56px repeat(${days.length}, minmax(0,1fr))` }}>
             <div />
             {days.map((d) => (
-              <button key={d} type="button" onClick={() => nav(d, "day")} className={cn("border-b border-l border-white/[0.06] py-2 text-center text-[12px]", d === today ? "text-gold-200" : "text-mist-400")}>
+              <button key={d} type="button" onClick={() => nav(d, "day")} className={cn("border-b border-l border-white/[0.06] py-2 text-center text-[12px]", d === today ? "text-accent-200" : "text-mist-400")}>
                 {new Intl.DateTimeFormat("en-US", { weekday: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${d}T00:00:00Z`))}
               </button>
             ))}

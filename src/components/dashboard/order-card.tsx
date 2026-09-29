@@ -17,7 +17,7 @@ export function OrderCard({ booking, timezone, href }: { booking: BookingSummary
             {booking.order_number}
           </p>
           <p className="mt-1.5 flex items-center gap-2 truncate text-lg font-medium tracking-[-0.02em] text-bone-50">
-            <MapPin className="size-4 shrink-0 text-gold-300" />
+            <MapPin className="size-4 shrink-0 text-accent-300" />
             <span className="truncate">{booking.property.address_line1}</span>
           </p>
           <p className="mt-0.5 text-[13px] text-mist-400">

@@ -47,7 +47,7 @@ export default async function CustomerPage({ params }: PageProps<"/admin/custome
         <div className="text-right text-[12.5px] text-mist-500">
           Customer since {formatDate(c.created_at, tz)}
           <br />
-          {c.user_id ? "Has a login" : "Guest (no login yet)"} · referral code <span className="font-mono text-gold-200">{c.referral_code}</span>
+          {c.user_id ? "Has a login" : "Guest (no login yet)"} · referral code <span className="font-mono text-accent-200">{c.referral_code}</span>
           <br />
           <span className="font-mono">{c.id}</span>
         </div>
@@ -63,7 +63,7 @@ export default async function CustomerPage({ params }: PageProps<"/admin/custome
           <CardHeader title="Bookings" />
           <CardBody className="divide-y divide-white/[0.06]">
             {((bookings ?? []) as unknown as { id: string; order_number: string; status: BookingStatus; total_cents: number; created_at: string; property: { address_line1: string } }[]).map((b) => (
-              <Link key={b.id} href={`/admin/bookings/${b.id}`} className="flex items-center justify-between gap-3 py-3 text-sm hover:text-gold-100">
+              <Link key={b.id} href={`/admin/bookings/${b.id}`} className="flex items-center justify-between gap-3 py-3 text-sm hover:text-accent-100">
                 <span>
                   <span className="font-mono text-[12px] text-mist-500">{b.order_number}</span> {b.property.address_line1}
                 </span>
@@ -103,7 +103,7 @@ export default async function CustomerPage({ params }: PageProps<"/admin/custome
           <CardHeader title="Invoices" />
           <CardBody className="space-y-2 text-sm">
             {(invoices ?? []).map((i) => (
-              <Link key={i.id} href={`/admin/invoices/${i.id}`} className="flex items-center justify-between hover:text-gold-100">
+              <Link key={i.id} href={`/admin/invoices/${i.id}`} className="flex items-center justify-between hover:text-accent-100">
                 <span>{i.invoice_number}</span>
                 <span className="flex items-center gap-2">
                   <InvoiceBadge status={i.status} /> {formatMoney(i.amount_due_cents, "usd", { exact: true })} due

@@ -8,7 +8,7 @@ const base =
 
 const variants = {
   primary:
-    "bg-gold-300 text-ink-950 shadow-[inset_0_1px_0_rgb(255_255_255/0.55),0_12px_40px_-14px_rgb(216_177_116/0.75)] hover:bg-gold-200 hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.6),0_18px_50px_-12px_rgb(216_177_116/0.85)]",
+    "bg-accent-300 text-ink-950 shadow-[inset_0_1px_0_rgb(255_255_255/0.55),0_12px_40px_-14px_rgb(216_177_116/0.75)] hover:bg-accent-200 hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.6),0_18px_50px_-12px_rgb(216_177_116/0.85)]",
   light: "bg-bone-50 text-ink-950 hover:bg-white shadow-[0_10px_30px_-12px_rgb(255_255_255/0.35)]",
   secondary: "glass text-bone-50 hover:bg-white/10 hover:border-white/20",
   outline: "border border-white/15 text-bone-50 hover:border-white/30 hover:bg-white/[0.06]",

@@ -33,7 +33,7 @@ export function PackageCards({ packages, interactive = false }: { packages: Pack
             max={SIZE_STOPS.length - 1}
             value={stop}
             onChange={(e) => setStop(Number(e.target.value))}
-            className="mt-4 h-2 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-gold-300"
+            className="mt-4 h-2 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-accent-300"
           />
           <p className="mt-3 text-[13px] text-mist-500">Prices update live. Travel fees depend on location and are shown at checkout.</p>
         </div>
@@ -47,13 +47,13 @@ export function PackageCards({ packages, interactive = false }: { packages: Pack
               key={pkg.id}
               className={cn(
                 "relative flex flex-col rounded-[30px] p-7 sm:p-8",
-                pkg.is_featured ? "shine-border bg-gradient-to-b from-gold-300/[0.11] to-white/[0.02] lg:-my-4 lg:py-12" : "surface"
+                pkg.is_featured ? "shine-border bg-gradient-to-b from-accent-300/[0.11] to-white/[0.02] lg:-my-4 lg:py-12" : "surface"
               )}
             >
               <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-medium tracking-[-0.035em] text-bone-50">{pkg.name}</h3>
                 {pkg.badge && (
-                  <span className={cn("rounded-full px-3 py-1 text-[11.5px] font-medium", pkg.is_featured ? "bg-gold-300 text-ink-950" : "border border-white/15 text-mist-300")}>
+                  <span className={cn("rounded-full px-3 py-1 text-[11.5px] font-medium", pkg.is_featured ? "bg-accent-300 text-ink-950" : "border border-white/15 text-mist-300")}>
                     {pkg.badge}
                   </span>
                 )}
@@ -65,11 +65,11 @@ export function PackageCards({ packages, interactive = false }: { packages: Pack
                   {formatMoney(price)}
                 </span>
               </div>
-              {pkg.turnaround_text && <p className="mt-2 text-[13px] text-gold-200/90">{pkg.turnaround_text}</p>}
+              {pkg.turnaround_text && <p className="mt-2 text-[13px] text-accent-200/90">{pkg.turnaround_text}</p>}
               <ul className="mt-7 flex-1 space-y-3 border-t border-white/[0.07] pt-7">
                 {pkg.features.map((f) => (
                   <li key={f} className="flex items-start gap-3 text-[14.5px] text-bone-100">
-                    <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-gold-300/15 text-gold-200">
+                    <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-accent-300/15 text-accent-200">
                       <Check className="size-3" strokeWidth={3} />
                     </span>
                     {f}

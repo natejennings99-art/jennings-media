@@ -1,89 +1,91 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Check, Zap } from "lucide-react";
-import { PageHero } from "@/components/marketing/page-hero";
-import { FinalCta } from "@/components/marketing/final-cta";
-import { StatsBand } from "@/components/marketing/stats-band";
-import { Reveal } from "@/components/motion/reveal";
-import { Accent, SectionHeading } from "@/components/ui/misc";
-import { ABOUT } from "@/lib/content/site";
-import { IMAGES } from "@/lib/content/images";
+import { AGENCY_IMAGES } from "@/lib/content/agency-images";
+import { BRAND } from "@/lib/brand";
+import { getMarketing } from "@/lib/data/public";
+import { PageIntro } from "@/components/agency/page-intro";
+import { SectionLabel } from "@/components/agency/section-label";
+import { Differentiators } from "@/components/agency/differentiators";
+import { Results } from "@/components/agency/results";
+import { FinalCta } from "@/components/agency/final-cta";
+import { Parallax } from "@/components/experience/parallax";
+import { SplitReveal } from "@/components/experience/split-reveal";
+import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Jennings Media helps real estate professionals market properties better with premium photography, video, drone and 3D media.",
+  description: `${BRAND.name} is an independent creative and growth agency — strategy, creative, media and technology under one roof.`,
   alternates: { canonical: "/about" },
 };
 
-export default function AboutPage() {
+const DISCIPLINES = ["Strategy", "Brand & design", "Film & photography", "Media buying", "Social & community", "Web engineering", "SEO & editorial", "Automation"];
+
+const WAYS = [
+  { title: "Senior hands on every account", body: "The people who pitch the work are the people who make it. No bait-and-switch." },
+  { title: "Small squads, fast loops", body: "A strategist, a creative lead and a media lead per client — decisions in hours, not weeks." },
+  { title: "Radical transparency", body: "Shared dashboards, honest numbers and a weekly note on what worked and what didn't." },
+];
+
+export default async function AboutPage() {
+  const marketing = await getMarketing();
   return (
     <>
-      <PageHero eyebrow="About" title={<>We make listings <Accent>impossible</Accent> to scroll past.</>} description={ABOUT.mission} image={IMAGES.heroInterior} />
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "About", path: "/about" }])} />
+      <PageIntro
+        label="About"
+        title={
+          <>
+            Built behind
+            <br />
+            the <span className="text-accent-300">camera.</span>
+          </>
+        }
+      >
+        We started as a production studio, shooting for brands that needed to look as good as they were. Somewhere between the thousandth edit and the hundredth campaign report, we realized the best-looking work only matters when it moves the numbers.
+      </PageIntro>
 
-      <section className="container-page py-16">
-        <StatsBand />
+      <Parallax className="aspect-[4/5] w-full sm:aspect-[21/9]" amount={8}>
+        <Image src={AGENCY_IMAGES.filmSet} alt="On set during a campaign production" fill priority sizes="100vw" className="object-cover" />
+      </Parallax>
+
+      <section className="gutter grid gap-12 py-24 sm:py-36 lg:grid-cols-12">
+        <SectionLabel className="lg:col-span-3">Our mission</SectionLabel>
+        <SplitReveal as="p" className="text-[clamp(1.75rem,3.6vw,3.25rem)] leading-[1.12] font-medium tracking-[-0.035em] text-bone-50 lg:col-span-9">
+          So we built {BRAND.name}: a creative and growth agency where strategy, production, media and technology sit at the same table — and every idea is measured by what it earns.
+        </SplitReveal>
       </section>
 
-      <section className="container-page grid gap-12 py-16 lg:grid-cols-12">
-        <div className="lg:col-span-5">
-          <SectionHeading eyebrow="Our mission" title={<>Great media is the <Accent>first showing.</Accent></>} />
-        </div>
-        <div className="space-y-5 text-lg leading-relaxed text-mist-300 lg:col-span-6 lg:col-start-7">
-          <p>{ABOUT.mission}</p>
-          <p>We built Jennings Media for agents, brokers, property managers, developers, hosts and investors who need consistent, premium visuals on a real-estate timeline — booked in minutes, captured on schedule, delivered by morning.</p>
-        </div>
-      </section>
+      <Differentiators />
 
-      <section className="container-page py-16">
-        <SectionHeading eyebrow="Our process" title="Plan. Capture. Craft. Deliver." className="mb-12" />
-        <div className="grid gap-4 md:grid-cols-4">
-          {ABOUT.process.map((step, i) => (
-            <Reveal key={step.title} delay={i * 90}>
-              <div className="surface h-full rounded-[26px] p-7">
-                <p className="font-mono text-sm text-gold-300">0{i + 1}</p>
-                <p className="mt-8 text-2xl font-medium tracking-[-0.03em]">{step.title}</p>
-                <p className="mt-2 text-[15px] text-mist-400">{step.body}</p>
-              </div>
-            </Reveal>
+      <section className="gutter py-24 sm:py-36">
+        <SectionLabel className="mb-8">How we work</SectionLabel>
+        <div className="grid gap-px overflow-hidden rounded-md bg-white/10 md:grid-cols-3">
+          {WAYS.map((w, i) => (
+            <div key={w.title} className="bg-ink-950 p-8 sm:p-10">
+              <p className="font-mono text-sm text-accent-300">0{i + 1}</p>
+              <p className="mt-10 text-2xl font-semibold tracking-[-0.03em]">{w.title}</p>
+              <p className="mt-3 text-[15.5px] leading-relaxed text-mist-400">{w.body}</p>
+            </div>
           ))}
         </div>
       </section>
 
-      <section className="container-page grid items-center gap-12 py-16 lg:grid-cols-2">
-        <Reveal variant="scale">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] border border-white/10">
-            <Image src={IMAGES.cameraGear} alt="Professional camera equipment" fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
-          </div>
-        </Reveal>
-        <div>
-          <SectionHeading eyebrow="Professional equipment" title="Pro-grade tools on every shoot" />
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-            {ABOUT.equipment.map((e) => (
-              <li key={e} className="flex items-start gap-3 text-[15px] text-bone-100">
-                <Check className="mt-0.5 size-4 shrink-0 text-gold-300" /> {e}
-              </li>
-            ))}
-          </ul>
-        </div>
+      <section className="gutter py-16 sm:py-24">
+        <SectionLabel className="mb-8">Under one roof</SectionLabel>
+        <ul className="flex flex-wrap gap-x-8 gap-y-2">
+          {DISCIPLINES.map((d, i) => (
+            <li key={d} className="font-display text-[clamp(1.9rem,4.5vw,4rem)] text-bone-50/80">
+              {d}
+              {i < DISCIPLINES.length - 1 && <span className="ml-8 text-accent-300">/</span>}
+            </li>
+          ))}
+        </ul>
       </section>
 
-      <section className="container-page grid gap-4 py-16 md:grid-cols-2">
-        <div className="surface rounded-[30px] p-8 sm:p-10">
-          <Zap className="size-6 text-gold-300" />
-          <p className="mt-6 text-3xl font-medium tracking-[-0.04em]">Fast turnaround</p>
-          <p className="mt-3 text-[15.5px] leading-relaxed text-mist-400">Photos by 9 AM the next morning. Films, reels and 3D tours within 48 hours. Same-day rush when the listing can&rsquo;t wait.</p>
-        </div>
-        <div className="surface rounded-[30px] p-8 sm:p-10">
-          <Check className="size-6 text-gold-300" />
-          <p className="mt-6 text-3xl font-medium tracking-[-0.04em]">Quality standards</p>
-          <ul className="mt-4 space-y-2 text-[15.5px] text-mist-400">
-            {ABOUT.standards.map((s) => (
-              <li key={s}>· {s}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
-      <FinalCta />
+      <Results stats={marketing.stats} />
+      <FinalCta title="Sound like your kind of team?" kicker="Let's meet." />
     </>
   );
 }

@@ -291,7 +291,7 @@ export function PaymentsControl({
             </span>
             <span className="flex items-center gap-2">
               <span className="text-[12px] text-mist-400">{p.status}</span>
-              {p.receipt_url && <a href={p.receipt_url} target="_blank" rel="noreferrer" className="text-[12px] text-gold-200 hover:underline">Receipt</a>}
+              {p.receipt_url && <a href={p.receipt_url} target="_blank" rel="noreferrer" className="text-[12px] text-accent-200 hover:underline">Receipt</a>}
               {["succeeded", "partially_refunded"].includes(p.status) && p.refunded_cents < p.amount_cents && (
                 <button
                   type="button"

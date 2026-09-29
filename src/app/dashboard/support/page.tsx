@@ -24,12 +24,12 @@ export default async function SupportPage() {
           <p className="font-medium">Reach us directly</p>
           {settings.email && (
             <a href={`mailto:${settings.email}`} className="flex items-center gap-2.5 text-mist-300 hover:text-bone-50">
-              <Mail className="size-4 text-gold-300" /> {settings.email}
+              <Mail className="size-4 text-accent-300" /> {settings.email}
             </a>
           )}
           {settings.phone && (
             <a href={`tel:${settings.phone}`} className="flex items-center gap-2.5 text-mist-300 hover:text-bone-50">
-              <Phone className="size-4 text-gold-300" /> {formatPhone(settings.phone)}
+              <Phone className="size-4 text-accent-300" /> {formatPhone(settings.phone)}
             </a>
           )}
         </Card>

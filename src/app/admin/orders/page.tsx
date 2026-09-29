@@ -43,7 +43,7 @@ export default async function OrdersPage() {
             {rows.map((r) => (
               <tr key={r.id} className="hover:bg-white/[0.025]">
                 <td className="px-4 py-3">
-                  <Link href={`/admin/bookings/${r.id}`} className="font-mono text-[12.5px] text-gold-200 hover:underline">{r.order_number}</Link>
+                  <Link href={`/admin/bookings/${r.id}`} className="font-mono text-[12.5px] text-accent-200 hover:underline">{r.order_number}</Link>
                   <p className="text-[11.5px] text-mist-600">{formatDate(r.created_at, settings.timezone)} · {r.payment_option}</p>
                 </td>
                 <td className="px-4 py-3">{r.customer.first_name} {r.customer.last_name}</td>

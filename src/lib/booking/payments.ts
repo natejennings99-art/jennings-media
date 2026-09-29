@@ -7,6 +7,7 @@ import { getSettings } from "@/lib/data/public";
 import { notifyBooking, brandOf, sendLogged } from "@/lib/notifications";
 import { referralReward } from "@/lib/email/templates";
 import { formatMoney, fullAddress } from "@/lib/utils";
+import { BRAND } from "@/lib/brand";
 
 type PaymentKind = "full" | "deposit" | "balance";
 
@@ -50,7 +51,7 @@ export async function createCheckoutForBooking(opts: {
     ],
     metadata: { booking_id: booking.id, invoice_id: invoice?.id ?? "", payment_kind: opts.kind },
     payment_intent_data: {
-      description: `Jennings Media order ${booking.order_number}`,
+      description: `${BRAND.name} order ${booking.order_number}`,
       metadata: { booking_id: booking.id, invoice_id: invoice?.id ?? "", payment_kind: opts.kind },
     },
     success_url: `${env.siteUrl}${opts.successPath}${opts.successPath.includes("?") ? "&" : "?"}session_id={CHECKOUT_SESSION_ID}`,

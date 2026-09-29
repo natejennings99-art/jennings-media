@@ -91,17 +91,17 @@ export function StepPayment({
               aria-pressed={active}
               className={cn(
                 "flex items-center gap-4 rounded-2xl border p-5 text-left transition-all duration-300",
-                active ? "border-gold-300/70 bg-gold-300/[0.08] shadow-[0_0_0_4px_rgb(230_201_152/0.08)]" : "border-white/10 hover:border-white/25"
+                active ? "border-accent-300/70 bg-accent-300/[0.08] shadow-[0_0_0_4px_rgb(230_201_152/0.08)]" : "border-white/10 hover:border-white/25"
               )}
             >
-              <span className={cn("grid size-11 shrink-0 place-items-center rounded-xl", active ? "bg-gold-300 text-ink-950" : "bg-white/[0.06] text-mist-300")}>
+              <span className={cn("grid size-11 shrink-0 place-items-center rounded-xl", active ? "bg-accent-300 text-ink-950" : "bg-white/[0.06] text-mist-300")}>
                 <Icon className="size-5" />
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block font-medium text-bone-50">{META[o].title}</span>
                 <span className="block text-[13px] text-mist-400">{loadingQuote && o !== "later" ? "Calculating…" : describe(o)}</span>
               </span>
-              <span className={cn("size-5 shrink-0 rounded-full border-2 transition", active ? "border-gold-300 bg-gold-300 shadow-[inset_0_0_0_3px_#07080a]" : "border-white/25")} />
+              <span className={cn("size-5 shrink-0 rounded-full border-2 transition", active ? "border-accent-300 bg-accent-300 shadow-[inset_0_0_0_3px_#07080a]" : "border-white/25")} />
             </button>
           );
         })}
@@ -145,7 +145,7 @@ export function StepPayment({
           label={
             <>
               I agree to the{" "}
-              <Link href="/terms" target="_blank" className="text-gold-200 underline-offset-4 hover:underline">
+              <Link href="/terms" target="_blank" className="text-accent-200 underline-offset-4 hover:underline">
                 booking terms
               </Link>{" "}
               and 24-hour reschedule policy.

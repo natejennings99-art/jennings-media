@@ -32,7 +32,7 @@ export default async function InvoicesPage() {
               {invoices.map((i) => (
                 <tr key={i.id} className="transition hover:bg-white/[0.02]">
                   <td className="px-5 py-4">
-                    <Link href={`/dashboard/invoices/${i.id}`} className="font-medium text-bone-50 hover:text-gold-100">
+                    <Link href={`/dashboard/invoices/${i.id}`} className="font-medium text-bone-50 hover:text-accent-100">
                       {i.invoice_number}
                     </Link>
                     <p className="text-[12px] text-mist-500">{formatMoney(i.total_cents, i.currency, { exact: true })}</p>

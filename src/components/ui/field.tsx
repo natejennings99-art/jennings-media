@@ -2,7 +2,7 @@ import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export const inputBase =
-  "w-full rounded-xl border border-white/10 bg-white/[0.035] px-4 text-base text-bone-50 placeholder:text-mist-500 transition-[border-color,box-shadow,background-color] duration-200 hover:border-white/20 focus:border-gold-300/60 focus:bg-white/[0.05] focus:outline-none focus:ring-4 focus:ring-gold-300/10 disabled:opacity-50 sm:text-[15px] aria-[invalid=true]:border-red-400/60";
+  "w-full rounded-xl border border-white/10 bg-white/[0.035] px-4 text-base text-bone-50 placeholder:text-mist-500 transition-[border-color,box-shadow,background-color] duration-200 hover:border-white/20 focus:border-accent-300/60 focus:bg-white/[0.05] focus:outline-none focus:ring-4 focus:ring-accent-300/10 disabled:opacity-50 sm:text-[15px] aria-[invalid=true]:border-red-400/60";
 
 export function Input({ className, ...props }: ComponentProps<"input">) {
   return <input className={cn(inputBase, "h-12", className)} {...props} />;
@@ -77,7 +77,7 @@ export function Checkbox({ label, description, className, ...props }: ComponentP
   return (
     <label className={cn("group flex cursor-pointer items-start gap-3", className)}>
       <span className="relative mt-0.5 grid size-5 shrink-0 place-items-center">
-        <input type="checkbox" className="peer absolute inset-0 cursor-pointer appearance-none rounded-md border border-white/20 bg-white/5 transition checked:border-gold-300 checked:bg-gold-300" {...props} />
+        <input type="checkbox" className="peer absolute inset-0 cursor-pointer appearance-none rounded-md border border-white/20 bg-white/5 transition checked:border-accent-300 checked:bg-accent-300" {...props} />
         <svg viewBox="0 0 16 16" className="pointer-events-none relative size-3.5 text-ink-950 opacity-0 transition peer-checked:opacity-100" aria-hidden>
           <path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -101,7 +101,7 @@ export function Switch({ checked, onChange, label, disabled, name }: { checked: 
       onClick={() => onChange?.(!checked)}
       className={cn(
         "relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border transition-colors duration-300 disabled:opacity-50",
-        checked ? "border-gold-300 bg-gold-300" : "border-white/15 bg-white/10"
+        checked ? "border-accent-300 bg-accent-300" : "border-white/15 bg-white/10"
       )}
     >
       {name && <input type="hidden" name={name} value={checked ? "true" : "false"} />}

@@ -123,7 +123,7 @@ export default async function OrderDetailPage({ params }: PageProps<"/dashboard/
             <CardHeader title="Appointment" />
             <CardBody className="space-y-3 text-sm">
               <p className="flex items-center gap-2.5">
-                <CalendarDays className="size-4 text-gold-300" />
+                <CalendarDays className="size-4 text-accent-300" />
                 {appt ? formatDateTime(appt.starts_at, settings.timezone) : booking.preferred_date ? `Requested for ${formatCalendarDate(booking.preferred_date)}` : "To be scheduled"}
               </p>
               {appt && (
@@ -133,7 +133,7 @@ export default async function OrderDetailPage({ params }: PageProps<"/dashboard/
               )}
               <p className="text-mist-400">{PROPERTY_TYPE_LABELS[p.property_type] ?? p.property_type} · {booking.occupancy ?? "—"}</p>
               {appt && (
-                <a href={`/api/booking/ics?id=${booking.id}&t=${booking.share_token}`} className="inline-block text-gold-200 hover:underline">
+                <a href={`/api/booking/ics?id=${booking.id}&t=${booking.share_token}`} className="inline-block text-accent-200 hover:underline">
                   Add to calendar
                 </a>
               )}
@@ -141,7 +141,7 @@ export default async function OrderDetailPage({ params }: PageProps<"/dashboard/
           </Card>
 
           <Card>
-            <CardHeader title="Invoice" action={invoice && <Link href={`/dashboard/invoices/${invoice.id}`} className="text-[13px] text-gold-200 hover:underline">View</Link>} />
+            <CardHeader title="Invoice" action={invoice && <Link href={`/dashboard/invoices/${invoice.id}`} className="text-[13px] text-accent-200 hover:underline">View</Link>} />
             <CardBody className="space-y-3 text-sm">
               <div className="flex justify-between text-mist-400">
                 <span>Paid</span>
@@ -185,7 +185,7 @@ export default async function OrderDetailPage({ params }: PageProps<"/dashboard/
             <ol className="space-y-4 border-l border-white/10 pl-5">
               {booking.events.map((e) => (
                 <li key={e.id} className="relative">
-                  <span className="absolute top-1.5 -left-[1.53rem] size-2.5 rounded-full border-2 border-ink-950 bg-gold-300" />
+                  <span className="absolute top-1.5 -left-[1.53rem] size-2.5 rounded-full border-2 border-ink-950 bg-accent-300" />
                   <p className="text-sm text-bone-100">{e.message}</p>
                   <p className="text-[12px] text-mist-500">{formatDateTime(e.created_at, settings.timezone)}</p>
                 </li>

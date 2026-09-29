@@ -22,6 +22,17 @@ Premium real estate media platform: marketing site, online booking with live pri
 
 ---
 
+
+## Agency site, brand & real work
+
+The public site is the **Jennings Media** agency site (`/`, `/work`, `/services`, `/about`, `/insights`, `/contact`); booking, dashboards and admin still run the real estate media business (`/pricing`, `/book`).
+
+- **Brand** — name, descriptor, emblem and Instagram live in `src/lib/brand.ts` (one place to rename).
+- **Real work** — `src/lib/content/work.ts` holds the real case studies, client names, the vertical reels wall and showreel clips. Copy describes what was made only; add metrics, results and client quotes in Admin → Work when you have them.
+- **Media** — web copies of our own footage/photos are in `public/media` (~60 MB, H.264, no audio except `film.mp4`). Originals stay on the Desktop. Before launch, consider moving video to a CDN (Mux, Cloudflare Stream or Supabase Storage) and pasting the URLs in Admin.
+- **Stats** — the homepage numbers are conservative real figures in `src/lib/content/defaults.ts` (`marketing`); edit them there or in Admin → Settings → Website.
+- **Demo content** — the fictional sample brands are kept for demos only and hidden unless `SHOW_SAMPLE_CONTENT=true`.
+
 ## Features
 
 **Public site** — cinematic homepage (Ken Burns hero, before/after edit slider, bento services grid, scroll-driven "how it works", filterable masonry portfolio with lightbox, testimonial marquees, FAQ), services + service detail pages, pricing with a live home-size slider, portfolio + project pages, about, contact, legal pages. SEO: metadata, canonical URLs, OpenGraph image, JSON-LD (`ProfessionalService`/LocalBusiness, `Service`, `FAQPage`, breadcrumbs), `sitemap.xml`, `robots.txt`.
@@ -116,7 +127,9 @@ See [`.env.example`](.env.example). Summary:
 | `GOOGLE_MAPS_API_KEY` | optional | More accurate geocoding for travel fees |
 | `NEXT_PUBLIC_GA4_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GOOGLE_ADS_ID`, `NEXT_PUBLIC_GOOGLE_ADS_BOOKING_LABEL` | optional | Or set in Admin → Settings |
 | `TWILIO_*` | optional | Enables SMS reminders |
-| `SHOW_SAMPLE_CONTENT` | optional | Show sample portfolio/testimonials in production |
+| `SHOW_SAMPLE_CONTENT` | optional | `true` shows the fictional demo case studies/testimonials/clients (off everywhere by default) |
+| `NEXT_PUBLIC_SHOWREEL_URL` | optional | Showreel film (YouTube/Vimeo link or .mp4); defaults to `/media/video/film.mp4` |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | optional | Public contact email shown on the agency site |
 
 Secrets never reach the browser: only `NEXT_PUBLIC_*` values are bundled, and all service-role / Stripe / Resend usage lives in `server-only` modules.
 

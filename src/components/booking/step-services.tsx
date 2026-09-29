@@ -50,7 +50,7 @@ export function StepServices({
               footer={perUnit && isSelected && !inPackage ? <Stepper value={qty} max={s.max_quantity ?? 20} onChange={(v) => onQuantity(s.id, v)} label={`${s.name} quantity`} /> : undefined}
             >
               <div className="flex items-start gap-3.5 pr-7">
-                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white/[0.05] text-gold-200">
+                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white/[0.05] text-accent-200">
                   <ServiceIcon name={s.icon} className="size-5" />
                 </span>
                 <span className="min-w-0">
@@ -60,7 +60,7 @@ export function StepServices({
               </div>
               <span className="mt-4 block text-[15px] font-medium text-bone-100">
                 {inPackage ? (
-                  <span className="text-gold-200">Included in {pkg?.name}</span>
+                  <span className="text-accent-200">Included in {pkg?.name}</span>
                 ) : (
                   <>
                     {formatMoney(servicePrice(s, sqft) * (perUnit && isSelected ? qty : 1))}

@@ -7,7 +7,7 @@ import { formatMoney } from "@/lib/utils";
 import { PageHero } from "@/components/marketing/page-hero";
 import { PackageCards } from "@/components/marketing/package-cards";
 import { Faq } from "@/components/marketing/faq";
-import { FinalCta } from "@/components/marketing/final-cta";
+import { FinalCta } from "@/components/agency/final-cta";
 import { Accent, SectionHeading } from "@/components/ui/misc";
 import { ServiceIcon } from "@/components/ui/icon";
 import { buttonStyles } from "@/components/ui/button";
@@ -17,7 +17,7 @@ import { FAQS } from "@/lib/content/site";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Pricing — Real Estate Photography Packages",
+  title: "Real Estate Media Pricing",
   description: "Transparent real estate media pricing. Essential, Pro and Signature packages that scale with home size, plus à-la-carte services and add-ons.",
   alternates: { canonical: "/pricing" },
 };
@@ -35,7 +35,7 @@ export default async function PricingPage() {
     <>
       <JsonLd data={faqSchema(PRICING_FAQ)} />
       <PageHero
-        eyebrow="Pricing"
+        eyebrow="Real estate media"
         title={
           <>
             Pricing that&rsquo;s as <Accent>clear</Accent> as our photos.
@@ -61,11 +61,11 @@ export default async function PricingPage() {
             return (
               <div key={s.id} className="grid gap-3 border-b border-white/[0.05] px-6 py-5 last:border-0 md:grid-cols-12 md:items-center md:gap-4 md:px-7">
                 <div className="flex items-center gap-3.5 md:col-span-5">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-white/[0.05] text-gold-200">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-white/[0.05] text-accent-200">
                     <ServiceIcon name={s.icon} className="size-4.5" />
                   </span>
                   <div>
-                    <Link href={`/services/${s.slug}`} className="font-medium text-bone-50 hover:text-gold-100">
+                    <Link href={`/services/${s.slug}`} className="font-medium text-bone-50 hover:text-accent-100">
                       {s.name}
                     </Link>
                     <p className="line-clamp-1 text-[13px] text-mist-500">{s.tagline}</p>
@@ -97,7 +97,7 @@ export default async function PricingPage() {
           {catalog.addOns.map((a) => (
             <div key={a.id} className="surface rounded-[22px] p-5">
               <div className="flex items-center justify-between">
-                <span className="grid size-9 place-items-center rounded-xl bg-white/[0.05] text-gold-200">
+                <span className="grid size-9 place-items-center rounded-xl bg-white/[0.05] text-accent-200">
                   <ServiceIcon name={a.icon} className="size-4" />
                 </span>
                 <span className="text-[15px] font-medium">
@@ -113,7 +113,7 @@ export default async function PricingPage() {
             </div>
           ))}
           <div className="surface rounded-[22px] p-5">
-            <span className="grid size-9 place-items-center rounded-xl bg-white/[0.05] text-gold-200">
+            <span className="grid size-9 place-items-center rounded-xl bg-white/[0.05] text-accent-200">
               <MapPin className="size-4" />
             </span>
             <p className="mt-4 font-medium text-bone-50">Travel fee</p>
@@ -147,7 +147,7 @@ export default async function PricingPage() {
           <Faq items={PRICING_FAQ} />
         </div>
       </section>
-      <FinalCta />
+      <FinalCta title="Ready to book your shoot?" kicker="Two minutes, online." />
     </>
   );
 }

@@ -32,7 +32,7 @@ export default async function CalendarPage({ searchParams }: PageProps<"/admin/c
     end: a.ends_at,
     title: a.booking.property.address_line1,
     subtitle: `${a.booking.order_number} · ${a.photographer?.name ?? "Unassigned"}`,
-    color: a.photographer?.color ?? "#e6c998",
+    color: a.photographer?.color ?? "#ff5b24",
     held: a.status === "held",
     done: a.status === "completed",
   }));

@@ -43,7 +43,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                   "mt-0.5 size-5 shrink-0",
                   item.tone === "success" && "text-emerald-300",
                   item.tone === "error" && "text-red-300",
-                  item.tone === "info" && "text-gold-300"
+                  item.tone === "info" && "text-accent-300"
                 )}
               />
               <div className="min-w-0">

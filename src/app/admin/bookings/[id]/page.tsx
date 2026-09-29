@@ -62,7 +62,7 @@ export default async function AdminBookingPage({ params }: PageProps<"/admin/boo
       <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-sm text-gold-200">{b.order_number}</span>
+            <span className="font-mono text-sm text-accent-200">{b.order_number}</span>
             <StatusBadge status={b.status} />
             <PaymentBadge status={b.payment_status} />
             <span className="text-[12px] text-mist-500">via {b.source} · {formatDateTime(b.created_at, tz)}</span>
@@ -133,7 +133,7 @@ export default async function AdminBookingPage({ params }: PageProps<"/admin/boo
               <ol className="space-y-3 border-l border-white/10 pl-5">
                 {events.map((e) => (
                   <li key={e.id} className="relative">
-                    <span className={`absolute top-1.5 -left-[1.53rem] size-2.5 rounded-full border-2 border-ink-950 ${e.visibility === "internal" ? "bg-mist-500" : "bg-gold-300"}`} />
+                    <span className={`absolute top-1.5 -left-[1.53rem] size-2.5 rounded-full border-2 border-ink-950 ${e.visibility === "internal" ? "bg-mist-500" : "bg-accent-300"}`} />
                     <p className="text-sm">
                       {e.message}
                       {e.visibility === "internal" && <span className="ml-2 text-[11px] text-mist-500">internal</span>}
@@ -148,7 +148,7 @@ export default async function AdminBookingPage({ params }: PageProps<"/admin/boo
 
         <div className="space-y-6">
           <Card>
-            <CardHeader title="Customer" action={<Link href={`/admin/customers/${b.customer.id}`} className="text-[13px] text-gold-200 hover:underline">Profile</Link>} />
+            <CardHeader title="Customer" action={<Link href={`/admin/customers/${b.customer.id}`} className="text-[13px] text-accent-200 hover:underline">Profile</Link>} />
             <CardBody className="space-y-2 text-sm">
               <p className="text-base font-medium">
                 {b.customer.first_name} {b.customer.last_name}
@@ -172,14 +172,14 @@ export default async function AdminBookingPage({ params }: PageProps<"/admin/boo
               <p>{b.occupancy ?? "—"} · {b.listing_status?.replace("_", " ") ?? "—"} {b.property.mls_number && `· MLS ${b.property.mls_number}`}</p>
               {b.access_instructions && <p className="rounded-xl bg-amber-400/10 p-3 text-amber-100">🔑 {b.access_instructions}</p>}
               {b.special_instructions && <p className="rounded-xl bg-white/[0.04] p-3">{b.special_instructions}</p>}
-              <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress(b.property))}`} target="_blank" rel="noreferrer" className="inline-block text-gold-200 hover:underline">
+              <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress(b.property))}`} target="_blank" rel="noreferrer" className="inline-block text-accent-200 hover:underline">
                 Open in Maps
               </a>
             </CardBody>
           </Card>
 
           <Card>
-            <CardHeader title="Payments" description={`Paid ${formatMoney(b.amount_paid_cents, "usd", { exact: true })} · due ${formatMoney(Math.max(0, due), "usd", { exact: true })}`} action={invoice && <Link href={`/admin/invoices/${invoice.id}`} className="text-[13px] text-gold-200 hover:underline">{invoice.invoice_number}</Link>} />
+            <CardHeader title="Payments" description={`Paid ${formatMoney(b.amount_paid_cents, "usd", { exact: true })} · due ${formatMoney(Math.max(0, due), "usd", { exact: true })}`} action={invoice && <Link href={`/admin/invoices/${invoice.id}`} className="text-[13px] text-accent-200 hover:underline">{invoice.invoice_number}</Link>} />
             <CardBody>
               <PaymentsControl bookingId={b.id} dueCents={due} stripeEnabled={features.stripe} payments={[...b.payments].filter((p) => p.status !== "pending" && p.status !== "cancelled").sort((x, y) => y.created_at.localeCompare(x.created_at))} />
             </CardBody>
@@ -188,8 +188,8 @@ export default async function AdminBookingPage({ params }: PageProps<"/admin/boo
           <Card>
             <CardHeader title="Links" />
             <CardBody className="space-y-2 text-sm">
-              <Link href={`/p/${b.share_token}`} target="_blank" className="block text-gold-200 hover:underline">Property website</Link>
-              <Link href={`/book/confirmation?id=${b.id}&t=${b.share_token}`} target="_blank" className="block text-gold-200 hover:underline">Customer confirmation page</Link>
+              <Link href={`/p/${b.share_token}`} target="_blank" className="block text-accent-200 hover:underline">Property website</Link>
+              <Link href={`/book/confirmation?id=${b.id}&t=${b.share_token}`} target="_blank" className="block text-accent-200 hover:underline">Customer confirmation page</Link>
             </CardBody>
           </Card>
         </div>

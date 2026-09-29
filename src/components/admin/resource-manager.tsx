@@ -96,7 +96,7 @@ function Cell({ row, col }: { row: Row; col: ColumnDef }) {
         <span className="text-mist-600">—</span>
       );
     case "badge":
-      return <Badge tone="gold">{String(v ?? "—").replace(/_/g, " ")}</Badge>;
+      return <Badge tone="accent">{String(v ?? "—").replace(/_/g, " ")}</Badge>;
     case "list":
       return <span className="text-mist-400">{Array.isArray(v) ? v.slice(0, 4).join(", ") : "—"}</span>;
     case "count":
@@ -299,7 +299,7 @@ export function ResourceManager({
                         {f.options?.map((o) => {
                           const selected = (v as string[]).includes(o.value);
                           return (
-                            <button key={o.value} type="button" onClick={() => set(f.name, selected ? (v as string[]).filter((x) => x !== o.value) : [...(v as string[]), o.value])} className={cn("rounded-full border px-3 py-1.5 text-[12.5px] transition", selected ? "border-gold-300 bg-gold-300/15 text-gold-100" : "border-white/10 text-mist-400 hover:text-bone-50")}>
+                            <button key={o.value} type="button" onClick={() => set(f.name, selected ? (v as string[]).filter((x) => x !== o.value) : [...(v as string[]), o.value])} className={cn("rounded-full border px-3 py-1.5 text-[12.5px] transition", selected ? "border-accent-300 bg-accent-300/15 text-accent-100" : "border-white/10 text-mist-400 hover:text-bone-50")}>
                               {o.label}
                             </button>
                           );
@@ -349,7 +349,7 @@ export function ResourceManager({
             );
           })}
           {fields.some((f) => f.name === "media_urls") && (
-            <label className="inline-flex cursor-pointer items-center gap-2 text-sm text-gold-200 sm:col-span-2">
+            <label className="inline-flex cursor-pointer items-center gap-2 text-sm text-accent-200 sm:col-span-2">
               <Upload className="size-4" /> {uploading === "media_urls[]" ? "Uploading…" : "Upload a gallery image"}
               <input type="file" accept="image/*" className="sr-only" onChange={(e) => e.target.files?.[0] && upload("media_urls[]", e.target.files[0])} />
             </label>

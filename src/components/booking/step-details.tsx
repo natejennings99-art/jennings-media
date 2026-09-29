@@ -29,7 +29,7 @@ export function StepDetails({
           ) : (
             <>
               We&rsquo;ll send your confirmation and delivery links here.{" "}
-              <Link href="/login?next=/book%3Fresume%3D1" className="text-gold-200 underline-offset-4 hover:underline">
+              <Link href="/login?next=/book%3Fresume%3D1" className="text-accent-200 underline-offset-4 hover:underline">
                 Have an account? Sign in
               </Link>
             </>

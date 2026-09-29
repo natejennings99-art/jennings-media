@@ -69,7 +69,7 @@ export default async function AdminPricingPage() {
       </div>
       <p className="text-sm text-mist-500">
         Travel fees are configured per zone in{" "}
-        <Link href="/admin/settings?tab=areas" className="text-gold-200 hover:underline">
+        <Link href="/admin/settings?tab=areas" className="text-accent-200 hover:underline">
           Settings → Service areas
         </Link>
         .

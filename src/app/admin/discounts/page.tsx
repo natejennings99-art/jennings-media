@@ -68,7 +68,7 @@ export default async function DiscountsPage() {
           <p className="mt-1 text-xl">
             {rewarded.length} · {formatMoney(rewarded.reduce((s, r) => s + r.reward_cents, 0))}
           </p>
-          <Link href="/admin/settings?tab=referrals" className="text-[13px] text-gold-200 hover:underline">
+          <Link href="/admin/settings?tab=referrals" className="text-[13px] text-accent-200 hover:underline">
             Configure
           </Link>
         </div>

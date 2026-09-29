@@ -17,7 +17,7 @@ export function RevenueChart({ data }: { data: { month: string; revenue_cents: n
           const last = i === data.length - 1;
           return (
             <g key={d.month}>
-              <rect x={x} y={H - h} width={bar} height={h} rx={8} className={last ? "fill-gold-300" : "fill-white/15"} />
+              <rect x={x} y={H - h} width={bar} height={h} rx={8} className={last ? "fill-accent-300" : "fill-white/15"} />
               <text x={x + bar / 2} y={H - h - 8} textAnchor="middle" className="fill-mist-300 text-[13px] tabular-nums">
                 {d.revenue_cents ? formatMoney(d.revenue_cents) : ""}
               </text>

@@ -85,7 +85,7 @@ export default async function SettingsPage({ searchParams }: PageProps<"/admin/s
     body = <ResourceManager resource="service_areas" title="Service area" rows={data ?? []} columns={areaColumns} fields={areaFields} defaults={{ kind: "additional", cities: [], postal_codes: [], travel_fee_cents: 0, per_mile_cents: 0, free_miles: 0, priority: 100, is_active: true, state: settings.state }} />;
   } else if (current === "team") {
     const { data } = await supabase.from("photographers").select("*").order("name");
-    body = <ResourceManager resource="photographers" title="Team member" rows={data ?? []} columns={teamColumns} fields={teamFields} defaults={{ color: "#d9b98c", skills: [], is_active: true }} />;
+    body = <ResourceManager resource="photographers" title="Team member" rows={data ?? []} columns={teamColumns} fields={teamFields} defaults={{ color: "#ff5b24", skills: [], is_active: true }} />;
   } else if (current === "blocked") {
     const [{ data }, { data: crew }] = await Promise.all([supabase.from("schedule_blocks").select("*, photographer:photographers(name)").order("starts_at", { ascending: false }), supabase.from("photographers").select("id, name")]);
     const rows = (data ?? []).map((b) => ({ ...b, who: (b.photographer as { name: string } | null)?.name ?? "Whole business" }));

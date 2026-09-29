@@ -11,13 +11,13 @@ import type {
   AddOn,
   BusinessSettings,
   Package,
-  PortfolioProject,
   PriceTier,
   Service,
   ServiceArea,
-  Testimonial,
 } from "@/lib/types";
 import { IMAGES } from "./images";
+import { BRAND } from "@/lib/brand";
+import { HERO_VIDEO, SHOWREEL_FILM } from "./work";
 
 const $ = (dollars: number) => Math.round(dollars * 100);
 const tiers = (...pairs: [number | null, number][]): PriceTier[] =>
@@ -27,10 +27,10 @@ const tiers = (...pairs: [number | null, number][]): PriceTier[] =>
  * Business settings
  * -------------------------------------------------------------------------- */
 export const DEFAULT_SETTINGS: BusinessSettings = {
-  business_name: "Jennings Media",
+  business_name: BRAND.name,
   legal_name: null,
-  tagline: "Real estate media that sells the property.",
-  email: "hello@jenningsmedia.com",
+  tagline: BRAND.tagline,
+  email: null,
   phone: null,
   address_line1: null,
   address_line2: null,
@@ -86,14 +86,25 @@ export const DEFAULT_SETTINGS: BusinessSettings = {
     reply_to: "",
   },
   analytics: { ga4_id: "", meta_pixel_id: "", google_ads_id: "", google_ads_booking_label: "" },
-  social_links: { instagram: "", facebook: "", youtube: "", tiktok: "", linkedin: "" },
+  social_links: { instagram: BRAND.instagram, facebook: "", youtube: "", tiktok: "", linkedin: "" },
   service_area_policy: {
     outside_area_policy: "quote",
     outside_area_fee_cents: $(75),
     road_distance_factor: 1.25,
   },
-  hero_video_url: null,
+  hero_video_url: HERO_VIDEO,
   hero_image_url: null,
+  marketing: {
+    // Real, conservative numbers from our own shoots and feed — update in Admin → Settings → Website.
+    stats: [
+      { prefix: "", value: 50, suffix: "+", label: "Properties filmed & photographed" },
+      { prefix: "", value: 8.5, suffix: "K", label: "Followers on our own feed", decimals: 1 },
+      { prefix: "", value: 4, suffix: "K", label: "Capture on every shoot" },
+    ],
+    stats_are_sample: false,
+    trust_line: "Trusted by agents, brokerages & local brands",
+    showreel_url: SHOWREEL_FILM,
+  },
 };
 
 /* ----------------------------------------------------------------------------
@@ -562,146 +573,6 @@ export const DEFAULT_SERVICE_AREAS: ServiceArea[] = [
     is_active: true,
     notes: "$35 + $1.50/mile beyond 25 miles.",
   },
-];
-
-/* ----------------------------------------------------------------------------
- * Sample portfolio & testimonials — flagged is_sample, hidden in production
- * unless SHOW_SAMPLE_CONTENT=true. Replace with real work before launch.
- * -------------------------------------------------------------------------- */
-const PID = (n: number) => `90000000-0000-4000-8000-${String(n).padStart(12, "0")}`;
-let mediaSeq = 0;
-const photo = (url: string, alt: string, kind: "photo" | "drone" | "video" = "photo") => ({
-  id: `91000000-0000-4000-8000-${String(++mediaSeq).padStart(12, "0")}`,
-  kind,
-  url,
-  poster_url: null,
-  alt,
-  caption: null,
-  width: null,
-  height: null,
-  sort_order: mediaSeq,
-});
-
-type ProjectSeed = Omit<PortfolioProject, "is_published" | "is_sample" | "video_url" | "tour_url" | "shot_on" | "state" | "city"> &
-  Partial<Pick<PortfolioProject, "video_url" | "tour_url">>;
-const project = (p: ProjectSeed): PortfolioProject => ({
-  video_url: null,
-  tour_url: null,
-  shot_on: null,
-  city: null,
-  state: null,
-  ...p,
-  is_published: true,
-  is_sample: true,
-});
-
-export const SAMPLE_PORTFOLIO: PortfolioProject[] = [
-  project({
-    id: PID(1), slug: "bayfront-modern", title: "Bayfront Modern", neighborhood: "Waterfront", property_type: "Luxury single-family",
-    categories: ["photography", "twilight", "luxury", "residential"],
-    description: "A glass-walled waterfront home captured at dusk to show off its pool terrace and open-plan interiors.",
-    services_performed: ["Photography", "Twilight Photography", "Drone Photography"],
-    cover_image_url: IMAGES.heroDusk, is_featured: true, sort_order: 10,
-    media: [photo(IMAGES.heroDusk, "Waterfront modern home at dusk"), photo(IMAGES.livingBright, "Open-plan living room"), photo(IMAGES.kitchenModern, "Chef's kitchen"), photo(IMAGES.bedroomSuite, "Primary suite"), photo(IMAGES.bathMarble, "Spa bathroom")],
-  }),
-  project({
-    id: PID(2), slug: "palm-ridge-estate", title: "Palm Ridge Estate", neighborhood: "Golf community", property_type: "Estate",
-    categories: ["luxury", "drone", "video", "residential"],
-    description: "Aerial reveals and a cinematic walkthrough for a resort-style estate with a pool pavilion.",
-    services_performed: ["Cinematic Video", "Drone Video", "Photography"],
-    cover_image_url: IMAGES.heroVilla, is_featured: true, sort_order: 20,
-    media: [photo(IMAGES.heroVilla, "Estate pool pavilion"), photo(IMAGES.villaPool, "Pool terrace"), photo(IMAGES.villaCourtyard, "Courtyard"), photo(IMAGES.aerialSuburb, "Aerial context", "drone"), photo(IMAGES.livingModern, "Great room")],
-  }),
-  project({
-    id: PID(3), slug: "island-twilight", title: "Island Twilight", neighborhood: "Island district", property_type: "Single-family",
-    categories: ["twilight", "photography", "luxury"],
-    description: "A golden-hour session timed to the minute for a glowing exterior and warm interiors.",
-    services_performed: ["Twilight Photography", "Virtual Twilight"],
-    cover_image_url: IMAGES.villaTwilight, is_featured: true, sort_order: 30,
-    media: [photo(IMAGES.villaTwilight, "Home at twilight"), photo(IMAGES.houseNight, "Front elevation at night"), photo(IMAGES.poolNight, "Pool terrace")],
-  }),
-  project({
-    id: PID(4), slug: "harbor-view-residence", title: "Harbor View Residence", neighborhood: "Downtown", property_type: "Condo",
-    categories: ["photography", "residential"],
-    description: "Bright, airy condo photography that makes a 1,400 sq ft floor plan feel expansive.",
-    services_performed: ["Photography", "Floor Plan", "Matterport 3D Tour"],
-    cover_image_url: IMAGES.livingApartment, is_featured: false, sort_order: 40,
-    media: [photo(IMAGES.livingApartment, "Condo living room"), photo(IMAGES.kitchenOpen, "Open kitchen"), photo(IMAGES.bedroomCalm, "Bedroom")],
-  }),
-  project({
-    id: PID(5), slug: "coastal-aerial-series", title: "Coastal Aerial Series", neighborhood: "Gulf coast", property_type: "Land & lots",
-    categories: ["drone", "residential"],
-    description: "High-altitude drone stills showing water access, lot lines and neighborhood amenities.",
-    services_performed: ["Drone Photography", "Drone Video"],
-    cover_image_url: IMAGES.aerialSuburb, is_featured: true, sort_order: 50,
-    media: [photo(IMAGES.aerialSuburb, "Neighborhood from above", "drone"), photo(IMAGES.aerialCoast, "Skyline aerial", "drone")],
-  }),
-  project({
-    id: PID(6), slug: "midtown-office-suites", title: "Midtown Office Suites", neighborhood: "Business district", property_type: "Commercial office",
-    categories: ["commercial", "photography"],
-    description: "Leasing photography for a boutique office building — lobby, suites and amenity spaces.",
-    services_performed: ["Photography", "Matterport 3D Tour"],
-    cover_image_url: IMAGES.officeInterior, is_featured: false, sort_order: 60,
-    media: [photo(IMAGES.officeInterior, "Office interior"), photo(IMAGES.officeOpen, "Open workspace"), photo(IMAGES.officeTower, "Building exterior")],
-  }),
-  project({
-    id: PID(7), slug: "lakeside-contemporary", title: "Lakeside Contemporary", neighborhood: "Lakefront", property_type: "Single-family",
-    categories: ["video", "photography", "luxury", "residential"],
-    description: "A cinematic listing film paired with a vertical reel built for social reach.",
-    services_performed: ["Cinematic Video", "Social Media Reel", "Photography"],
-    cover_image_url: IMAGES.exteriorModern, is_featured: true, sort_order: 70,
-    media: [photo(IMAGES.exteriorModern, "Contemporary exterior"), photo(IMAGES.kitchenChef, "Kitchen island"), photo(IMAGES.bathSpa, "Spa bath")],
-  }),
-  project({
-    id: PID(8), slug: "oak-street-bungalow", title: "Oak Street Bungalow", neighborhood: "Historic district", property_type: "Single-family",
-    categories: ["photography", "residential"],
-    description: "Warm, true-to-life photos for a restored craftsman bungalow.",
-    services_performed: ["Photography", "Floor Plan"],
-    cover_image_url: IMAGES.exteriorClassic, is_featured: false, sort_order: 80,
-    media: [photo(IMAGES.exteriorClassic, "Craftsman exterior"), photo(IMAGES.livingCozy, "Living room"), photo(IMAGES.bedroomClassic, "Bedroom")],
-  }),
-  project({
-    id: PID(9), slug: "garden-townhome", title: "Garden Townhome", neighborhood: "Midtown", property_type: "Townhome",
-    categories: ["photography", "residential"],
-    description: "A three-level townhome shot for flow — every room in the order a buyer walks it.",
-    services_performed: ["Photography", "Property Website"],
-    cover_image_url: IMAGES.exteriorSuburban, is_featured: false, sort_order: 90,
-    media: [photo(IMAGES.exteriorSuburban, "Townhome exterior"), photo(IMAGES.kitchenWhite, "White kitchen"), photo(IMAGES.bathModern, "Modern bath")],
-  }),
-  project({
-    id: PID(10), slug: "downtown-loft", title: "Downtown Loft", neighborhood: "Warehouse district", property_type: "Loft",
-    categories: ["video", "residential"],
-    description: "Moody, textured interiors and a 45-second reel for a converted warehouse loft.",
-    services_performed: ["Social Media Reel", "Photography"],
-    cover_image_url: IMAGES.livingLoft, is_featured: false, sort_order: 100,
-    media: [photo(IMAGES.livingLoft, "Loft living space"), photo(IMAGES.livingDining, "Dining area"), photo(IMAGES.kitchenOpen, "Loft kitchen")],
-  }),
-  project({
-    id: PID(11), slug: "retail-plaza", title: "Retail Plaza", neighborhood: "Commercial corridor", property_type: "Retail",
-    categories: ["commercial", "drone"],
-    description: "Aerial and ground photography for a neighborhood retail center's leasing brochure.",
-    services_performed: ["Drone Photography", "Photography", "Marketing Kit"],
-    cover_image_url: IMAGES.officeTower, is_featured: false, sort_order: 110,
-    media: [photo(IMAGES.officeTower, "Retail building"), photo(IMAGES.aerialCoast, "Aerial of the district", "drone")],
-  }),
-  project({
-    id: PID(12), slug: "palm-court-residence", title: "Palm Court Residence", neighborhood: "Coastal", property_type: "Single-family",
-    categories: ["photography", "drone", "residential"],
-    description: "A bright coastal home photographed from the ground and the air, with virtual twilight for the hero shot.",
-    services_performed: ["Photography", "Drone Photography", "Virtual Twilight"],
-    cover_image_url: IMAGES.exteriorPalms, is_featured: false, sort_order: 120,
-    media: [photo(IMAGES.exteriorPalms, "Front elevation with palms"), photo(IMAGES.exteriorWhite, "Pool courtyard"), photo(IMAGES.livingArched, "Living room"), photo(IMAGES.aerialSuburb, "Aerial view", "drone")],
-  }),
-];
-
-const TID = (n: number) => `7e000000-0000-4000-8000-${String(n).padStart(12, "0")}`;
-export const SAMPLE_TESTIMONIALS: Testimonial[] = [
-  { id: TID(1), author_name: "Alexis M.", author_title: "Listing Agent", company: null, quote: "Booked at 10 PM, shot the next morning, photos in my inbox before my first coffee the day after. The listing had 14 showings the first weekend.", rating: 5, avatar_url: null, is_featured: true, is_published: true, is_sample: true, sort_order: 10 },
-  { id: TID(2), author_name: "Jordan T.", author_title: "Broker Associate", company: null, quote: "The twilight shots made our listing the first thing people saw on the portal. Clients ask who our photographer is every single time.", rating: 5, avatar_url: null, is_featured: true, is_published: true, is_sample: true, sort_order: 20 },
-  { id: TID(3), author_name: "Priya S.", author_title: "Property Manager", company: null, quote: "We run 40+ rentals. One dashboard for every property, invoices in one place, media I can download in one click. It just works.", rating: 5, avatar_url: null, is_featured: true, is_published: true, is_sample: true, sort_order: 30 },
-  { id: TID(4), author_name: "Marcus L.", author_title: "Real Estate Investor", company: null, quote: "The cinematic video and reel did more for our flip than any open house. Professional, on time, zero back-and-forth.", rating: 5, avatar_url: null, is_featured: true, is_published: true, is_sample: true, sort_order: 40 },
-  { id: TID(5), author_name: "Dana R.", author_title: "Short-term Rental Host", company: null, quote: "Our booking rate jumped after the new photos went live. The drone shots of the beach access sold the place for us.", rating: 5, avatar_url: null, is_featured: true, is_published: true, is_sample: true, sort_order: 50 },
-  { id: TID(6), author_name: "Chris W.", author_title: "Team Lead", company: null, quote: "Our whole team books through the site now. Consistent quality on every listing means our brand finally looks as good as our service.", rating: 5, avatar_url: null, is_featured: true, is_published: true, is_sample: true, sort_order: 60 },
 ];
 
 export const DEFAULT_IDS = { services: SID };

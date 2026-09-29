@@ -51,11 +51,11 @@ function layout(brand: Brand, preheader: string, body: string) {
 <tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:20px;overflow:hidden;border:1px solid #e6e1d7;">
 <tr><td style="background:#0b0c0f;padding:26px 36px;">
-<span style="font-size:19px;font-weight:600;letter-spacing:-0.4px;color:#f7f4ee;">Jennings</span><span style="font-size:20px;font-style:italic;font-family:Georgia,serif;color:#e6c998;"> Media</span>
+<span style="font-size:18px;font-weight:800;letter-spacing:-0.5px;text-transform:uppercase;color:#f7f4ee;">${esc(brand.name)}</span><span style="font-size:18px;font-weight:800;color:#ff5b24;">.</span>
 </td></tr>
 <tr><td style="padding:36px 36px 12px;font-size:15px;line-height:1.6;color:#2a2d31;">${body}</td></tr>
 <tr><td style="padding:12px 36px 32px;font-size:12.5px;line-height:1.6;color:#8a857c;border-top:1px solid #efebe3;">
-${esc(brand.name)}${contact ? ` · ${contact}` : ""}<br><a href="${esc(brand.siteUrl)}" style="color:#9c743c;text-decoration:none;">${esc(brand.siteUrl.replace(/^https?:\/\//, ""))}</a>
+${esc(brand.name)}${contact ? ` · ${contact}` : ""}<br><a href="${esc(brand.siteUrl)}" style="color:#d43d0a;text-decoration:none;">${esc(brand.siteUrl.replace(/^https?:\/\//, ""))}</a>
 </td></tr></table></td></tr></table></body></html>`;
 }
 
@@ -159,7 +159,7 @@ export function mediaReady(d: BookingEmailData & { balanceDue: boolean }): Email
       "Download your finished media now.",
       `${h1("Your media is ready")}${p(
         `Every photo, video and file for <strong>${esc(d.address)}</strong> is now in your dashboard — ready to download, share and upload to the MLS.`
-      )}${d.balanceDue ? p(`<span style="color:#9c743c;">A balance of <strong>${esc(d.due)}</strong> is due — you can pay securely from the same page.</span>`) : ""}${button(d.dashboardUrl, "Download your media")}`
+      )}${d.balanceDue ? p(`<span style="color:#d43d0a;">A balance of <strong>${esc(d.due)}</strong> is due — you can pay securely from the same page.</span>`) : ""}${button(d.dashboardUrl, "Download your media")}`
     ),
     text: text("Your media is ready!", d.address, d.balanceDue && `Balance due: ${d.due}`, `Download: ${d.dashboardUrl}`),
   };

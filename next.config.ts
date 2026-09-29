@@ -36,6 +36,13 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    return [
+      { source: "/portfolio", destination: "/work", permanent: true },
+      { source: "/portfolio/:slug", destination: "/work", permanent: true },
+      { source: "/services/:slug", destination: "/services", permanent: true },
+    ];
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
