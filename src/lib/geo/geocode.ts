@@ -63,9 +63,22 @@ async function geocodeCensus(address: string): Promise<GeocodeResult | null> {
   };
 }
 
+const cache = new Map<string, { at: number; value: GeocodeResult | null }>();
+const CACHE_MS = 6 * 60 * 60 * 1000;
+
 /** Best-effort geocoding. Never throws; returns null when the address can't be resolved. */
 export async function geocodeAddress(input: AddressInput): Promise<GeocodeResult | null> {
   const address = `${input.line1}, ${input.city}, ${input.state} ${input.postalCode}`;
+  const key = address.toLowerCase().replace(/\s+/g, " ").trim();
+  const hit = cache.get(key);
+  if (hit && Date.now() - hit.at < CACHE_MS) return hit.value;
+  const value = await lookup(address);
+  cache.set(key, { at: Date.now(), value });
+  if (cache.size > 2000) cache.delete(cache.keys().next().value as string);
+  return value;
+}
+
+async function lookup(address: string): Promise<GeocodeResult | null> {
   try {
     const key = serverEnv.googleMapsApiKey;
     if (key) {
