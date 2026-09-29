@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getClients, getMarketing, getPortfolio, getSettings, getTestimonials } from "@/lib/data/public";
 import { AGENCY_SERVICES } from "@/lib/content/agency";
 import { FRAMES, REEL_CLIPS, REELS } from "@/lib/content/work";
@@ -20,6 +21,8 @@ import { SplitReveal } from "@/components/experience/split-reveal";
 import { JsonLd, organizationSchema } from "@/components/seo/json-ld";
 
 export const revalidate = 300;
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default async function HomePage() {
   const [projects, testimonials, clients, marketing, settings] = await Promise.all([getPortfolio(), getTestimonials(), getClients(), getMarketing(), getSettings()]);

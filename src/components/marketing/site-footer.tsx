@@ -54,7 +54,8 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
           </div>
           <div className="col-span-2 sm:col-span-1">
             <p className="label mb-5 text-mist-500">Studio</p>
-            <p className="text-[15px] text-mist-300">{BRAND.location}</p>
+            <Link href="/locations/washington-dc" className="block text-[15px] text-mist-300 hover:text-bone-50">Washington, DC</Link>
+            <Link href="/locations/tampa" className="block text-[15px] text-mist-300 hover:text-bone-50">Tampa, FL</Link>
             <p className="text-[15px] text-mist-500">{BRAND.locationNote}</p>
             <p className="label mt-8 mb-4 text-mist-500">Media production</p>
             <Link href="/pricing" className="group inline-flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">

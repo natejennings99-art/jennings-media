@@ -40,7 +40,6 @@ const nextConfig: NextConfig = {
     return [
       { source: "/portfolio", destination: "/work", permanent: true },
       { source: "/portfolio/:slug", destination: "/work", permanent: true },
-      { source: "/services/:slug", destination: "/services", permanent: true },
     ];
   },
   images: {

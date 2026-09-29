@@ -11,7 +11,7 @@ import { Parallax, ClipReveal } from "@/components/experience/parallax";
 import { TransitionLink } from "@/components/experience/transition";
 import { SectionLabel } from "@/components/agency/section-label";
 import { FinalCta } from "@/components/agency/final-cta";
-import { JsonLd, breadcrumbSchema, caseStudySchema } from "@/components/seo/json-ld";
+import { JsonLd, breadcrumbSchema, caseStudySchema, videoSchema } from "@/components/seo/json-ld";
 
 export const revalidate = 300;
 
@@ -58,7 +58,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
 
   return (
     <article>
-      <JsonLd data={[caseStudySchema(p), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }, { name: p.title, path: `/work/${p.slug}` }])]} />
+      <JsonLd data={[caseStudySchema(p), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }, { name: p.title, path: `/work/${p.slug}` }]), videoSchema(p)].filter((x) => x !== null)} />
       <header className="gutter pt-36 sm:pt-48">
         <SectionLabel className="mb-8 animate-fade-in">Case study — {p.client_name ?? p.title}</SectionLabel>
         <SplitReveal as="h1" immediate className="max-w-[18ch] font-display text-[clamp(2.75rem,8vw,8.5rem)] text-bone-50">

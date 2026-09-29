@@ -17,7 +17,7 @@ import { FAQS } from "@/lib/content/site";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Real Estate Media Pricing",
+  title: "Real Estate Photography & Video Pricing",
   description: "Transparent real estate media pricing. Essential, Pro and Signature packages that scale with home size, plus à-la-carte services and add-ons.",
   alternates: { canonical: "/pricing" },
 };

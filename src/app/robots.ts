@@ -3,7 +3,7 @@ import { env } from "@/lib/env";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: "*", allow: "/", disallow: ["/admin", "/dashboard", "/api/", "/auth/", "/book/confirmation", "/p/"] }],
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/admin", "/dashboard", "/api/", "/auth/", "/book/confirmation", "/p/", "/login", "/pay"] }],
     sitemap: `${env.siteUrl}/sitemap.xml`,
     host: env.siteUrl,
   };

@@ -8,7 +8,7 @@ import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 import { formatPhone } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Start a Project",
+  title: "Contact Us: Start a Project",
   description: `Tell us what you're building. ${BRAND.name} replies to every project inquiry within one business day.`,
   alternates: { canonical: "/contact" },
 };

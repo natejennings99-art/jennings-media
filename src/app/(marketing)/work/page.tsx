@@ -9,8 +9,8 @@ import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Work — Case Studies",
-  description: "Brand, paid media, social, creative and web case studies — the campaigns and results behind the work.",
+  title: "Our Work: Brand Films, Ads & Content",
+  description: "Case studies from Jennings Media: brand films, social campaigns, listing launches and event content for brands in DC, Virginia, Maryland and Tampa.",
   alternates: { canonical: "/work" },
 };
 

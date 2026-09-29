@@ -14,8 +14,8 @@ import { IMAGES } from "@/lib/content/images";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Services — Brand, Paid Media, Social, Content, Web, SEO & AI",
-  description: "Brand strategy, paid media, social media, content production, web design, SEO, AI automation and growth strategy — one team, one plan.",
+  title: "Services: Lead Gen, Ads, AI & Content",
+  description: "Lead generation, Meta & Google Ads, AI agents, social media, content production, websites, branding and SEO — one marketing team for your growth.",
   alternates: { canonical: "/services" },
 };
 
@@ -54,6 +54,10 @@ export default function ServicesPage() {
                 <p className="font-mono text-sm text-accent-300">{s.number}</p>
                 <h2 className="mt-3 font-display text-[clamp(2.5rem,5.5vw,5.5rem)] text-bone-50">{s.title}</h2>
                 <p className="mt-6 max-w-md text-[17px] leading-relaxed text-mist-300">{s.short}</p>
+                <Link href={`/services/${s.slug}`} className="group mt-6 inline-flex items-center gap-2 text-[14px] font-semibold tracking-[0.04em] text-bone-50 uppercase hover:text-accent-300">
+                  Explore {s.title}
+                  <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:rotate-45" />
+                </Link>
               </div>
             </div>
             <div className={cn("space-y-10 lg:col-span-6 lg:col-start-7", i % 2 === 1 && "lg:order-first lg:col-start-1")}>

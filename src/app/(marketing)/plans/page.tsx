@@ -9,10 +9,12 @@ import { PageIntro } from "@/components/agency/page-intro";
 import { SectionLabel } from "@/components/agency/section-label";
 import { FinalCta } from "@/components/agency/final-cta";
 import { TransitionLink } from "@/components/experience/transition";
+import { JsonLd, breadcrumbSchema, offerCatalogSchema } from "@/components/seo/json-ld";
 import { checkoutPlan } from "./actions";
 
 export const metadata: Metadata = {
-  title: "Pricing — Retainers & Packages",
+  title: "Pricing: Marketing Retainers & Packages",
+  alternates: { canonical: "/plans" },
   description: `Monthly growth retainers and fixed-price packages from ${BRAND.name}: lead generation, Meta & Google Ads, AI agents, content and brand films.`,
 };
 
@@ -71,6 +73,7 @@ export default async function PlansPage({ searchParams }: PageProps<"/plans">) {
 
   return (
     <>
+      <JsonLd data={[offerCatalogSchema([...RETAINERS, ...PACKAGES]), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Pricing", path: "/plans" }])]} />
       <PageIntro
         label="Pricing"
         title={

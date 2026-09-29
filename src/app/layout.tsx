@@ -13,15 +13,19 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export const metadata: Metadata = {
   metadataBase: new URL(env.siteUrl),
   title: {
-    default: `${BRAND.name} — ${BRAND.descriptor}`,
-    template: `%s · ${BRAND.name}`,
+    default: `${BRAND.name} | Marketing Agency in Washington, DC & Tampa`,
+    template: `%s | ${BRAND.name}`,
   },
   description: BRAND.description,
   applicationName: BRAND.name,
-  keywords: ["creative agency", "marketing agency", "paid media", "brand strategy", "social media agency", "content production", "web design", "growth marketing"],
-  openGraph: { type: "website", siteName: BRAND.name, locale: "en_US", url: "/" },
-  twitter: { card: "summary_large_image", title: `${BRAND.name} — ${BRAND.descriptor}`, description: BRAND.description },
-  alternates: { canonical: "/" },
+  keywords: ["marketing agency Washington DC", "marketing agency Tampa", "lead generation agency", "Meta ads agency", "Google Ads management", "AI agents for business", "social media agency", "real estate marketing", "video production DC", "real estate photography"],
+  authors: [{ name: BRAND.name }],
+  creator: BRAND.name,
+  category: "business",
+  openGraph: { type: "website", siteName: BRAND.name, locale: "en_US" },
+  twitter: { card: "summary_large_image", title: `${BRAND.name} | Marketing Agency in Washington, DC & Tampa`, description: BRAND.description },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-video-preview": -1, "max-snippet": -1 } },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } } : {}),
   formatDetection: { telephone: false },
 };
 

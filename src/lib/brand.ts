@@ -9,7 +9,7 @@ export const BRAND = {
   descriptor: "Media & Marketing Agency",
   tagline: "Creative. Media. Growth.",
   description:
-    "Full-service marketing agency for brokerages, realtors and entrepreneurs: lead generation, Meta & Google Ads, AI agents, social media and 4K content — built to win you clients.",
+    "Marketing agency in Washington, DC & Tampa for brokerages, realtors and entrepreneurs: lead generation, Meta & Google Ads, AI agents and 4K content.",
   location: "Washington, DC & Tampa, FL",
   locationNote: "Serving the DMV, Tampa Bay and brands everywhere",
   /** Shown only when set (Admin → Settings → Business overrides this). */
