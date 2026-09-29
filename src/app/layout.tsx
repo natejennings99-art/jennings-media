@@ -40,7 +40,7 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const settings = await getSettings();
   return (
-    <html lang="en" className={`${archivo.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" suppressHydrationWarning className={`${archivo.variable} ${geistMono.variable} antialiased`}>
       <body className="grain min-h-dvh overflow-x-clip">
         <ToastProvider>{children}</ToastProvider>
         <Analytics

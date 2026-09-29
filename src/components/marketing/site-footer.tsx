@@ -88,7 +88,7 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
         </div>
       </div>
 
-      <div aria-hidden className="pointer-events-none -mb-[0.2em] select-none text-center font-display text-[25vw] leading-[0.8] text-bone-50/[0.06]">
+      <div aria-hidden className="pointer-events-none -mb-[0.18em] overflow-hidden text-center font-display text-[10.2vw] leading-[0.8] whitespace-nowrap text-bone-50/[0.06] select-none">
         {BRAND.name}
       </div>
     </footer>

@@ -42,7 +42,7 @@ export default async function AboutPage() {
           </>
         }
       >
-        We started as a production studio, shooting for brands that needed to look as good as they were. Somewhere between the thousandth edit and the hundredth campaign report, we realized the best-looking work only matters when it moves the numbers.
+        {BRAND.name} started in 2024 as a real estate media studio, shooting listings across Washington, D.C., Northern Virginia and Maryland. What began with listing photos grew into everything a growing business needs to win clients online — social media, ads, websites, AI and lead generation.
       </PageIntro>
 
       <Parallax className="aspect-[4/5] w-full sm:aspect-[21/9]" amount={8}>
