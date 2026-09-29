@@ -1,6 +1,7 @@
 import { getClients, getMarketing, getPortfolio, getSettings, getTestimonials } from "@/lib/data/public";
 import { AGENCY_SERVICES } from "@/lib/content/agency";
-import { REEL_CLIPS, REELS } from "@/lib/content/work";
+import { FRAMES, REEL_CLIPS, REELS } from "@/lib/content/work";
+import { FramesGallery } from "@/components/agency/frames-gallery";
 import { ReelsWall } from "@/components/agency/reels-wall";
 import { Hero } from "@/components/agency/hero";
 import { LogoMarquee } from "@/components/agency/logo-marquee";
@@ -33,6 +34,7 @@ export default async function HomePage() {
       <Showreel videoUrl={showreel} clips={REEL_CLIPS} />
       <FeaturedWork projects={featured} />
       <ReelsWall reels={REELS} />
+      <FramesGallery frames={FRAMES} />
       <Results stats={marketing.stats} />
       <section className="py-24 sm:py-36" aria-labelledby="services-title">
         <div className="gutter mb-14 grid gap-8 sm:mb-20 lg:grid-cols-12 lg:items-end">

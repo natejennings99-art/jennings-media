@@ -218,3 +218,18 @@ export const REELS: Reel[] = [
 export const REEL_CLIPS = [1, 2, 3, 4, 5].map((n) => ({ src: `/media/video/reel-${n}.mp4`, poster: `/media/video/reel-${n}.jpg` }));
 export const SHOWREEL_FILM = "/media/video/film.mp4";
 export const HERO_VIDEO = "/media/video/hero.mp4";
+
+export type Frame = { src: string; video?: string; title: string; kind: string; shape: "wide" | "tall" };
+
+/** "Shot by us" strip — only our own footage and photography. */
+export const FRAMES: Frame[] = [
+  { src: "/media/video/reel-1.jpg", video: "/media/video/reel-1.mp4", title: "Waterfront home", kind: "Drone", shape: "wide" },
+  { src: "/media/work/pet-grand-hotel-03.jpg", title: "Pet Grand Hotel", kind: "Brand film", shape: "tall" },
+  { src: "/media/work/fairmont-deck.jpg", title: "2933 N Fairmont St", kind: "Photography", shape: "wide" },
+  { src: "/media/work/elevate-01.jpg", title: "Elevate Property Group", kind: "Interview", shape: "tall" },
+  { src: "/media/video/great-falls.jpg", video: "/media/video/great-falls.mp4", title: "Great Falls Estate", kind: "Listing film", shape: "wide" },
+  { src: "/media/work/sugarberry-dining.jpg", title: "10465 Sugarberry", kind: "Photography", shape: "wide" },
+  { src: "/media/work/right-fit-01.jpg", title: "Right Fit Realty", kind: "Event film", shape: "tall" },
+  { src: "/media/video/reel-5.jpg", video: "/media/video/reel-5.mp4", title: "Neighborhood reveal", kind: "Drone", shape: "wide" },
+  { src: "/media/work/kagera-living.jpg", title: "17455 Kagera Dr", kind: "Photography", shape: "wide" },
+];
