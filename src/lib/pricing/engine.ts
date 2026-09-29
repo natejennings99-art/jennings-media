@@ -296,8 +296,11 @@ export function buildQuote(input: PricingInput): Quote {
 export interface PackageRecommendation {
   package: Package;
   packagePriceCents: number;
-  /** Price of selected services that the package doesn't include. */
+  /** Price of wanted services that the package doesn't include. */
   extrasCents: number;
+  /** What the customer's current order costs (chosen package + extras, or à la carte). */
+  baselineCents: number;
+  /** Everything wanted, bought individually. */
   alaCarteCents: number;
   savingsCents: number;
   coversAll: boolean;
@@ -306,42 +309,48 @@ export interface PackageRecommendation {
 }
 
 /**
- * Compares the à-la-carte selection against every package. Returns packages that
- * are cheaper ("saves") or cost only a little more while adding services ("upgrade").
+ * Compares the current order (individual services, or a package plus extras)
+ * against every other package. Returns packages that are cheaper ("saves") or
+ * cost only a little more while adding services ("upgrade").
  */
 export function recommendPackages(
   catalog: Catalog,
-  selection: Pick<Selection, "serviceIds" | "serviceQuantities">,
+  selection: Pick<Selection, "serviceIds" | "serviceQuantities"> & { packageId?: string | null },
   sqft: number | null
 ): PackageRecommendation[] {
   const services = new Map(catalog.services.map((s) => [s.id, s]));
-  const selected = selection.serviceIds.filter((id) => services.get(id)?.is_bookable);
-  if (selected.length === 0) return [];
+  const current = selection.packageId ? catalog.packages.find((p) => p.id === selection.packageId) ?? null : null;
+  const picked = selection.serviceIds.filter((id) => services.get(id)?.is_bookable);
+  const wanted = [...new Set([...picked, ...(current ? current.services.map((s) => s.service_id) : [])])].filter((id) => services.has(id));
+  if (wanted.length === 0) return [];
 
   const priceOf = (id: string) => {
     const svc = services.get(id)!;
     const qty = isPerUnit(svc) ? clampQty(selection.serviceQuantities?.[id], svc.max_quantity) : 1;
     return servicePrice(svc, sqft) * qty;
   };
-  const alaCarte = selected.reduce((sum, id) => sum + priceOf(id), 0);
+  const alaCarte = wanted.reduce((sum, id) => sum + priceOf(id), 0);
+  const baseline = current
+    ? packagePrice(current, sqft) + picked.filter((id) => !current.services.some((s) => s.service_id === id)).reduce((sum, id) => sum + priceOf(id), 0)
+    : alaCarte;
 
   const results: PackageRecommendation[] = [];
   for (const pkg of catalog.packages) {
-    if (!pkg.is_active) continue;
+    if (!pkg.is_active || pkg.id === current?.id) continue;
     const included = new Set(pkg.services.map((ps) => ps.service_id));
-    const covered = selected.filter((id) => included.has(id));
-    if (covered.length === 0) continue;
-    const extras = selected.filter((id) => !included.has(id));
+    if (!wanted.some((id) => included.has(id))) continue;
+    const extras = wanted.filter((id) => !included.has(id));
     const extrasCents = extras.reduce((sum, id) => sum + priceOf(id), 0);
     const pkgCents = packagePrice(pkg, sqft);
-    const savings = alaCarte - (pkgCents + extrasCents);
-    const bonus = [...included].filter((id) => !selected.includes(id));
-    const isUpgrade = savings <= 0 && bonus.length > 0 && -savings <= Math.max(15000, alaCarte * 0.25);
+    const savings = baseline - (pkgCents + extrasCents);
+    const bonus = [...included].filter((id) => !wanted.includes(id));
+    const isUpgrade = savings <= 0 && bonus.length > 0 && -savings <= Math.max(15000, baseline * 0.25);
     if (savings > 0 || isUpgrade) {
       results.push({
         package: pkg,
         packagePriceCents: pkgCents,
         extrasCents,
+        baselineCents: baseline,
         alaCarteCents: alaCarte,
         savingsCents: savings,
         coversAll: extras.length === 0,

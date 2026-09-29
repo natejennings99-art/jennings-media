@@ -55,6 +55,12 @@ test("recommends the cheaper package", () => {
   assert.ok(recs[0].savingsCents > 0);
 });
 
+test("recommends upgrading a package when a bigger one is cheaper", () => {
+  const recs = recommendPackages(catalog, { serviceIds: [svc("cinematic-video").id], packageId: pkg("pro").id }, 2850);
+  assert.equal(recs[0].package.slug, "signature");
+  assert.equal(recs[0].savingsCents, 51500 + 42500 - 75000);
+});
+
 test("add-ons are relevant to selections", () => {
   const ids = relevantAddOns(catalog, [svc("photography").id]).map((a) => a.slug);
   assert.ok(ids.includes("drone-photos") && ids.includes("twilight-shoot") && ids.includes("rush-delivery"));

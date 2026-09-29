@@ -21,7 +21,8 @@ export function StepPackage({
   packageId: string | null;
   onChoose: (id: string | null) => void;
 }) {
-  const recs = recommendPackages(catalog, { serviceIds, serviceQuantities: quantities }, sqft);
+  const recs = recommendPackages(catalog, { serviceIds, serviceQuantities: quantities, packageId }, sqft);
+  const alaCarteRecs = recommendPackages(catalog, { serviceIds, serviceQuantities: quantities }, sqft);
   const best = recs[0];
   const names = new Map(catalog.services.map((s) => [s.id, s.name]));
   const selected = new Set(serviceIds);
@@ -38,7 +39,7 @@ export function StepPackage({
           <div className="min-w-0 flex-1">
             <p className="font-medium text-bone-50">
               {best.kind === "saves"
-                ? `The ${best.package.name} package saves you ${formatMoney(best.savingsCents)}`
+                ? `${packageId ? "Switch to" : "The"} ${best.package.name}${packageId ? "" : " package"} and save ${formatMoney(best.savingsCents)}`
                 : `For ${formatMoney(-best.savingsCents)} more, upgrade to ${best.package.name}`}
             </p>
             <p className="mt-1 text-[13.5px] text-mist-300">
@@ -70,12 +71,12 @@ export function StepPackage({
               {serviceIds.length ? `${serviceIds.length} service${serviceIds.length === 1 ? "" : "s"} selected` : "No services selected yet"}
             </p>
           </div>
-          {best && <span className="text-lg font-medium tabular-nums text-bone-100">{formatMoney(best.alaCarteCents)}</span>}
+          {alaCarteRecs[0] && <span className="text-lg font-medium tabular-nums text-bone-100">{formatMoney(alaCarteRecs[0].alaCarteCents)}</span>}
         </button>
 
         {catalog.packages.map((pkg) => {
           const price = packagePrice(pkg, sqft);
-          const rec = recs.find((r) => r.package.id === pkg.id);
+          const rec = recs.find((r) => r.package.id === pkg.id) ?? alaCarteRecs.find((r) => r.package.id === pkg.id && !packageId);
           const active = packageId === pkg.id;
           return (
             <button
