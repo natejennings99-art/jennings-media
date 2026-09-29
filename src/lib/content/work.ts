@@ -103,7 +103,7 @@ export const REAL_CASE_STUDIES: PortfolioProject[] = [
     gallery: [W("great-falls-00"), W("great-falls-01"), W("great-falls-02"), W("great-falls-03")],
     city: "Great Falls",
     state: "VA",
-    is_featured: true,
+    is_featured: false,
     sort_order: 30,
   }),
   work(4, {
@@ -120,7 +120,7 @@ export const REAL_CASE_STUDIES: PortfolioProject[] = [
     cover_image_url: W("right-fit-01"),
     hover_video_url: V("right-fit"),
     gallery: [W("right-fit-03"), W("right-fit-00"), W("right-fit-02")],
-    is_featured: true,
+    is_featured: false,
     sort_order: 40,
   }),
   work(5, {
@@ -175,15 +175,66 @@ export const REAL_CASE_STUDIES: PortfolioProject[] = [
     gallery: [W("kagera-kitchen"), W("kagera-00"), W("kagera-bedroom")],
     is_featured: false,
     sort_order: 70,
+  }),  work(8, {
+    slug: "isaia",
+    title: "Isaia",
+    client_name: "Isaia",
+    industry: "Fashion & Retail",
+    year: 2025,
+    headline: "Neapolitan tailoring, framed like a campaign.",
+    summary: "Store photography and a vertical reel for Isaia's boutique — the storefront, the red-lacquered displays and the tailoring up close.",
+    categories: ["creative", "social"],
+    services_performed: ["Photography", "Reels", "Content Production"],
+    execution: "A full boutique shoot — exteriors, wide interiors and product details — plus a 20-second reel cut for Instagram.",
+    cover_image_url: W("isaia-store-1"),
+    hover_video_url: V("isaia"),
+    gallery: [W("isaia-store-2"), W("isaia-store-3"), W("isaia-store-4"), W("isaia-store-5")],
+    is_featured: true,
+    sort_order: 5,
+  }),
+  work(9, {
+    slug: "groom-guy",
+    title: "Groom Guy",
+    client_name: "Groom Guy",
+    industry: "Men's Grooming",
+    year: 2025,
+    headline: "Fresh cuts. Sharper entrances.",
+    summary: "A cinematic brand spot for Groom Guy — a sharply dressed crew owning a luxury lobby — shot in 4K for Instagram and Reels.",
+    categories: ["creative", "social"],
+    services_performed: ["Brand Film", "Social Media"],
+    execution: "A choreographed walk-and-reveal through a luxury lobby, shot in 4K on a gimbal and graded for an editorial look.",
+    cover_image_url: "/media/video/groom.jpg",
+    hover_video_url: V("groom"),
+    gallery: [W("groom-00"), W("groom-01"), W("groom-02"), W("groom-03")],
+    is_featured: true,
+    sort_order: 15,
+  }),
+  work(10, {
+    slug: "district-cup",
+    title: "District Cup",
+    client_name: null,
+    industry: "Events & Sports",
+    year: 2025,
+    headline: "Polo, style and summer in the capital.",
+    summary: "Event content from the District Cup polo match in D.C. — fast plays, sharp fits and the crowd between chukkers — cut into a vertical recap for Instagram.",
+    categories: ["social", "creative"],
+    services_performed: ["Event Coverage", "Reels"],
+    execution: "Run-and-gun coverage on the field and in the tents, edited into a 27-second recap.",
+    cover_image_url: W("polo-01"),
+    hover_video_url: V("polo"),
+    gallery: [W("polo-00"), W("polo-02"), W("polo-03")],
+    is_featured: false,
+    sort_order: 45,
   }),
 ];
 
 /** Brands we've made work for (from delivered projects). */
 export const REAL_CLIENTS: Client[] = [
   "Elevate Property Group",
+  "Isaia",
   "Pet Grand Hotel",
-  "Right Fit Realty",
   "Groom Guy",
+  "Right Fit Realty",
   "Smart Settlements",
   "Lopez Realtors",
   "WAR Team",
@@ -203,11 +254,14 @@ export type Reel = { slug: string; label: string; kind: string; href: string };
 /** Vertical loops for the "made for the feed" wall (/public/media/video/<slug>.mp4 + .jpg). */
 export const REELS: Reel[] = [
   { slug: "jennings-ad", label: BRAND.name, kind: "Agency spot", href: BRAND.instagram },
+  { slug: "isaia", label: "Isaia", kind: "Menswear reel", href: "/work/isaia" },
   { slug: "elevate", label: "Elevate Property Group", kind: "Brand film", href: "/work/elevate-property-group" },
+  { slug: "polo", label: "District Cup", kind: "Event recap", href: "/work/district-cup" },
   { slug: "pet-grand-hotel", label: "Pet Grand Hotel", kind: "Promo film", href: "/work/pet-grand-hotel" },
   { slug: "right-fit", label: "Right Fit Realty", kind: "Event recap", href: "/work/right-fit-summer-kick-off" },
   { slug: "fairmont", label: "2933 N Fairmont St", kind: "Listing reel", href: "/work/2933-north-fairmont-street" },
   { slug: "smart-settlements", label: "Smart Settlements", kind: "Brand video", href: "/work/smart-settlements" },
+  { slug: "amenities-pool", label: "Community amenities", kind: "Lifestyle film", href: BRAND.instagram },
   { slug: "kagera", label: "Lopez Realtors", kind: "Listing film", href: "/work/17455-kagera-drive" },
   { slug: "lake-shore", label: "1701 Lake Shore Crest", kind: "Listing reel", href: BRAND.instagram },
   { slug: "fall-festival", label: "Fall Festival", kind: "Event recap", href: BRAND.instagram },
@@ -215,7 +269,7 @@ export const REELS: Reel[] = [
 ];
 
 /** Horizontal clips for the showreel preview montage. */
-export const REEL_CLIPS = [1, 2, 3, 4, 5].map((n) => ({ src: `/media/video/reel-${n}.mp4`, poster: `/media/video/reel-${n}.jpg` }));
+export const REEL_CLIPS = ["reel-1", "groom", "reel-2", "reel-3", "reel-4", "reel-5"].map((n) => ({ src: `/media/video/${n}.mp4`, poster: `/media/video/${n}.jpg` }));
 export const SHOWREEL_FILM = "/media/video/film.mp4";
 export const HERO_VIDEO = "/media/video/hero.mp4";
 
@@ -223,13 +277,15 @@ export type Frame = { src: string; video?: string; title: string; kind: string; 
 
 /** "Shot by us" strip — only our own footage and photography. */
 export const FRAMES: Frame[] = [
+  { src: "/media/video/groom.jpg", video: "/media/video/groom.mp4", title: "Groom Guy", kind: "Brand film", shape: "wide" },
+  { src: "/media/work/isaia-store-2.jpg", title: "Isaia", kind: "Retail photography", shape: "tall" },
   { src: "/media/video/reel-1.jpg", video: "/media/video/reel-1.mp4", title: "Waterfront home", kind: "Drone", shape: "wide" },
+  { src: "/media/video/amenities-lake.jpg", video: "/media/video/amenities-lake.mp4", title: "Lakeside community", kind: "Lifestyle film", shape: "tall" },
+  { src: "/media/work/isaia-store-1.jpg", title: "Isaia storefront", kind: "Photography", shape: "wide" },
   { src: "/media/work/pet-grand-hotel-03.jpg", title: "Pet Grand Hotel", kind: "Brand film", shape: "tall" },
+  { src: "/media/video/great-falls.jpg", video: "/media/video/great-falls.mp4", title: "Great Falls Estate", kind: "Listing film", shape: "wide" },
+  { src: "/media/work/polo-02.jpg", title: "District Cup", kind: "Event coverage", shape: "tall" },
   { src: "/media/work/fairmont-deck.jpg", title: "2933 N Fairmont St", kind: "Photography", shape: "wide" },
   { src: "/media/work/elevate-01.jpg", title: "Elevate Property Group", kind: "Interview", shape: "tall" },
-  { src: "/media/video/great-falls.jpg", video: "/media/video/great-falls.mp4", title: "Great Falls Estate", kind: "Listing film", shape: "wide" },
-  { src: "/media/work/sugarberry-dining.jpg", title: "10465 Sugarberry", kind: "Photography", shape: "wide" },
-  { src: "/media/work/right-fit-01.jpg", title: "Right Fit Realty", kind: "Event film", shape: "tall" },
   { src: "/media/video/reel-5.jpg", video: "/media/video/reel-5.mp4", title: "Neighborhood reveal", kind: "Drone", shape: "wide" },
-  { src: "/media/work/kagera-living.jpg", title: "17455 Kagera Dr", kind: "Photography", shape: "wide" },
 ];

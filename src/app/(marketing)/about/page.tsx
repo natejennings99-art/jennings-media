@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { AGENCY_IMAGES } from "@/lib/content/agency-images";
 import { BRAND } from "@/lib/brand";
 import { getMarketing } from "@/lib/data/public";
 import { PageIntro } from "@/components/agency/page-intro";
@@ -15,17 +14,17 @@ import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "About",
-  description: `${BRAND.name} is an independent creative and growth agency — strategy, creative, media and technology under one roof.`,
+  title: "About — DC & Tampa Marketing Agency",
+  description: `Founded in 2024 behind the camera, ${BRAND.name} is a marketing agency for brokerages, realtors and entrepreneurs in Washington, DC and Tampa — content, ads, AI and lead generation.`,
   alternates: { canonical: "/about" },
 };
 
-const DISCIPLINES = ["Strategy", "Brand & design", "Film & photography", "Media buying", "Social & community", "Web engineering", "SEO & editorial", "Automation"];
+const DISCIPLINES = ["Lead generation", "Meta & Google Ads", "AI agents", "Social media", "Film & photography", "Websites & funnels", "Brand", "SEO"];
 
 const WAYS = [
-  { title: "Senior hands on every account", body: "The people who pitch the work are the people who make it. No bait-and-switch." },
-  { title: "Small squads, fast loops", body: "A strategist, a creative lead and a media lead per client — decisions in hours, not weeks." },
-  { title: "Radical transparency", body: "Shared dashboards, honest numbers and a weekly note on what worked and what didn't." },
+  { title: "Founder-led", body: "You work directly with the people planning, shooting and running your campaigns — no hand-offs to strangers." },
+  { title: "Content and ads under one roof", body: "The team that films your content also builds your funnels and runs your ads, so creative and performance pull in the same direction." },
+  { title: "Clear numbers", body: "Monthly reporting on leads, cost per lead and what we're changing next — in plain English." },
 ];
 
 export default async function AboutPage() {
@@ -47,13 +46,13 @@ export default async function AboutPage() {
       </PageIntro>
 
       <Parallax className="aspect-[4/5] w-full sm:aspect-[21/9]" amount={8}>
-        <Image src={AGENCY_IMAGES.filmSet} alt="On set during a campaign production" fill priority sizes="100vw" className="object-cover" />
+        <Image src="/media/video/groom.jpg" alt="Jennings Media on set for a Groom Guy brand film" fill priority sizes="100vw" className="object-cover" />
       </Parallax>
 
       <section className="gutter grid gap-12 py-24 sm:py-36 lg:grid-cols-12">
         <SectionLabel className="lg:col-span-3">Our mission</SectionLabel>
         <SplitReveal as="p" className="text-[clamp(1.75rem,3.6vw,3.25rem)] leading-[1.12] font-medium tracking-[-0.035em] text-bone-50 lg:col-span-9">
-          So we built {BRAND.name}: a creative and growth agency where strategy, production, media and technology sit at the same table — and every idea is measured by what it earns.
+          Today we&rsquo;re one team for the content, the campaigns and the systems behind them — in D.C. and Tampa — measured by the clients we win you.
         </SplitReveal>
       </section>
 

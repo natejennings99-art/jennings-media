@@ -117,13 +117,13 @@ export const PROCESS = [
 ] as const;
 
 export const INDUSTRIES = [
-  { name: "Hospitality", image: "/media/stock/hospitality.jpg", video: "/media/stock/hospitality.mp4" },
+  { name: "Hospitality", image: "/media/video/pet-grand-hotel.jpg", video: "/media/video/pet-grand-hotel.mp4" },
   { name: "Real Estate", image: "/media/video/great-falls.jpg", video: "/media/video/great-falls.mp4" },
-  { name: "Technology", image: "/media/stock/technology.jpg", video: "/media/stock/technology.mp4" },
+  { name: "Events & Sports", image: "/media/video/polo.jpg", video: "/media/video/polo.mp4" },
   { name: "Consumer Brands", image: "/media/stock/consumer-brands.jpg", video: "/media/stock/consumer-brands.mp4" },
-  { name: "Lifestyle", image: "/media/stock/lifestyle.jpg", video: "/media/stock/lifestyle.mp4" },
+  { name: "Fashion & Retail", image: "/media/video/isaia.jpg", video: "/media/video/isaia.mp4" },
   { name: "Restaurants", image: "/media/stock/restaurants.jpg", video: "/media/stock/restaurants.mp4" },
-  { name: "Professional Services", image: "/media/stock/professional-services.jpg", video: "/media/stock/professional-services.mp4" },
+  { name: "Professional Services", image: "/media/video/smart-settlements.jpg", video: "/media/video/smart-settlements.mp4" },
   { name: "E-Commerce", image: "/media/stock/e-commerce.jpg", video: "/media/stock/e-commerce.mp4" },
 ] as const;
 
