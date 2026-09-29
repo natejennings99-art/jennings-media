@@ -170,7 +170,7 @@ const RESOURCES: Record<string, ResourceDef> = {
   portfolio_projects: {
     table: "portfolio_projects",
     tag: TAGS.content,
-    paths: ["/", "/portfolio"],
+    paths: ["/", "/work", "/services"],
     strip: ["media_urls"],
     schema: z.object({
       title: text(120).pipe(z.string().min(2)),
@@ -185,6 +185,26 @@ const RESOURCES: Record<string, ResourceDef> = {
       cover_image_url: url,
       video_url: url,
       tour_url: url,
+      hover_video_url: url,
+      client_name: nullableText(120),
+      industry: nullableText(80),
+      year: nullableInt(2000, 2100),
+      headline: nullableText(200),
+      summary: nullableText(800),
+      metrics: list.transform((lines) =>
+        lines
+          .map((l) => l.split("|").map((x) => x.trim()))
+          .filter(([value, label]) => value && label)
+          .map(([value, label]) => ({ value, label }))
+          .slice(0, 6)
+      ),
+      challenge: nullableText(2000),
+      strategy: nullableText(2000),
+      execution: nullableText(2000),
+      results: nullableText(2000),
+      testimonial_quote: nullableText(800),
+      testimonial_author: nullableText(120),
+      testimonial_role: nullableText(120),
       is_featured: bool,
       is_published: bool,
       is_sample: bool,
@@ -203,6 +223,19 @@ const RESOURCES: Record<string, ResourceDef> = {
         );
       }
     },
+  },
+  clients: {
+    table: "clients",
+    tag: TAGS.content,
+    paths: ["/"],
+    schema: z.object({
+      name: text(120).pipe(z.string().min(2)),
+      logo_url: url,
+      website_url: url,
+      sort_order: int(0, 10000),
+      is_published: bool,
+      is_sample: bool,
+    }) as unknown as z.ZodType<Record<string, unknown>>,
   },
   service_areas: {
     table: "service_areas",

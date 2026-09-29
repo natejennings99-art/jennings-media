@@ -443,14 +443,29 @@ export async function emailInvoice(bookingId: string): Promise<ActionResult> {
 
 /* ------------------------------------------------------------------ settings */
 
+const MARKETING_SCHEMA = z.object({
+  stats: z
+    .array(z.object({ prefix: z.string().max(4).default(""), value: z.coerce.number().min(0).max(1e9), suffix: z.string().max(6).default(""), label: z.string().trim().min(1).max(80), decimals: z.coerce.number().int().min(0).max(2).optional() }))
+    .max(4),
+  stats_are_sample: z.boolean(),
+  trust_line: z.string().trim().max(120),
+  showreel_url: z.string().trim().max(500),
+});
+
 export async function saveSettings(patch: Record<string, unknown>): Promise<ActionResult> {
   return guard(async ({ supabase }) => {
     const allowed = new Set([
       "business_name", "legal_name", "tagline", "email", "phone", "address_line1", "address_line2", "city", "state", "postal_code",
       "latitude", "longitude", "timezone", "tax_rate_bps", "tax_label", "tax_travel_fee", "payment_options", "scheduling",
-      "referral_program", "notifications", "analytics", "social_links", "service_area_policy", "hero_video_url", "hero_image_url",
+      "referral_program", "notifications", "analytics", "social_links", "service_area_policy", "hero_video_url", "hero_image_url", "marketing",
     ]);
     const clean = Object.fromEntries(Object.entries(patch).filter(([k]) => allowed.has(k)));
+    if ("marketing" in clean) {
+      const raw = clean.marketing as { stats?: { label?: unknown }[] };
+      const m = MARKETING_SCHEMA.safeParse({ ...raw, stats: (raw.stats ?? []).filter((x) => String(x.label ?? "").trim()) });
+      if (!m.success) return fail("Check the homepage stats — each needs a number and a label.");
+      clean.marketing = m.data;
+    }
     if (typeof clean.timezone === "string") {
       try {
         new Intl.DateTimeFormat("en-US", { timeZone: clean.timezone });

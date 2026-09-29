@@ -50,7 +50,10 @@ export function LeadsBoard({ leads, focus, timezone }: { leads: ContactLead[]; f
                 <LeadBadge status={l.status} />
               </div>
               <p className="mt-0.5 truncate text-[12.5px] text-mist-400">{l.message}</p>
-              <p className="mt-1 text-[11px] text-mist-600">{l.reason.replace("_", " ")} · {formatDateTime(l.created_at, timezone)}</p>
+              <p className="mt-1 text-[11px] text-mist-600">
+                {l.reason.replace("_", " ")}
+                {l.budget ? ` · ${l.budget}` : ""} · {formatDateTime(l.created_at, timezone)}
+              </p>
             </button>
           ))}
         </div>
@@ -68,6 +71,28 @@ export function LeadsBoard({ leads, focus, timezone }: { leads: ContactLead[]; f
             </div>
           </div>
           <p className="mt-2 text-sm text-mist-400">{lead.email} {lead.phone && `· ${lead.phone}`}</p>
+          {(lead.need || lead.budget || (lead.services ?? []).length > 0) && (
+            <dl className="mt-6 grid gap-3 sm:grid-cols-3">
+              {lead.need && (
+                <div className="rounded-xl bg-white/[0.03] p-3">
+                  <dt className="text-[11px] tracking-wide text-mist-500 uppercase">Needs</dt>
+                  <dd className="mt-1 text-sm">{lead.need}</dd>
+                </div>
+              )}
+              {lead.budget && (
+                <div className="rounded-xl bg-white/[0.03] p-3">
+                  <dt className="text-[11px] tracking-wide text-mist-500 uppercase">Budget</dt>
+                  <dd className="mt-1 text-sm">{lead.budget}</dd>
+                </div>
+              )}
+              {(lead.services ?? []).length > 0 && (
+                <div className="rounded-xl bg-white/[0.03] p-3">
+                  <dt className="text-[11px] tracking-wide text-mist-500 uppercase">Services</dt>
+                  <dd className="mt-1 text-sm">{(lead.services ?? []).join(", ")}</dd>
+                </div>
+              )}
+            </dl>
+          )}
           <p className="mt-6 whitespace-pre-wrap rounded-xl bg-white/[0.03] p-4 text-[15px] leading-relaxed">{lead.message}</p>
           <div className="mt-6 grid gap-4 sm:grid-cols-[200px_minmax(0,1fr)]">
             <Select value={status} onChange={(e) => setStatus(e.target.value as ContactLead["status"])} className="h-10 text-sm">

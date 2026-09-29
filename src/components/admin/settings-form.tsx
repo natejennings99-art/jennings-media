@@ -238,6 +238,7 @@ export function SettingsForm({ tab, settings, twilioReady }: { tab: string; sett
     );
   }
 
+  const m = s.marketing;
   return (
     <div className="space-y-5">
       <Field label="Homepage hero image URL" htmlFor="hi" hint="Upload in Admin → Portfolio or Services and paste the URL, or use any https image.">
@@ -246,7 +247,37 @@ export function SettingsForm({ tab, settings, twilioReady }: { tab: string; sett
       <Field label="Homepage hero video URL (.mp4)" htmlFor="hv" hint="Muted, looping background reel. Keep it under ~15 MB.">
         <Input id="hv" value={s.hero_video_url ?? ""} onChange={(e) => set("hero_video_url", e.target.value || null)} />
       </Field>
-      <Button loading={pending} onClick={() => save(["hero_image_url", "hero_video_url"])}>Save website</Button>
+      <div className="space-y-4 rounded-2xl border border-white/10 p-5">
+        <p className="text-sm font-medium">Homepage marketing</p>
+        <Field label="Trust line" htmlFor="tl" hint="Shown under the hero, e.g. “Trusted by brokerages, realtors & entrepreneurs”.">
+          <Input id="tl" value={m.trust_line} onChange={(e) => setIn("marketing", { trust_line: e.target.value })} />
+        </Field>
+        <div className="space-y-2">
+          <p className="text-[13px] text-mist-400">Stats (up to 4 — real numbers only; leave the label empty to remove a row)</p>
+          {[0, 1, 2, 3].map((i) => {
+            const st = m.stats[i] ?? { prefix: "", value: 0, suffix: "", label: "" };
+            const put = (patch: Partial<typeof st>) => {
+              const next = [0, 1, 2, 3].map((j) => (j === i ? { ...st, ...patch } : (m.stats[j] ?? { prefix: "", value: 0, suffix: "", label: "" })));
+              setIn("marketing", { stats: next });
+            };
+            return (
+              <div key={i} className="grid grid-cols-[70px_110px_70px_minmax(0,1fr)] gap-2">
+                <Input aria-label="Prefix" placeholder="$" value={st.prefix} onChange={(e) => put({ prefix: e.target.value })} />
+                <Input aria-label="Number" type="number" step="0.1" value={st.value || ""} onChange={(e) => put({ value: Number(e.target.value), decimals: e.target.value.includes(".") ? 1 : undefined })} />
+                <Input aria-label="Suffix" placeholder="+ / K / %" value={st.suffix} onChange={(e) => put({ suffix: e.target.value })} />
+                <Input aria-label="Label" placeholder="What the number means" value={st.label} onChange={(e) => put({ label: e.target.value })} />
+              </div>
+            );
+          })}
+        </div>
+        <Toggle label="These numbers are placeholders" hint="Hides the stats and trust line on the live site until they're real." checked={m.stats_are_sample} onChange={(v) => setIn("marketing", { stats_are_sample: v })} />
+        <Field label="Showreel film URL" htmlFor="sr" hint="YouTube/Vimeo link or .mp4 played by “Play film”.">
+          <Input id="sr" value={m.showreel_url} onChange={(e) => setIn("marketing", { showreel_url: e.target.value })} />
+        </Field>
+      </div>
+      <Button loading={pending} onClick={() => save(["hero_image_url", "hero_video_url", "marketing"])}>
+        Save website
+      </Button>
     </div>
   );
 }

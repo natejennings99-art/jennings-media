@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
+  Building2,
   BadgePercent, CalendarDays, Camera, ClipboardList, CreditCard, FileText, Image as ImageIcon, Inbox, LayoutDashboard,
   Layers, MessageSquareQuote, Package, Settings, ShoppingBag, Tags, Users, Home, ExternalLink,
 } from "lucide-react";
@@ -36,7 +37,8 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
     { href: "/admin/invoices", label: "Invoices", icon: FileText },
     { href: "/admin/payments", label: "Payments", icon: CreditCard },
     { href: "/admin/discounts", label: "Discount codes", icon: BadgePercent },
-    { href: "/admin/portfolio", label: "Portfolio", icon: Tags },
+    { href: "/admin/portfolio", label: "Work", icon: Tags },
+    { href: "/admin/clients", label: "Clients", icon: Building2 },
     { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote },
     { href: "/admin/leads", label: "Contact leads", icon: Inbox, badge: leads ?? 0 },
     { href: "/admin/settings", label: "Settings", icon: Settings },
