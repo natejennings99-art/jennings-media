@@ -10,6 +10,9 @@ import { requireAdmin } from "@/lib/auth/session";
 import { features } from "@/lib/env";
 import { buttonStyles } from "@/components/ui/button";
 
+// Always render per request: every page here depends on the signed-in user.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = { title: { default: "Admin", template: "%s · Admin" }, robots: { index: false } };
 
 export default async function AdminLayout({ children }: LayoutProps<"/admin">) {

@@ -5,6 +5,9 @@ import { requireUser } from "@/lib/auth/session";
 import { features } from "@/lib/env";
 import { redirect } from "next/navigation";
 
+// Always render per request: every page here depends on the signed-in user.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = { title: { default: "Dashboard", template: "%s · Client dashboard" }, robots: { index: false } };
 
 const NAV: NavItem[] = [

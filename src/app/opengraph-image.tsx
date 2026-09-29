@@ -22,7 +22,7 @@ export default async function OpengraphImage() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <div style={{ width: 56, height: 56, borderRadius: 14, background: "#f7f4ee", display: "flex", alignItems: "center", justifyContent: "center", color: "#0b0c0f", fontSize: 34, fontWeight: 700 }}>J</div>
-          <div style={{ fontSize: 34, fontWeight: 600, letterSpacing: -1 }}>
+          <div style={{ fontSize: 34, fontWeight: 600, letterSpacing: -1, display: "flex" }}>
             Jennings <span style={{ color: "#e6c998", fontStyle: "italic", fontWeight: 400, marginLeft: 8 }}>Media</span>
           </div>
         </div>
