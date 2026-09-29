@@ -7,6 +7,7 @@ import { features, serverEnv } from "@/lib/env";
 import { adminRecipients, brandOf, sendLogged } from "@/lib/notifications";
 import { adminEvent } from "@/lib/email/templates";
 import { getSettings } from "@/lib/data/public";
+import { findPlan } from "@/lib/content/plans";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -23,10 +24,13 @@ async function notifyAgencyPayment(session: Stripe.Checkout.Session) {
   const settings = await getSettings();
   const amount = new Intl.NumberFormat("en-US", { style: "currency", currency: (session.currency ?? "usd").toUpperCase() }).format((session.amount_total ?? 0) / 100);
   const payer = session.customer_details?.email ?? session.customer_email ?? "";
+  const kind = session.metadata?.kind;
+  const plan = findPlan(session.metadata?.plan);
+  const title = kind === "retainer" ? `New retainer — ${plan?.name ?? "plan"} (${amount}/mo)` : kind === "package" ? `Package purchased — ${plan?.name ?? "package"} (${amount})` : `Payment received — ${amount}`;
   await sendLogged(
-    "admin_payment_received",
+    kind === "agency_payment" ? "admin_payment_received" : `admin_${kind}_purchased`,
     adminRecipients(settings),
-    adminEvent(brandOf(settings), `Payment received — ${amount}`, [`From: ${session.metadata?.name ?? ""} ${payer ? `<${payer}>` : ""}`, `For: ${session.metadata?.reference ?? ""}`], "https://dashboard.stripe.com/payments"),
+    adminEvent(brandOf(settings), title, [`From: ${session.customer_details?.name ?? session.metadata?.name ?? ""} ${payer ? `<${payer}>` : ""}`, `For: ${plan?.name ?? session.metadata?.reference ?? ""}`], "https://dashboard.stripe.com/payments"),
     { replyTo: payer || undefined }
   );
 }
@@ -57,8 +61,17 @@ export async function POST(request: NextRequest) {
       case "checkout.session.completed":
       case "checkout.session.async_payment_succeeded": {
         const session = event.data.object as Stripe.Checkout.Session;
-        if (session.metadata?.kind === "agency_payment") await notifyAgencyPayment(session);
+        if (["agency_payment", "retainer", "package"].includes(session.metadata?.kind ?? "")) await notifyAgencyPayment(session);
         else await applyCheckoutSession(session);
+        break;
+      }
+      case "customer.subscription.deleted": {
+        const sub = event.data.object as Stripe.Subscription;
+        if (sub.metadata?.kind === "retainer") {
+          const settings = await getSettings();
+          const customer = typeof sub.customer === "string" ? sub.customer : sub.customer.id;
+          await sendLogged("admin_retainer_cancelled", adminRecipients(settings), adminEvent(brandOf(settings), `Retainer cancelled — ${findPlan(sub.metadata.plan)?.name ?? "plan"}`, [`Customer: ${customer}`], `https://dashboard.stripe.com/customers/${customer}`));
+        }
         break;
       }
       case "checkout.session.async_payment_failed": {
