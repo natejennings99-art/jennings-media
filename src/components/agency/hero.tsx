@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/motion";
 import { HERO_KEYWORDS } from "@/lib/content/agency";
@@ -34,9 +34,25 @@ export function Hero({ videoUrl, trustLine, clients }: { videoUrl: string | null
     { scope: root }
   );
 
+  // Keep the background film playing: resume after tab switches, rest while scrolled away.
+  useEffect(() => {
+    const v = video.current;
+    if (!v || prefersReducedMotion()) return;
+    const sync = (visible: boolean) => (visible && document.visibilityState === "visible" ? v.play().catch(() => undefined) : v.pause());
+    let onScreen = true;
+    const io = new IntersectionObserver(([e]) => sync((onScreen = e.isIntersecting)), { threshold: 0.05 });
+    const onVis = () => sync(onScreen);
+    io.observe(v);
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVis);
+    };
+  }, []);
+
   let word = 0;
   return (
-    <section ref={root} className="relative isolate flex min-h-[100svh] flex-col overflow-hidden" aria-label="Introduction">
+    <section ref={root} data-hero className="relative isolate flex min-h-[100svh] flex-col overflow-hidden" aria-label="Introduction">
       <div ref={media} className="absolute inset-0 -z-10 will-change-transform" style={{ background: "radial-gradient(ellipse at 70% 35%, rgb(255 91 36 / 0.16), transparent 55%), #07080a" }}>
         {videoUrl ? (
           <video

@@ -4,6 +4,8 @@ import { MobileCta } from "@/components/marketing/mobile-cta";
 import { SmoothScroll } from "@/components/experience/smooth-scroll";
 import { CustomCursor } from "@/components/experience/cursor";
 import { TransitionProvider } from "@/components/experience/transition";
+import { Intro } from "@/components/experience/intro";
+import { INTRO_GATE } from "@/lib/intro";
 import { getSettings } from "@/lib/data/public";
 import { BRAND } from "@/lib/brand";
 
@@ -18,6 +20,8 @@ export default async function MarketingLayout({ children }: LayoutProps<"/">) {
   ].filter((s): s is { label: string; href: string } => Boolean(s.href));
   return (
     <TransitionProvider>
+      <script dangerouslySetInnerHTML={{ __html: INTRO_GATE }} />
+      <Intro />
       <SmoothScroll />
       <CustomCursor />
       <div id="top" />

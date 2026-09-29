@@ -3,6 +3,7 @@ import { getClients, getMarketing, getPortfolio, getSettings, getTestimonials } 
 import { AGENCY_SERVICES } from "@/lib/content/agency";
 import { FRAMES, REEL_CLIPS, REELS } from "@/lib/content/work";
 import { FramesGallery } from "@/components/agency/frames-gallery";
+import { VelocityMarquee } from "@/components/agency/velocity-marquee";
 import { ReelsWall } from "@/components/agency/reels-wall";
 import { Hero } from "@/components/agency/hero";
 import { LogoMarquee } from "@/components/agency/logo-marquee";
@@ -38,6 +39,7 @@ export default async function HomePage() {
       <FeaturedWork projects={featured} />
       <ReelsWall reels={REELS} />
       <FramesGallery frames={FRAMES} />
+      <VelocityMarquee rows={[["Lead generation", "Meta ads", "Google ads", "AI agents"], ["Brand films", "Social media", "Websites", "SEO"]]} />
       <Results stats={marketing.stats} />
       <section className="overflow-x-clip py-24 sm:py-36" aria-labelledby="services-title">
         <div className="gutter mb-14 grid gap-8 sm:mb-20 lg:grid-cols-12 lg:items-end">

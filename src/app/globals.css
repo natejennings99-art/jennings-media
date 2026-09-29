@@ -322,3 +322,34 @@ html.has-cursor :is(input, textarea, select, [contenteditable="true"]) {
   .no-print { display: none !important; }
   body { background: #fff; color: #000; }
 }
+
+/* Outlined display type */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(244 241 234 / 0.42);
+}
+
+/* First-visit intro (see lib/intro.ts + components/experience/intro.tsx) */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ink-950);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.8s var(--ease-expo);
+}
+html.intro-on .intro { display: flex; }
+html.intro-on:not(.intro-leaving) { overflow: hidden; }
+html.intro-leaving .intro { clip-path: inset(0 0 100% 0); }
+html.intro-on:not(.intro-leaving) [data-hero] * { animation-play-state: paused !important; }
+.intro-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.intro-emblem { animation: intro-pop 1s var(--ease-expo) both; }
+.intro-word { font-size: clamp(2.25rem, 6.5vw, 5rem); color: var(--color-bone-50); animation: fade-up 1s var(--ease-expo) 0.15s both; }
+.intro-count { position: absolute; right: clamp(1.25rem, 4vw, 4rem); bottom: 2rem; color: var(--color-mist-400); }
+@keyframes intro-pop {
+  from { opacity: 0; transform: scale(0.55) rotate(-24deg); }
+  to { opacity: 1; transform: none; }
+}
