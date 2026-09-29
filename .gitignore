@@ -42,3 +42,6 @@ next-env.d.ts
 
 # local email outbox (dev)
 /.outbox
+
+# keep the template
+!.env.example

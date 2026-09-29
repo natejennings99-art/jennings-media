@@ -4,7 +4,12 @@ import { BRAND } from "@/lib/brand";
  * build time; everything else is server-only.
  */
 export const env = {
-  siteUrl: (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, ""),
+  siteUrl: (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "") ||
+    process.env.RENDER_EXTERNAL_URL ||
+    "http://localhost:3000"
+  ).replace(/\/$/, ""),
   supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL || "",
   supabasePublishableKey:
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
