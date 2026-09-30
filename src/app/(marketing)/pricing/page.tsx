@@ -65,7 +65,7 @@ export default async function PricingPage() {
                     <ServiceIcon name={s.icon} className="size-4.5" />
                   </span>
                   <div>
-                    <Link href={`/services/${s.slug}`} className="font-medium text-bone-50 hover:text-accent-100">
+                    <Link href={`/book?service=${s.slug}`} className="font-medium text-bone-50 hover:text-accent-100">
                       {s.name}
                     </Link>
                     <p className="line-clamp-1 text-[13px] text-mist-500">{s.tagline}</p>

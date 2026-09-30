@@ -40,6 +40,8 @@ const nextConfig: NextConfig = {
     return [
       { source: "/portfolio", destination: "/work", permanent: true },
       { source: "/portfolio/:slug", destination: "/work", permanent: true },
+      // Real-estate service pages that used to live at /services/<slug> now live in the pricing table.
+      { source: "/services/:slug(photography|drone-photography|drone-video|cinematic-video|social-media-reel|matterport-3d-tour|floor-plans|virtual-twilight|twilight-photography|property-website|marketing-kit)", destination: "/pricing", permanent: true },
     ];
   },
   images: {

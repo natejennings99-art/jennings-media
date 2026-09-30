@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { INDUSTRIES } from "@/lib/content/agency";
+import { INDUSTRIES, industryMatches } from "@/lib/content/agency";
 import { hasFinePointer, prefersReducedMotion } from "@/lib/motion";
 import { TransitionLink } from "@/components/experience/transition";
 import { SplitReveal } from "@/components/experience/split-reveal";
@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { SectionLabel } from "./section-label";
 
 /** Large typographic links; a preview image trails the cursor on hover. */
-export function Industries() {
+export function Industries({ projectIndustries = [] }: { projectIndustries?: (string | null)[] }) {
   const [active, setActive] = useState<number | null>(null);
   const float = useRef<HTMLDivElement>(null);
   const list = useRef<HTMLUListElement>(null);
@@ -51,7 +51,12 @@ export function Industries() {
       <ul ref={list} className="mt-16 border-t border-white/10 sm:mt-24" onPointerLeave={() => setActive(null)}>
         {INDUSTRIES.map((ind, i) => (
           <li key={ind.name} onPointerEnter={() => setActive(i)} className="border-b border-white/10">
-            <TransitionLink href={`/work?industry=${encodeURIComponent(ind.name)}`} className="group flex items-center justify-between gap-6 py-5 sm:py-7" data-cursor="view" data-cursor-label="Explore">
+            <TransitionLink
+              href={projectIndustries.some((pi) => industryMatches(ind.name, pi)) ? `/work?industry=${encodeURIComponent(ind.name)}` : "/contact"}
+              className="group flex items-center justify-between gap-6 py-5 sm:py-7"
+              data-cursor="view"
+              data-cursor-label={projectIndustries.some((pi) => industryMatches(ind.name, pi)) ? "Explore" : "Talk"}
+            >
               <span className="flex min-w-0 items-center gap-4 sm:gap-8">
                 <span className="relative size-14 shrink-0 overflow-hidden rounded-md sm:hidden">
                   <Image src={ind.image} alt="" fill sizes="56px" className="object-cover" />

@@ -6,13 +6,14 @@ import type { PortfolioProject } from "@/lib/types";
 import { PORTFOLIO_CATEGORIES, PORTFOLIO_CATEGORY_LABELS } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { CaseCard } from "./case-card";
+import { industryMatches } from "@/lib/content/agency";
 
 export function WorkIndex({ projects }: { projects: PortfolioProject[] }) {
   const params = useSearchParams();
   const industry = params.get("industry");
   const [filter, setFilter] = useState<string>("all");
   const available = PORTFOLIO_CATEGORIES.filter((c) => projects.some((p) => p.categories.includes(c)));
-  const shown = projects.filter((p) => (filter === "all" || (p.categories as string[]).includes(filter)) && (!industry || p.industry === industry));
+  const shown = projects.filter((p) => (filter === "all" || (p.categories as string[]).includes(filter)) && (!industry || industryMatches(industry, p.industry)));
 
   return (
     <div className="gutter">

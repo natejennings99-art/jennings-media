@@ -117,14 +117,14 @@ export const PROCESS = [
 ] as const;
 
 export const INDUSTRIES = [
-  { name: "Hospitality", image: "/media/video/pet-grand-hotel.jpg", video: "/media/video/pet-grand-hotel.mp4" },
-  { name: "Real Estate", image: "/media/video/great-falls.jpg", video: "/media/video/great-falls.mp4" },
-  { name: "Events & Sports", image: "/media/video/polo.jpg", video: "/media/video/polo.mp4" },
-  { name: "Consumer Brands", image: "/media/stock/consumer-brands.jpg", video: "/media/stock/consumer-brands.mp4" },
-  { name: "Fashion & Retail", image: "/media/video/isaia.jpg", video: "/media/video/isaia.mp4" },
-  { name: "Restaurants", image: "/media/stock/restaurants.jpg", video: "/media/stock/restaurants.mp4" },
-  { name: "Professional Services", image: "/media/video/smart-settlements.jpg", video: "/media/video/smart-settlements.mp4" },
-  { name: "E-Commerce", image: "/media/stock/e-commerce.jpg", video: "/media/stock/e-commerce.mp4" },
+  { name: "Hospitality", image: "/media/video/pet-grand-hotel.jpg", video: "/media/video/pet-grand-hotel.mp4", match: ["hospitality", "hotel"] },
+  { name: "Real Estate", image: "/media/video/great-falls.jpg", video: "/media/video/great-falls.mp4", match: ["real estate"] },
+  { name: "Events & Sports", image: "/media/video/polo.jpg", video: "/media/video/polo.mp4", match: ["event", "sport"] },
+  { name: "Consumer Brands", image: "/media/stock/consumer-brands.jpg", video: "/media/stock/consumer-brands.mp4", match: ["grooming", "consumer", "beauty"] },
+  { name: "Fashion & Retail", image: "/media/video/isaia.jpg", video: "/media/video/isaia.mp4", match: ["fashion", "retail"] },
+  { name: "Restaurants", image: "/media/stock/restaurants.jpg", video: "/media/stock/restaurants.mp4", match: ["restaurant", "food", "dining"] },
+  { name: "Professional Services", image: "/media/video/smart-settlements.jpg", video: "/media/video/smart-settlements.mp4", match: ["professional", "settlement", "services"] },
+  { name: "E-Commerce", image: "/media/stock/e-commerce.jpg", video: "/media/stock/e-commerce.mp4", match: ["e-commerce", "ecommerce", "online store"] },
 ] as const;
 
 export const BUDGETS = ["Under $2,500", "$2,500–$5,000", "$5,000–$10,000", "$10,000–$25,000", "$25,000+"] as const;
@@ -214,3 +214,12 @@ export const ARTICLES: Article[] = [
     ],
   },
 ];
+
+/** True when a project's industry belongs to the named homepage industry (keyword match, case-insensitive). */
+export function industryMatches(name: string, projectIndustry: string | null | undefined) {
+  if (!projectIndustry) return false;
+  const hay = projectIndustry.toLowerCase();
+  const cfg = INDUSTRIES.find((i) => i.name === name);
+  if (!cfg) return hay === name.toLowerCase();
+  return cfg.match.some((k) => hay.includes(k));
+}

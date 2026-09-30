@@ -61,7 +61,7 @@ export default async function HomePage() {
       <ProcessTimeline />
       <Experiment />
       <TestimonialsSlider items={testimonials} />
-      <Industries />
+      <Industries projectIndustries={projects.map((p) => p.industry)} />
       <FinalCta />
     </>
   );
