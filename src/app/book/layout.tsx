@@ -27,7 +27,7 @@ export default function BookLayout({ children }: LayoutProps<"/book">) {
           </div>
         </div>
       </header>
-      <main>{children}</main>
+      <main className="animate-fade-in">{children}</main>
     </div>
   );
 }

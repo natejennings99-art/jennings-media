@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
 import { AGENCY_SERVICES } from "@/lib/content/agency";
 import { PageIntro } from "@/components/agency/page-intro";
@@ -12,6 +11,7 @@ import { SplitReveal } from "@/components/experience/split-reveal";
 import { JsonLd, agencyServicesSchema, breadcrumbSchema } from "@/components/seo/json-ld";
 import { IMAGES } from "@/lib/content/images";
 import { cn } from "@/lib/utils";
+import { TransitionLink } from "@/components/experience/transition";
 
 export const metadata: Metadata = {
   title: "Services: Lead Gen, Ads, AI & Content",
@@ -54,10 +54,10 @@ export default function ServicesPage() {
                 <p className="font-mono text-sm text-accent-300">{s.number}</p>
                 <h2 className="mt-3 font-display text-[clamp(2.5rem,5.5vw,5.5rem)] text-bone-50">{s.title}</h2>
                 <p className="mt-6 max-w-md text-[17px] leading-relaxed text-mist-300">{s.short}</p>
-                <Link href={`/services/${s.slug}`} className="group mt-6 inline-flex items-center gap-2 text-[14px] font-semibold tracking-[0.04em] text-bone-50 uppercase hover:text-accent-300">
+                <TransitionLink href={`/services/${s.slug}`} className="group mt-6 inline-flex items-center gap-2 text-[14px] font-semibold tracking-[0.04em] text-bone-50 uppercase hover:text-accent-300">
                   Explore {s.title}
                   <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:rotate-45" />
-                </Link>
+                </TransitionLink>
               </div>
             </div>
             <div className={cn("space-y-10 lg:col-span-6 lg:col-start-7", i % 2 === 1 && "lg:order-first lg:col-start-1")}>
@@ -88,12 +88,12 @@ export default function ServicesPage() {
                     <p className="mt-3 text-2xl font-semibold tracking-[-0.02em]">Real estate media, booked online.</p>
                     <p className="mt-2 text-[15px] text-mist-400">Photography, cinematic video, drone, floor plans and 3D tours — instant pricing, online scheduling, next-morning delivery.</p>
                     <div className="mt-6 flex flex-wrap gap-3">
-                      <Link href="/book" className="inline-flex h-11 items-center gap-2 rounded-full bg-accent-300 px-5 text-[13px] font-semibold tracking-wide text-ink-950 uppercase">
+                      <TransitionLink href="/book" className="inline-flex h-11 items-center gap-2 rounded-full bg-accent-300 px-5 text-[13px] font-semibold tracking-wide text-ink-950 uppercase">
                         Book a shoot <ArrowUpRight className="size-4" />
-                      </Link>
-                      <Link href="/pricing" className="inline-flex h-11 items-center rounded-full border border-white/20 px-5 text-[13px] font-semibold tracking-wide uppercase">
+                      </TransitionLink>
+                      <TransitionLink href="/pricing" className="inline-flex h-11 items-center rounded-full border border-white/20 px-5 text-[13px] font-semibold tracking-wide uppercase">
                         Media pricing
-                      </Link>
+                      </TransitionLink>
                     </div>
                   </div>
                 </div>

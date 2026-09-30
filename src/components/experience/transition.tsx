@@ -18,8 +18,16 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const panel = useRef<HTMLDivElement>(null);
   const word = useRef<HTMLSpanElement>(null);
-  const pending = useRef<string | null>(null);
   const busy = useRef(false);
+  const failsafe = useRef(0);
+
+  /** Hide the panel and accept clicks again. */
+  const release = useCallback(() => {
+    clearTimeout(failsafe.current);
+    if (panel.current) gsap.set(panel.current, { display: "none" });
+    busy.current = false;
+    ScrollTrigger.refresh();
+  }, []);
 
   const navigate = useCallback(
     (href: string) => {
@@ -34,33 +42,32 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
         return;
       }
       busy.current = true;
-      pending.current = target.pathname;
       router.prefetch(href);
       gsap
-        .timeline({ onComplete: () => router.push(href) })
+        .timeline({
+          onComplete: () => {
+            router.push(href);
+            // If the route never changes (redirect back, network stall), don't leave the panel covering the page.
+            failsafe.current = window.setTimeout(() => busy.current && release(), 7000);
+          },
+        })
         .set(panel.current, { display: "flex", yPercent: 100 })
         .to(panel.current, { yPercent: 0, duration: 0.5, ease: "power4.inOut" })
         .fromTo(word.current, { yPercent: 120 }, { yPercent: 0, duration: 0.4, ease: "power3.out" }, "-=0.25");
     },
-    [router]
+    [router, release]
   );
 
+  // Any route change that follows one of our transitions reveals the new page — even if a redirect landed elsewhere.
   useEffect(() => {
-    if (!pending.current || pending.current !== pathname || !panel.current) return;
-    pending.current = null;
+    if (!busy.current || !panel.current) return;
+    clearTimeout(failsafe.current);
     scrollToTop();
     gsap
-      .timeline({
-        delay: 0.08,
-        onComplete: () => {
-          gsap.set(panel.current, { display: "none" });
-          busy.current = false;
-          ScrollTrigger.refresh();
-        },
-      })
+      .timeline({ delay: 0.08, onComplete: release })
       .to(word.current, { yPercent: -120, duration: 0.3, ease: "power3.in" })
       .to(panel.current, { yPercent: -100, duration: 0.55, ease: "power4.inOut" }, "-=0.1");
-  }, [pathname]);
+  }, [pathname, release]);
 
   return (
     <TransitionContext.Provider value={{ navigate }}>

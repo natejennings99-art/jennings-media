@@ -54,22 +54,22 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
           </div>
           <div className="col-span-2 sm:col-span-1">
             <p className="label mb-5 text-mist-500">Studio</p>
-            <Link href="/locations/washington-dc" className="block text-[15px] text-mist-300 hover:text-bone-50">Washington, DC</Link>
-            <Link href="/locations/tampa" className="block text-[15px] text-mist-300 hover:text-bone-50">Tampa, FL</Link>
+            <TransitionLink href="/locations/washington-dc" className="block text-[15px] text-mist-300 hover:text-bone-50">Washington, DC</TransitionLink>
+            <TransitionLink href="/locations/tampa" className="block text-[15px] text-mist-300 hover:text-bone-50">Tampa, FL</TransitionLink>
             <p className="text-[15px] text-mist-500">{BRAND.locationNote}</p>
             <p className="label mt-8 mb-4 text-mist-500">Media production</p>
-            <Link href="/pricing" className="group inline-flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
+            <TransitionLink href="/pricing" className="group inline-flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
               <RollText>Real estate media — book online</RollText>
               <ArrowUpRight className="size-3.5" />
-            </Link>
-            <Link href="/plans" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
+            </TransitionLink>
+            <TransitionLink href="/plans" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
               <RollText>Retainers & packages</RollText>
               <ArrowUpRight className="size-3.5" />
-            </Link>
-            <Link href="/pay" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
+            </TransitionLink>
+            <TransitionLink href="/pay" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
               <RollText>Make a payment</RollText>
               <ArrowUpRight className="size-3.5" />
-            </Link>
+            </TransitionLink>
           </div>
         </div>
       </div>
@@ -79,8 +79,8 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
           © {year} {BRAND.name}. All rights reserved.
         </p>
         <div className="flex items-center gap-6">
-          <Link href="/privacy" className="hover:text-bone-50">Privacy</Link>
-          <Link href="/terms" className="hover:text-bone-50">Terms</Link>
+          <TransitionLink href="/privacy" className="hover:text-bone-50">Privacy</TransitionLink>
+          <TransitionLink href="/terms" className="hover:text-bone-50">Terms</TransitionLink>
           <Link href="/login" className="hover:text-bone-50">Client login</Link>
           <a href="#top" className="grid size-9 place-items-center rounded-full border border-white/15 text-bone-50 transition hover:bg-bone-50 hover:text-ink-950" aria-label="Back to top">
             <ArrowUp className="size-4" />

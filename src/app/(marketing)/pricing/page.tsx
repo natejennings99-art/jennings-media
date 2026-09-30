@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowRight, MapPin } from "lucide-react";
 import { getCatalog, getServiceAreas, getSettings } from "@/lib/data/public";
 import { addOnUnitPrice, sortTiers, startingPrice } from "@/lib/pricing/engine";
@@ -13,6 +12,7 @@ import { ServiceIcon } from "@/components/ui/icon";
 import { buttonStyles } from "@/components/ui/button";
 import { JsonLd, faqSchema } from "@/components/seo/json-ld";
 import { FAQS } from "@/lib/content/site";
+import { TransitionLink } from "@/components/experience/transition";
 
 export const revalidate = 300;
 
@@ -65,9 +65,9 @@ export default async function PricingPage() {
                     <ServiceIcon name={s.icon} className="size-4.5" />
                   </span>
                   <div>
-                    <Link href={`/book?service=${s.slug}`} className="font-medium text-bone-50 hover:text-accent-100">
+                    <TransitionLink href={`/book?service=${s.slug}`} className="font-medium text-bone-50 hover:text-accent-100">
                       {s.name}
-                    </Link>
+                    </TransitionLink>
                     <p className="line-clamp-1 text-[13px] text-mist-500">{s.tagline}</p>
                   </div>
                 </div>
@@ -139,9 +139,9 @@ export default async function PricingPage() {
             )}
             {pay.allow_pay_later && <li>· Or pay after the shoot, before download</li>}
           </ul>
-          <Link href="/book" className={buttonStyles({ className: "mt-8" })}>
+          <TransitionLink href="/book" className={buttonStyles({ className: "mt-8" })}>
             Start booking <ArrowRight className="size-4" />
-          </Link>
+          </TransitionLink>
         </div>
         <div className="lg:col-span-8">
           <Faq items={PRICING_FAQ} />
