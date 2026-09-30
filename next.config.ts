@@ -43,7 +43,8 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
-    formats: ["image/avif", "image/webp"],
+    // Images are pre-sized in /public/media; resizing them on the fly (especially AVIF) blew past the 512 MB instance limit.
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "*.supabase.co" },
