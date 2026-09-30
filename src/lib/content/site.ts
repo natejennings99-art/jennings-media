@@ -19,10 +19,6 @@ export const FAQS = [
     a: "Interior photography goes ahead rain or shine. For drone and twilight sessions, we'll reschedule the exterior portion at no charge if conditions aren't right.",
   },
   {
-    q: "Are your drone pilots licensed?",
-    a: "Yes. Every drone flight is performed by an FAA Part 107 certified pilot, and we handle airspace authorizations where required.",
-  },
-  {
     q: "Can I get unbranded media for the MLS?",
     a: "Absolutely. Videos, 3D tours and property websites include both a branded version and an MLS-compliant unbranded link.",
   },

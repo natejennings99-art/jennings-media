@@ -181,10 +181,10 @@ export const DEFAULT_SERVICES: Service[] = [
     slug: "drone-photography",
     name: "Drone Photography",
     category: "drone",
-    tagline: "FAA Part 107 aerials that show the lot, the views and the neighborhood.",
+    tagline: "Drone aerials that show the lot, the views and the neighborhood.",
     description:
       "Elevated and high-altitude angles reveal what ground photos can't: lot size, water and golf views, proximity to amenities. Optional lot-line overlays on request.",
-    features: ["10–15 aerial images", "Licensed & insured pilots", "Lot-line overlays available", "Neighborhood context shots"],
+    features: ["10–15 aerial images", "4K aerial footage and stills", "Lot-line overlays available", "Neighborhood context shots"],
     icon: "plane",
     image_url: IMAGES.aerialSuburb,
     gallery: [{ url: IMAGES.aerialCoast, alt: "Coastal aerial" }],
