@@ -1,0 +1,25 @@
+# Render Blueprint — same stack as the Tampa Maids site (GitHub + Render + custom domain).
+# Dashboard → New → Blueprint → pick this repo. Add Stripe / Resend / Supabase keys under
+# Environment afterwards (see README "Getting paid & getting leads").
+services:
+  - type: web
+    name: jennings-media
+    runtime: node
+    region: virginia
+    plan: starter
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NEXT_TELEMETRY_DISABLED
+        value: 1
+      - key: NEXT_PUBLIC_SITE_URL
+        value: https://jennings-media.com
+      - key: NEXT_PUBLIC_CONTACT_EMAIL
+        value: natejennings99@gmail.com
+    domains:
+      - jennings-media.com
+      - www.jennings-media.com

@@ -54,7 +54,11 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["lucide-react"],
   },
   async headers() {
-    return [{ source: "/:path*", headers: process.env.NODE_ENV === "production" ? securityHeaders : securityHeaders.slice(0, 4) }];
+    return [
+      { source: "/:path*", headers: process.env.NODE_ENV === "production" ? securityHeaders : securityHeaders.slice(0, 4) },
+      // Films and photos: let browsers keep them for a week instead of re-checking every visit.
+      { source: "/media/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=2592000" }] },
+    ];
   },
 };
 
