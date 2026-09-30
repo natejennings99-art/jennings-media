@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, House } from "lucide-react";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/motion";
 import { HERO_KEYWORDS } from "@/lib/content/agency";
 import { BRAND } from "@/lib/brand";
@@ -122,6 +122,13 @@ export function Hero({ videoUrl, trustLine, clients }: { videoUrl: string | null
                 </span>
               </TransitionLink>
             </Magnetic>
+            <TransitionLink
+              href="/real-estate"
+              className="group inline-flex h-15 items-center gap-3 rounded-full border border-white/25 bg-ink-950/30 px-6 text-[14px] font-semibold tracking-[0.04em] text-bone-50 uppercase backdrop-blur-md transition-colors duration-300 hover:border-bone-50 hover:bg-bone-50 hover:text-ink-950"
+            >
+              <House className="size-4" aria-hidden />
+              Real estate media
+            </TransitionLink>
             <TransitionLink href="/work" className="group inline-flex h-15 items-center gap-2 px-3 text-[14px] font-semibold tracking-[0.04em] text-bone-50 uppercase">
               <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:100%_1px] bg-bottom-left bg-no-repeat pb-1 transition-[background-size] duration-500 group-hover:bg-[length:0%_1px] group-hover:bg-right">
                 View our work

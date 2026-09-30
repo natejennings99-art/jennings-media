@@ -1,33 +1,25 @@
-/** Events, sports & lifestyle footage — shot by our team (web loops live in /public/media/video). */
+/** Events page content — client events and sports, filmed and photographed by our team. */
 import type { Film } from "./real-estate";
 
-export const SPORTS_WIDE: Film[] = [
-  { slug: "stadium", title: "Night game", place: "Baseball" },
-  { slug: "baseball", title: "Diamond view", place: "Baseball" },
+/** Widescreen event films (16:9 loops). */
+export const EVENT_FILMS: Film[] = [
+  { slug: "stadium", title: "Night at the ballpark", place: "Elevate Property Group" },
+  { slug: "brewery-event", title: "Brewery night at 2 Silos", place: "Right Fit Realty" },
 ];
 
-export const SPORTS_REELS: Film[] = [
-  { slug: "nba", title: "Courtside energy", place: "Basketball" },
-  { slug: "hoops-crowd", title: "Crowd roar", place: "Basketball" },
-  { slug: "football", title: "Game day", place: "Football" },
-  { slug: "polo-field", title: "On the field", place: "Polo" },
-  { slug: "polo-horses", title: "Full gallop", place: "Polo" },
-];
-
-export const LIVE_REELS: Film[] = [
-  { slug: "concert", title: "Reggae Rise Up", place: "Live music" },
-  { slug: "nightlife", title: "After dark", place: "Nightlife" },
-];
-
-export const TRAVEL_REELS: Film[] = [
-  { slug: "rooftop-pool", title: "Golden-hour rooftop", place: "Hotels & resorts" },
-  { slug: "cenote", title: "Hidden cenote", place: "Resorts & travel" },
-  { slug: "beach", title: "Shoreline", place: "Resorts & travel" },
+/** Vertical event reels (9:16 loops). */
+export const EVENT_REELS: Film[] = [
+  { slug: "polo", title: "The District Cup", place: "Polo" },
+  { slug: "fall-festival", title: "Fall Festival", place: "Community event" },
+  { slug: "right-fit", title: "Summer Kick Off", place: "Right Fit Realty" },
+  { slug: "pet-grand-hotel", title: "Pet Grand Hotel", place: "Hospitality" },
+  { slug: "isaia", title: "Isaia", place: "Retail" },
+  { slug: "elevate", title: "Elevate Property Group", place: "Brand film" },
 ];
 
 export const EVENT_OFFERS = [
-  { title: "Event coverage", text: "Games, shows, launches and parties captured in 4K, from the big moments to the small ones in between." },
-  { title: "Highlight reels", text: "Fast, vertical-first edits built for Instagram, TikTok and Shorts, with a hook in the first second." },
-  { title: "Brand & sponsor content", text: "Footage that gives partners and sponsors something worth posting, with your logo where it belongs." },
-  { title: "Always-on social", text: "A steady stream of behind-the-scenes and recap content that keeps your audience coming back." },
+  { title: "Event coverage", text: "Photo and 4K video from the first guest to the last toast, with a team that stays out of the way." },
+  { title: "Same-week recaps", text: "A one-minute recap and vertical highlights ready to post while people are still talking about it." },
+  { title: "Photo galleries", text: "Edited event photos, from step-and-repeat portraits to the candid moments in between." },
+  { title: "Sponsor & brand content", text: "Footage that gives partners and sponsors something worth sharing, with your logo where it belongs." },
 ] as const;

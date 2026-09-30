@@ -12,7 +12,6 @@ export const CINEMATIC_FILMS: Film[] = [
   { slug: "tunlaw-terrace", title: "Tunlaw Rd NW Penthouse", place: "Washington, DC" },
   { slug: "arlington-dining", title: "Arlington Residence", place: "Arlington, VA" },
   { slug: "mclean", title: "McLean Residence", place: "McLean, VA" },
-  { slug: "alexandria", title: "Alexandria Residence", place: "Alexandria, VA" },
 ];
 
 /** Vertical listing reels (9:16 loops), best performers first. */
@@ -35,21 +34,6 @@ export const LISTING_REELS: Film[] = [
   { slug: "holyoke", title: "6406 Holyoke Dr" },
 ];
 
-export type Still = { src: string; alt: string; shape: "wide" | "tall" | "sq" };
-
-/** Photography bento — real listing photography and film stills. */
-export const STILLS: Still[] = [
-  { src: "/media/work/sugarberry-dining.jpg", alt: "Dining room, 10465 Sugarberry", shape: "wide" },
-  { src: "/media/work/fairmont-deck.jpg", alt: "Screened deck, 2933 N Fairmont St", shape: "tall" },
-  { src: "/media/work/kagera-living.jpg", alt: "Living room, 17455 Kagera Dr", shape: "sq" },
-  { src: "/media/video/lake-dock.jpg", alt: "Lakefront dock", shape: "wide" },
-  { src: "/media/work/fairmont-living.jpg", alt: "Living room, 2933 N Fairmont St", shape: "sq" },
-  { src: "/media/video/mansion.jpg", alt: "Estate outdoor living", shape: "wide" },
-  { src: "/media/work/kagera-kitchen.jpg", alt: "Kitchen, 17455 Kagera Dr", shape: "tall" },
-  { src: "/media/work/sugarberry-kitchen.jpg", alt: "Kitchen, 10465 Sugarberry", shape: "sq" },
-  { src: "/media/video/arlington-dining.jpg", alt: "Formal dining room, Arlington", shape: "wide" },
-  { src: "/media/work/kagera-bedroom.jpg", alt: "Primary bedroom, 17455 Kagera Dr", shape: "sq" },
-];
 
 export const RE_STEPS = [
   { n: "01", title: "Pick your package", text: "Choose a package or build your own. Your exact total, including any travel fee, shows before you pay." },

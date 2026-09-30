@@ -6,12 +6,13 @@ import { startingPrice } from "@/lib/pricing/engine";
 import { formatMoney, cn } from "@/lib/utils";
 import { env } from "@/lib/env";
 import { BRAND } from "@/lib/brand";
-import { CINEMATIC_FILMS, LISTING_REELS, RE_AREAS, RE_FAQ, RE_STEPS, STILLS } from "@/lib/content/real-estate";
+import { CINEMATIC_FILMS, LISTING_REELS, RE_AREAS, RE_FAQ, RE_STEPS } from "@/lib/content/real-estate";
+import { RE_PHOTOS } from "@/lib/content/photos";
+import { PhotoGallery } from "@/components/agency/photo-gallery";
 import { FilmGrid, ReelRail } from "@/components/agency/film-wall";
 import { SectionLabel } from "@/components/agency/section-label";
 import { FinalCta } from "@/components/agency/final-cta";
 import { SplitReveal } from "@/components/experience/split-reveal";
-import { ClipReveal } from "@/components/experience/parallax";
 import { TransitionLink } from "@/components/experience/transition";
 import { ServiceIcon } from "@/components/ui/icon";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   title: "Real Estate Photography, Video & Drone in DC, VA & MD",
   description: "Listing photography, cinematic video, drone, 3D tours, floor plans and social reels for agents and brokerages in Washington DC, Northern Virginia, Maryland and Tampa Bay. See the work, compare packages, book online.",
   alternates: { canonical: "/real-estate" },
-  openGraph: { images: [{ url: "/media/video/great-falls.jpg" }] },
+  openGraph: { images: [{ url: "/media/photos/craftsman-exterior.jpg" }] },
 };
 
 const PACKAGE_IMAGE: Record<string, string> = {
@@ -265,15 +266,8 @@ export default async function RealEstatePage() {
           <br />
           to <span className="text-accent-300">life.</span>
         </SplitReveal>
-        <div className="mt-14 columns-2 gap-3 sm:gap-5 lg:columns-3">
-          {STILLS.map((s) => (
-            <ClipReveal key={s.src}>
-              <div className={cn("relative mb-3 overflow-hidden rounded-xl sm:mb-5", s.shape === "tall" ? "aspect-[4/5]" : s.shape === "sq" ? "aspect-square" : "aspect-[3/2]")}>
-                <Image src={s.src} alt={s.alt} fill sizes="(min-width:1024px) 33vw, 50vw" className="object-cover transition-transform duration-[1400ms] ease-(--ease-expo) hover:scale-[1.05]" />
-              </div>
-            </ClipReveal>
-          ))}
-        </div>
+        <p className="mt-8 max-w-xl text-[16px] leading-relaxed text-mist-400">HDR-blended, hand-edited finals from real listings across the DMV. Tap any photo to see it full screen.</p>
+        <PhotoGallery photos={RE_PHOTOS} className="mt-14" />
       </section>
 
       {/* ───────────── Aerial ───────────── */}
