@@ -5,6 +5,7 @@ import { ArrowUpRight, Check } from "lucide-react";
 import { submitInquiry } from "@/app/(marketing)/contact/actions";
 import { BUDGETS, INQUIRY_SERVICES, NEEDS } from "@/lib/content/agency";
 import { track } from "@/lib/analytics";
+import { BRAND } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 import type { ActionResult } from "@/lib/types";
 
@@ -23,7 +24,18 @@ function Chip({ name, value, type, defaultChecked }: { name: string; value: stri
 
 export function InquiryForm() {
   const [startedAt] = useState(() => Date.now());
+  const [draft, setDraft] = useState<Record<string, string>>({});
   const [state, action, pending] = useActionState<ActionResult<{ name: string }> | null, FormData>(async (prev, form) => {
+    setDraft({
+      name: String(form.get("name") ?? ""),
+      company: String(form.get("company") ?? ""),
+      email: String(form.get("email") ?? ""),
+      phone: String(form.get("phone") ?? ""),
+      need: String(form.get("need") ?? ""),
+      services: form.getAll("services").join(", "),
+      budget: String(form.get("budget") ?? ""),
+      message: String(form.get("message") ?? "").slice(0, 1200),
+    });
     const res = await submitInquiry(prev, form);
     if (res.ok) track("contact_submit", { form: "project_inquiry" });
     return res;
@@ -115,7 +127,21 @@ export function InquiryForm() {
         {err("message") && <p className="mt-2 text-[13px] text-red-300">{err("message")}</p>}
       </div>
 
-      {state && !state.ok && !state.fieldErrors && <p className="text-[14px] text-red-300">{state.error}</p>}
+      {state && !state.ok && !state.fieldErrors && (
+        <div className="space-y-3">
+          <p className="text-[14px] text-red-300">{state.error}</p>
+          {BRAND.email && (
+            <a
+              className="inline-block text-[14px] text-bone-50 underline underline-offset-4 hover:text-accent-300"
+              href={`mailto:${BRAND.email}?subject=${encodeURIComponent(`Project inquiry — ${draft.company || draft.name || "Jennings Media"}`)}&body=${encodeURIComponent(
+                [`Name: ${draft.name}`, `Company: ${draft.company}`, `Email: ${draft.email}`, `Phone: ${draft.phone}`, `Need: ${draft.need}`, `Services: ${draft.services}`, `Budget: ${draft.budget}`, "", draft.message].join("\n")
+              )}`}
+            >
+              Email this brief to {BRAND.email} instead →
+            </a>
+          )}
+        </div>
+      )}
 
       <button
         type="submit"

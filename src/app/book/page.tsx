@@ -5,9 +5,15 @@ import { allowedPaymentOptions } from "@/lib/booking/quote-server";
 import { features } from "@/lib/env";
 import { todayYmd } from "@/lib/scheduling/tz";
 import { releaseAbandonedBooking } from "@/lib/booking/payments";
+import { BookingSoon } from "@/components/booking/booking-soon";
+import { BRAND } from "@/lib/brand";
 
 export default async function BookPage({ searchParams }: PageProps<"/book">) {
   const params = await searchParams;
+  // Until the booking database is connected, don't let visitors fill in eight steps that fail at the end.
+  if (!features.supabaseAdmin && process.env.NODE_ENV === "production") {
+    return <BookingSoon email={(await getSettings()).email || BRAND.email} />;
+  }
   const [catalog, settings, viewer] = await Promise.all([getCatalog(), getSettings(), getViewer()]);
   const c = viewer?.customer;
   const prefill = c
