@@ -20,8 +20,8 @@ import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Real Estate Photography, Video & Drone in DC, VA & MD",
-  description: "Listing photography, cinematic video, drone, 3D tours, floor plans and social reels for agents and brokerages in Washington DC, Northern Virginia, Maryland and Tampa Bay. See the work, compare packages, book online.",
+  title: "Real Estate Photography & Video in Tampa Bay",
+  description: "Listing photography, cinematic video, drone, 3D tours and floor plans for agents and brokerages in Tampa Bay and Washington, DC. See the work and book online.",
   alternates: { canonical: "/real-estate" },
   openGraph: { images: [{ url: "/media/photos/craftsman-exterior.jpg" }] },
 };
@@ -66,11 +66,14 @@ export default async function RealEstatePage() {
       {/* ───────────── Hero ───────────── */}
       <section className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden" aria-label="Real estate media">
         <div className="absolute inset-0 -z-10 bg-ink-950">
-          <video className="absolute inset-0 size-full object-cover opacity-70" src="/media/video/great-falls.mp4" poster="/media/video/great-falls.jpg" autoPlay muted loop playsInline />
+          <video className="absolute inset-0 size-full object-cover opacity-70" poster="/media/video/great-falls.jpg" autoPlay muted loop playsInline>
+            <source media="(max-width: 767px)" src="/media/video/great-falls-mobile.mp4" type="video/mp4" />
+            <source src="/media/video/great-falls.mp4" type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-gradient-to-b from-ink-950/50 via-ink-950/10 to-ink-950" />
         </div>
         <div className="gutter pt-40 pb-12 sm:pb-16">
-          <p className="label mb-8 animate-fade-in text-accent-300">Real estate media · DC · VA · MD · Tampa Bay</p>
+          <p className="label mb-8 animate-fade-in text-accent-300">Real estate media · Tampa Bay · Washington, DC</p>
           <SplitReveal as="h1" immediate className="font-display text-hero text-bone-50">
             Listings that
             <br />

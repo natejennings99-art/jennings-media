@@ -54,9 +54,11 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
           </div>
           <div className="col-span-2 sm:col-span-1">
             <p className="label mb-5 text-mist-500">Studio</p>
-            <TransitionLink href="/locations/washington-dc" className="block text-[15px] text-mist-300 hover:text-bone-50">Washington, DC</TransitionLink>
             <TransitionLink href="/locations/tampa" className="block text-[15px] text-mist-300 hover:text-bone-50">Tampa, FL</TransitionLink>
+            <TransitionLink href="/locations/washington-dc" className="block text-[15px] text-mist-300 hover:text-bone-50">Washington, DC</TransitionLink>
             <p className="text-[15px] text-mist-500">{BRAND.locationNote}</p>
+            <a href={BRAND.phoneHref} className="mt-4 block text-[15px] text-mist-300 hover:text-bone-50">{BRAND.phone}</a>
+            <p className="text-[15px] text-mist-500">{BRAND.hours}</p>
             <p className="label mt-8 mb-4 text-mist-500">Media production</p>
             <TransitionLink href="/real-estate" className="group inline-flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
               <RollText>Real estate photo & video</RollText>

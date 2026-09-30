@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { LegalPage } from "@/components/marketing/legal-page";
 import { BRAND } from "@/lib/brand";
 
-export const metadata: Metadata = { title: "Booking Terms", alternates: { canonical: "/terms" } };
+export const metadata: Metadata = { title: "Booking Terms", description: "The terms that apply to every Jennings Media booking and project: scheduling, payments, rescheduling, usage rights and deliverables.", alternates: { canonical: "/terms" } };
 
 export default function TermsPage() {
   return (
     <LegalPage title="Booking Terms" updated="September 29, 2026">
-      <p>These terms apply to every project and booking with {BRAND.name}. <strong>Template language — have it reviewed by your attorney before launch.</strong></p>
+      <p>These terms apply to every project and booking with {BRAND.name}.</p>
       <h2>Bookings & pricing</h2>
       <p>Prices are based on the square footage you provide. If the property is materially larger than stated, we may adjust pricing to the correct size tier before delivery. Travel fees are calculated from the property address.</p>
       <h2>Rescheduling & cancellations</h2>

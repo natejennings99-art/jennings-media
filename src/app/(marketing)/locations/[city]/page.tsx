@@ -20,7 +20,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/locations/[city]">): Promise<Metadata> {
   const l = findLocation((await params).city);
   if (!l) return {};
-  return { title: l.seoTitle, description: l.description, alternates: { canonical: `/locations/${l.slug}` }, openGraph: { title: l.seoTitle, description: l.description } };
+  return { title: l.seoTitle, description: l.description, alternates: { canonical: `/locations/${l.slug}` }, openGraph: { title: l.seoTitle, description: l.description, images: [{ url: "/opengraph-image" }] } };
 }
 
 export default async function LocationPage({ params }: PageProps<"/locations/[city]">) {

@@ -22,8 +22,16 @@ export async function generateStaticParams() {
 /** e.g. "Groom Guy: Brand Film & Social Media" — the client plus what we made, for search snippets. */
 function caseTitle(p: { title: string; client_name: string | null; services_performed: string[] }) {
   const who = p.client_name && p.client_name !== p.title && !/listing/i.test(p.client_name) ? p.client_name : p.title;
-  const what = p.services_performed.slice(0, 2).join(" & ");
-  return what ? `${who}: ${what}` : who;
+  const two = `${who}: ${p.services_performed.slice(0, 2).join(" & ")}`;
+  const one = `${who}: ${p.services_performed[0] ?? ""}`;
+  if (!p.services_performed.length) return who;
+  return two.length <= 48 ? two : one.length <= 48 ? one : who;
+}
+
+/** Search snippets show ~160 characters; cut longer summaries at a word boundary. */
+function clip(text: string | undefined, max = 158) {
+  if (!text || text.length <= max) return text;
+  return `${text.slice(0, text.lastIndexOf(" ", max - 1)).replace(/[,;:—-]+$/, "")}…`;
 }
 
 export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {
@@ -32,7 +40,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
   if (!p) return {};
   return {
     title: caseTitle(p),
-    description: p.summary ?? p.description ?? undefined,
+    description: clip(p.summary ?? p.description ?? undefined),
     alternates: { canonical: `/work/${p.slug}` },
     openGraph: { images: p.cover_image_url ? [{ url: p.cover_image_url }] : undefined },
   };

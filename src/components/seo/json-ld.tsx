@@ -28,10 +28,11 @@ export function organizationSchema(settings: BusinessSettings) {
     slogan: BRAND.tagline,
     ...(settings.email ? { email: settings.email } : {}),
     ...(settings.phone ? { telephone: settings.phone } : {}),
-    address: { "@type": "PostalAddress", addressLocality: "Washington", addressRegion: "DC", addressCountry: "US" },
+    address: { "@type": "PostalAddress", addressLocality: "Tampa", addressRegion: "FL", postalCode: "33611", addressCountry: "US" },
+    openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" }],
     location: [
-      { "@type": "Place", name: "Washington, DC", address: { "@type": "PostalAddress", addressLocality: "Washington", addressRegion: "DC", addressCountry: "US" } },
       { "@type": "Place", name: "Tampa, FL", address: { "@type": "PostalAddress", addressLocality: "Tampa", addressRegion: "FL", addressCountry: "US" } },
+      { "@type": "Place", name: "Washington, DC", address: { "@type": "PostalAddress", addressLocality: "Washington", addressRegion: "DC", addressCountry: "US" } },
     ],
     areaServed: AREAS.map((name) => ({ "@type": "Place", name })),
     sameAs: [...new Set([BRAND.instagram, ...sameAs])],
@@ -96,7 +97,7 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
   };
 }
 
-const AREAS = ["Washington, DC", "Northern Virginia", "Maryland", "Tampa Bay, FL"];
+const AREAS = ["Tampa, FL", "St. Petersburg, FL", "Clearwater, FL", "Tampa Bay, FL", "Washington, DC", "Northern Virginia", "Maryland"];
 const abs = (u: string) => (u.startsWith("http") ? u : `${env.siteUrl}${u}`);
 
 export function serviceSchema(s: AgencyService, description: string, path: string) {

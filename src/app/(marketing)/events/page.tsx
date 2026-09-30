@@ -14,8 +14,8 @@ import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Event Photography & Video in Washington, DC",
-  description: "Event photography and 4K video for brokerages, brands and teams in Washington, DC, Virginia and Maryland — client appreciation nights, team outings, polo and community events, with same-week recaps.",
+  title: "Event Photography & Video in Tampa, FL",
+  description: "Event photography and 4K video in Tampa Bay and Washington, DC: client appreciation nights, team outings, polo and community events, with same-week recaps.",
   alternates: { canonical: "/events" },
   openGraph: { images: [{ url: "/media/photos/suite-sunset.jpg" }] },
 };

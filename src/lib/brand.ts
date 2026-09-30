@@ -9,9 +9,13 @@ export const BRAND = {
   descriptor: "Media & Marketing Agency",
   tagline: "Creative. Media. Growth.",
   description:
-    "Marketing agency in Washington, DC & Tampa for brokerages, realtors and entrepreneurs: lead generation, Meta & Google Ads, AI agents and 4K content.",
-  location: "Washington, DC & Tampa, FL",
-  locationNote: "Serving the DMV, Tampa Bay and brands everywhere",
+    "Tampa marketing agency for realtors, brokerages and entrepreneurs: lead generation, Meta & Google Ads, AI agents and 4K photo and video. Also serving Washington, DC.",
+  location: "Tampa, FL & Washington, DC",
+  locationNote: "Serving Tampa Bay, the DMV and brands everywhere",
+  /** Same number and hours as the Google Business Profile and Yelp page. */
+  phone: "(571) 317-3211",
+  phoneHref: "tel:+15713173211",
+  hours: "Mon–Fri, 9am–6pm",
   /** Shown only when set (Admin → Settings → Business overrides this). */
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "natejennings99@gmail.com",
   foundedYear: 2024,

@@ -44,11 +44,11 @@ export const RE_STEPS = [
 
 export const RE_FAQ = [
   { q: "How does booking work?", a: "Choose a package or individual services, pick a date and time, and confirm — it takes a couple of minutes. You'll see your exact price, including any travel fee, before you pay." },
-  { q: "What areas do you cover?", a: "Washington, D.C., Northern Virginia, the Maryland suburbs and Tampa Bay. Inside our core areas there's no travel fee; farther out adds a small per-mile fee shown at checkout." },
+  { q: "What areas do you cover?", a: "Tampa Bay — Tampa, St. Petersburg, Clearwater and the surrounding cities — plus Washington, D.C., Northern Virginia and the Maryland suburbs. Inside our core areas there's no travel fee; farther out adds a small per-mile fee shown at checkout." },
   { q: "Can I add services to a package?", a: "Yes. Every package can be extended with add-ons such as drone photos, a vertical reel, a 3D tour, floor plans or virtual twilight, and each one updates your total as you choose." },
   { q: "Do you make vertical videos for social media?", a: "Yes. Alongside the widescreen listing film we cut a 9:16 reel for Instagram, TikTok and Shorts, with captions and a hook in the first second." },
   { q: "How do I pay?", a: "You can pay in full online, put down a deposit, or choose pay-later where it's offered. Payments are processed securely by Stripe." },
   { q: "Who is this for?", a: "Agents, teams, brokerages, builders and homeowners. If you're listing a property and want it to stand out, we'll make it look its best." },
 ] as const;
 
-export const RE_AREAS = ["Washington, DC", "Northern Virginia", "Maryland suburbs", "Tampa Bay, FL"] as const;
+export const RE_AREAS = ["Tampa Bay, FL", "Washington, DC", "Northern Virginia", "Maryland suburbs"] as const;

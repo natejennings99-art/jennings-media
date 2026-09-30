@@ -31,7 +31,7 @@ export const DEFAULT_SETTINGS: BusinessSettings = {
   legal_name: null,
   tagline: BRAND.tagline,
   email: "natejennings99@gmail.com",
-  phone: null,
+  phone: "+15713173211",
   address_line1: null,
   address_line2: null,
   city: "Tampa",

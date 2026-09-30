@@ -59,6 +59,10 @@ export default async function ContactPage() {
             </div>
           )}
           <div>
+            <SectionLabel className="mb-4">Hours</SectionLabel>
+            <p className="text-[15.5px] text-mist-300">{BRAND.hours}</p>
+          </div>
+          <div>
             <SectionLabel className="mb-4">Studio</SectionLabel>
             <p className="text-[15.5px] text-mist-300">{BRAND.location}</p>
             <p className="text-[15.5px] text-mist-500">{BRAND.locationNote}</p>

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export const metadata: Metadata = {
   metadataBase: new URL(env.siteUrl),
   title: {
-    default: `${BRAND.name} | Marketing Agency in Washington, DC & Tampa`,
+    default: `${BRAND.name} | Marketing Agency in Tampa, FL`,
     template: `%s | ${BRAND.name}`,
   },
   description: BRAND.description,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   creator: BRAND.name,
   category: "business",
   openGraph: { type: "website", siteName: BRAND.name, locale: "en_US" },
-  twitter: { card: "summary_large_image", title: `${BRAND.name} | Marketing Agency in Washington, DC & Tampa`, description: BRAND.description },
+  twitter: { card: "summary_large_image", title: `${BRAND.name} | Marketing Agency in Tampa, FL`, description: BRAND.description },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-video-preview": -1, "max-snippet": -1 } },
   ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } } : {}),
   formatDetection: { telephone: false },

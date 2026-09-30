@@ -4,7 +4,7 @@ export type ServiceSeo = { seoTitle: string; description: string; plan: string; 
 
 export const SERVICE_SEO: Record<string, ServiceSeo> = {
   "lead-generation": {
-    seoTitle: "Lead Generation Agency in DC & Tampa",
+    seoTitle: "Lead Generation Agency in Tampa, FL",
     description: "Lead generation for brokerages, realtors and local businesses: offers, landing pages, instant lead alerts and follow-up that turns clicks into booked calls.",
     plan: "growth",
     package: "lead-gen-funnel",
@@ -16,7 +16,7 @@ export const SERVICE_SEO: Record<string, ServiceSeo> = {
     ],
   },
   "paid-media": {
-    seoTitle: "Meta & Google Ads Agency in DC & Tampa",
+    seoTitle: "Meta & Google Ads Agency in Tampa, FL",
     description: "Meta (Facebook & Instagram) and Google Ads management: creative, targeting, retargeting and conversion tracking, optimized weekly against cost per lead.",
     plan: "growth",
     package: "ad-launch-sprint",
@@ -28,7 +28,7 @@ export const SERVICE_SEO: Record<string, ServiceSeo> = {
     ],
   },
   "ai-automation": {
-    seoTitle: "AI Agents for Business in DC & Tampa",
+    seoTitle: "AI Agents for Business in Tampa, FL",
     description: "Custom AI agents that answer questions, qualify leads and book appointments 24/7 on your website, inbox and DMs — trained on your business.",
     plan: "scale",
     package: "ai-agent-setup",
@@ -40,7 +40,7 @@ export const SERVICE_SEO: Record<string, ServiceSeo> = {
     ],
   },
   "social-media": {
-    seoTitle: "Social Media Agency in DC & Tampa",
+    seoTitle: "Social Media Agency in Tampa, FL",
     description: "Social media management for Instagram, TikTok, Facebook, LinkedIn and YouTube: strategy, posting, reels shot in-house and monthly reporting.",
     plan: "starter",
     categories: ["social"],
@@ -51,7 +51,7 @@ export const SERVICE_SEO: Record<string, ServiceSeo> = {
     ],
   },
   "content-production": {
-    seoTitle: "Video & Photo Production in DC & Tampa",
+    seoTitle: "Video & Photo Production in Tampa, FL",
     description: "Brand films, reels, photography and drone footage shot in 4K and edited in-house — for social media, ads, websites and property listings.",
     plan: "starter",
     package: "brand-film",
@@ -63,7 +63,7 @@ export const SERVICE_SEO: Record<string, ServiceSeo> = {
     ],
   },
   "web-design": {
-    seoTitle: "Websites & Funnels in DC & Tampa",
+    seoTitle: "Websites & Funnels in Tampa, FL",
     description: "Fast, conversion-first websites and landing pages with tracking built in — designed to turn ad and social traffic into inquiries.",
     plan: "growth",
     package: "lead-gen-funnel",
@@ -75,7 +75,7 @@ export const SERVICE_SEO: Record<string, ServiceSeo> = {
     ],
   },
   "brand-strategy": {
-    seoTitle: "Brand Strategy & Identity in DC & Tampa",
+    seoTitle: "Brand Strategy & Identity in Tampa, FL",
     description: "Positioning, messaging and visual identity that make your business the obvious choice — and keep every ad, post and page on message.",
     plan: "growth",
     categories: ["branding"],
@@ -85,7 +85,7 @@ export const SERVICE_SEO: Record<string, ServiceSeo> = {
     ],
   },
   "seo-content": {
-    seoTitle: "SEO & Local Search in DC & Tampa",
+    seoTitle: "SEO & Local Search in Tampa, FL",
     description: "Technical SEO, Google Business Profile, local pages and content that ranks — so clients find you when they're ready to buy.",
     plan: "growth",
     categories: [],
@@ -100,18 +100,6 @@ export type Location = { slug: string; city: string; locality: string; region: s
 
 export const LOCATIONS: Location[] = [
   {
-    slug: "washington-dc",
-    city: "Washington, DC",
-    locality: "Washington",
-    region: "DC",
-    seoTitle: "Marketing Agency in Washington, DC",
-    description: "A Washington, DC marketing agency for brokerages, realtors and entrepreneurs across the DMV: lead generation, Meta & Google Ads, AI agents and 4K content.",
-    headline: "The DMV's content & growth team.",
-    intro: "We've been filming, photographing and marketing across Washington, D.C., Northern Virginia and Maryland since 2024 — from Great Falls estates to the District Cup.",
-    areas: ["Washington, DC", "Arlington", "Alexandria", "Falls Church", "McLean", "Great Falls", "Fairfax", "Leesburg", "Dumfries", "Bethesda", "Silver Spring", "Takoma Park"],
-    work: ["district-cup", "great-falls-estate", "2933-north-fairmont-street"],
-  },
-  {
     slug: "tampa",
     city: "Tampa, FL",
     locality: "Tampa",
@@ -122,6 +110,18 @@ export const LOCATIONS: Location[] = [
     intro: "Now serving Tampa Bay with the same team and playbook we built in the D.C. market: content that stops the scroll, ads that bring in leads and AI that follows up instantly.",
     areas: ["Tampa", "St. Petersburg", "Clearwater", "Brandon", "Riverview", "Wesley Chapel", "Lakeland", "Sarasota"],
     work: [],
+  },
+  {
+    slug: "washington-dc",
+    city: "Washington, DC",
+    locality: "Washington",
+    region: "DC",
+    seoTitle: "Marketing Agency in Washington, DC",
+    description: "A Washington, DC marketing agency for brokerages, realtors and entrepreneurs across the DMV: lead generation, Meta & Google Ads, AI agents and 4K content.",
+    headline: "The DMV's content & growth team.",
+    intro: "We've been filming, photographing and marketing across Washington, D.C., Northern Virginia and Maryland since 2024 — from Great Falls estates to the District Cup.",
+    areas: ["Washington, DC", "Arlington", "Alexandria", "Falls Church", "McLean", "Great Falls", "Fairfax", "Leesburg", "Dumfries", "Bethesda", "Silver Spring", "Takoma Park"],
+    work: ["district-cup", "great-falls-estate", "2933-north-fairmont-street"],
   },
 ];
 

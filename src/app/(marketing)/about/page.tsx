@@ -14,8 +14,8 @@ import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "About — DC & Tampa Marketing Agency",
-  description: `Founded in 2024 behind the camera, ${BRAND.name} is a marketing agency for brokerages, realtors and entrepreneurs in Washington, DC and Tampa — content, ads, AI and lead generation.`,
+  title: "About — Tampa Marketing Agency",
+  description: `Founded in 2024 behind the camera, ${BRAND.name} is a Tampa marketing agency for realtors, brokerages and entrepreneurs: content, ads, AI and lead generation.`,
   alternates: { canonical: "/about" },
 };
 

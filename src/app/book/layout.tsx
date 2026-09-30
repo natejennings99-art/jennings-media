@@ -4,7 +4,7 @@ import { Lock, X } from "lucide-react";
 import { Logo } from "@/components/ui/misc";
 
 export const metadata: Metadata = {
-  title: "Book a Shoot",
+  title: "Book a Real Estate Shoot",
   description: "Book real estate photography, video, drone, floor plans and 3D tours online in minutes with instant pricing.",
   alternates: { canonical: "/book" },
 };
