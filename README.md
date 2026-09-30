@@ -23,6 +23,14 @@ Premium real estate media platform: marketing site, online booking with live pri
 ---
 
 
+## Live deployment (Render + GitHub + Wix domain)
+
+- **Site:** https://jennings-media.com (also https://jennings-media.onrender.com). `www` redirects to the root domain.
+- **Hosting:** Render web service `jennings-media` (Node, Virginia, **Free** plan) built from `github.com/natejennings99-art/jennings-media` (`main`). It's connected through the GitHub app, so **every push to `main` deploys automatically**. Config lives in `render.yaml`.
+- **Domain:** registered at Wix; DNS there: `A @ → 216.24.57.1` and `CNAME www → jennings-media.onrender.com`. Don't add other A records for the root or Wix will fight Render for the domain.
+- **Environment (Render → jennings-media → Environment):** `NEXT_PUBLIC_SITE_URL=https://jennings-media.com`. Add Stripe / Resend / Supabase keys here (see "Getting paid & getting leads"), then the booking flow, dashboards and emails switch on automatically.
+- **Free plan note:** the instance sleeps after ~15 minutes without visitors; the next visit takes ~50 seconds. Upgrade to **Starter ($7/mo)** in Render → Settings → Instance Type to keep it always on (recommended once Google starts crawling and clients visit).
+
 ## Getting paid & getting leads (natejennings99@gmail.com)
 
 Everything is wired to **natejennings99@gmail.com** (contact email, lead/booking/payment notifications, reply-to). It switches on as you add three free accounts — put the keys in `.env.local` (and in Vercel → Settings → Environment Variables):
