@@ -9,6 +9,10 @@ export const EVENT_FILMS: Film[] = [
 
 /** Vertical event reels (9:16 loops). */
 export const EVENT_REELS: Film[] = [
+  { slug: "epg-field", title: "Night at the ballpark", place: "Elevate Property Group" },
+  { slug: "epg-stands", title: "In the stands", place: "Elevate Property Group" },
+  { slug: "epg-suite", title: "The suite", place: "Elevate Property Group" },
+  { slug: "epg-photo-wall", title: "Step-and-repeat", place: "Elevate Property Group" },
   { slug: "polo", title: "The District Cup", place: "Polo" },
   { slug: "fall-festival", title: "Fall Festival", place: "Community event" },
   { slug: "right-fit", title: "Summer Kick Off", place: "Right Fit Realty" },

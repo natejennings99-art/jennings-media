@@ -384,6 +384,10 @@ export const REAL_CLIENTS: Client[] = [
   "Briana Wansley",
   "Bill Hoffman",
   "Chris Jackson",
+  "Sabina Gudauskas",
+  "Uday Kammula",
+  "Shawn Barsness",
+  "HB Home Services",
   "DSDC Real Estate",
   "WAR Team",
   "Reynolds EmpowerHome Team",
@@ -403,6 +407,7 @@ export type Reel = { slug: string; label: string; kind: string; href: string };
 export const REELS: Reel[] = [
   { slug: "jennings-ad", label: BRAND.name, kind: "Agency spot", href: BRAND.instagram },
   { slug: "isaia", label: "Isaia", kind: "Menswear reel", href: "/work/isaia" },
+  { slug: "epg-field", label: "Elevate Property Group", kind: "Event film", href: "/events" },
   { slug: "tunlaw-penthouse", label: "Tunlaw Rd NW Penthouse", kind: "Listing film", href: "/work/tunlaw-penthouse" },
   { slug: "elevate", label: "Elevate Property Group", kind: "Brand film", href: "/work/elevate-property-group" },
   { slug: "polo", label: "District Cup", kind: "Event recap", href: "/work/district-cup" },
@@ -471,4 +476,8 @@ export const CLIENT_CATEGORY: Record<string, string> = {
   "Briana Wansley": "Realtor",
   "Bill Hoffman": "Realtor",
   "Chris Jackson": "Realtor",
+  "Sabina Gudauskas": "Realtor",
+  "Uday Kammula": "Realtor",
+  "Shawn Barsness": "Mortgage lender",
+  "HB Home Services": "Home services",
 };
