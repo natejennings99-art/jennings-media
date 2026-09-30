@@ -384,9 +384,12 @@ export type Reel = { slug: string; label: string; kind: string; href: string };
 export const REELS: Reel[] = [
   { slug: "jennings-ad", label: BRAND.name, kind: "Agency spot", href: BRAND.instagram },
   { slug: "isaia", label: "Isaia", kind: "Menswear reel", href: "/work/isaia" },
+  { slug: "nba", label: "Courtside energy", kind: "Sports reel", href: "/events" },
   { slug: "elevate", label: "Elevate Property Group", kind: "Brand film", href: "/work/elevate-property-group" },
+  { slug: "concert", label: "Reggae Rise Up", kind: "Live music", href: "/events" },
   { slug: "polo", label: "District Cup", kind: "Event recap", href: "/work/district-cup" },
   { slug: "pet-grand-hotel", label: "Pet Grand Hotel", kind: "Promo film", href: "/work/pet-grand-hotel" },
+  { slug: "rooftop-pool", label: "Golden-hour rooftop", kind: "Hotel reel", href: "/events" },
   { slug: "right-fit", label: "Right Fit Realty", kind: "Event recap", href: "/work/right-fit-summer-kick-off" },
   { slug: "fairmont", label: "2933 N Fairmont St", kind: "Listing reel", href: "/work/2933-north-fairmont-street" },
   { slug: "smart-settlements", label: "Smart Settlements", kind: "Brand video", href: "/work/smart-settlements" },

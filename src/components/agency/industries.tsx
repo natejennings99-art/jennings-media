@@ -52,10 +52,10 @@ export function Industries({ projectIndustries = [] }: { projectIndustries?: (st
         {INDUSTRIES.map((ind, i) => (
           <li key={ind.name} onPointerEnter={() => setActive(i)} className="border-b border-white/10">
             <TransitionLink
-              href={projectIndustries.some((pi) => industryMatches(ind.name, pi)) ? `/work?industry=${encodeURIComponent(ind.name)}` : "/contact"}
+              href={"href" in ind ? ind.href : projectIndustries.some((pi) => industryMatches(ind.name, pi)) ? `/work?industry=${encodeURIComponent(ind.name)}` : "/contact"}
               className="group flex items-center justify-between gap-6 py-5 sm:py-7"
               data-cursor="view"
-              data-cursor-label={projectIndustries.some((pi) => industryMatches(ind.name, pi)) ? "Explore" : "Talk"}
+              data-cursor-label={"href" in ind || projectIndustries.some((pi) => industryMatches(ind.name, pi)) ? "Explore" : "Talk"}
             >
               <span className="flex min-w-0 items-center gap-4 sm:gap-8">
                 <span className="relative size-14 shrink-0 overflow-hidden rounded-md sm:hidden">

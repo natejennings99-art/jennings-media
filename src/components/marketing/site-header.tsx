@@ -47,11 +47,11 @@ export function SiteHeader({ email, socials }: { email: string | null; socials: 
             <Logo />
           </TransitionLink>
 
-          <nav aria-label="Main" className="hidden items-center gap-9 lg:flex">
+          <nav aria-label="Main" className="hidden items-center gap-6 xl:gap-9 lg:flex">
             {NAV.map((item) => {
               const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
-                <TransitionLink key={item.href} href={item.href} className={cn("group text-[14px] font-medium tracking-[-0.01em] transition-colors", active ? "text-bone-50" : "text-mist-300 hover:text-bone-50")}>
+                <TransitionLink key={item.href} href={item.href} className={cn("group text-[14px] font-medium tracking-[-0.01em] whitespace-nowrap transition-colors", active ? "text-bone-50" : "text-mist-300 hover:text-bone-50")}>
                   <RollText>{item.label}</RollText>
                   <span className={cn("mx-auto mt-1 block h-px bg-accent-300 transition-[width] duration-500", active ? "w-full" : "w-0")} />
                 </TransitionLink>

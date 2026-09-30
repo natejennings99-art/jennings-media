@@ -119,7 +119,7 @@ export const PROCESS = [
 export const INDUSTRIES = [
   { name: "Hospitality", image: "/media/video/pet-grand-hotel.jpg", video: "/media/video/pet-grand-hotel.mp4", match: ["hospitality", "hotel"] },
   { name: "Real Estate", image: "/media/video/great-falls.jpg", video: "/media/video/great-falls.mp4", match: ["real estate"] },
-  { name: "Events & Sports", image: "/media/video/polo.jpg", video: "/media/video/polo.mp4", match: ["event", "sport"] },
+  { name: "Events & Sports", image: "/media/video/polo-field.jpg", video: "/media/video/polo-field.mp4", href: "/events", match: ["event", "sport"] },
   { name: "Consumer Brands", image: "/media/stock/consumer-brands.jpg", video: "/media/stock/consumer-brands.mp4", match: ["grooming", "consumer", "beauty"] },
   { name: "Fashion & Retail", image: "/media/video/isaia.jpg", video: "/media/video/isaia.mp4", match: ["fashion", "retail"] },
   { name: "Restaurants", image: "/media/stock/restaurants.jpg", video: "/media/stock/restaurants.mp4", match: ["restaurant", "food", "dining"] },
