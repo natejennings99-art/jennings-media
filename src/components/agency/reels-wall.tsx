@@ -72,7 +72,7 @@ export function ReelsWall({ reels }: { reels: Reel[] }) {
             <>
               <div className="relative aspect-[9/16] overflow-hidden rounded-xl bg-ink-900">
                 <Image src={`/media/video/${r.slug}.jpg`} alt={`${r.label} — ${r.kind}`} fill sizes="(min-width:1024px) 20vw, (min-width:640px) 32vw, 64vw" className="object-cover" />
-                <AmbientVideo src={`/media/video/${r.slug}.mp4`} poster={`/media/video/${r.slug}.jpg`} threshold={0.6} className="absolute inset-0 size-full object-cover" />
+                <AmbientVideo src={`/media/video/${r.slug}.mp4`} threshold={0.6} className="absolute inset-0 size-full object-cover" />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/80 via-transparent to-ink-950/20" />
                 <span className="label absolute top-4 left-4 text-bone-50/80 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
                 <span className="label absolute top-4 right-4 flex items-center gap-1.5 text-bone-50/80">

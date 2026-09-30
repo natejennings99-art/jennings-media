@@ -47,23 +47,27 @@ function Montage({ clips, active = true }: { clips: Clip[]; active?: boolean }) 
   }, [index, active]);
   return (
     <>
-      {clips.map((c, i) => (
-        <div key={c.src} className={cn("absolute inset-0 transition-opacity duration-700", i === index ? "opacity-100" : "opacity-0")} aria-hidden={i !== index}>
-          <Image src={c.poster} alt="" fill sizes="100vw" className="object-cover" />
-          <video
-            ref={(el) => {
-              refs.current[i] = el;
-            }}
-            src={c.src}
-            poster={c.poster}
-            muted
-            loop
-            playsInline
-            preload="none"
-            className="absolute inset-0 size-full object-cover"
-          />
-        </div>
-      ))}
+      {clips.map((c, i) => {
+        const near = i === index || i === (index + 1) % clips.length || i === (index - 1 + clips.length) % clips.length;
+        if (!near) return null;
+        return (
+          <div key={c.src} className={cn("absolute inset-0 transition-opacity duration-700", i === index ? "opacity-100" : "opacity-0")} aria-hidden={i !== index}>
+            <Image src={c.poster} alt="" fill sizes="100vw" className="object-cover" />
+            <video
+              ref={(el) => {
+                refs.current[i] = el;
+              }}
+              src={c.src}
+              muted
+              loop
+              playsInline
+              preload="none"
+              className="absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-500"
+              onLoadedData={(e) => (e.currentTarget.style.opacity = "1")}
+            />
+          </div>
+        );
+      })}
     </>
   );
 }
@@ -79,7 +83,9 @@ export function Showreel({ videoUrl, clips }: { videoUrl: string | null; clips: 
   useEffect(() => {
     const el = frame.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { rootMargin: "300px 0px" });
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), {
+      rootMargin: "300px 0px",
+    });
     io.observe(el);
     return () => io.disconnect();
   }, []);
@@ -90,10 +96,20 @@ export function Showreel({ videoUrl, clips }: { videoUrl: string | null; clips: 
       gsap.fromTo(
         frame.current,
         { scale: 0.86, borderRadius: 48 },
-        { scale: 1, borderRadius: 8, ease: "none", scrollTrigger: { trigger: frame.current, start: "top bottom", end: "top 20%", scrub: true } }
+        {
+          scale: 1,
+          borderRadius: 8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: frame.current,
+            start: "top bottom",
+            end: "top 20%",
+            scrub: true,
+          },
+        },
       );
     },
-    { scope: root }
+    { scope: root },
   );
 
   useEffect(() => {
@@ -113,14 +129,18 @@ export function Showreel({ videoUrl, clips }: { videoUrl: string | null; clips: 
     <section ref={root} id="showreel" className="scroll-mt-20 py-28 sm:py-40" aria-labelledby="showreel-title">
       <div className="gutter mb-12 grid gap-8 sm:mb-20 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-9">
-          <SectionLabel index="01" className="mb-8">Showreel</SectionLabel>
+          <SectionLabel index="01" className="mb-8">
+            Showreel
+          </SectionLabel>
           <SplitReveal as="h2" id="showreel-title" className="font-display text-section text-bone-50">
             We make things
             <br />
             people <span className="text-accent-300">remember.</span>
           </SplitReveal>
         </div>
-        <p className="max-w-sm text-[16px] leading-relaxed text-mist-400 lg:col-span-3">Brand films, listing launches and social campaigns — a few seconds of real work, shot and cut in-house.</p>
+        <p className="max-w-sm text-[16px] leading-relaxed text-mist-400 lg:col-span-3">
+          Brand films, listing launches and social campaigns — a few seconds of real work, shot and cut in-house.
+        </p>
       </div>
 
       <div className="gutter">
@@ -152,13 +172,34 @@ export function Showreel({ videoUrl, clips }: { videoUrl: string | null; clips: 
       </div>
 
       {open && (
-        <div role="dialog" aria-modal="true" aria-label="Showreel" className="fixed inset-0 z-[160] flex animate-fade-in items-center justify-center bg-ink-950/95 p-4 backdrop-blur-xl sm:p-10" onClick={() => setOpen(false)}>
-          <button type="button" onClick={() => setOpen(false)} className="absolute top-5 right-5 grid size-12 place-items-center rounded-full bg-bone-50 text-ink-950" aria-label="Close showreel" autoFocus>
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Showreel"
+          className="fixed inset-0 z-[160] flex animate-fade-in items-center justify-center bg-ink-950/95 p-4 backdrop-blur-xl sm:p-10"
+          onClick={() => setOpen(false)}
+        >
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="absolute top-5 right-5 grid size-12 place-items-center rounded-full bg-bone-50 text-ink-950"
+            aria-label="Close showreel"
+            autoFocus
+          >
             <X className="size-5" />
           </button>
-          <div className={cn("relative w-full max-w-7xl overflow-hidden rounded-lg bg-black", embed || !videoUrl ? "aspect-video" : "h-[82svh]")} onClick={(e) => e.stopPropagation()}>
+          <div
+            className={cn("relative w-full max-w-7xl overflow-hidden rounded-lg bg-black", embed || !videoUrl ? "aspect-video" : "h-[82svh]")}
+            onClick={(e) => e.stopPropagation()}
+          >
             {embed ? (
-              <iframe src={`${embed}${embed.includes("?") ? "&" : "?"}autoplay=1`} title="Showreel" className="absolute inset-0 size-full" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
+              <iframe
+                src={`${embed}${embed.includes("?") ? "&" : "?"}autoplay=1`}
+                title="Showreel"
+                className="absolute inset-0 size-full"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
             ) : videoUrl ? (
               <video className="absolute inset-0 size-full" src={videoUrl} poster={videoUrl.replace(/\.mp4$/, ".jpg")} autoPlay controls playsInline />
             ) : (

@@ -62,7 +62,7 @@ export function FramesGallery({ frames }: { frames: Frame[] }) {
             <div className={cn("relative overflow-hidden rounded-md bg-ink-900", f.shape === "tall" ? "aspect-[4/5]" : "aspect-[16/10]")}>
               <div data-drift className="absolute inset-y-0 -right-[7%] -left-[7%]">
                 <Image src={f.src} alt={`${f.title} — ${f.kind}`} fill sizes="(min-width:768px) 48vw, 85vw" className="object-cover" />
-                {f.video && <AmbientVideo src={f.video} poster={f.src} threshold={0.35} className="absolute inset-0 size-full object-cover" />}
+                {f.video && <AmbientVideo src={f.video} threshold={0.35} className="absolute inset-0 size-full object-cover" />}
               </div>
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/40 via-transparent to-transparent" />
             </div>

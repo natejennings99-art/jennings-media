@@ -25,7 +25,7 @@ export function Differentiators() {
   );
   return (
     <section ref={root} className="gutter relative isolate overflow-hidden py-24 sm:py-36" aria-labelledby="diff-title">
-      <AmbientVideo src="/media/stock/ink.mp4" poster="/media/stock/ink.jpg" className="pointer-events-none absolute inset-0 -z-10 size-full object-cover opacity-30 mix-blend-screen" />
+      <AmbientVideo src="/media/stock/ink.mp4" className="pointer-events-none absolute inset-0 -z-10 size-full object-cover opacity-30 mix-blend-screen" />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-ink-950 via-ink-950/40 to-ink-950" />
       <SectionLabel index="05" className="mb-8">Why us</SectionLabel>
       <SplitReveal as="h2" id="diff-title" className="font-display text-section text-bone-50">

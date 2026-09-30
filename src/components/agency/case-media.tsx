@@ -85,13 +85,13 @@ export function CaseMedia({
             <video
               ref={videoRef}
               src={video}
-              poster={cover ?? undefined}
               muted
               loop
               playsInline
               preload="none"
               onLoadedMetadata={(e) => setTallVideo(isTall(e.currentTarget.videoWidth, e.currentTarget.videoHeight))}
-              className={cn("absolute inset-0 size-full", tallVideo ? "object-contain" : "object-cover")}
+              onLoadedData={(e) => (e.currentTarget.style.opacity = "1")}
+              className={cn("absolute inset-0 size-full opacity-0 transition-opacity duration-500", tallVideo ? "object-contain" : "object-cover")}
             />
           </div>
         )}
