@@ -19,12 +19,19 @@ export async function generateStaticParams() {
   return (await getPortfolio()).map((p) => ({ slug: p.slug }));
 }
 
+/** e.g. "Groom Guy: Brand Film & Social Media" — the client plus what we made, for search snippets. */
+function caseTitle(p: { title: string; client_name: string | null; services_performed: string[] }) {
+  const who = p.client_name && p.client_name !== p.title && !/listing/i.test(p.client_name) ? p.client_name : p.title;
+  const what = p.services_performed.slice(0, 2).join(" & ");
+  return what ? `${who}: ${what}` : who;
+}
+
 export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const p = (await getPortfolio()).find((x) => x.slug === slug);
   if (!p) return {};
   return {
-    title: !p.client_name || p.client_name === p.title ? p.title : `${p.title} — ${p.client_name}`,
+    title: caseTitle(p),
     description: p.summary ?? p.description ?? undefined,
     alternates: { canonical: `/work/${p.slug}` },
     openGraph: { images: p.cover_image_url ? [{ url: p.cover_image_url }] : undefined },
