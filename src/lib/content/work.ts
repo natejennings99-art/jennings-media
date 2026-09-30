@@ -338,15 +338,34 @@ export const REAL_CASE_STUDIES: PortfolioProject[] = [
   }),
 ];
 
-/** Brands we've made work for (from delivered projects). */
+/** Businesses and professionals we've made work for — every name appears on the @jennings_media feed. */
 export const REAL_CLIENTS: Client[] = [
-  "Elevate Property Group",
   "Isaia",
-  "Pet Grand Hotel",
-  "Groom Guy",
   "Right Fit Realty",
+  "The Inn at Little Washington",
+  "Elevate Property Group",
+  "The District Cup",
+  "Groom Guy",
+  "Pet Grand Hotel",
   "Smart Settlements",
+  "Long & Foster",
+  "CELSIUS",
+  "POLOHUB",
+  "ANIMA by GuiselleLove",
+  "Keller Williams",
+  "Perennial Real Estate",
+  "Finn Family Group",
+  "The Thompson Group",
   "Lopez Realtors",
+  "Harmony Homes Experience",
+  "Mark Middendorf",
+  "Gali Sapir",
+  "Lonnie Scales",
+  "Russ Carter",
+  "Briana Wansley",
+  "Bill Hoffman",
+  "Chris Jackson",
+  "DSDC Real Estate",
   "WAR Team",
   "Reynolds EmpowerHome Team",
 ].map((name, i) => ({
