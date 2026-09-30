@@ -58,8 +58,8 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
             <TransitionLink href="/locations/tampa" className="block text-[15px] text-mist-300 hover:text-bone-50">Tampa, FL</TransitionLink>
             <p className="text-[15px] text-mist-500">{BRAND.locationNote}</p>
             <p className="label mt-8 mb-4 text-mist-500">Media production</p>
-            <TransitionLink href="/pricing" className="group inline-flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
-              <RollText>Real estate media — book online</RollText>
+            <TransitionLink href="/real-estate" className="group inline-flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
+              <RollText>Real estate photo & video</RollText>
               <ArrowUpRight className="size-3.5" />
             </TransitionLink>
             <TransitionLink href="/plans" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">

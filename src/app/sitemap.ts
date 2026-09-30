@@ -11,8 +11,8 @@ const abs = (u: string) => (u.startsWith("http") ? u : `${env.siteUrl}${u}`);
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getPortfolio();
   const now = new Date();
-  const top = new Set(["", "/work", "/services", "/plans", "/contact"]);
-  const staticPages = ["", "/work", "/services", "/plans", "/about", "/insights", "/contact", "/pricing", "/book", "/privacy", "/terms"].map((path) => ({
+  const top = new Set(["", "/work", "/real-estate", "/services", "/plans", "/contact"]);
+  const staticPages = ["", "/work", "/real-estate", "/services", "/plans", "/about", "/insights", "/contact", "/pricing", "/book", "/privacy", "/terms"].map((path) => ({
     url: `${env.siteUrl}${path}`,
     lastModified: now,
     changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),

@@ -5,6 +5,7 @@ import { FRAMES, REEL_CLIPS, REELS } from "@/lib/content/work";
 import { FramesGallery } from "@/components/agency/frames-gallery";
 import { VelocityMarquee } from "@/components/agency/velocity-marquee";
 import { ReelsWall } from "@/components/agency/reels-wall";
+import { RealEstateTeaser } from "@/components/agency/real-estate-teaser";
 import { Hero } from "@/components/agency/hero";
 import { LogoMarquee } from "@/components/agency/logo-marquee";
 import { Showreel } from "@/components/agency/showreel";
@@ -37,6 +38,7 @@ export default async function HomePage() {
       <LogoMarquee clients={clients} />
       <Showreel videoUrl={showreel} clips={REEL_CLIPS} />
       <FeaturedWork projects={featured} />
+      <RealEstateTeaser />
       <ReelsWall reels={REELS} />
       <FramesGallery frames={FRAMES} />
       <VelocityMarquee rows={[["Lead generation", "Meta ads", "Google ads", "AI agents"], ["Brand films", "Social media", "Websites", "SEO"]]} />

@@ -22,10 +22,10 @@ export const BRAND = {
 
 export const NAV = [
   { href: "/work", label: "Work" },
+  { href: "/real-estate", label: "Real Estate" },
   { href: "/services", label: "Services" },
   { href: "/plans", label: "Pricing" },
   { href: "/about", label: "About" },
   { href: "/insights", label: "Insights" },
-  { href: "/book", label: "Book" },
   { href: "/contact", label: "Contact" },
 ] as const;

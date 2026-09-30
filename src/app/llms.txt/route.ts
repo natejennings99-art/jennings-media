@@ -24,6 +24,7 @@ export function GET() {
     "",
     "## Pages",
     `- [Work & case studies](${u}/work)`,
+    `- [Real estate photography, video & drone — packages and films](${u}/real-estate)`,
     `- [Pricing](${u}/plans)`,
     `- [Book a real estate shoot](${u}/book)`,
     `- [Contact](${u}/contact)`,
