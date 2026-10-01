@@ -32,6 +32,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ? { videos: [{ title: p.title, thumbnail_loc: abs(p.cover_image_url), description: p.summary ?? p.title, content_loc: abs(p.hover_video_url) }] }
         : {}),
     })),
-    ...ARTICLES.map((a) => ({ url: `${env.siteUrl}/insights/${a.slug}`, lastModified: now, changeFrequency: "yearly" as const, priority: 0.5 })),
+    ...ARTICLES.map((a) => ({ url: `${env.siteUrl}/insights/${a.slug}`, lastModified: new Date(`${a.date}T12:00:00Z`), changeFrequency: "yearly" as const, priority: 0.6 })),
   ];
 }
