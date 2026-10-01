@@ -14,6 +14,7 @@ import { FinalCta } from "@/components/agency/final-cta";
 import { ClipReveal } from "@/components/experience/parallax";
 import { TransitionLink } from "@/components/experience/transition";
 import { JsonLd, breadcrumbSchema, faqSchema, serviceSchema } from "@/components/seo/json-ld";
+import { RelatedReading } from "@/components/agency/related-reading";
 
 export const revalidate = 300;
 
@@ -33,6 +34,18 @@ export async function generateMetadata({ params }: PageProps<"/services/[slug]">
     openGraph: { title: seo.seoTitle, description: seo.description, images: [{ url: s.image }] },
   };
 }
+
+/** Insights articles that go deeper on each service. */
+const READING: Record<string, string[]> = {
+  "lead-generation": ["tampa-small-business-ads", "ai-lead-follow-up-tampa", "fewer-campaigns-more-systems"],
+  "paid-media": ["tampa-small-business-ads", "roas-is-a-lagging-indicator", "the-first-three-seconds"],
+  "ai-automation": ["ai-lead-follow-up-tampa", "fewer-campaigns-more-systems"],
+  "social-media": ["the-first-three-seconds", "tampa-listing-media-guide"],
+  "content-production": ["tampa-listing-media-guide", "the-first-three-seconds"],
+  "web-design": ["fewer-campaigns-more-systems", "ai-lead-follow-up-tampa"],
+  "brand-strategy": ["the-first-three-seconds", "fewer-campaigns-more-systems"],
+  "seo-content": ["tampa-listing-media-guide", "tampa-small-business-ads"],
+};
 
 export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
   const { slug } = await params;
@@ -149,6 +162,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           ))}
         </div>
       </nav>
+      <RelatedReading slugs={READING[s.slug] ?? []} />
       <FinalCta />
     </>
   );

@@ -10,6 +10,7 @@ import { CaseCard } from "@/components/agency/case-card";
 import { FinalCta } from "@/components/agency/final-cta";
 import { TransitionLink } from "@/components/experience/transition";
 import { JsonLd, breadcrumbSchema, localBusinessSchema } from "@/components/seo/json-ld";
+import { RelatedReading } from "@/components/agency/related-reading";
 
 export const revalidate = 300;
 
@@ -83,6 +84,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[ci
           </div>
         </section>
       )}
+      <RelatedReading slugs={l.slug === "tampa" ? ["tampa-listing-media-guide", "tampa-small-business-ads", "ai-lead-follow-up-tampa"] : ["the-first-three-seconds", "fewer-campaigns-more-systems"]} title={l.slug === "tampa" ? "Guides for Tampa Bay businesses" : "Further reading"} />
       <FinalCta />
     </>
   );

@@ -16,6 +16,7 @@ import { SplitReveal } from "@/components/experience/split-reveal";
 import { TransitionLink } from "@/components/experience/transition";
 import { ServiceIcon } from "@/components/ui/icon";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
+import { RelatedReading } from "@/components/agency/related-reading";
 
 export const revalidate = 300;
 
@@ -337,6 +338,7 @@ export default async function RealEstatePage() {
         </div>
       </section>
 
+      <RelatedReading slugs={["tampa-listing-media-guide", "the-first-three-seconds"]} title="Plan your next listing" />
       <FinalCta title="Ready to list?" kicker="Book your shoot." />
     </>
   );
