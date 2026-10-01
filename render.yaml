@@ -6,7 +6,7 @@ services:
     name: jennings-media
     runtime: node
     region: virginia
-    plan: free
+    plan: starter
     buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
