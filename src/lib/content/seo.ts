@@ -106,9 +106,9 @@ export const LOCATIONS: Location[] = [
     region: "FL",
     seoTitle: "Marketing Agency in Tampa, FL",
     description: "Lead generation, Meta & Google Ads, AI agents and 4K content for brokerages, realtors and entrepreneurs across Tampa Bay.",
-    headline: "Tampa Bay's new growth partner.",
-    intro: "Now serving Tampa Bay with the same team and playbook we built in the D.C. market: content that stops the scroll, ads that bring in leads and AI that follows up instantly.",
-    areas: ["Tampa", "St. Petersburg", "Clearwater", "Brandon", "Riverview", "Wesley Chapel", "Lakeland", "Sarasota"],
+    headline: "Tampa Bay's content & growth team.",
+    intro: "Based in Tampa, we film, photograph and market for realtors, brokerages and local businesses across Tampa Bay — from South Tampa and Westchase to St. Petersburg and Clearwater — with the same team and playbook we built in Washington, D.C.: content that stops the scroll, ads that bring in leads and AI that follows up instantly.",
+    areas: ["Tampa", "South Tampa", "Westchase", "St. Petersburg", "Clearwater", "Largo", "Brandon", "Riverview", "Wesley Chapel", "Lakeland", "Sarasota"],
     work: [],
   },
   {

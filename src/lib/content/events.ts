@@ -4,7 +4,8 @@ import type { Film } from "./real-estate";
 /** Widescreen event films (16:9 loops). */
 export const EVENT_FILMS: Film[] = [
   { slug: "stadium", title: "Night at the ballpark", place: "Elevate Property Group" },
-  { slug: "brewery-event", title: "Brewery night at 2 Silos", place: "Right Fit Realty" },
+  { slug: "silos-yard", title: "The Yard at 2 Silos", place: "Right Fit Realty" },
+  { slug: "silos-crowd", title: "Golden hour at 2 Silos", place: "Right Fit Realty" },
 ];
 
 /** Vertical event reels (9:16 loops). */
