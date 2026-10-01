@@ -8,7 +8,7 @@ export type Photo = { src: string; alt: string; w: number; h: number };
 export const RE_PHOTOS: Photo[] = [
   { src: "/media/photos/twilight-deck.jpg", alt: "Twilight exterior with deck, 13521 Granite Rock Dr", w: 1600, h: 1067 },
   { src: "/media/photos/twilight-rambler.jpg", alt: "Twilight exterior, 8100 St David Ct", w: 1600, h: 1061 },
-  { src: "/media/photos/craftsman-exterior.jpg", alt: "Craftsman exterior", w: 1600, h: 1067 },
+  { src: "/media/photos/craftsman-exterior.jpg", alt: "Craftsman exterior", w: 1400, h: 933 },
   { src: "/media/photos/chandelier-kitchen.jpg", alt: "White kitchen and dining room, 224 Stoic Street", w: 1600, h: 1067 },
   { src: "/media/photos/great-room.jpg", alt: "Vaulted great room", w: 1600, h: 1067 },
   { src: "/media/photos/twilight-colonial.jpg", alt: "Brick colonial at twilight", w: 1600, h: 1065 },
@@ -62,7 +62,7 @@ export const SILOS_PHOTOS: Photo[] = [
 /** Around Washington, D.C. */
 export const DC_PHOTOS: Photo[] = [
   { src: "/media/photos/monument-kites.jpg", alt: "Washington Monument during the kite festival", w: 1600, h: 1067 },
-  { src: "/media/photos/cherry-blossoms.jpg", alt: "Cherry blossoms at the Tidal Basin", w: 1600, h: 1067 },
+  { src: "/media/photos/cherry-blossoms.jpg", alt: "Cherry blossoms at the Tidal Basin", w: 1400, h: 933 },
   { src: "/media/photos/kite-festival.jpg", alt: "Kite festival on the National Mall", w: 1600, h: 1067 },
   { src: "/media/photos/blossom-lantern.jpg", alt: "Japanese lantern and cherry blossoms", w: 1600, h: 1067 },
 ];
@@ -78,7 +78,7 @@ export const HOME_PHOTOS: Photo[] = [
   { src: "/media/photos/twilight-rambler.jpg", alt: "Twilight exterior, 8100 St David Ct", w: 1600, h: 1061 },
   { src: "/media/photos/2-silos-stage.jpg", alt: "The Yard at 2 Silos Brewery \u2014 Right Fit Realty client event", w: 1600, h: 1067 },
   { src: "/media/photos/spa-bath.jpg", alt: "Spa bath with freestanding tub, 3605 17th Street N", w: 1600, h: 1067 },
-  { src: "/media/photos/cherry-blossoms.jpg", alt: "Cherry blossoms at the Tidal Basin", w: 1600, h: 1067 },
+  { src: "/media/photos/cherry-blossoms.jpg", alt: "Cherry blossoms at the Tidal Basin", w: 1400, h: 933 },
   { src: "/media/photos/chandelier-kitchen.jpg", alt: "White kitchen and dining room, 224 Stoic Street", w: 1600, h: 1067 },
   { src: "/media/photos/isaia-fitting.jpg", alt: "Client fitting at Isaia", w: 1600, h: 1067 },
 ];

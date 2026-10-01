@@ -13,8 +13,8 @@
   --color-bone-200: #ddd5c7;
   --color-mist-300: #bdb7ad;
   --color-mist-400: #9c968c;
-  --color-mist-500: #78736b;
-  --color-mist-600: #57534d;
+  --color-mist-500: #8f8a81; /* AA contrast for small text on the dark palette */
+  --color-mist-600: #827d75;
   --color-accent-100: #ffd9cc;
   --color-accent-200: #ff9f7a;
   --color-accent-300: #ff5b24;

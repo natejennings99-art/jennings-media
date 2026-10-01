@@ -213,7 +213,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             {next.cover_image_url && <Image src={next.cover_image_url} alt="" fill sizes="100vw" className="object-cover opacity-50 transition-[transform,opacity] duration-[1400ms] ease-(--ease-expo) group-hover:scale-105 group-hover:opacity-70" />}
             <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
             <div className="gutter absolute inset-x-0 bottom-0 pb-12 sm:pb-16">
-              <p className="label text-mist-300">Next project — {next.client_name}</p>
+              <p className="label text-mist-300">Next project{next.client_name && next.client_name !== next.title && !/listing/i.test(next.client_name) ? ` — ${next.client_name}` : ""}</p>
               <p className="mt-4 flex items-start gap-4 font-display text-[clamp(2.5rem,7vw,7rem)] text-bone-50">
                 {next.title}
                 <ArrowUpRight className="mt-[0.08em] size-[0.7em] shrink-0 text-accent-300 transition-transform duration-500 group-hover:rotate-45" strokeWidth={2.5} />
@@ -222,7 +222,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
           </div>
         </TransitionLink>
       )}
-      <FinalCta title="Want results like these?" kicker="Start here." />
+      <FinalCta title="Want work like this?" kicker="Start here." />
     </article>
   );
 }
