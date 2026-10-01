@@ -1,6 +1,11 @@
 import re, sys, json, html, urllib.request, collections
 B = sys.argv[1].rstrip("/")
 sm = urllib.request.urlopen(B + "/sitemap.xml", timeout=60).read().decode()
+import xml.dom.minidom
+try:
+    xml.dom.minidom.parseString(sm)
+except Exception as e:
+    print("SITEMAP IS NOT VALID XML:", e); sys.exit(1)
 pages = sorted({re.sub(r"^https?://[^/]+", "", u) or "/" for u in re.findall(r"<loc>([^<]+)</loc>", sm)})
 titles, descs = collections.defaultdict(list), collections.defaultdict(list)
 issues = []
