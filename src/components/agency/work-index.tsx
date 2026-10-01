@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { useState } from "react";
 import type { PortfolioProject } from "@/lib/types";
 import { PORTFOLIO_CATEGORIES, PORTFOLIO_CATEGORY_LABELS } from "@/lib/types";
@@ -8,9 +8,8 @@ import { cn } from "@/lib/utils";
 import { CaseCard } from "./case-card";
 import { industryMatches } from "@/lib/content/agency";
 
-export function WorkIndex({ projects }: { projects: PortfolioProject[] }) {
-  const params = useSearchParams();
-  const industry = params.get("industry");
+/** The industry filter comes from the server (?industry=…), so every card is in the HTML Google first sees. */
+export function WorkIndex({ projects, industry = null }: { projects: PortfolioProject[]; industry?: string | null }) {
   const [filter, setFilter] = useState<string>("all");
   const available = PORTFOLIO_CATEGORIES.filter((c) => projects.some((p) => p.categories.includes(c)));
   const shown = projects.filter((p) => (filter === "all" || (p.categories as string[]).includes(filter)) && (!industry || industryMatches(industry, p.industry)));
@@ -32,8 +31,12 @@ export function WorkIndex({ projects }: { projects: PortfolioProject[] }) {
             </button>
           ))}
         </div>
-        <p className="label text-mist-500">
-          {industry ? `${industry} · ` : ""}
+        <p className="label flex items-center gap-3 text-mist-500">
+          {industry && (
+            <Link href="/work" className="rounded-full border border-white/15 px-3 py-1.5 text-bone-50 hover:border-accent-300 hover:text-accent-300" aria-label={`Clear the ${industry} filter`}>
+              {industry} ×
+            </Link>
+          )}
           {String(shown.length).padStart(2, "0")} projects
         </p>
       </div>

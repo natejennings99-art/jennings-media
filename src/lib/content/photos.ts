@@ -39,13 +39,15 @@ export const RE_PHOTOS: Photo[] = [
 
 /** Elevate Property Group — team night at the ballpark. */
 export const EPG_PHOTOS: Photo[] = [
+  { src: "/media/photos/epg-suite-bar.jpg", alt: "Elevate Property Group suite bar at the ballpark", w: 1600, h: 1067 },
+  { src: "/media/photos/epg-mascot.jpg", alt: "Elevate Property Group guests with the team mascot", w: 1600, h: 1067 },
+  { src: "/media/photos/epg-group-1.jpg", alt: "Elevate Property Group team at the step-and-repeat", w: 1600, h: 1457 },
   { src: "/media/photos/suite-sunset.jpg", alt: "Elevate Property Group suite party at sunset", w: 1600, h: 1067 },
+  { src: "/media/photos/epg-ballpark-portrait.jpg", alt: "Guest portrait above the ballpark", w: 1600, h: 1067 },
+  { src: "/media/photos/epg-suite-windows.jpg", alt: "Elevate Property Group suite overlooking the field", w: 1600, h: 1067 },
+  { src: "/media/photos/epg-group-2.jpg", alt: "Elevate Property Group agents at the step-and-repeat", w: 1600, h: 1188 },
+  { src: "/media/photos/epg-family.jpg", alt: "Families at the Elevate Property Group night", w: 1600, h: 1067 },
   { src: "/media/photos/ballpark.jpg", alt: "Ballpark view from the Elevate Property Group suite", w: 1600, h: 1067 },
-  { src: "/media/photos/step-repeat-1.jpg", alt: "Elevate Property Group step-and-repeat portraits", w: 1067, h: 1600 },
-  { src: "/media/photos/suite-view.jpg", alt: "Elevate Property Group guests watching the game", w: 1600, h: 1067 },
-  { src: "/media/photos/suite-event.jpg", alt: "Elevate Property Group suite event at the ballpark", w: 1600, h: 1067 },
-  { src: "/media/photos/step-repeat-2.jpg", alt: "Elevate Property Group step-and-repeat portraits", w: 1067, h: 1600 },
-  { src: "/media/photos/ballpark-guests.jpg", alt: "Elevate Property Group guests at the ballpark", w: 1600, h: 1067 },
 ];
 
 /** Right Fit Realty — client event at 2 Silos Brewery. */
@@ -68,15 +70,28 @@ export const DC_PHOTOS: Photo[] = [
 /** Homepage photography wall — a mix of everything. */
 export const HOME_PHOTOS: Photo[] = [
   { src: "/media/photos/twilight-deck.jpg", alt: "Twilight exterior with deck, 13521 Granite Rock Dr", w: 1600, h: 1067 },
-  { src: "/media/photos/suite-sunset.jpg", alt: "Elevate Property Group suite party at sunset", w: 1600, h: 1067 },
+  { src: "/media/photos/isaia-red-table.jpg", alt: "Isaia showroom with the signature red table", w: 1600, h: 1067 },
   { src: "/media/photos/great-room.jpg", alt: "Vaulted great room", w: 1600, h: 1067 },
-  { src: "/media/photos/2-silos-stage.jpg", alt: "The Yard at 2 Silos Brewery \u2014 Right Fit Realty client event", w: 1600, h: 1067 },
+  { src: "/media/photos/epg-mascot.jpg", alt: "Elevate Property Group guests with the team mascot", w: 1600, h: 1067 },
   { src: "/media/photos/primary-suite.jpg", alt: "Primary suite, 3706 Edward Bluff", w: 1600, h: 1067 },
+  { src: "/media/photos/groom-portrait-1.jpg", alt: "Groom Guy brand portrait", w: 1600, h: 1067 },
   { src: "/media/photos/twilight-rambler.jpg", alt: "Twilight exterior, 8100 St David Ct", w: 1600, h: 1061 },
-  { src: "/media/photos/cherry-blossoms.jpg", alt: "Cherry blossoms at the Tidal Basin", w: 1600, h: 1067 },
+  { src: "/media/photos/2-silos-stage.jpg", alt: "The Yard at 2 Silos Brewery \u2014 Right Fit Realty client event", w: 1600, h: 1067 },
   { src: "/media/photos/spa-bath.jpg", alt: "Spa bath with freestanding tub, 3605 17th Street N", w: 1600, h: 1067 },
-  { src: "/media/photos/2-silos-taproom.jpg", alt: "Taproom at 2 Silos Brewery \u2014 Right Fit Realty client event", w: 1600, h: 1067 },
+  { src: "/media/photos/cherry-blossoms.jpg", alt: "Cherry blossoms at the Tidal Basin", w: 1600, h: 1067 },
   { src: "/media/photos/chandelier-kitchen.jpg", alt: "White kitchen and dining room, 224 Stoic Street", w: 1600, h: 1067 },
-  { src: "/media/photos/twilight-colonial.jpg", alt: "Brick colonial at twilight", w: 1600, h: 1065 },
-  { src: "/media/photos/monument-kites.jpg", alt: "Washington Monument during the kite festival", w: 1600, h: 1067 },
+  { src: "/media/photos/isaia-fitting.jpg", alt: "Client fitting at Isaia", w: 1600, h: 1067 },
+];
+
+/** Brand and retail photography — Isaia and Groom Guy shoots. */
+export const BRAND_PHOTOS: Photo[] = [
+  { src: "/media/photos/isaia-red-table.jpg", alt: "Isaia showroom with the signature red table", w: 1600, h: 1067 },
+  { src: "/media/photos/groom-team-2.jpg", alt: "Groom Guy team", w: 1600, h: 1067 },
+  { src: "/media/photos/isaia-fitting.jpg", alt: "Client fitting at Isaia", w: 1600, h: 1067 },
+  { src: "/media/photos/groom-portrait-1.jpg", alt: "Groom Guy brand portrait", w: 1600, h: 1067 },
+  { src: "/media/photos/isaia-entrance.jpg", alt: "Isaia storefront entrance", w: 1067, h: 1600 },
+  { src: "/media/photos/groom-chair.jpg", alt: "Groom Guy grooming chair and display", w: 1600, h: 1068 },
+  { src: "/media/photos/isaia-styling.jpg", alt: "Styling appointment at Isaia", w: 1600, h: 1067 },
+  { src: "/media/photos/groom-handshake.jpg", alt: "Groom Guy welcome handshake", w: 1600, h: 1067 },
+  { src: "/media/photos/isaia-floor.jpg", alt: "Isaia store floor and tailoring table", w: 1600, h: 1067 },
 ];
