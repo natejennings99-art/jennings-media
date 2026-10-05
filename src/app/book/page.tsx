@@ -12,7 +12,8 @@ export default async function BookPage({ searchParams }: PageProps<"/book">) {
   const params = await searchParams;
   // Until the booking database is connected, don't let visitors fill in eight steps that fail at the end.
   if (!features.supabaseAdmin && process.env.NODE_ENV === "production") {
-    return <BookingSoon email={(await getSettings()).email || BRAND.email} />;
+    const pick = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v)?.slice(0, 60);
+    return <BookingSoon email={(await getSettings()).email || BRAND.email} pkg={pick(params.package)} service={pick(params.service)} />;
   }
   const [catalog, settings, viewer] = await Promise.all([getCatalog(), getSettings(), getViewer()]);
   const c = viewer?.customer;

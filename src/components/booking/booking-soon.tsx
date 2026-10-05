@@ -1,22 +1,32 @@
 import Link from "next/link";
-import { ArrowUpRight, Camera, Clapperboard, Plane, Mail } from "lucide-react";
+import { Camera, Clapperboard, MessageSquare, Phone, Plane } from "lucide-react";
 import { BRAND } from "@/lib/brand";
+import { ShootRequestForm } from "@/components/booking/shoot-request-form";
 
-const SUBJECT = encodeURIComponent("Shoot request — Jennings Media");
-const BODY = encodeURIComponent("Hi Jennings Media,\n\nI'd like to book a shoot.\n\nProperty address:\nPreferred date/time:\nServices (photos, video, drone, floor plan, 3D tour):\nMy name and phone:\n\nThanks!");
+const title = (slug?: string) => (slug ? slug.replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : "");
 
-/** Shown in production until the booking database is connected — instead of a wizard that fails on its last step. */
-export function BookingSoon({ email }: { email: string }) {
+/**
+ * Shown in production until the booking database is connected: a 30-second shoot request
+ * (captured server-side) plus one-tap call/text, instead of a wizard that fails on its last step.
+ */
+export function BookingSoon({ email, pkg, service }: { email: string; pkg?: string; service?: string }) {
+  const chosen = pkg ? `${title(pkg)} package` : service ? title(service) : "";
+  const sms = BRAND.phoneHref.replace(/^tel:/, "sms:");
   return (
     <section className="gutter mx-auto max-w-3xl pt-36 pb-24 sm:pt-44">
-      <p className="label text-accent-300">Real estate media</p>
-      <h1 className="mt-6 font-display text-[clamp(2.75rem,8vw,6rem)] text-bone-50">
-        Online booking
+      <p className="label text-accent-300">Real estate media · Tampa Bay</p>
+      <h1 className="mt-6 font-display text-[clamp(2.75rem,8vw,6rem)] text-bone-50 [word-spacing:0.18em]">
+        Book your
         <br />
-        opens <span className="text-accent-300">soon.</span>
+        <span className="text-accent-300">shoot.</span>
       </h1>
       <p className="mt-8 max-w-xl text-[17px] leading-relaxed text-mist-300">
-        Photography, cinematic video, drone, floor plans and 3D tours across Washington, D.C., Northern Virginia, Maryland and Tampa Bay. Send us the address and a few dates — we&rsquo;ll confirm your shoot within one business day.
+        {chosen ? (
+          <>
+            You picked <span className="text-bone-50">{chosen}</span>.{" "}
+          </>
+        ) : null}
+        Send the address and a time that works, and we&rsquo;ll text or call to confirm within one business day. Photography, cinematic video, drone, floor plans and 3D tours across Tampa Bay and the D.C. area.
       </p>
       <ul className="mt-10 grid gap-3 text-[15px] text-mist-300 sm:grid-cols-3">
         {[
@@ -33,26 +43,23 @@ export function BookingSoon({ email }: { email: string }) {
           );
         })}
       </ul>
-      <div className="mt-10 flex flex-wrap items-center gap-4">
-        <a
-          href={`mailto:${email}?subject=${SUBJECT}&body=${BODY}`}
-          data-cursor="cta"
-          className="group inline-flex h-14 items-center gap-3 rounded-full bg-accent-300 pr-2 pl-7 text-[14px] font-semibold tracking-[0.04em] text-ink-950 uppercase transition-colors hover:bg-bone-50"
-        >
-          <Mail className="size-4" /> Email your request
-          <span className="grid size-10 place-items-center rounded-full bg-ink-950 text-bone-50 transition-transform duration-500 group-hover:rotate-45">
-            <ArrowUpRight className="size-4" />
-          </span>
+      <div className="mt-14">
+        <ShootRequestForm pkg={chosen || undefined} />
+      </div>
+      <div className="mt-12 flex flex-wrap items-center gap-3 border-t border-white/10 pt-8">
+        <p className="mr-2 text-[15px] text-mist-300">Rather talk?</p>
+        <a href={BRAND.phoneHref} className="inline-flex h-12 items-center gap-2 rounded-full border border-white/15 px-5 text-[14px] font-semibold text-bone-50 hover:border-accent-300">
+          <Phone className="size-4" /> Call {BRAND.phone}
         </a>
-        <Link href="/pricing" className="inline-flex h-14 items-center px-4 text-[14px] font-semibold tracking-[0.04em] text-bone-50 uppercase underline-offset-8 hover:underline">
+        <a href={sms} className="inline-flex h-12 items-center gap-2 rounded-full border border-white/15 px-5 text-[14px] font-semibold text-bone-50 hover:border-accent-300">
+          <MessageSquare className="size-4" /> Text us
+        </a>
+        <Link href="/pricing" className="inline-flex h-12 items-center px-3 text-[14px] font-semibold text-mist-300 underline-offset-8 hover:text-bone-50 hover:underline">
           See pricing
         </Link>
-        <Link href="/contact" className="inline-flex h-14 items-center px-4 text-[14px] font-semibold tracking-[0.04em] text-mist-300 uppercase underline-offset-8 hover:text-bone-50 hover:underline">
-          Contact form
-        </Link>
       </div>
-      <p className="mt-8 text-[13px] text-mist-500">
-        Prefer to talk? Email <a className="text-mist-300 underline underline-offset-4" href={`mailto:${email}`}>{email}</a> — {BRAND.name}.
+      <p className="mt-6 text-[13px] text-mist-500">
+        Or email <a className="text-mist-300 underline underline-offset-4" href={`mailto:${email}`}>{email}</a>.
       </p>
     </section>
   );
