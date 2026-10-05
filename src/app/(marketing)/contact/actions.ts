@@ -54,10 +54,13 @@ export async function submitInquiry(_: unknown, form: FormData): Promise<ActionR
       await sendLogged("contact_auto_reply", data.email, contactAutoReply(brand, { name: data.name.split(" ")[0] }), { replyTo: settings.email });
     });
 
-  // No database yet: email is enough to get the lead to the inbox.
+  // No database yet: never bounce a lead. Write it to the server log (a "[lead]" line the
+  // nightly command-center task harvests from Render's logs), and email it too once Resend is set.
   if (!features.supabaseAdmin) {
-    if (!features.email) return { ok: false, error: `Our form isn't connected yet — please email ${settings.email || "us"} directly.` };
-    notify(`mailto:${data.email}`);
+    console.log(
+      `[lead] ${JSON.stringify({ at: new Date().toISOString(), name: data.name, company: data.company, email: data.email, phone: data.phone, need: data.need, services: data.services, budget: data.budget, message: data.message })}`
+    );
+    if (features.email) notify(`mailto:${data.email}`);
     return { ok: true, data: { name: data.name.split(" ")[0] } };
   }
 
