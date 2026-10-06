@@ -15,7 +15,7 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Event Photography & Video in Tampa, FL",
-  description: "Event photography and 4K video in Tampa Bay and Washington, DC: client appreciation nights, team outings, polo and community events, with same-week recaps.",
+  description: "Corporate and event photography and 4K video across Tampa Bay (Westchase, Town 'n' Country, South Tampa, St. Pete): client nights, team outings and community events, with same-week recaps.",
   alternates: { canonical: "/events" },
   openGraph: { images: [{ url: "/media/photos/suite-sunset.jpg" }] },
 };
@@ -59,7 +59,7 @@ export default function EventsPage() {
           </SplitReveal>
           <div className="mt-10 grid items-end gap-8 lg:grid-cols-12">
             <p className="max-w-lg animate-fade-up text-[17px] leading-relaxed text-mist-300 [animation-delay:700ms] lg:col-span-6">
-              Client appreciation nights, team outings, polo matches and community events — photographed and filmed on cinema cameras, then cut into recaps your guests actually share.
+              Client appreciation nights, team outings, polo matches and community events — photographed and filmed on cinema cameras, then cut into recaps your guests actually share. Corporate and private events across Tampa Bay: Westchase, Town 'n' Country, South Tampa, Downtown, Brandon, St. Pete and Clearwater.
             </p>
             <div className="flex animate-fade-up flex-wrap items-center gap-4 [animation-delay:850ms] lg:col-span-6 lg:justify-end">
               <TransitionLink

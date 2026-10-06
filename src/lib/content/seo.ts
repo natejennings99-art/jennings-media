@@ -16,14 +16,15 @@ export const SERVICE_SEO: Record<string, ServiceSeo> = {
     ],
   },
   "paid-media": {
-    seoTitle: "Meta & Google Ads Agency in Tampa, FL",
-    description: "Meta (Facebook & Instagram) and Google Ads management: creative, targeting, retargeting and conversion tracking, optimized weekly against cost per lead.",
+    seoTitle: "Google Ads & Meta Ads Agency in Tampa, FL",
+    description: "Google Ads management and Meta (Facebook & Instagram) ads for Tampa Bay businesses: creative, targeting, retargeting and conversion tracking, optimized weekly against cost per lead.",
     plan: "growth",
     package: "ad-launch-sprint",
     categories: ["paid-media"],
     faqs: [
       { q: "How much should I spend on ads?", a: "We recommend a starting budget based on your market and goals. Ad spend is paid directly to Meta and Google, separate from our management fee." },
       { q: "Do you make the ad creative too?", a: "Yes. Our production team shoots and edits the videos and photos your ads run on, so the creative and the targeting are built together." },
+      { q: "Do you manage Google Ads for Tampa businesses?", a: "Yes. We build and manage Google Search and Performance Max campaigns for Tampa Bay businesses, with call and form tracking so every lead is counted, and we report on cost per lead every week." },
       { q: "Can you take over my existing campaigns?", a: "Yes. We start with an audit of your account, keep what's working and rebuild what isn't." },
     ],
   },
