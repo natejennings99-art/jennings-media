@@ -86,7 +86,7 @@ export const DEFAULT_SETTINGS: BusinessSettings = {
     reply_to: "natejennings99@gmail.com",
   },
   analytics: { ga4_id: "", meta_pixel_id: "", google_ads_id: "", google_ads_booking_label: "" },
-  social_links: { instagram: BRAND.instagram, facebook: "", youtube: "", tiktok: "", linkedin: "" },
+  social_links: { instagram: BRAND.instagram, facebook: "", youtube: "", tiktok: BRAND.tiktok, linkedin: "" },
   service_area_policy: {
     outside_area_policy: "quote",
     outside_area_fee_cents: $(75),

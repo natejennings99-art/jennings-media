@@ -22,6 +22,9 @@ export const BRAND = {
   emblem: "/media/brand/emblem.jpg",
   instagram: "https://www.instagram.com/jennings_media/",
   instagramHandle: "@jennings_media",
+  /** Nathaniel's vertical, cinematic work (rooftops, boats, drone, nights out). */
+  tiktok: "https://www.tiktok.com/@nathanielproductions",
+  tiktokHandle: "@nathanielproductions",
 } as const;
 
 export const NAV = [

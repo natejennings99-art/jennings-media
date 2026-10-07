@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { InstagramIcon } from "@/components/ui/brand-icons";
+import { InstagramIcon, TiktokIcon } from "@/components/ui/brand-icons";
 import type { Reel } from "@/lib/content/work";
 import { BRAND } from "@/lib/brand";
 import { AmbientVideo } from "@/components/experience/ambient-video";
@@ -30,18 +30,20 @@ export function ReelsWall({ reels }: { reels: Reel[] }) {
           <p className="max-w-sm text-[16px] leading-relaxed text-mist-400">
             Vertical-first films, reels and listing tours — shot in 4K, cut for Instagram, TikTok and Shorts.
           </p>
-          <a
-            href={BRAND.instagram}
-            target="_blank"
-            rel="noreferrer"
-            className="group mt-6 inline-flex items-center gap-3 text-[14px] font-semibold tracking-[0.04em] text-bone-50 uppercase"
-          >
-            <span className="grid size-10 place-items-center rounded-full border border-white/15 transition-colors group-hover:border-accent-300 group-hover:bg-accent-300 group-hover:text-ink-950">
-              <InstagramIcon className="size-4" />
-            </span>
-            {BRAND.instagramHandle}
-            <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:rotate-45" />
-          </a>
+          <div className="mt-6 flex flex-col items-start gap-4">
+            {[
+              { href: BRAND.instagram, handle: BRAND.instagramHandle, Icon: InstagramIcon },
+              { href: BRAND.tiktok, handle: BRAND.tiktokHandle, Icon: TiktokIcon },
+            ].map(({ href, handle, Icon }) => (
+              <a key={href} href={href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-3 text-[14px] font-semibold tracking-[0.04em] text-bone-50 uppercase">
+                <span className="grid size-10 place-items-center rounded-full border border-white/15 transition-colors group-hover:border-accent-300 group-hover:bg-accent-300 group-hover:text-ink-950">
+                  <Icon className="size-4" />
+                </span>
+                {handle}
+                <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:rotate-45" />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 

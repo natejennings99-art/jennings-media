@@ -15,7 +15,7 @@ export default async function MarketingLayout({ children }: LayoutProps<"/">) {
   const socials = [
     { label: "Instagram", href: settings.social_links.instagram },
     { label: "LinkedIn", href: settings.social_links.linkedin },
-    { label: "TikTok", href: settings.social_links.tiktok },
+    { label: "TikTok", href: settings.social_links.tiktok || BRAND.tiktok },
     { label: "YouTube", href: settings.social_links.youtube },
   ].filter((s): s is { label: string; href: string } => Boolean(s.href));
   return (

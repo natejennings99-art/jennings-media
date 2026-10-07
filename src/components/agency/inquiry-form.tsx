@@ -9,9 +9,9 @@ import { BRAND } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 import type { ActionResult } from "@/lib/types";
 
-const field = "w-full border-0 border-b border-white/15 bg-transparent px-0 py-4 text-[17px] text-bone-50 placeholder:text-mist-600 transition-colors focus:border-accent-300 focus:ring-0 focus:outline-none aria-[invalid=true]:border-red-400";
+export const field = "w-full border-0 border-b border-white/15 bg-transparent px-0 py-4 text-[17px] text-bone-50 placeholder:text-mist-600 transition-colors focus:border-accent-300 focus:ring-0 focus:outline-none aria-[invalid=true]:border-red-400";
 
-function Chip({ name, value, type, defaultChecked }: { name: string; value: string; type: "radio" | "checkbox"; defaultChecked?: boolean }) {
+export function Chip({ name, value, type, defaultChecked }: { name: string; value: string; type: "radio" | "checkbox"; defaultChecked?: boolean }) {
   return (
     <label className="relative cursor-pointer">
       <input type={type} name={name} value={value} defaultChecked={defaultChecked} className="peer sr-only" />
