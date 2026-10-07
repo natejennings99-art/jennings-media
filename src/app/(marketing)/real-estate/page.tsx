@@ -99,6 +99,10 @@ export default async function RealEstatePage() {
                 <span className="border-b border-current pb-1">Compare packages</span>
                 <ArrowDownRight className="size-4 transition-transform duration-500 group-hover:-rotate-45" />
               </a>
+              <TransitionLink href="/free-listing-reel" className="group inline-flex h-14 items-center gap-2 px-3 text-[14px] font-semibold tracking-[0.04em] text-accent-300 uppercase">
+                <span className="border-b border-current pb-1">Tampa Bay agents: first reel free</span>
+                <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:rotate-45" />
+              </TransitionLink>
             </div>
           </div>
         </div>

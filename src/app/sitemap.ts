@@ -21,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getPortfolio();
   const now = new Date();
   const top = new Set(["", "/work", "/real-estate", "/events", "/services", "/plans", "/contact"]);
-  const staticPages = ["", "/work", "/real-estate", "/events", "/services", "/plans", "/about", "/insights", "/contact", "/pricing", "/book", "/privacy", "/terms"].map((path) => ({
+  const staticPages = ["", "/work", "/real-estate", "/events", "/services", "/plans", "/free-listing-reel", "/about", "/insights", "/contact", "/pricing", "/book", "/privacy", "/terms"].map((path) => ({
     url: `${env.siteUrl}${path}`,
     lastModified: now,
     changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),
