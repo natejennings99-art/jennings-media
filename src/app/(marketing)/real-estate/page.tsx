@@ -22,7 +22,7 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Real Estate Photography & Video in Tampa Bay",
-  description: "Listing photography, cinematic video, drone, 3D tours and floor plans for agents and brokerages in Tampa Bay and Washington, DC. See the work and book online.",
+  description: "Listing photography, cinematic video, drone, 3D tours and floor plans for agents in Tampa, St. Pete and Clearwater. Packages from $450; book your shoot online.",
   alternates: { canonical: "/real-estate" },
   openGraph: { images: [{ url: "/media/photos/craftsman-exterior.jpg" }] },
 };
