@@ -17,7 +17,7 @@ export const SERVICE_SEO: Record<string, ServiceSeo> = {
   },
   "paid-media": {
     seoTitle: "Google Ads & Meta Ads Agency in Tampa, FL",
-    description: "Google Ads management and Meta (Facebook & Instagram) ads for Tampa Bay businesses: creative, targeting, retargeting and conversion tracking, optimized weekly against cost per lead.",
+    description: "Google Ads management and Meta ads for Tampa Bay businesses: creative, targeting, retargeting and conversion tracking, optimized weekly for cost per lead.",
     plan: "growth",
     package: "ad-launch-sprint",
     categories: ["paid-media"],

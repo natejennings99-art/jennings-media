@@ -15,7 +15,7 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Event Photography & Video in Tampa, FL",
-  description: "Corporate and event photography and 4K video across Tampa Bay (Westchase, Town 'n' Country, South Tampa, St. Pete): client nights, team outings and community events, with same-week recaps.",
+  description: "Corporate and event photography and 4K video across Tampa Bay, including Westchase, Town 'n' Country and St. Pete, with same-week recaps.",
   alternates: { canonical: "/events" },
   openGraph: { images: [{ url: "/media/photos/suite-sunset.jpg" }] },
 };
