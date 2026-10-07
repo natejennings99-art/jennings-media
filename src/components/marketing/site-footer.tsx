@@ -55,6 +55,8 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
           <div className="col-span-2 sm:col-span-1">
             <p className="label mb-5 text-mist-500">Studio</p>
             <TransitionLink href="/locations/tampa" className="block text-[15px] text-mist-300 hover:text-bone-50">Tampa, FL</TransitionLink>
+            <TransitionLink href="/locations/st-petersburg" className="block text-[15px] text-mist-300 hover:text-bone-50">St. Petersburg, FL</TransitionLink>
+            <TransitionLink href="/locations/clearwater" className="block text-[15px] text-mist-300 hover:text-bone-50">Clearwater, FL</TransitionLink>
             <TransitionLink href="/locations/washington-dc" className="block text-[15px] text-mist-300 hover:text-bone-50">Washington, DC</TransitionLink>
             <p className="text-[15px] text-mist-500">{BRAND.locationNote}</p>
             <a href={BRAND.phoneHref} className="mt-4 block text-[15px] text-mist-300 hover:text-bone-50">{BRAND.phone}</a>

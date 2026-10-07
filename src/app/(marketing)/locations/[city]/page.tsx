@@ -84,7 +84,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[ci
           </div>
         </section>
       )}
-      <RelatedReading slugs={l.slug === "tampa" ? ["tampa-listing-media-guide", "tampa-small-business-ads", "ai-lead-follow-up-tampa"] : ["the-first-three-seconds", "fewer-campaigns-more-systems"]} title={l.slug === "tampa" ? "Guides for Tampa Bay businesses" : "Further reading"} />
+      <RelatedReading slugs={l.region === "FL" ? ["tampa-listing-media-guide", "tampa-small-business-ads", "ai-lead-follow-up-tampa"] : ["the-first-three-seconds", "fewer-campaigns-more-systems"]} title={l.region === "FL" ? "Guides for Tampa Bay businesses" : "Further reading"} />
       <FinalCta />
     </>
   );
