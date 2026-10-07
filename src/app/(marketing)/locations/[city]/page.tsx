@@ -84,6 +84,21 @@ export default async function LocationPage({ params }: PageProps<"/locations/[ci
           </div>
         </section>
       )}
+      <section className="gutter pb-16" aria-label="Nearby areas we serve">
+        <p className="label mb-4 text-mist-500">Also serving</p>
+        <div className="flex flex-wrap gap-3">
+          {LOCATIONS.filter((o) => o.slug !== l.slug && o.region === l.region).map((o) => (
+            <TransitionLink key={o.slug} href={`/locations/${o.slug}`} className="group inline-flex h-11 items-center gap-2 rounded-full border border-white/15 px-5 text-[14px] text-bone-50 hover:border-accent-300">
+              <MapPin className="size-4 text-accent-300" />
+              {o.city}
+            </TransitionLink>
+          ))}
+          <TransitionLink href="/real-estate" className="group inline-flex h-11 items-center gap-2 rounded-full border border-white/15 px-5 text-[14px] text-bone-50 hover:border-accent-300">
+            Real estate media
+            <ArrowUpRight className="size-4" />
+          </TransitionLink>
+        </div>
+      </section>
       <RelatedReading slugs={l.region === "FL" ? ["tampa-listing-media-guide", "tampa-small-business-ads", "ai-lead-follow-up-tampa"] : ["the-first-three-seconds", "fewer-campaigns-more-systems"]} title={l.region === "FL" ? "Guides for Tampa Bay businesses" : "Further reading"} />
       <FinalCta />
     </>
