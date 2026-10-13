@@ -13,7 +13,7 @@ import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Luxury Presence Alternative in Tampa | Jennings Media",
+  title: "Luxury Presence Alternative in Tampa",
   description:
     "Comparing Luxury Presence with Jennings Media? They sell marketing software; we shoot your listings. Published prices, no contract, Tampa Bay and DC.",
   alternates: { canonical: "/luxury-presence-alternative" },
