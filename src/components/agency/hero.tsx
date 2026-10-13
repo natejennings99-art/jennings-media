@@ -85,6 +85,18 @@ export function Hero({ videoUrl, trustLine, clients }: { videoUrl: string | null
           </p>
         </div>
 
+        <TransitionLink
+          href="/test-reel"
+          className="group mb-6 inline-flex max-w-full animate-fade-in items-center gap-3 self-start rounded-full border border-accent-300/50 bg-ink-950/50 py-1.5 pr-2 pl-4 text-[13px] font-medium text-bone-50 backdrop-blur-md transition-colors [animation-delay:350ms] hover:border-accent-300 hover:bg-accent-300 hover:text-ink-950 sm:mb-8"
+        >
+          <span className="size-1.5 shrink-0 rounded-full bg-accent-300 group-hover:bg-ink-950" />
+          <span className="sm:hidden">Venues: get a free 15-second test reel</span>
+          <span className="hidden sm:inline">Venues in DC &amp; Miami: get a free 15-second test reel</span>
+          <span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent-300 text-ink-950 transition-transform duration-500 group-hover:rotate-45 group-hover:bg-ink-950 group-hover:text-bone-50">
+            <ArrowUpRight className="size-3.5" />
+          </span>
+        </TransitionLink>
+
         <h1 className="font-display text-hero text-bone-50" aria-label={`We make brands impossible to ${HERO_KEYWORDS[0].toLowerCase()}`}>
           {LINES.map((line, li) => (
             <span key={li} className="block overflow-hidden pb-[0.04em]">

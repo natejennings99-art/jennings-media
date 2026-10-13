@@ -10,6 +10,7 @@ import { ExploreTiles } from "@/components/agency/explore-tiles";
 import { ClientsSection } from "@/components/agency/clients-section";
 import { PhotoWall } from "@/components/agency/photo-wall";
 import { Hero } from "@/components/agency/hero";
+import { TestReelOffer } from "@/components/agency/test-reel-offer";
 import { LogoMarquee } from "@/components/agency/logo-marquee";
 import { Showreel } from "@/components/agency/showreel";
 import { FeaturedWork } from "@/components/agency/featured-work";
@@ -39,6 +40,7 @@ export default async function HomePage() {
       <JsonLd data={organizationSchema(settings)} />
       <Hero videoUrl={settings.hero_video_url} trustLine={marketing.trust_line} clients={clients.map((c) => c.name)} />
       <LogoMarquee clients={clients} />
+      <TestReelOffer />
       <ExploreTiles />
       <Showreel videoUrl={showreel} clips={REEL_CLIPS} />
       <FeaturedWork projects={featured} />
