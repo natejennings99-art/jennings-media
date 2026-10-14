@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
-import { EVENT_FILMS, EVENT_OFFERS, EVENT_REELS } from "@/lib/content/events";
+import { EVENT_AREAS, EVENT_FILMS, EVENT_OFFERS, EVENT_REELS } from "@/lib/content/events";
 import { DC_PHOTOS, EPG_PHOTOS, SILOS_PHOTOS } from "@/lib/content/photos";
 import { BRAND } from "@/lib/brand";
 import { FilmGrid, ReelRail } from "@/components/agency/film-wall";
@@ -15,7 +15,7 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Event Photography & Video in Tampa, FL",
-  description: "Corporate and event photography and 4K video across Tampa Bay, including Westchase, Town 'n' Country and St. Pete, with same-week recaps.",
+  description: "Corporate and event photography and 4K video across Tampa Bay \u2014 Westchase, Oldsmar, Safety Harbor, Clearwater and St. Pete \u2014 with same-week recaps.",
   alternates: { canonical: "/events" },
   openGraph: { images: [{ url: "/media/photos/suite-sunset.jpg" }] },
 };
@@ -139,8 +139,35 @@ export default function EventsPage() {
         <PhotoGallery photos={DC_PHOTOS} columns={2} />
       </section>
 
+      <section className="gutter pb-24 sm:pb-36" aria-labelledby="areas-title">
+        <SectionLabel index="05" className="mb-8">Where we shoot</SectionLabel>
+        <div className="mb-12 grid gap-8 lg:grid-cols-12 lg:items-end">
+          <SplitReveal as="h2" id="areas-title" className="font-display text-section text-bone-50 lg:col-span-8">
+            Tampa Bay
+            <br />
+            <span className="text-accent-300">and the DMV.</span>
+          </SplitReveal>
+          <p className="max-w-sm text-[16px] leading-relaxed text-mist-400 lg:col-span-4">
+            If your venue is not on this list, ask anyway &mdash; we travel, and we will tell you
+            straight whether it is worth the drive.
+          </p>
+        </div>
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          {EVENT_AREAS.map((a) => (
+            <div key={a.region}>
+              <h3 className="font-mono text-sm uppercase tracking-wide text-accent-300">{a.region}</h3>
+              <ul className="mt-4 space-y-1.5 text-[15px] leading-relaxed text-mist-300">
+                {a.places.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="gutter pb-24 sm:pb-36" aria-labelledby="offer-title">
-        <SectionLabel index="05" className="mb-8">What you get</SectionLabel>
+        <SectionLabel index="06" className="mb-8">What you get</SectionLabel>
         <h2 id="offer-title" className="sr-only">
           What you get with event coverage
         </h2>
