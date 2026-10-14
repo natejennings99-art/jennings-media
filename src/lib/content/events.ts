@@ -28,3 +28,34 @@ export const EVENT_OFFERS = [
   { title: "Photo galleries", text: "Edited event photos, from step-and-repeat portraits to the candid moments in between." },
   { title: "Sponsor & brand content", text: "Footage that gives partners and sponsors something worth sharing, with your logo where it belongs." },
 ] as const;
+
+/**
+ * Suburbs named on the events page.
+ *
+ * Search Console shows people searching "event photography oldsmar fl" and
+ * "event photography westchase fl" — five impressions each, no clicks. The
+ * page named Tampa, Westchase, St. Pete and Clearwater and nothing else, so
+ * someone in Oldsmar had no way to tell whether we cover them.
+ *
+ * Hyper-local long tail is also where a new domain can realistically rank:
+ * "event photography tampa" is contested, "event photography oldsmar fl" is
+ * not. These are listed because we genuinely cover them, not to pad a page.
+ */
+export const EVENT_AREAS = [
+  {
+    region: "Hillsborough",
+    places: ["Tampa", "South Tampa", "Hyde Park", "Westchase", "Carrollwood", "Town 'n' Country", "Temple Terrace", "Brandon", "Riverview"],
+  },
+  {
+    region: "Pinellas",
+    places: ["St. Petersburg", "Clearwater", "Clearwater Beach", "Dunedin", "Safety Harbor", "Oldsmar", "Palm Harbor", "Largo", "St. Pete Beach"],
+  },
+  {
+    region: "Further out",
+    places: ["Sarasota", "Lakewood Ranch", "Wesley Chapel", "Land O' Lakes", "Odessa"],
+  },
+  {
+    region: "Washington, D.C.",
+    places: ["Washington, D.C.", "Northern Virginia", "Maryland suburbs"],
+  },
+] as const;
