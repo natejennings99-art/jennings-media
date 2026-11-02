@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/pricing" },
 };
 
-const PRICING_FAQ = FAQS.filter((f) => /pay|fast|reschedule|weather/i.test(f.q));
+const PRICING_FAQ = FAQS.filter((f) => /pay|fast|reschedule|weather|drone/i.test(f.q));
 
 export default async function PricingPage() {
   const [catalog, areas, settings] = await Promise.all([getCatalog(), getServiceAreas(), getSettings()]);
