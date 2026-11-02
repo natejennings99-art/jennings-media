@@ -6,6 +6,7 @@ import { submitListingReel } from "@/app/(marketing)/free-listing-reel/actions";
 import { LISTING_AREAS, LISTING_TIMING } from "@/lib/content/listing-reel";
 import { track } from "@/lib/analytics";
 import { BRAND } from "@/lib/brand";
+import { LeadHandoff } from "@/components/agency/lead-handoff";
 import { cn } from "@/lib/utils";
 import type { ActionResult } from "@/lib/types";
 import { Chip, field } from "./inquiry-form";
@@ -15,7 +16,7 @@ const smsHref = BRAND.phoneHref.replace(/^tel:/, "sms:");
 export function ListingReelForm() {
   const [startedAt] = useState(() => Date.now());
   const [draft, setDraft] = useState<Record<string, string>>({});
-  const [state, action, pending] = useActionState<ActionResult<{ name: string }> | null, FormData>(async (prev, form) => {
+  const [state, action, pending] = useActionState<ActionResult<{ name: string; delivered?: boolean }> | null, FormData>(async (prev, form) => {
     setDraft(Object.fromEntries(["name", "brokerage", "address", "area", "timing", "instagram", "email", "phone", "notes"].map((k) => [k, String(form.get(k) ?? "").slice(0, 1200)])));
     const res = await submitListingReel(prev, form);
     if (res.ok) track("contact_submit", { form: "listing_reel" });
@@ -37,6 +38,7 @@ export function ListingReelForm() {
           </a>{" "}
           and we&rsquo;ll move fast.
         </p>
+        {state.data.delivered === false && <LeadHandoff subject={`Free listing reel: ${draft.address || draft.name}`} lines={Object.entries(draft).map(([k, v]) => v && `${k}: ${v}`)} />}
         <ol className="mt-12 grid animate-fade-up gap-6 border-t border-white/10 pt-8 [animation-delay:320ms] sm:grid-cols-3">
           {["We text to pick a time", "We film the listing", "Your reel within 48 hours"].map((s, i) => (
             <li key={s}>

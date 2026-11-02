@@ -32,7 +32,7 @@ const schema = z
   })
   .refine((d) => d.email || d.phone, { path: ["email"], message: "Add an email or a phone number so we can reach you" });
 
-export async function submitTestReel(_: unknown, form: FormData): Promise<ActionResult<{ name: string }>> {
+export async function submitTestReel(_: unknown, form: FormData): Promise<ActionResult<{ name: string; delivered?: boolean }>> {
   const parsed = schema.safeParse(Object.fromEntries(form));
   if (!parsed.success) {
     const fieldErrors = Object.fromEntries(parsed.error.issues.map((i) => [String(i.path[0]), i.message]));
@@ -77,7 +77,7 @@ export async function submitTestReel(_: unknown, form: FormData): Promise<Action
       `[lead] ${JSON.stringify({ at: new Date().toISOString(), source: "/test-reel", name: data.name ?? data.business, company: data.business, email: data.email, phone: data.phone, need: NEED, services: [], budget: null, venue: data.venue, city: data.city, instagram, evening, message })}`
     );
     if (features.email) notify(data.email ? `mailto:${data.email}` : `${env.siteUrl}/admin/leads`);
-    return { ok: true, data: { name: first } };
+    return { ok: true, data: { name: first, delivered: features.email } };
   }
 
   const db = createAdminClient();

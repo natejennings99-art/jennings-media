@@ -27,7 +27,7 @@ const schema = z.object({
  * visitor: the request is always written to the server log as a "[lead]" line (harvested nightly
  * into the Growth Command Center) and emailed as well once Resend is configured.
  */
-export async function requestShoot(_: unknown, form: FormData): Promise<ActionResult<{ name: string }>> {
+export async function requestShoot(_: unknown, form: FormData): Promise<ActionResult<{ name: string; delivered?: boolean }>> {
   const parsed = schema.safeParse(Object.fromEntries(form));
   if (!parsed.success) {
     const fieldErrors = Object.fromEntries(parsed.error.issues.map((i) => [String(i.path[0]), i.message]));
@@ -50,5 +50,5 @@ export async function requestShoot(_: unknown, form: FormData): Promise<ActionRe
       })
     );
   }
-  return { ok: true, data: { name: first } };
+  return { ok: true, data: { name: first, delivered: features.email } };
 }

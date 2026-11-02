@@ -6,6 +6,7 @@ import { submitInquiry } from "@/app/(marketing)/contact/actions";
 import { BUDGETS, INQUIRY_SERVICES, NEEDS } from "@/lib/content/agency";
 import { track } from "@/lib/analytics";
 import { BRAND } from "@/lib/brand";
+import { LeadHandoff } from "@/components/agency/lead-handoff";
 import { cn } from "@/lib/utils";
 import type { ActionResult } from "@/lib/types";
 
@@ -25,7 +26,7 @@ export function Chip({ name, value, type, defaultChecked }: { name: string; valu
 export function InquiryForm() {
   const [startedAt] = useState(() => Date.now());
   const [draft, setDraft] = useState<Record<string, string>>({});
-  const [state, action, pending] = useActionState<ActionResult<{ name: string }> | null, FormData>(async (prev, form) => {
+  const [state, action, pending] = useActionState<ActionResult<{ name: string; delivered?: boolean }> | null, FormData>(async (prev, form) => {
     setDraft({
       name: String(form.get("name") ?? ""),
       company: String(form.get("company") ?? ""),
@@ -50,10 +51,16 @@ export function InquiryForm() {
         </span>
         <p className="mt-10 animate-fade-up font-display text-[clamp(2.5rem,6vw,5rem)] text-bone-50 [animation-delay:120ms]">Thanks, {state.data.name}.</p>
         <p className="mt-4 max-w-md animate-fade-up text-[17px] leading-relaxed text-mist-300 [animation-delay:220ms]">
-          Your brief is with our strategy team. Expect a reply within one business day — usually with a few sharp questions and times for a 30-minute call.
+          Your brief is in. Nate reads every one and replies within one business day. In a hurry? Call or text {BRAND.phone}.
         </p>
+        {state.data.delivered === false && (
+          <LeadHandoff
+            subject={`Project inquiry from ${draft.company || draft.name}`}
+            lines={[`Name: ${draft.name}`, draft.company && `Company: ${draft.company}`, `Email: ${draft.email}`, draft.phone && `Phone: ${draft.phone}`, `Need: ${draft.need}`, draft.services && `Services: ${draft.services}`, `Budget: ${draft.budget}`, draft.message]}
+          />
+        )}
         <ol className="mt-12 grid animate-fade-up gap-6 border-t border-white/10 pt-8 [animation-delay:320ms] sm:grid-cols-3">
-          {["We review your brief", "30-minute discovery call", "Proposal within a week"].map((s, i) => (
+          {["Nate reads your brief", "A quick call or text", "Proposal within a week"].map((s, i) => (
             <li key={s}>
               <p className="font-mono text-sm text-accent-300">0{i + 1}</p>
               <p className="mt-2 text-[15px] text-bone-100">{s}</p>

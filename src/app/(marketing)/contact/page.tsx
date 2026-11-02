@@ -31,7 +31,11 @@ export default async function ContactPage() {
           </>
         }
       >
-        Tell us where you are and where you want to be. Two minutes here saves two weeks of back-and-forth.
+        Tell us where you are and where you want to be. Two minutes here saves two weeks of back-and-forth. Or skip the form:{" "}
+        <a href={BRAND.phoneHref} className="whitespace-nowrap text-bone-50 underline underline-offset-4 hover:text-accent-300">
+          call or text {BRAND.phone}
+        </a>
+        .
       </PageIntro>
       <section className="gutter grid gap-16 pb-32 lg:grid-cols-12">
         <div className="lg:col-span-8">
@@ -40,7 +44,7 @@ export default async function ContactPage() {
         <aside className="space-y-12 lg:col-span-3 lg:col-start-10">
           <div>
             <SectionLabel className="mb-4">Response time</SectionLabel>
-            <p className="text-[15.5px] leading-relaxed text-mist-300">Within one business day. Every inquiry is read by a strategist — not a bot.</p>
+            <p className="text-[15.5px] leading-relaxed text-mist-300">Within one business day. Every inquiry is read by Nate, not a bot.</p>
           </div>
           {email && (
             <div>

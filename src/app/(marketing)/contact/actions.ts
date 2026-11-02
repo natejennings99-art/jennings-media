@@ -25,7 +25,7 @@ const schema = z.object({
   startedAt: z.coerce.number().optional(),
 });
 
-export async function submitInquiry(_: unknown, form: FormData): Promise<ActionResult<{ name: string }>> {
+export async function submitInquiry(_: unknown, form: FormData): Promise<ActionResult<{ name: string; delivered?: boolean }>> {
   const parsed = schema.safeParse({
     ...Object.fromEntries(form),
     services: form.getAll("services").map(String),
@@ -61,7 +61,7 @@ export async function submitInquiry(_: unknown, form: FormData): Promise<ActionR
       `[lead] ${JSON.stringify({ at: new Date().toISOString(), name: data.name, company: data.company, email: data.email, phone: data.phone, need: data.need, services: data.services, budget: data.budget, message: data.message })}`
     );
     if (features.email) notify(`mailto:${data.email}`);
-    return { ok: true, data: { name: data.name.split(" ")[0] } };
+    return { ok: true, data: { name: data.name.split(" ")[0], delivered: features.email } };
   }
 
   const db = createAdminClient();

@@ -119,7 +119,10 @@ export function Hero({ videoUrl, trustLine, clients }: { videoUrl: string | null
 
         <div className="mt-10 grid items-end gap-8 sm:mt-14 lg:grid-cols-12">
           <p className="max-w-md animate-fade-up text-[17px] leading-relaxed text-mist-300 [animation-delay:900ms] lg:col-span-5">
-            Lead generation, Meta &amp; Google Ads, AI agents and scroll-stopping content — one team built to win you clients, not just likes.
+            Lead generation, Meta &amp; Google Ads, AI agents and scroll-stopping content — one team built to win you clients, not just likes.{" "}
+            <a href={BRAND.phoneHref} className="whitespace-nowrap text-bone-50 underline underline-offset-4 hover:text-accent-300">
+              Call or text {BRAND.phone}
+            </a>
           </p>
           <div className="flex animate-fade-up flex-wrap items-center gap-4 [animation-delay:1050ms] lg:col-span-7 lg:justify-end">
             <Magnetic>

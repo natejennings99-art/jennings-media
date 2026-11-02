@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { ArrowUpRight, Check } from "lucide-react";
 import { requestShoot } from "@/app/book/request-actions";
+import { LeadHandoff } from "@/components/agency/lead-handoff";
 import { track } from "@/lib/analytics";
 import type { ActionResult } from "@/lib/types";
 
@@ -12,7 +13,9 @@ const label = "label text-mist-400";
 /** Short shoot request (name, phone, email, address, timing): the whole thing takes about 30 seconds. */
 export function ShootRequestForm({ pkg }: { pkg?: string }) {
   const [startedAt] = useState(() => Date.now());
-  const [state, action, pending] = useActionState<ActionResult<{ name: string }> | null, FormData>(async (prev, form) => {
+  const [draft, setDraft] = useState<Record<string, string>>({});
+  const [state, action, pending] = useActionState<ActionResult<{ name: string; delivered?: boolean }> | null, FormData>(async (prev, form) => {
+    setDraft(Object.fromEntries([...form.entries()].filter(([k]) => k !== "startedAt" && k !== "website").map(([k, v]) => [k, String(v).slice(0, 1200)])));
     const res = await requestShoot(prev, form);
     if (res.ok) track("contact_submit", { form: "shoot_request" });
     return res;
@@ -27,6 +30,7 @@ export function ShootRequestForm({ pkg }: { pkg?: string }) {
         </span>
         <p className="mt-6 font-display text-[clamp(2rem,5vw,3.25rem)] text-bone-50">Thanks, {state.data.name}.</p>
         <p className="mt-3 max-w-md text-[16px] leading-relaxed text-mist-300">We&rsquo;ll text or call to confirm your shoot within one business day.</p>
+        {state.data.delivered === false && <LeadHandoff subject={`Shoot request: ${draft.address || draft.name}`} lines={Object.entries(draft).map(([k, v]) => v && `${k}: ${v}`)} />}
       </div>
     );
   }

@@ -82,7 +82,10 @@ export default async function RealEstatePage() {
           </SplitReveal>
           <div className="mt-10 grid items-end gap-8 lg:grid-cols-12">
             <p className="max-w-lg animate-fade-up text-[17px] leading-relaxed text-mist-300 [animation-delay:700ms] lg:col-span-6">
-              Photography, cinematic video, drone, 3D tours and floor plans — shot in 4K, edited in-house and delivered ready for the MLS, your website and social.
+              Photography, cinematic video, drone, 3D tours and floor plans — shot in 4K, edited in-house and delivered ready for the MLS, your website and social.{" "}
+              <a href={BRAND.phoneHref} className="whitespace-nowrap text-bone-50 underline underline-offset-4 hover:text-accent-300">
+                Call or text {BRAND.phone}
+              </a>
             </p>
             <div className="flex animate-fade-up flex-wrap items-center gap-4 [animation-delay:850ms] lg:col-span-6 lg:justify-end">
               <TransitionLink
