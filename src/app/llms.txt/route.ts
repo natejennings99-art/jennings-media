@@ -26,6 +26,7 @@ export function GET() {
     `- [Work & case studies](${u}/work)`,
     `- [Event, sports & concert video](${u}/events)`,
     `- [Real estate photography, video & drone — packages and films](${u}/real-estate)`,
+    `- [Drone real estate photography & aerial listing video in Tampa](${u}/drone-real-estate-tampa)`,
     `- [Pricing](${u}/plans)`,
     `- [Book a real estate shoot](${u}/book)`,
     `- [Contact](${u}/contact)`,

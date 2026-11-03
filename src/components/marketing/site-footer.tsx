@@ -66,6 +66,10 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
               <RollText>Real estate photo & video</RollText>
               <ArrowUpRight className="size-3.5" />
             </TransitionLink>
+            <TransitionLink href="/drone-real-estate-tampa" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
+              <RollText>Tampa drone photo & video</RollText>
+              <ArrowUpRight className="size-3.5" />
+            </TransitionLink>
             <TransitionLink href="/insights" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
               <RollText>Insights & field notes</RollText>
               <ArrowUpRight className="size-3.5" />

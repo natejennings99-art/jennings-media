@@ -290,6 +290,13 @@ export default async function RealEstatePage() {
             <br />
             the <span className="text-accent-300">neighborhood.</span>
           </SplitReveal>
+          <p className="mt-8 max-w-xl text-[16px] leading-relaxed text-mist-400">
+            Listing in Tampa Bay?{" "}
+            <TransitionLink href="/drone-real-estate-tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">
+              See Tampa drone photo &amp; video pricing and how we handle airspace
+            </TransitionLink>
+            .
+          </p>
         </div>
         <div className="gutter grid gap-4 md:grid-cols-2 md:gap-5">
           {[
