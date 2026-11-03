@@ -50,7 +50,7 @@ const AIRSPACE_FAQ = [
   FAQS.find((f) => /drone/i.test(f.q))!,
   {
     q: "Can you fly my listing near Tampa International or MacDill?",
-    a: "Sometimes. Much of Tampa Bay sits in controlled airspace around Tampa International, MacDill Air Force Base, Peter O. Knight and St. Pete–Clearwater International. We check the exact address before booking and request FAA LAANC authorization where it's needed. Some addresses close to MacDill or Tampa International can't be flown at all; if yours is one, we tell you up front and shoot the film from the ground.",
+    a: "Sometimes. Much of Tampa Bay sits in controlled airspace around Tampa International, MacDill Air Force Base, Albert Whitted in downtown St. Pete and St. Pete–Clearwater International. We check the exact address before booking and request FAA LAANC authorization where it's needed. Some addresses close to MacDill or Tampa International can't be flown at all; if yours is one, we tell you up front and shoot the film from the ground.",
   },
   {
     q: "What happens if the weather is bad on shoot day?",
@@ -224,7 +224,7 @@ export default async function DroneRealEstateTampaPage() {
         <div className="mt-10 grid gap-10 lg:grid-cols-12">
           <div className="space-y-5 text-[17px] leading-relaxed text-mist-300 lg:col-span-7">
             <p>
-              Much of Tampa Bay sits inside controlled airspace around four airfields: Tampa International, MacDill Air Force Base, Peter O. Knight and St. Pete–Clearwater International. Neighborhoods such as South Tampa, Davis Islands and Westshore sit close to those fields, so a waterfront listing can look easy to fly and still need permission.
+              Much of Tampa Bay sits inside controlled airspace around four airfields: Tampa International, MacDill Air Force Base, Albert Whitted in downtown St. Pete and St. Pete–Clearwater International. Neighborhoods such as South Tampa, Westshore and downtown St. Pete sit close to those fields, so a waterfront listing can look easy to fly and still need permission.
             </p>
             <p>
               Paid drone flights are flown by an FAA Part 107 certified pilot. Before a drone shoot is booked, Nate looks up the exact address on the FAA&rsquo;s airspace maps and, where the address is in controlled airspace, requests FAA authorization through LAANC for the flight.
