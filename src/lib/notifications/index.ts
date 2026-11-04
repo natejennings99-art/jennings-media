@@ -1,6 +1,7 @@
 import "server-only";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { features, env, serverEnv } from "@/lib/env";
+import { BRAND } from "@/lib/brand";
 import { getSettings } from "@/lib/data/public";
 import { sendEmail, type SendResult } from "@/lib/email/send";
 import * as T from "@/lib/email/templates";
@@ -93,8 +94,13 @@ export function emailData(ctx: BookingContext): T.BookingEmailData {
   };
 }
 
+/**
+ * Who gets lead/booking alerts: Admin → Settings emails plus ADMIN_NOTIFICATION_EMAILS.
+ * Falls back to the brand inbox (natejennings99@gmail.com) so a lead is never addressed to nobody.
+ */
 export function adminRecipients(settings: BusinessSettings) {
-  return [...new Set([...settings.notifications.admin_emails, ...serverEnv.adminNotificationEmails].map((e) => e.trim()).filter(Boolean))];
+  const list = [...new Set([...settings.notifications.admin_emails, ...serverEnv.adminNotificationEmails].map((e) => e.trim()).filter(Boolean))];
+  return list.length ? list : [BRAND.email].filter(Boolean);
 }
 
 async function log(entry: {
@@ -107,6 +113,7 @@ async function log(entry: {
   result: SendResult | { status: "sent" | "failed" | "skipped"; id?: string; error?: string };
   provider: string;
 }) {
+  if (!features.supabaseAdmin) return;
   try {
     await createAdminClient()
       .from("notifications")
@@ -137,6 +144,10 @@ export async function sendLogged(
   const recipients = (Array.isArray(to) ? to : [to]).filter(Boolean);
   if (!recipients.length) return;
   const result = await sendEmail(recipients, content, { replyTo: meta.replyTo, tags: { template } });
+  if (result.status !== "sent") {
+    // Loud on purpose: a lead/booking alert that didn't go out must be visible in the Render logs.
+    console.error(`[email] ${result.status.toUpperCase()} "${template}" → ${recipients.join(", ")} via ${result.provider}: ${result.error ?? "unknown error"}`);
+  }
   await log({
     channel: "email",
     template,

@@ -50,7 +50,7 @@ export function StepDetails({
             <Input id="email" type="email" autoComplete="email" inputMode="email" value={value.email} onChange={(e) => onChange({ email: e.target.value })} aria-invalid={Boolean(err("email"))} />
           </Field>
           <Field label="Mobile phone" htmlFor="phone" error={err("phone")}>
-            <Input id="phone" type="tel" autoComplete="tel" inputMode="tel" placeholder="(813) 555-0100" value={value.phone} onChange={(e) => onChange({ phone: e.target.value })} aria-invalid={Boolean(err("phone"))} />
+            <Input id="phone" type="tel" autoComplete="tel" inputMode="tel" placeholder="Your mobile number" value={value.phone} onChange={(e) => onChange({ phone: e.target.value })} aria-invalid={Boolean(err("phone"))} />
           </Field>
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
