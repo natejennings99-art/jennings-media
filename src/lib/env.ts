@@ -52,6 +52,10 @@ export const serverEnv = {
   get cronSecret() {
     return process.env.CRON_SECRET || "";
   },
+  /** Shared secret for the read-only GET /api/stats report (sent as the x-report-key header). */
+  get reportKey() {
+    return process.env.REPORT_KEY || "";
+  },
   get googleMapsApiKey() {
     return process.env.GOOGLE_MAPS_API_KEY || "";
   },

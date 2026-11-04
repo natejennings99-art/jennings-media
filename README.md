@@ -2,7 +2,9 @@
 
 Premium real estate media platform: marketing site, online booking with live pricing and scheduling, Stripe payments, client dashboard with media delivery, and a full studio admin.
 
-**Stack:** Next.js 16 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS v4 · Supabase (Postgres, Auth, Storage, RLS) · Stripe Checkout · Resend · Vercel
+**Stack:** Next.js 16 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS v4 · Supabase (Postgres, Auth, Storage, RLS) · Stripe Checkout · Resend · Render (GitHub auto-deploy)
+
+**Run / deploy / roll back in plain English:** see [DEPLOY.md](DEPLOY.md).
 
 ---
 
@@ -15,10 +17,11 @@ Premium real estate media platform: marketing site, online booking with live pri
 5. [Supabase setup](#supabase-setup)
 6. [Stripe setup](#stripe-setup)
 7. [Email setup (Resend)](#email-setup-resend)
-8. [Deployment (Vercel)](#deployment-vercel)
-9. [Testing](#testing)
-10. [Architecture notes](#architecture-notes)
-11. [Before launch checklist](#before-launch-checklist)
+8. [Deployment & rollback (Render)](#deployment--rollback-render)
+9. [Lead forms, endpoints & the weekly report](#lead-forms-endpoints--the-weekly-report)
+10. [Testing](#testing)
+11. [Architecture notes](#architecture-notes)
+12. [Before launch checklist](#before-launch-checklist)
 
 ---
 
@@ -28,12 +31,13 @@ Premium real estate media platform: marketing site, online booking with live pri
 - **Site:** https://jennings-media.com (also https://jennings-media.onrender.com). `www` redirects to the root domain.
 - **Hosting:** Render web service `jennings-media` (Node, Virginia, **Free** plan) built from `github.com/natejennings99-art/jennings-media` (`main`). It's connected through the GitHub app, so **every push to `main` deploys automatically**. Config lives in `render.yaml`.
 - **Domain:** registered at Wix; DNS there: `A @ → 216.24.57.1` and `CNAME www → jennings-media.onrender.com`. Don't add other A records for the root or Wix will fight Render for the domain.
-- **Environment (Render → jennings-media → Environment):** `NEXT_PUBLIC_SITE_URL=https://jennings-media.com`. Add Stripe / Resend / Supabase keys here (see "Getting paid & getting leads"), then the booking flow, dashboards and emails switch on automatically.
+- **Environment (Render → jennings-media → Environment):** `NEXT_PUBLIC_SITE_URL=https://jennings-media.com`. Add Stripe / Resend / Supabase keys here (see "Getting paid & getting leads"), then the booking flow, dashboards and emails switch on automatically. Add `REPORT_KEY` to switch on `/api/stats`.
+- **Rollback:** Render → jennings-media → Events → pick the last good deploy → *Rollback*. Details in [DEPLOY.md](DEPLOY.md).
 - **Free plan note:** the instance sleeps after ~15 minutes without visitors; the next visit takes ~50 seconds. Upgrade to **Starter ($7/mo)** in Render → Settings → Instance Type to keep it always on (recommended once Google starts crawling and clients visit).
 
 ## Getting paid & getting leads (natejennings99@gmail.com)
 
-Everything is wired to **natejennings99@gmail.com** (contact email, lead/booking/payment notifications, reply-to). It switches on as you add three free accounts — put the keys in `.env.local` (and in Vercel → Settings → Environment Variables):
+Everything is wired to **natejennings99@gmail.com** (contact email, lead/booking/payment notifications, reply-to). It switches on as you add three free accounts — put the keys in `.env.local` (and in Render → jennings-media → Environment):
 
 1. **Stripe (payments)** — create an account at stripe.com, add your bank under *Settings → Payouts*, then copy the keys from *Developers → API keys*: `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`. Add a webhook (*Developers → Webhooks*) pointing to `https://YOUR-DOMAIN/api/stripe/webhook` with events `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `checkout.session.expired`, `charge.refunded`, `customer.subscription.deleted`, and set `STRIPE_WEBHOOK_SECRET`. Test first with the `sk_test_…` keys and card `4242 4242 4242 4242`.
    - `/book` — real estate shoots: pay in full, deposit or pay later.
@@ -41,7 +45,7 @@ Everything is wired to **natejennings99@gmail.com** (contact email, lead/booking
    - `/pay` — any amount (invoices, deposits, retainers) for agency clients.
    - Stripe emails you on every successful payment and sends the customer a receipt.
 2. **Resend (email)** — sign up at resend.com **with natejennings99@gmail.com**, create an API key and set `RESEND_API_KEY`. Lead, booking and payment notifications then reach your Gmail immediately. To also email clients (confirmations, auto-replies), verify your domain in Resend and set `EMAIL_FROM` (e.g. `Jennings Media <hello@yourdomain.com>`).
-3. **Supabase (database, logins, dashboards)** — required for bookings, the client dashboard and the admin. Until it's connected the contact form still delivers leads by email (step 2).
+3. **Supabase (database, logins, dashboards)** — required for bookings, the client dashboard and the admin. Until it's connected every form (contact, `/join`, `/content-package`, the reel offers) still delivers leads by email (step 2) and writes each one to the server log as a `[lead] {...}` line (Render → Logs), so nothing is lost.
 
 ## SEO & Google visibility
 
@@ -104,7 +108,8 @@ src/
     dashboard/           client portal
     admin/               studio admin (+ actions.ts, resources.ts)
     p/[token]/           property website / share page
-    api/                 booking availability & quote, Stripe webhook, cron, ICS, health
+    api/                 contact / join / content-package (JSON lead endpoints), stats (weekly report),
+                         booking availability & quote, Stripe webhook, cron, ICS, health
     sitemap.ts robots.ts manifest.ts opengraph-image.tsx icon.svg
   components/
     ui/ marketing/ motion/ booking/ dashboard/ admin/ seo/ analytics/
@@ -117,6 +122,7 @@ src/
     supabase/                  server / browser / public / service-role clients
     data/                      cached public data (with offline fallback) + customer queries
     content/                   default catalog & copy (edit freely)
+    leads/                     shared lead pipeline: schemas, save-or-log fail-safe, email after response
 ```
 
 ---
@@ -162,6 +168,7 @@ See [`.env.example`](.env.example). Summary:
 | `RESEND_API_KEY` / `EMAIL_FROM` | for email | Verified sending domain required by Resend |
 | `ADMIN_NOTIFICATION_EMAILS` | recommended | Booking/lead alerts |
 | `CRON_SECRET` | for reminders | Protects `/api/cron/reminders` |
+| `REPORT_KEY` | for `/api/stats` | Long random string; callers send it as the `x-report-key` header. Without it the endpoint returns 503 |
 | `GOOGLE_MAPS_API_KEY` | optional | More accurate geocoding for travel fees |
 | `NEXT_PUBLIC_GA4_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GOOGLE_ADS_ID`, `NEXT_PUBLIC_GOOGLE_ADS_BOOKING_LABEL` | optional | Or set in Admin → Settings |
 | `TWILIO_*` | optional | Enables SMS reminders |
@@ -181,7 +188,9 @@ Secrets never reach the browser: only `NEXT_PUBLIC_*` values are bundled, and al
    2. `supabase/migrations/20260929000200_functions.sql`
    3. `supabase/migrations/20260929000300_security.sql`
    4. `supabase/migrations/20260929000400_storage.sql`
-   5. `supabase/seed.sql` (catalog, packages, add-ons, settings, example service areas, **sample** portfolio/testimonials)
+   5. `supabase/migrations/20260929000500_agency.sql`
+   6. `supabase/migrations/20261104000100_creator_applicants.sql` (the `/join` applicants table — needed by Admin → Creators and `/api/stats`)
+   7. `supabase/seed.sql` (catalog, packages, add-ons, settings, example service areas, real work, **sample** case studies/clients)
 3. **Auth → URL Configuration:** set Site URL to your domain and add `http://localhost:3000/**` and `https://YOUR-DOMAIN/**` to Redirect URLs.
 4. **Auth → Email templates** (recommended for cross-device magic links): change the Magic Link / Confirm signup link to
    `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/dashboard`
@@ -213,13 +222,44 @@ The confirmation page also verifies the Checkout Session directly, so customers 
 
 ---
 
-## Deployment (Vercel)
+## Deployment & rollback (Render)
 
-1. Push the repo to GitHub and import it in Vercel (framework preset: Next.js).
-2. Add all environment variables for Production (and Preview if you use it). Set `NEXT_PUBLIC_SITE_URL` to the production domain.
-3. Deploy, then add the domain in Vercel and update Supabase Auth URLs + the Stripe webhook URL.
-4. `vercel.json` schedules `/api/cron/reminders` daily (13:00 UTC ≈ 9 AM Eastern). On Vercel Pro you can run it hourly. Set `CRON_SECRET`.
-5. Smoke test: `/api/health` shows which integrations are configured.
+The site is hosted on **Render** (web service `jennings-media`, config in `render.yaml`), built from GitHub `main`.
+
+**Deploy:** push to `main`. Render builds (`npm ci --include=dev && npm run build`), starts `npm start`, waits for `/api/health` and then swaps traffic over. Watch progress in Render → jennings-media → Events / Logs.
+
+**Roll back:** Render → jennings-media → **Events** → open the last good deploy → **Rollback to this deploy**. Then `git revert <bad-sha> && git push origin main` so the next push doesn't bring the bug back. Full steps in [DEPLOY.md](DEPLOY.md).
+
+**Environment variables** are set in Render → Environment (never committed). Changing one redeploys.
+
+**Database migrations** are not run by Render — apply new files in `supabase/migrations/` yourself (CLI `supabase db push`, or paste into the Supabase SQL editor). See [Supabase setup](#supabase-setup).
+
+**Reminders cron:** `vercel.json` still describes the daily `/api/cron/reminders` schedule from the Vercel days; on Render use a Cron Job (or any scheduler) that calls `https://jennings-media.com/api/cron/reminders` with `Authorization: Bearer $CRON_SECRET`.
+
+---
+
+## Lead forms, endpoints & the weekly report
+
+Every public form validates with zod, rate-limits by IP, **saves to Supabase, then emails natejennings99@gmail.com** after the response is sent. If the database insert fails or there is no database, the full submission is written to the server log as a `[lead] {...}` line; a failed or skipped email is logged as `[email] FAILED …`. The visitor always gets a success screen (plus a one-tap text/email hand-off when neither database nor email was available).
+
+| Page | What it is | Stored in | Also available as JSON |
+| --- | --- | --- | --- |
+| `/contact` | Project inquiry | `contact_leads` (source `/contact`) | `POST /api/contact` |
+| `/join` | Photographer / videographer application | `creator_applicants` (status `applied`) | `POST /api/join` |
+| `/content-package` | Monthly content package, "book a call" | `contact_leads` (source `/content-package`) | `POST /api/content-package` |
+
+A `GET` on any `/api/*` endpoint above returns a small `{ ok: true, fields: [...] }` description, so they can be used as uptime checks.
+
+**`GET /api/stats`** (header `x-report-key: $REPORT_KEY`) returns counts for the last 7 days:
+
+```json
+{ "ok": true, "window_days": 7, "leads_this_week": 4, "contact_submissions_this_week": 2,
+  "creator_applicants_by_stage": { "applied": 1, "contacted": 0, "trial_shoot": 0, "active": 0, "no": 0 } }
+```
+
+`leads_this_week` counts every `contact_leads` row (all forms); `contact_submissions_this_week` only those from `/contact`. Returns 401 for a bad key and 503 when `REPORT_KEY` or the database isn't configured.
+
+Admin: contact leads under **Admin → Contact leads**; `/join` applicants under **Admin → Creators** (status dropdown applied → contacted → trial shoot → active / no).
 
 ---
 
@@ -252,7 +292,7 @@ The data model and module boundaries leave room for: a photographer mobile app (
 
 ## Before launch checklist
 
-- [ ] Replace sample portfolio + testimonials (they're flagged `is_sample` and hidden in production by default).
+- [ ] Add real testimonials in Admin → Testimonials (the fictional samples were removed; sample case studies/clients remain flagged `is_sample` and hidden unless `SHOW_SAMPLE_CONTENT=true`).
 - [ ] Replace placeholder photography (`src/lib/content/images.ts`, Unsplash) with your own, or upload via Admin.
 - [ ] Set business email/phone/address, timezone, working hours and service areas in Admin → Settings (defaults assume Tampa Bay, FL).
 - [ ] Review prices (Admin → Services / Packages / Pricing), tax rate and deposit rules.

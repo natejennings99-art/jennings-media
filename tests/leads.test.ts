@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { contactSchema, contentPackageSchema, creatorSchema, fieldErrorsOf, looksLikeBot } from "@/lib/leads/schemas";
 import { NEEDS, BUDGETS } from "@/lib/content/agency";
+import { countByStage, sinceDays } from "@/lib/leads/stats";
 
 test("contact form accepts a real inquiry and normalises the email", () => {
   const r = contactSchema.safeParse({ name: "Ada Lovelace", email: "ADA@Example.com", need: NEEDS[0], budget: BUDGETS[0], services: [], message: "We open a second location in March." });
@@ -54,4 +55,10 @@ test("/content-package call request needs name, business, phone and a time", () 
   assert.ok(!bad.success);
   const errors = fieldErrorsOf(bad.error);
   for (const k of ["name", "business", "phone", "best_time"]) assert.ok(errors[k], `expected an error for ${k}`);
+});
+
+test("/api/stats groups applicants by stage with zeros for empty stages", () => {
+  const by = countByStage([{ status: "applied" }, { status: "applied" }, { status: "active" }, { status: "bogus" }]);
+  assert.deepEqual(by, { applied: 2, contacted: 0, trial_shoot: 0, active: 1, no: 0 });
+  assert.equal(sinceDays(7, Date.UTC(2026, 10, 8)), "2026-11-01T00:00:00.000Z");
 });
