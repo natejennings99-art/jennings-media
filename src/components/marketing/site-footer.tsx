@@ -78,6 +78,10 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
               <RollText>Retainers & packages</RollText>
               <ArrowUpRight className="size-3.5" />
             </TransitionLink>
+            <TransitionLink href="/content-package" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
+              <RollText>Monthly content package</RollText>
+              <ArrowUpRight className="size-3.5" />
+            </TransitionLink>
             <TransitionLink href="/pay" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
               <RollText>Make a payment</RollText>
               <ArrowUpRight className="size-3.5" />

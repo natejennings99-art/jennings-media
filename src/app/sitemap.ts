@@ -20,8 +20,8 @@ function ownImages(src: string | null | undefined) {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getPortfolio();
   const now = new Date();
-  const top = new Set(["", "/work", "/real-estate", "/drone-real-estate-tampa", "/events", "/services", "/plans", "/contact"]);
-  const staticPages = ["", "/work", "/real-estate", "/drone-real-estate-tampa", "/events", "/services", "/plans", "/free-listing-reel", "/test-reel", "/about", "/insights", "/contact", "/join", "/pricing", "/book", "/privacy", "/terms"].map((path) => ({
+  const top = new Set(["", "/work", "/real-estate", "/drone-real-estate-tampa", "/events", "/services", "/plans", "/content-package", "/contact"]);
+  const staticPages = ["", "/work", "/real-estate", "/drone-real-estate-tampa", "/events", "/services", "/plans", "/content-package", "/free-listing-reel", "/test-reel", "/about", "/insights", "/contact", "/join", "/pricing", "/book", "/privacy", "/terms"].map((path) => ({
     url: `${env.siteUrl}${path}`,
     lastModified: now,
     changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),
