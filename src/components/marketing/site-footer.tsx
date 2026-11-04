@@ -82,6 +82,10 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
               <RollText>Make a payment</RollText>
               <ArrowUpRight className="size-3.5" />
             </TransitionLink>
+            <TransitionLink href="/join" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
+              <RollText>Shoot with us</RollText>
+              <ArrowUpRight className="size-3.5" />
+            </TransitionLink>
           </div>
         </div>
       </div>

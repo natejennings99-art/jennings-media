@@ -6,6 +6,11 @@
 import { z } from "zod";
 import { clean, optionalClean } from "@/lib/booking/schema";
 import { BUDGETS, INQUIRY_SERVICES, NEEDS } from "@/lib/content/agency";
+import { AVAILABILITY_OPTIONS, DISCIPLINES } from "@/lib/content/creators";
+import { BEST_TIMES } from "@/lib/content/content-package";
+
+export { AVAILABILITY_OPTIONS, DISCIPLINES, DISCIPLINE_LABELS, type Discipline } from "@/lib/content/creators";
+export { BEST_TIMES } from "@/lib/content/content-package";
 
 /** Honeypot + "submitted in under 3 seconds" fields every public form carries. */
 export const botFields = {
@@ -28,7 +33,7 @@ export const optionalEmail = z.preprocess(
 );
 
 const phoneDigits = (v: string) => v.replace(/\D/g, "").length;
-export const requiredPhone = clean(30).refine((v) => phoneDigits(v) >= 10 && phoneDigits(v) <= 15, "Enter a valid phone number");
+export const requiredPhone = z.preprocess((v) => (v == null ? "" : v), clean(30).refine((v) => phoneDigits(v) >= 10 && phoneDigits(v) <= 15, "Enter a valid phone number"));
 
 /* ------------------------------------------------------------------ contact */
 
@@ -46,12 +51,6 @@ export const contactSchema = z.object({
 export type ContactInput = z.infer<typeof contactSchema>;
 
 /* -------------------------------------------------------------- /join */
-
-export const DISCIPLINES = ["photo", "video", "both"] as const;
-export type Discipline = (typeof DISCIPLINES)[number];
-export const DISCIPLINE_LABELS: Record<Discipline, string> = { photo: "Photo", video: "Video", both: "Photo + video" };
-
-export const AVAILABILITY_OPTIONS = ["Weekdays", "Evenings", "Weekends", "Short notice (same week)"] as const;
 
 /** Accepts "example.com" as well as "https://example.com"; rejects anything that isn't http(s). */
 export const portfolioUrl = clean(500)
@@ -82,8 +81,6 @@ export const creatorSchema = z.object({
 export type CreatorInput = z.infer<typeof creatorSchema>;
 
 /* -------------------------------------------------------- /content-package */
-
-export const BEST_TIMES = ["Morning", "Midday", "Afternoon", "Evening"] as const;
 
 export const contentPackageSchema = z.object({
   name: clean(120).pipe(z.string().min(2, "Enter your name")),

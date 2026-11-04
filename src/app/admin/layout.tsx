@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
-  Building2,
+  Aperture, Building2,
   BadgePercent, CalendarDays, Camera, ClipboardList, CreditCard, FileText, Image as ImageIcon, Inbox, LayoutDashboard,
   Layers, MessageSquareQuote, Package, Settings, ShoppingBag, Tags, Users, Home, ExternalLink,
 } from "lucide-react";
@@ -19,9 +19,11 @@ export const metadata: Metadata = { title: { default: "Admin", template: "%s · 
 export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
   if (!features.supabase) redirect("/login");
   const { viewer, supabase } = await requireAdmin();
-  const [{ count: requested }, { count: leads }] = await Promise.all([
+  const [{ count: requested }, { count: leads }, { count: applicants }] = await Promise.all([
     supabase.from("bookings").select("id", { count: "exact", head: true }).eq("status", "requested"),
     supabase.from("contact_leads").select("id", { count: "exact", head: true }).eq("status", "new"),
+    // Table arrives with the 20261104 migration; until it's applied this just yields an error (count null).
+    supabase.from("creator_applicants").select("id", { count: "exact", head: true }).eq("status", "applied"),
   ]);
   const nav: NavItem[] = [
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -41,6 +43,7 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
     { href: "/admin/clients", label: "Clients", icon: Building2 },
     { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote },
     { href: "/admin/leads", label: "Contact leads", icon: Inbox, badge: leads ?? 0 },
+    { href: "/admin/creators", label: "Creators", icon: Aperture, badge: applicants ?? 0 },
     { href: "/admin/settings", label: "Settings", icon: Settings },
   ];
   const name = (viewer.user.user_metadata?.full_name as string | undefined) ?? "Studio admin";

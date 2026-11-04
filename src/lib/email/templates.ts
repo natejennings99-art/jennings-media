@@ -315,3 +315,44 @@ export function adminEvent(brand: Brand, title: string, lines: string[], url: st
     text: text(title, ...lines, url),
   };
 }
+
+/** /join — a photographer or videographer applied to the creator network. */
+export function adminCreatorApplicant(
+  brand: Brand,
+  a: { name: string; email: string; phone: string; discipline: string; portfolioUrl: string; gear: string | null; dayRate: string; availability: string | null; notes: string | null; adminUrl: string }
+): EmailContent {
+  const title = `Creator application: ${a.name} (${a.discipline})`;
+  const rows: [string, string | null | undefined][] = [
+    ["Name", a.name],
+    ["Email", a.email],
+    ["Phone", a.phone],
+    ["Discipline", a.discipline],
+    ["Portfolio", a.portfolioUrl],
+    ["Day rate", a.dayRate],
+    ["Availability", a.availability],
+    ["Gear", a.gear],
+  ];
+  return {
+    subject: title,
+    html: layout(brand, `${a.discipline} · ${a.dayRate} · ${a.portfolioUrl}`, `${h1(title)}${details(rows)}${a.notes ? p(esc(a.notes).replace(/\n/g, "<br>")) : ""}${p(`<a href="${esc(a.portfolioUrl)}" style="color:#d43d0a;">Open portfolio &rarr;</a>`)}${button(a.adminUrl, "Review in admin")}`),
+    text: text(title, ...rows.filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`), a.notes ? `\n${a.notes}` : null, a.adminUrl),
+  };
+}
+
+/** /content-package — a local business asked for a call about the monthly package. */
+export function adminCallRequest(brand: Brand, r: { name: string; business: string; phone: string; bestTime: string; email: string | null; packageName: string; price: string; adminUrl: string }): EmailContent {
+  const title = `Call request: ${r.business} (${r.packageName})`;
+  const rows: [string, string | null | undefined][] = [
+    ["Business", r.business],
+    ["Contact", r.name],
+    ["Phone", r.phone],
+    ["Best time to call", r.bestTime],
+    ["Email", r.email],
+    ["Package", `${r.packageName} — ${r.price}`],
+  ];
+  return {
+    subject: title,
+    html: layout(brand, `${r.name} at ${r.business} · call ${r.bestTime.toLowerCase()} · ${r.phone}`, `${h1(title)}${details(rows)}${p(`<a href="tel:${esc(r.phone.replace(/[^\d+]/g, ""))}" style="color:#d43d0a;">Call ${esc(r.phone)} &rarr;</a>`)}${button(r.adminUrl, "View lead")}`),
+    text: text(title, ...rows.filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`), r.adminUrl),
+  };
+}

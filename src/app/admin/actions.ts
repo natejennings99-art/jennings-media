@@ -11,7 +11,7 @@ import { notifyBooking } from "@/lib/notifications";
 import { getSettings, TAGS } from "@/lib/data/public";
 import { clean } from "@/lib/booking/schema";
 import { features } from "@/lib/env";
-import { BOOKING_STATUSES, MEDIA_CATEGORIES, type ActionResult, type BookingLineItem, type BookingStatus } from "@/lib/types";
+import { BOOKING_STATUSES, CREATOR_STATUSES, MEDIA_CATEGORIES, type ActionResult, type BookingLineItem, type BookingStatus } from "@/lib/types";
 import { BOOKING_STATUS_META } from "@/lib/status";
 import { formatMoney, slugify } from "@/lib/utils";
 
@@ -419,6 +419,17 @@ export async function updateLead(leadId: string, status: string, notes: string |
     const { error } = await supabase.from("contact_leads").update({ status, admin_notes: notes === null ? undefined : clean(3000).safeParse(notes).data ?? null }).eq("id", leadId);
     if (error) return fail(error.message);
     revalidatePath("/admin/leads");
+    return ok();
+  });
+}
+
+/** Admin → Creators: move a /join applicant along the pipeline and keep internal notes. */
+export async function updateCreatorApplicant(applicantId: string, status: string, notes: string | null): Promise<ActionResult> {
+  return guard(async ({ supabase }) => {
+    if (!uuid.safeParse(applicantId).success || !(CREATOR_STATUSES as readonly string[]).includes(status)) return fail("Invalid request");
+    const { error } = await supabase.from("creator_applicants").update({ status, admin_notes: notes === null ? undefined : clean(3000).safeParse(notes).data ?? null }).eq("id", applicantId);
+    if (error) return fail(error.message);
+    revalidatePath("/admin/creators");
     return ok();
   });
 }

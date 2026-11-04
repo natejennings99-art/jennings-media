@@ -14,6 +14,8 @@ export function MobileCta() {
   // On the free-reel pages the bar jumps to that page's form instead of /contact.
   const path = usePathname();
   const reel = path === "/test-reel" || path === "/free-listing-reel";
+  // Pages with their own form: the bar scrolls to it instead of leaving for /contact.
+  const onPage = ({ "/join": { href: "#apply", label: "Apply now" }, "/content-package": { href: "#book", label: "Book a call" } } as Record<string, { href: string; label: string }>)[path ?? ""];
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const onScroll = () => {
@@ -39,6 +41,11 @@ export function MobileCta() {
       {reel ? (
         <a href="#claim" className={pill}>
           Claim free reel
+          {arrow}
+        </a>
+      ) : onPage ? (
+        <a href={onPage.href} className={pill}>
+          {onPage.label}
           {arrow}
         </a>
       ) : (

@@ -75,6 +75,12 @@ export const PACKAGES: Plan[] = [
   },
 ];
 
+/**
+ * /content-package — the one monthly package for local businesses (restaurants, gyms, salons).
+ * Whole US dollars per month; this is the only place the price is written.
+ */
+export const CONTENT_PACKAGE_PRICE = 1500;
+
 export const findPlan = (slug: string | undefined) => [...RETAINERS, ...PACKAGES].find((p) => p.slug === slug) ?? null;
 
 export const formatPlanPrice = (p: Plan) => `$${p.price.toLocaleString("en-US")}`;

@@ -634,6 +634,29 @@ export interface ContactLead {
   created_at: string;
 }
 
+/** Photographers / videographers who applied through /join (supabase: creator_applicants). */
+export const CREATOR_STATUSES = ["applied", "contacted", "trial_shoot", "active", "no"] as const;
+export type CreatorStatus = (typeof CREATOR_STATUSES)[number];
+
+export interface CreatorApplicant {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  discipline: "photo" | "video" | "both";
+  portfolio_url: string;
+  gear: string | null;
+  /** Whole US dollars per day. */
+  day_rate: number | null;
+  availability: string | null;
+  notes: string | null;
+  status: CreatorStatus;
+  admin_notes: string | null;
+  source_path: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface BookingEvent {
   id: string;
   booking_id: string;

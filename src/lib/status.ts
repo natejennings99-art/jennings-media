@@ -1,4 +1,4 @@
-import type { BookingStatus, PaymentStatus } from "@/lib/types";
+import type { BookingStatus, CreatorStatus, PaymentStatus } from "@/lib/types";
 
 export type Tone = "neutral" | "accent" | "green" | "amber" | "red" | "blue" | "violet";
 
@@ -57,6 +57,15 @@ export const LEAD_STATUS_META: Record<string, { label: string; tone: Tone }> = {
   won: { label: "Won", tone: "green" },
   lost: { label: "Lost", tone: "neutral" },
   spam: { label: "Spam", tone: "red" },
+};
+
+/** Pipeline for photographers/videographers who apply through /join. */
+export const CREATOR_STATUS_META: Record<CreatorStatus, { label: string; tone: Tone }> = {
+  applied: { label: "Applied", tone: "accent" },
+  contacted: { label: "Contacted", tone: "blue" },
+  trial_shoot: { label: "Trial shoot", tone: "violet" },
+  active: { label: "Active", tone: "green" },
+  no: { label: "No", tone: "neutral" },
 };
 
 export const PROPERTY_TYPE_LABELS: Record<string, string> = {

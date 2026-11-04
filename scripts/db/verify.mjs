@@ -313,6 +313,25 @@ check("real work seeded unflagged with video", real?.n >= 6, JSON.stringify(real
 const leadErr = await throws(`insert into public.contact_leads (name, email, message, reason, services, budget) values ('A', 'a@b.co', 'Hello there', 'project', array['Paid Media'], '$5,000–$10,000')`);
 check("project inquiries accepted", leadErr === null, leadErr ?? "");
 
+console.log("\n▶ Creator applicants (/join)");
+const [applicant] = await rows(
+  `insert into public.creator_applicants (name, email, phone, discipline, portfolio_url, day_rate, availability)
+   values ('Sam Shooter', 'sam@example.com', '8135550100', 'both', 'https://instagram.com/samshoots', 650, 'Weekends') returning id, status`
+);
+check("applicant defaults to status 'applied'", applicant.status === "applied");
+const badStage = await throws(`update public.creator_applicants set status = 'hired' where id = $1`, [applicant.id]);
+check("applicant status is constrained to the pipeline", Boolean(badStage));
+await as("anon", null, async () => {
+  const err = await throws(`select id from public.creator_applicants`);
+  check("anon cannot read applicants", Boolean(err && /permission denied/.test(err)), err ?? "no error");
+});
+await as("authenticated", bob.id, async () => {
+  check("customers cannot read applicants", (await rows(`select id from public.creator_applicants`)).length === 0);
+});
+await as("authenticated", owner.id, async () => {
+  check("admins read applicants", (await rows(`select id from public.creator_applicants`)).length === 1);
+});
+
 console.log(`\n${failures === 0 ? "✅" : "❌"} ${passes} passed, ${failures} failed\n`);
 await db.close();
 process.exit(failures === 0 ? 0 : 1);
