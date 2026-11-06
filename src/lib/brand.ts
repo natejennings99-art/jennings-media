@@ -16,6 +16,12 @@ export const BRAND = {
   phone: "(571) 317-3211",
   phoneHref: "tel:+15713173211",
   hours: "Mon–Fri, 9am–6pm",
+  /**
+   * Where "Book a free 15-min call" goes. Points at the call section on
+   * /contact until a Calendly (or similar) link exists; paste that URL here
+   * and every call button follows.
+   */
+  callHref: "/contact#call",
   /** Shown only when set (Admin → Settings → Business overrides this). */
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "natejennings99@gmail.com",
   foundedYear: 2024,

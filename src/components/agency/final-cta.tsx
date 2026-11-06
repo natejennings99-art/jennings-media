@@ -1,10 +1,12 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Magnetic } from "@/components/experience/magnetic";
 import { SplitReveal } from "@/components/experience/split-reveal";
 import { TransitionLink } from "@/components/experience/transition";
+import { BRAND } from "@/lib/brand";
 
 const HeroCanvas = dynamic(() => import("@/components/webgl/hero-canvas"), { ssr: false });
 
@@ -34,6 +36,12 @@ export function FinalCta({ title = "Got something ambitious in mind?", kicker = 
             </TransitionLink>
           </Magnetic>
         </div>
+        <p className="mt-10 text-[15px] text-mist-300">
+          Not sure yet?{" "}
+          <Link href={BRAND.callHref} className="text-bone-50 underline underline-offset-4 hover:text-accent-300">
+            Book a free 15-minute call
+          </Link>
+        </p>
       </div>
     </section>
   );

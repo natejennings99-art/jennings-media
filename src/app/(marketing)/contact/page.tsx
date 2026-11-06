@@ -42,6 +42,16 @@ export default async function ContactPage() {
           <InquiryForm />
         </div>
         <aside className="space-y-12 lg:col-span-3 lg:col-start-10">
+          <div id="call" className="scroll-mt-32">
+            <SectionLabel className="mb-4">Free 15-minute call</SectionLabel>
+            <p className="text-[15.5px] leading-relaxed text-mist-300">
+              Rather talk it through first? Text{" "}
+              <a href={BRAND.phoneHref.replace("tel:", "sms:")} className="whitespace-nowrap text-bone-50 underline underline-offset-4 hover:text-accent-300">
+                {BRAND.phone}
+              </a>{" "}
+              with a time that works, or send the form and say you&rsquo;d like a call. Nate calls you back.
+            </p>
+          </div>
           <div>
             <SectionLabel className="mb-4">Response time</SectionLabel>
             <p className="text-[15.5px] leading-relaxed text-mist-300">Within one business day. Every inquiry is read by Nate, not a bot.</p>
