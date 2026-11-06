@@ -27,7 +27,7 @@ ever go into Render.
 | 3 | Stripe | **Off** | Online payment is hidden; customers can only pay after the shoot |
 | 4 | Google Search Console | **Not verified** (I can't see it from here, but the verification file is live) | Google isn't sent the sitemap, and you can't see search data |
 | 5 | `NEXT_PUBLIC_SITE_URL` | **Set**: canonical links and the sitemap already use `https://jennings-media.com` | Nothing to do |
-| 6 | `REPORT_KEY` (report link to Tampa Maids) | **Off** | See "Link the two sites" at the bottom |
+| 6 | `REPORT_KEY` (report link to Tampa Maids) | **Off** (`/api/stats` returns 503) | The Tampa Maids Friday report has no creator numbers. See "Link the two sites" at the bottom. |
 
 ---
 
@@ -184,3 +184,59 @@ Already set: the live canonical tags and sitemap use
   needs Supabase first.
 - Analytics: `NEXT_PUBLIC_GA4_ID`, `NEXT_PUBLIC_META_PIXEL_ID`. These can also
   be set in Admin → Settings → Integrations once Supabase is on.
+
+---
+
+## Link the two sites (Jennings Media numbers in the Tampa Maids Friday report)
+
+A random 43-character key was generated on 2026-11-06 and saved in **your
+Mac's Keychain**, not in any file, repo or chat. Its name is
+`jennings-media-report-key`. The same key goes into **both** Render services.
+
+**1. Copy the key.** Open Terminal and run this. It copies the key to the
+clipboard without showing it:
+
+```bash
+security find-generic-password -s jennings-media-report-key -w | tr -d '\n' | pbcopy
+```
+
+(Or open the **Keychain Access** app, search `jennings-media-report-key`,
+double-click it, tick **Show password**, and copy.)
+
+**2. Jennings Media service.** Go to Render → **jennings-media** →
+**Environment** → **+ Add Environment Variable**:
+
+| Key | Value |
+|---|---|
+| `REPORT_KEY` | paste (⌘V) |
+
+Click **Save, rebuild, and deploy**.
+
+**3. Tampa Maids service.** Go to Render → **tampa-maids-cleaning** →
+**Environment** → **+ Add Environment Variable** twice:
+
+| Key | Value |
+|---|---|
+| `JM_STATS_URL` | `https://jennings-media.com/api/stats` |
+| `JM_REPORT_KEY` | paste (⌘V), the same key |
+
+Click **Save, rebuild, and deploy**.
+
+**4. Check it.** After both deploys finish, run this in Terminal:
+
+```bash
+curl -s -H "x-report-key: $(security find-generic-password -s jennings-media-report-key -w)" https://jennings-media.com/api/stats
+```
+
+- `{"ok":true,...,"creator_applicants_by_stage":{...}}` means it's linked. The
+  next Friday report includes creator applicants, and so does
+  /admin → Overview → "This week's report" on Tampa Maids.
+- `"Database not configured"` means the key works, but Supabase (step 1 above)
+  isn't connected yet. The Friday report says the numbers "couldn't be read
+  this week" until it is.
+- `"Missing or invalid x-report-key"` means the two values don't match. Paste
+  the key again.
+
+If the key ever leaks, delete it in Keychain Access, generate a new one with
+`python3 -c "import secrets;print(secrets.token_urlsafe(32))"`, save it the
+same way, and paste it into both services again.
