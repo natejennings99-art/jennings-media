@@ -26,7 +26,7 @@ export const AGENCY_SERVICES: AgencyService[] = [
     body: "We build the whole path from first click to signed client: a sharp offer, a landing page that converts, instant lead alerts and follow-up that never lets a lead go cold.",
     deliverables: ["Offer & funnel strategy", "Landing pages & lead forms", "CRM + automated follow-up", "Lead tracking & reporting"],
     outcome: "More booked calls \u2014 not just more clicks.",
-    image: A.deskTop,
+    image: "/media/work/jennings-ad-01.jpg",
   },
   {
     slug: "paid-media",
@@ -56,7 +56,7 @@ export const AGENCY_SERVICES: AgencyService[] = [
     body: "Strategy, content calendars, posting and community management across Instagram, TikTok, Facebook, LinkedIn and YouTube \u2014 with reels shot and edited in-house.",
     deliverables: ["Content calendar & posting", "Short-form reels", "Community management", "Monthly analytics"],
     outcome: "A feed that makes you the obvious choice.",
-    image: A.confetti,
+    image: "/media/video/silos-crowd.jpg",
   },
   {
     slug: "content-production",
@@ -86,7 +86,7 @@ export const AGENCY_SERVICES: AgencyService[] = [
     body: "We sharpen who you serve, what you promise and how you look, so every ad, post and page says the same compelling thing.",
     deliverables: ["Positioning & messaging", "Visual identity", "Brand guidelines", "Launch plan"],
     outcome: "A brand people remember \u2014 and refer.",
-    image: A.architectureWhite,
+    image: "/media/photos/isaia-styling.jpg",
   },
   {
     slug: "seo-content",
@@ -223,7 +223,7 @@ export const ARTICLES: Article[] = [
     category: "Creative",
     date: "2026-09-22",
     minutes: 4,
-    image: A.filmSet,
+    image: "/media/video/film.jpg",
     body: [
       { type: "p", text: "Feeds don't reward patience. On every major platform the decision to keep watching happens in the first second or two, long before your logo, your offer or your carefully written line three. If the opening doesn't earn attention, nothing after it exists." },
       { type: "h2", text: "Open on motion, not setup" },
