@@ -12,6 +12,9 @@ export function JsonLd({ data }: { data: Record<string, unknown> | Record<string
 
 const ORG_ID = `${env.siteUrl}/#organization`;
 
+/** Profiles that really exist. Add the Google Business Profile URL here once it's verified. */
+const SAME_AS = [BRAND.instagram, BRAND.tiktok];
+
 export function organizationSchema(settings: BusinessSettings) {
   const sameAs = Object.values(settings.social_links).filter(Boolean);
   return {
@@ -23,11 +26,12 @@ export function organizationSchema(settings: BusinessSettings) {
     url: env.siteUrl,
     logo: `${env.siteUrl}${BRAND.emblem}`,
     foundingDate: String(BRAND.foundedYear),
-    knowsAbout: ["Lead generation", "Meta Ads", "Google Ads", "AI agents", "Social media marketing", "Video production", "Photography", "Real estate marketing", "Web design", "SEO"],
+    knowsAbout: ["Real estate photography", "Real estate video", "Drone photography", "Lead generation", "Meta Ads", "Google Ads", "AI agents", "Social media marketing", "Video production", "Real estate marketing", "Web design", "SEO"],
     image: `${env.siteUrl}/opengraph-image`,
     slogan: BRAND.tagline,
     ...(settings.email ? { email: settings.email } : {}),
-    ...(settings.phone ? { telephone: settings.phone } : {}),
+    telephone: settings.phone || BRAND.phone,
+    priceRange: "$$",
     address: { "@type": "PostalAddress", addressLocality: "Tampa", addressRegion: "FL", postalCode: "33611", addressCountry: "US" },
     openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" }],
     location: [
@@ -35,7 +39,18 @@ export function organizationSchema(settings: BusinessSettings) {
       { "@type": "Place", name: "Washington, DC", address: { "@type": "PostalAddress", addressLocality: "Washington", addressRegion: "DC", addressCountry: "US" } },
     ],
     areaServed: AREAS.map((name) => ({ "@type": "Place", name })),
-    sameAs: [...new Set([BRAND.instagram, ...sameAs])],
+    sameAs: [...new Set([...SAME_AS, ...sameAs])],
+  };
+}
+
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${env.siteUrl}/#website`,
+    name: BRAND.name,
+    url: env.siteUrl,
+    publisher: { "@id": ORG_ID },
   };
 }
 
@@ -46,9 +61,9 @@ export function agencyServicesSchema(services: AgencyService[]) {
     name: s.title,
     serviceType: s.title,
     description: s.body,
-    url: `${env.siteUrl}/services#${s.slug}`,
+    url: `${env.siteUrl}/services/${s.slug}`,
     provider: { "@id": ORG_ID },
-    areaServed: "Worldwide",
+    areaServed: AREAS.map((name) => ({ "@type": "Place", name })),
   }));
 }
 
@@ -112,7 +127,6 @@ export function serviceSchema(s: AgencyService, description: string, path: strin
     image: abs(s.image),
     provider: { "@id": ORG_ID },
     areaServed: AREAS.map((name) => ({ "@type": "Place", name })),
-    offers: { "@type": "Offer", url: `${env.siteUrl}/plans`, priceCurrency: "USD" },
   };
 }
 
@@ -150,19 +164,21 @@ export function offerCatalogSchema(plans: Plan[]) {
   };
 }
 
-export function localBusinessSchema(l: Location) {
+export function localBusinessSchema(l: Location, description = l.description) {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${env.siteUrl}/locations/${l.slug}#business`,
     name: `${BRAND.name} — ${l.city}`,
-    description: l.description,
+    description,
     url: `${env.siteUrl}/locations/${l.slug}`,
     image: abs(BRAND.emblem),
     parentOrganization: { "@id": ORG_ID },
     ...(BRAND.email ? { email: BRAND.email } : {}),
+    telephone: BRAND.phone,
+    priceRange: "$$",
     address: { "@type": "PostalAddress", addressLocality: l.locality, addressRegion: l.region, addressCountry: "US" },
-    areaServed: l.areas.map((name) => ({ "@type": "City", name })),
-    sameAs: [BRAND.instagram],
+    areaServed: l.areas.map((name) => ({ "@type": "Place", name })),
+    sameAs: SAME_AS,
   };
 }

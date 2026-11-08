@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowDownRight, ArrowUpRight, Check, Minus } from "lucide-react";
 import { getCatalog } from "@/lib/data/public";
 import { startingPrice } from "@/lib/pricing/engine";
+import { priceSummary } from "@/lib/pricing/summary";
 import { formatMoney, cn } from "@/lib/utils";
 import { env } from "@/lib/env";
 import { BRAND } from "@/lib/brand";
@@ -13,6 +14,7 @@ import { FilmGrid, ReelRail } from "@/components/agency/film-wall";
 import { SectionLabel } from "@/components/agency/section-label";
 import { FinalCta } from "@/components/agency/final-cta";
 import { SplitReveal } from "@/components/experience/split-reveal";
+import { HeroVideo } from "@/components/experience/hero-video";
 import { TransitionLink } from "@/components/experience/transition";
 import { ServiceIcon } from "@/components/ui/icon";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
@@ -20,12 +22,16 @@ import { RelatedReading } from "@/components/agency/related-reading";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: "Real Estate Photography & Video in Tampa Bay",
-  description: "Listing photography, cinematic video, drone, 3D tours and floor plans for agents in Tampa, St. Pete and Clearwater. Packages from $450; book your shoot online.",
-  alternates: { canonical: "/real-estate" },
-  openGraph: { images: [{ url: "/media/photos/craftsman-exterior.jpg" }] },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { line } = priceSummary(await getCatalog());
+  return {
+    // 58 characters with the " | Jennings Media" suffix.
+    title: "Tampa Bay Real Estate Photography & Video",
+    description: `Listing photography, cinematic video, drone, 3D tours and floor plans for agents in Tampa, St. Pete and Clearwater.${line ? ` ${line}.` : ""}`,
+    alternates: { canonical: "/real-estate" },
+    openGraph: { url: "/real-estate", images: [{ url: "/media/photos/craftsman-exterior.jpg" }] },
+  };
+}
 
 const PACKAGE_IMAGE: Record<string, string> = {
   essential: "/media/work/kagera-living.jpg",
@@ -47,6 +53,7 @@ export default async function RealEstatePage() {
   const catalog = await getCatalog();
   const services = catalog.services.filter((s) => s.is_bookable);
   const packages = [...catalog.packages].filter((p) => p.is_active).sort((a, b) => a.sort_order - b.sort_order);
+  const price = priceSummary(catalog);
   const serviceLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -57,7 +64,7 @@ export default async function RealEstatePage() {
     url: `${env.siteUrl}/real-estate`,
     provider: { "@id": `${env.siteUrl}/#organization` },
     areaServed: RE_AREAS.map((name) => ({ "@type": "Place", name })),
-    offers: packages.map((p) => ({ "@type": "Offer", name: `${p.name} package`, price: p.base_price_cents / 100, priceCurrency: "USD", url: `${env.siteUrl}/book?package=${p.slug}` })),
+    offers: packages.map((p) => ({ "@type": "Offer", name: `${p.name} package`, price: startingPrice(p) / 100, priceCurrency: "USD", priceSpecification: { "@type": "PriceSpecification", minPrice: startingPrice(p) / 100, priceCurrency: "USD" }, url: `${env.siteUrl}/book?package=${p.slug}` })),
   };
 
   return (
@@ -65,21 +72,23 @@ export default async function RealEstatePage() {
       <JsonLd data={[serviceLd, faqSchema(RE_FAQ), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Real estate", path: "/real-estate" }])]} />
 
       {/* ───────────── Hero ───────────── */}
-      <section className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden" aria-label="Real estate media">
+      <section className="relative isolate flex min-h-[85svh] flex-col justify-center overflow-hidden sm:min-h-[100svh] sm:justify-end" aria-label="Real estate media">
         <div className="absolute inset-0 -z-10 bg-ink-950">
-          <video className="absolute inset-0 size-full object-cover opacity-70" poster="/media/video/great-falls.jpg" autoPlay muted loop playsInline>
-            <source media="(max-width: 767px)" src="/media/video/great-falls-mobile.mp4" type="video/mp4" />
-            <source src="/media/video/great-falls.mp4" type="video/mp4" />
-          </video>
+          <HeroVideo className="absolute inset-0 size-full object-cover opacity-70" poster="/media/video/great-falls-mobile.webp" mobileSrc="/media/video/great-falls-mobile.mp4" src="/media/video/great-falls.mp4" />
           <div className="absolute inset-0 bg-gradient-to-b from-ink-950/50 via-ink-950/10 to-ink-950" />
         </div>
-        <div className="gutter pt-40 pb-12 sm:pb-16">
-          <p className="label mb-8 animate-fade-in text-accent-300">Real estate media · Tampa Bay · Washington, DC</p>
-          <SplitReveal as="h1" immediate className="font-display text-hero text-bone-50">
+        <div className="gutter pt-32 pb-12 sm:pt-40 sm:pb-16">
+          <h1 className="label mb-8 animate-fade-in text-[13px] text-accent-300 sm:text-[15px]">Tampa real estate photography &amp; video</h1>
+          <SplitReveal as="p" immediate className="font-display text-hero text-bone-50">
             Listings that
             <br />
             <span className="text-accent-300">sell themselves.</span>
           </SplitReveal>
+          {price.line && (
+            <p className="mt-6 text-[17px] font-semibold text-bone-50">
+              {price.line} <span className="font-normal text-mist-300">· next-day photos</span>
+            </p>
+          )}
           <div className="mt-10 grid items-end gap-8 lg:grid-cols-12">
             <p className="max-w-lg animate-fade-up text-[17px] leading-relaxed text-mist-300 [animation-delay:700ms] lg:col-span-6">
               Photography, cinematic video, drone, 3D tours and floor plans — shot in 4K, edited in-house and delivered ready for the MLS, your website and social.{" "}
@@ -350,6 +359,15 @@ export default async function RealEstatePage() {
             </details>
           ))}
         </div>
+        <p className="mt-10 max-w-[68ch] text-[16px] leading-relaxed text-mist-300">
+          More for Tampa Bay agents:{" "}
+          <TransitionLink href="/real-estate-photography-cost-tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">what real estate photography costs in Tampa</TransitionLink>,{" "}
+          <TransitionLink href="/listing-video-tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">listing video</TransitionLink>,{" "}
+          <TransitionLink href="/locations/tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">Tampa</TransitionLink>,{" "}
+          <TransitionLink href="/locations/st-petersburg" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">St. Pete</TransitionLink> and{" "}
+          <TransitionLink href="/locations/clearwater" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">Clearwater</TransitionLink>. Comparing vendors?{" "}
+          <TransitionLink href="/luxury-presence-alternative" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">How we compare with Luxury Presence</TransitionLink>.
+        </p>
       </section>
 
       <RelatedReading slugs={["tampa-listing-media-guide", "the-first-three-seconds"]} title="Plan your next listing" />

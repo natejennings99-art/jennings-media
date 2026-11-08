@@ -9,7 +9,7 @@ export const BRAND = {
   descriptor: "Media & Marketing Agency",
   tagline: "Creative. Media. Growth.",
   description:
-    "Tampa marketing agency for realtors, brokerages and entrepreneurs: lead generation, Meta & Google Ads, AI agents and 4K photo and video. Also serving Washington, DC.",
+    "Tampa Bay real estate photography, listing video and drone for agents, plus ads, social content and lead generation for local businesses. Also serving Washington, DC.",
   location: "Tampa, FL & Washington, DC",
   locationNote: "Serving Tampa Bay, the DMV and brands everywhere",
   /** Same number and hours as the Google Business Profile and Yelp page. */
@@ -38,7 +38,7 @@ export const NAV = [
   { href: "/real-estate", label: "Real Estate" },
   { href: "/events", label: "Events" },
   { href: "/services", label: "Services" },
-  { href: "/plans", label: "Pricing" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ] as const;

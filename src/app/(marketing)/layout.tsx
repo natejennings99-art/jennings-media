@@ -8,6 +8,7 @@ import { Intro } from "@/components/experience/intro";
 import { INTRO_GATE } from "@/lib/intro";
 import { getSettings } from "@/lib/data/public";
 import { BRAND } from "@/lib/brand";
+import { JsonLd, organizationSchema, websiteSchema } from "@/components/seo/json-ld";
 
 export default async function MarketingLayout({ children }: LayoutProps<"/">) {
   const settings = await getSettings();
@@ -21,6 +22,7 @@ export default async function MarketingLayout({ children }: LayoutProps<"/">) {
   return (
     <TransitionProvider>
       <script dangerouslySetInnerHTML={{ __html: INTRO_GATE }} />
+      <JsonLd data={[organizationSchema(settings), websiteSchema()]} />
       <Intro />
       <SmoothScroll />
       <CustomCursor />
