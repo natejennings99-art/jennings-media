@@ -56,8 +56,12 @@ export function ListingReelForm() {
       <label htmlFor={`l-${f.name}`} className="label text-mist-500">
         {f.label}
       </label>
-      <input id={`l-${f.name}`} name={f.name} type={f.type} autoComplete={f.auto} placeholder={f.placeholder} className={field} aria-invalid={Boolean(err(f.name))} required={f.required} />
-      {err(f.name) && <p className="mt-2 text-[13px] text-red-300">{err(f.name)}</p>}
+      <input id={`l-${f.name}`} name={f.name} type={f.type} autoComplete={f.auto} placeholder={f.placeholder} className={field} aria-invalid={Boolean(err(f.name))} aria-describedby={err(f.name) ? `l-${f.name}-error` : undefined} required={f.required} />
+      {err(f.name) && (
+        <p id={`l-${f.name}-error`} className="mt-2 text-[13px] text-red-300">
+          {err(f.name)}
+        </p>
+      )}
     </div>
   );
 
@@ -84,7 +88,11 @@ export function ListingReelForm() {
             <Chip key={a} name="area" value={a} type="radio" />
           ))}
         </div>
-        {err("area") && <p className="mt-2 text-[13px] text-red-300">{err("area")}</p>}
+        {err("area") && (
+          <p className="mt-2 text-[13px] text-red-300" role="alert">
+            {err("area")}
+          </p>
+        )}
       </fieldset>
 
       <fieldset>
@@ -107,12 +115,16 @@ export function ListingReelForm() {
         <label htmlFor="l-notes" className="label text-mist-500">
           Anything we should know? (optional)
         </label>
-        <textarea id="l-notes" name="notes" rows={3} className={cn(field, "resize-none")} placeholder="Pool, water view, lockbox, a photo shoot already booked…" aria-invalid={Boolean(err("notes"))} />
-        {err("notes") && <p className="mt-2 text-[13px] text-red-300">{err("notes")}</p>}
+        <textarea id="l-notes" name="notes" rows={3} className={cn(field, "resize-none")} placeholder="Pool, water view, lockbox, a photo shoot already booked…" aria-invalid={Boolean(err("notes"))} aria-describedby={err("notes") ? "l-notes-error" : undefined} />
+        {err("notes") && (
+          <p id="l-notes-error" className="mt-2 text-[13px] text-red-300">
+            {err("notes")}
+          </p>
+        )}
       </div>
 
       {state && !state.ok && !state.fieldErrors && (
-        <div className="space-y-3">
+        <div className="space-y-3" role="alert">
           <p className="text-[14px] text-red-300">{state.error}</p>
           {BRAND.email && (
             <a

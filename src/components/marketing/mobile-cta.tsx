@@ -9,13 +9,15 @@ import { cn } from "@/lib/utils";
 
 const smsHref = BRAND.phoneHref.replace(/^tel:/, "sms:");
 
-/** Persistent phone bar: "Start a project" (or "Claim free reel" on the free-reel pages) plus one-tap call and text. Shown after the hero, hidden near the footer. */
+/** Persistent phone bar: "Start a project" (or "Claim free reel" on the free-reel pages, "Free listing reel" on realtor pages) plus one-tap call and text. Shown after the hero, hidden near the footer. */
 export function MobileCta() {
   // On the free-reel pages the bar jumps to that page's form instead of /contact.
   const path = usePathname();
   const reel = path === "/test-reel" || path === "/free-listing-reel";
   // Pages with their own form: the bar scrolls to it instead of leaving for /contact.
   const onPage = ({ "/join": { href: "#apply", label: "Apply now" }, "/content-package": { href: "#book", label: "Book a call" } } as Record<string, { href: string; label: string }>)[path ?? ""];
+  // Realtor pages: the bar offers the free listing reel (a no-risk first step) instead of the generic /contact brief.
+  const realtor = path === "/real-estate" || path === "/drone-real-estate-tampa" || path === "/pricing";
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const onScroll = () => {
@@ -48,6 +50,11 @@ export function MobileCta() {
           {onPage.label}
           {arrow}
         </a>
+      ) : realtor ? (
+        <TransitionLink href="/free-listing-reel" className={pill}>
+          Free listing reel
+          {arrow}
+        </TransitionLink>
       ) : (
         <TransitionLink href="/contact" className={pill}>
           Start a project

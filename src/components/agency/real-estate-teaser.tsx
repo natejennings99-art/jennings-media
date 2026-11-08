@@ -28,16 +28,23 @@ export function RealEstateTeaser() {
           <p className="mt-8 max-w-md text-[16px] leading-relaxed text-mist-300">
             Listing photography, cinematic video, drone, 3D tours and floor plans for agents and brokerages across D.C., Northern Virginia, Maryland and Tampa Bay — with packages you can book online.
           </p>
-          <TransitionLink
-            href="/real-estate"
-            data-cursor="cta"
-            className="group mt-10 inline-flex h-14 items-center gap-3 rounded-full bg-bone-50 pr-2 pl-7 text-[14px] font-semibold tracking-[0.04em] text-ink-950 uppercase transition-colors hover:bg-accent-300"
-          >
-            Explore real estate
-            <span className="grid size-10 place-items-center rounded-full bg-ink-950 text-bone-50 transition-transform duration-500 group-hover:rotate-45">
-              <ArrowUpRight className="size-4" />
-            </span>
-          </TransitionLink>
+          <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <TransitionLink
+              href="/real-estate"
+              data-cursor="cta"
+              className="group inline-flex h-14 items-center gap-3 rounded-full bg-bone-50 pr-2 pl-7 text-[14px] font-semibold tracking-[0.04em] text-ink-950 uppercase transition-colors hover:bg-accent-300"
+            >
+              Explore real estate
+              <span className="grid size-10 place-items-center rounded-full bg-ink-950 text-bone-50 transition-transform duration-500 group-hover:rotate-45">
+                <ArrowUpRight className="size-4" />
+              </span>
+            </TransitionLink>
+            {/* The no-risk offer for Tampa Bay agents; until now it was only reachable from inside /real-estate. */}
+            <TransitionLink href="/free-listing-reel" className="group inline-flex h-14 items-center gap-2 px-3 text-[14px] font-semibold tracking-[0.04em] text-accent-300 uppercase">
+              <span className="border-b border-current pb-1">Tampa Bay agents: first reel free</span>
+              <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:rotate-45" />
+            </TransitionLink>
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:col-span-7 lg:grid-cols-3">
           {TILES.map((t, i) => (

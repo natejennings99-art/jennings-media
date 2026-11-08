@@ -26,8 +26,10 @@ export function organizationSchema(settings: BusinessSettings) {
     knowsAbout: ["Lead generation", "Meta Ads", "Google Ads", "AI agents", "Social media marketing", "Video production", "Photography", "Real estate marketing", "Web design", "SEO"],
     image: `${env.siteUrl}/opengraph-image`,
     slogan: BRAND.tagline,
-    ...(settings.email ? { email: settings.email } : {}),
-    ...(settings.phone ? { telephone: settings.phone } : {}),
+    // Fall back to the brand's phone/email (the same NAP as the Google Business Profile) so the
+    // schema keeps a phone number even before Admin → Settings is filled in.
+    ...(settings.email || BRAND.email ? { email: settings.email || BRAND.email } : {}),
+    telephone: settings.phone || BRAND.phone,
     address: { "@type": "PostalAddress", addressLocality: "Tampa", addressRegion: "FL", postalCode: "33611", addressCountry: "US" },
     openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" }],
     location: [
@@ -161,6 +163,7 @@ export function localBusinessSchema(l: Location) {
     image: abs(BRAND.emblem),
     parentOrganization: { "@id": ORG_ID },
     ...(BRAND.email ? { email: BRAND.email } : {}),
+    telephone: BRAND.phone,
     address: { "@type": "PostalAddress", addressLocality: l.locality, addressRegion: l.region, addressCountry: "US" },
     areaServed: l.areas.map((name) => ({ "@type": "City", name })),
     sameAs: [BRAND.instagram],

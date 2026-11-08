@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { ArrowUpRight, Check } from "lucide-react";
 import { BRAND } from "@/lib/brand";
-import { LISTING_REEL_INCLUDES, LISTING_REEL_STEPS, LISTING_REEL_WHY } from "@/lib/content/listing-reel";
+import { env } from "@/lib/env";
+import { LISTING_AREAS, LISTING_REEL_INCLUDES, LISTING_REEL_STEPS, LISTING_REEL_WHY } from "@/lib/content/listing-reel";
 import { PageIntro } from "@/components/agency/page-intro";
 import { SectionLabel } from "@/components/agency/section-label";
 import { ListingReelForm } from "@/components/agency/listing-reel-form";
@@ -9,16 +10,45 @@ import { ListingReelSamples } from "@/components/agency/listing-reel-samples";
 import { TransitionLink } from "@/components/experience/transition";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 
+const TITLE = "Free Listing Reel for Tampa Bay Agents";
+const DESCRIPTION = "Tampa, St. Pete and Clearwater agents: get a free 30-second vertical reel of your next listing, delivered within 48 hours. One per agent, no contract.";
+
 export const metadata: Metadata = {
-  title: "Free Listing Reel for Tampa Bay Agents",
-  description: "Tampa, St. Pete and Clearwater agents: get a free 30-second vertical reel of your next listing, delivered within 48 hours. One per agent, no contract.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/free-listing-reel" },
+  // This is the page the ads and "DM REEL" posts link to, so give link previews our own listing work.
+  // A landscape still (the vertical reel poster crops badly in 1.91:1 cards); Next merges openGraph
+  // shallowly, so the root's type/siteName/locale are restated here.
+  openGraph: {
+    type: "website",
+    siteName: BRAND.name,
+    locale: "en_US",
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/free-listing-reel",
+    images: [{ url: "/media/photos/chandelier-kitchen.jpg", width: 1600, height: 1067, alt: "White kitchen and dining room in a listing we shot" }],
+  },
+};
+
+/** The offer as structured data: a free (price 0) listing reel, provided by the studio, in the areas the form lists. */
+const offerLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": `${env.siteUrl}/free-listing-reel#service`,
+  name: "Free 30-second listing reel",
+  serviceType: "Real estate video",
+  description: DESCRIPTION,
+  url: `${env.siteUrl}/free-listing-reel`,
+  provider: { "@id": `${env.siteUrl}/#organization` },
+  areaServed: LISTING_AREAS.filter((a) => !a.startsWith("Elsewhere")).map((a) => ({ "@type": "Place", name: `${a}, FL` })),
+  offers: { "@type": "Offer", price: 0, priceCurrency: "USD", url: `${env.siteUrl}/free-listing-reel#claim`, description: "One free reel per real estate agent." },
 };
 
 export default function FreeListingReelPage() {
   return (
     <>
-      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Real estate", path: "/real-estate" }, { name: "Free listing reel", path: "/free-listing-reel" }])} />
+      <JsonLd data={[offerLd, breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Real estate", path: "/real-estate" }, { name: "Free listing reel", path: "/free-listing-reel" }])]} />
       <PageIntro
         label="Free for agents · Tampa Bay"
         title={

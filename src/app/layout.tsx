@@ -23,7 +23,9 @@ export const metadata: Metadata = {
   creator: BRAND.name,
   category: "business",
   openGraph: { type: "website", siteName: BRAND.name, locale: "en_US" },
-  twitter: { card: "summary_large_image", title: `${BRAND.name} | Marketing Agency in Tampa, FL`, description: BRAND.description },
+  // No title/description here: Next fills the card from each page's own title and Open Graph tags.
+  // Setting them at the root made every shared page show the homepage title on X/LinkedIn/iMessage.
+  twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-video-preview": -1, "max-snippet": -1 } },
   ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } } : {}),
   formatDetection: { telephone: false },

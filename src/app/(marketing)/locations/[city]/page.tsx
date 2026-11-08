@@ -97,6 +97,18 @@ export default async function LocationPage({ params }: PageProps<"/locations/[ci
             Real estate media
             <ArrowUpRight className="size-4" />
           </TransitionLink>
+          {l.region === "FL" && (
+            <>
+              <TransitionLink href="/free-listing-reel" className="group inline-flex h-11 items-center gap-2 rounded-full border border-accent-300/50 px-5 text-[14px] text-accent-300 hover:border-accent-300">
+                Agents: free listing reel
+                <ArrowUpRight className="size-4" />
+              </TransitionLink>
+              <TransitionLink href="/content-package" className="group inline-flex h-11 items-center gap-2 rounded-full border border-white/15 px-5 text-[14px] text-bone-50 hover:border-accent-300">
+                Monthly content for local businesses
+                <ArrowUpRight className="size-4" />
+              </TransitionLink>
+            </>
+          )}
         </div>
       </section>
       <RelatedReading slugs={l.region === "FL" ? ["tampa-listing-media-guide", "tampa-small-business-ads", "ai-lead-follow-up-tampa"] : ["the-first-three-seconds", "fewer-campaigns-more-systems"]} title={l.region === "FL" ? "Guides for Tampa Bay businesses" : "Further reading"} />
