@@ -9,7 +9,7 @@ import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
   title: "Join: Photographers & Videographers",
-  description: `Shoot with ${BRAND.name}. We're building a network of photographers and videographers in Tampa Bay and Washington, DC for real estate, short-form video and events. Paid trial shoot, no exclusivity.`,
+  description: `Photographers and videographers in Tampa Bay and DC: shoot real estate, short-form video and events with ${BRAND.name}. Paid trial shoot, no exclusivity.`,
   alternates: { canonical: "/join" },
 };
 

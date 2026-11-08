@@ -79,7 +79,7 @@ export default async function RealEstatePage() {
         </div>
         <div className="gutter pt-32 pb-12 sm:pt-40 sm:pb-16">
           <h1 className="label mb-8 animate-fade-in text-[13px] text-accent-300 sm:text-[15px]">Tampa real estate photography &amp; video</h1>
-          <SplitReveal as="p" immediate className="font-display text-hero text-bone-50">
+          <SplitReveal as="p" immediate className="font-display text-[40px] leading-[0.95] sm:text-hero text-bone-50">
             Listings that
             <br />
             <span className="text-accent-300">sell themselves.</span>
