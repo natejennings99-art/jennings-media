@@ -9,23 +9,26 @@ import { cn } from "@/lib/utils";
 
 const smsHref = BRAND.phoneHref.replace(/^tel:/, "sms:");
 
-/** Persistent phone bar: "Start a project" (or "Claim free reel" on the free-reel pages) plus one-tap call and text. Shown after the hero, hidden near the footer. */
+/** Persistent phone bar: "Start a project" ("Book a shoot" on real estate pages, "Claim free reel" on the free-reel pages) plus one-tap call and text. Shown after the hero (right away on real estate pages), hidden near the footer. */
 export function MobileCta() {
   // On the free-reel pages the bar jumps to that page's form instead of /contact.
   const path = usePathname();
   const reel = path === "/test-reel" || path === "/free-listing-reel";
   // Pages with their own form: the bar scrolls to it instead of leaving for /contact.
   const onPage = ({ "/join": { href: "#apply", label: "Apply now" }, "/content-package": { href: "#book", label: "Book a call" } } as Record<string, { href: string; label: string }>)[path ?? ""];
+  // Real estate landings: the bar books a shoot and shows from the first paint, so the price-led
+  // pages always have a tap target in reach.
+  const realEstate = /^\/(real-estate|pricing|drone-real-estate-tampa|listing-video-tampa|real-estate-photography-cost-tampa|locations)(\/|$)/.test(path ?? "");
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const onScroll = () => {
       const nearEnd = window.innerHeight + window.scrollY > document.documentElement.scrollHeight - window.innerHeight * 1.2;
-      setVisible(window.scrollY > window.innerHeight * 0.8 && !nearEnd);
+      setVisible((realEstate || window.scrollY > window.innerHeight * 0.8) && !nearEnd);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [realEstate]);
   const pill = "flex h-14 min-w-0 flex-1 items-center justify-between rounded-full bg-accent-300 pr-2 pl-6 text-[14px] font-semibold tracking-wide text-ink-950 uppercase shadow-[0_20px_50px_-15px_rgb(0_0_0/0.8)]";
   const arrow = (
     <span className="grid size-10 place-items-center rounded-full bg-ink-950 text-bone-50">
@@ -43,6 +46,11 @@ export function MobileCta() {
           Claim free reel
           {arrow}
         </a>
+      ) : realEstate ? (
+        <TransitionLink href="/book" className={pill}>
+          Book a shoot
+          {arrow}
+        </TransitionLink>
       ) : onPage ? (
         <a href={onPage.href} className={pill}>
           {onPage.label}

@@ -6,6 +6,7 @@ import { getPortfolio } from "@/lib/data/public";
 import { PORTFOLIO_CATEGORY_LABELS } from "@/lib/types";
 import { embedUrl } from "@/lib/media-embed";
 import { BRAND } from "@/lib/brand";
+import { DELIVERABLE_COPY, caseEyebrow, relatedOffer } from "@/lib/content/deliverables";
 import { SplitReveal } from "@/components/experience/split-reveal";
 import { Parallax, ClipReveal } from "@/components/experience/parallax";
 import { TransitionLink } from "@/components/experience/transition";
@@ -25,7 +26,8 @@ function caseTitle(p: { title: string; client_name: string | null; services_perf
   const two = `${who}: ${p.services_performed.slice(0, 2).join(" & ")}`;
   const one = `${who}: ${p.services_performed[0] ?? ""}`;
   if (!p.services_performed.length) return who;
-  return two.length <= 48 ? two : one.length <= 48 ? one : who;
+  // 43 + " | Jennings Media" (17) keeps the full title at 60 characters or fewer.
+  return two.length <= 43 ? two : one.length <= 43 ? one : who;
 }
 
 /** Search snippets show ~160 characters; cut longer summaries at a word boundary. */
@@ -42,7 +44,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
     title: caseTitle(p),
     description: clip(p.summary ?? p.description ?? undefined),
     alternates: { canonical: `/work/${p.slug}` },
-    openGraph: { images: p.cover_image_url ? [{ url: p.cover_image_url }] : undefined },
+    openGraph: { url: `/work/${p.slug}`, images: p.cover_image_url ? [{ url: p.cover_image_url }] : undefined },
   };
 }
 
@@ -70,15 +72,22 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
   const gallery = p.media.filter((m) => m.kind !== "video");
   const video = embedUrl(p.video_url);
   const file = !video && p.video_url ? p.video_url : null;
+  const eyebrow = caseEyebrow(p);
+  const where = p.city ? `${p.city}${p.state ? `, ${p.state}` : ""}` : null;
+  const offer = relatedOffer(p);
+  const delivered = p.services_performed.map((s) => DELIVERABLE_COPY[s]).filter(Boolean);
 
   return (
     <article>
       <JsonLd data={[caseStudySchema(p), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }, { name: p.title, path: `/work/${p.slug}` }]), videoSchema(p)].filter((x) => x !== null)} />
       <header className="gutter pt-36 sm:pt-48">
         <SectionLabel className="mb-8 animate-fade-in">Case study — {p.client_name ?? p.title}</SectionLabel>
-        <SplitReveal as="h1" immediate className="max-w-[18ch] font-display text-[clamp(2.75rem,8vw,8.5rem)] text-bone-50">
-          {p.headline ?? p.title}
-        </SplitReveal>
+        <h1>
+          {eyebrow && <span className="label mb-6 block text-accent-300">{eyebrow}<span className="sr-only">: </span></span>}
+          <SplitReveal as="span" immediate className="block max-w-[18ch] font-display text-[clamp(2.75rem,8vw,8.5rem)] text-bone-50">
+            {p.headline ?? p.title}
+          </SplitReveal>
+        </h1>
         <dl className="mt-14 grid animate-fade-up grid-cols-2 gap-8 border-t border-white/10 pt-8 [animation-delay:500ms] lg:grid-cols-4">
           {[
             ["Client", p.client_name ?? "—"],
@@ -115,6 +124,29 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             ))}
           </dl>
         )}
+      </section>
+
+      <section className="gutter pb-16" aria-labelledby="delivered-title">
+        <div className="grid gap-8 border-t border-white/10 pt-12 lg:grid-cols-12">
+          <h2 id="delivered-title" className="label text-mist-500 lg:col-span-3">What we delivered</h2>
+          <div className="max-w-[68ch] space-y-5 text-[17px] leading-relaxed text-mist-300 lg:col-span-8 lg:col-start-5">
+            <p>
+              {p.title} is a{/^[aeiou]/i.test(p.industry ?? "") ? "n" : ""} {(p.industry ?? "media").toLowerCase()} project{p.year ? ` from ${p.year}` : ""}
+              {where ? ` in ${where}` : ""}
+              {p.client_name && p.client_name !== p.title && !/listing/i.test(p.client_name) ? `, made for ${p.client_name}` : ""}. We delivered {p.services_performed.length ? p.services_performed.join(", ").toLowerCase() : "the shoot and the edit"}.
+            </p>
+            {delivered.map((t) => (
+              <p key={t.slice(0, 24)}>{t}</p>
+            ))}
+            {file && <p>The preview on this page is a short loop from the finished piece; the full cut is on our Instagram{gallery.length ? ", and the images below are from the same project" : ""}.</p>}
+            <p>
+              Want something similar?{" "}
+              <TransitionLink href={offer.href} className="text-bone-50 underline underline-offset-4 hover:text-accent-300">{offer.label}</TransitionLink> explains how it works, or{" "}
+              <TransitionLink href={offer.also.href} className="text-bone-50 underline underline-offset-4 hover:text-accent-300">{offer.also.label}</TransitionLink>. You can also call or text{" "}
+              <a href={BRAND.phoneHref} className="whitespace-nowrap text-bone-50 underline underline-offset-4 hover:text-accent-300">{BRAND.phone}</a>.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section className="gutter">

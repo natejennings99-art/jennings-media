@@ -70,12 +70,24 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
               <RollText>Tampa drone photo & video</RollText>
               <ArrowUpRight className="size-3.5" />
             </TransitionLink>
+            <TransitionLink href="/listing-video-tampa" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
+              <RollText>Tampa listing video</RollText>
+              <ArrowUpRight className="size-3.5" />
+            </TransitionLink>
+            <TransitionLink href="/real-estate-photography-cost-tampa" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
+              <RollText>Real estate photo prices</RollText>
+              <ArrowUpRight className="size-3.5" />
+            </TransitionLink>
+            <TransitionLink href="/luxury-presence-alternative" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
+              <RollText>Compare: Luxury Presence</RollText>
+              <ArrowUpRight className="size-3.5" />
+            </TransitionLink>
             <TransitionLink href="/insights" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
               <RollText>Insights & field notes</RollText>
               <ArrowUpRight className="size-3.5" />
             </TransitionLink>
             <TransitionLink href="/plans" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
-              <RollText>Retainers & packages</RollText>
+              <RollText>Marketing plans</RollText>
               <ArrowUpRight className="size-3.5" />
             </TransitionLink>
             <TransitionLink href="/content-package" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">

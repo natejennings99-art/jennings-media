@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { ArrowRight, MapPin } from "lucide-react";
 import { getCatalog, getServiceAreas, getSettings } from "@/lib/data/public";
 import { addOnUnitPrice, sortTiers, startingPrice } from "@/lib/pricing/engine";
+import { priceSummary } from "@/lib/pricing/summary";
+import { env } from "@/lib/env";
 import { formatMoney } from "@/lib/utils";
 import { PageHero } from "@/components/marketing/page-hero";
 import { PackageCards } from "@/components/marketing/package-cards";
@@ -10,17 +12,21 @@ import { FinalCta } from "@/components/agency/final-cta";
 import { Accent, SectionHeading } from "@/components/ui/misc";
 import { ServiceIcon } from "@/components/ui/icon";
 import { buttonStyles } from "@/components/ui/button";
-import { JsonLd, faqSchema } from "@/components/seo/json-ld";
+import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
 import { FAQS } from "@/lib/content/site";
 import { TransitionLink } from "@/components/experience/transition";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: "Real Estate Photography & Video Pricing",
-  description: "Transparent real estate media pricing. Essential, Pro and Signature packages that scale with home size, plus à-la-carte services and add-ons.",
-  alternates: { canonical: "/pricing" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { packageLine, line } = priceSummary(await getCatalog());
+  return {
+    title: "Real Estate Photography & Video Pricing",
+    description: `Tampa Bay real estate media prices: ${packageLine || line}. Packages scale with home size; à-la-carte services and add-ons listed.`,
+    alternates: { canonical: "/pricing" },
+    openGraph: { url: "/pricing" },
+  };
+}
 
 const PRICING_FAQ = FAQS.filter((f) => /pay|fast|reschedule|weather|drone/i.test(f.q));
 
@@ -30,10 +36,28 @@ export default async function PricingPage() {
   const servicesById = new Map(catalog.services.map((s) => [s.id, s]));
   const standaloneAddOns = catalog.addOns.filter((a) => !a.service_id);
   const pay = settings.payment_options;
+  const price = priceSummary(catalog);
+  const catalogLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${env.siteUrl}/pricing#service`,
+    name: "Real estate photography, video & drone",
+    serviceType: "Real estate media",
+    url: `${env.siteUrl}/pricing`,
+    provider: { "@id": `${env.siteUrl}/#organization` },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Real estate media packages and services",
+      itemListElement: [
+        ...price.packages.map((p) => ({ "@type": "Offer", name: `${p.name} package`, priceSpecification: { "@type": "PriceSpecification", minPrice: startingPrice(p) / 100, priceCurrency: "USD" }, url: `${env.siteUrl}/book?package=${p.slug}` })),
+        ...services.map((s) => ({ "@type": "Offer", name: s.name, priceSpecification: { "@type": "PriceSpecification", minPrice: startingPrice(s) / 100, priceCurrency: "USD" }, url: `${env.siteUrl}/book?service=${s.slug}` })),
+      ],
+    },
+  };
 
   return (
     <>
-      <JsonLd data={faqSchema(PRICING_FAQ)} />
+      <JsonLd data={[catalogLd, faqSchema(PRICING_FAQ), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Real estate", path: "/real-estate" }, { name: "Pricing", path: "/pricing" }])]} />
       <PageHero
         eyebrow="Real estate media"
         title={
@@ -41,7 +65,7 @@ export default async function PricingPage() {
             Pricing that&rsquo;s as <Accent>clear</Accent> as our photos.
           </>
         }
-        description="Pick a package or build your own. Prices scale with home size, and your exact total — including any travel fee — is shown before you pay."
+        description={`${price.packageLine ? `${price.packageLine}. ` : ""}Pick a package or build your own. Prices scale with home size, and your exact total — including any travel fee — is shown before you pay.`}
       />
 
       <section className="container-page pb-24">
@@ -142,6 +166,14 @@ export default async function PricingPage() {
           <TransitionLink href="/book" className={buttonStyles({ className: "mt-8" })}>
             Start booking <ArrowRight className="size-4" />
           </TransitionLink>
+          <p className="mt-8 text-[14px] leading-relaxed text-mist-400">
+            How do these compare?{" "}
+            <TransitionLink href="/real-estate-photography-cost-tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">Real estate photography costs in Tampa</TransitionLink>
+            {" · "}
+            <TransitionLink href="/luxury-presence-alternative" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">vs. Luxury Presence</TransitionLink>
+            {" · "}
+            <TransitionLink href="/plans" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">Marketing plans</TransitionLink>
+          </p>
         </div>
         <div className="lg:col-span-8">
           <Faq items={PRICING_FAQ} />
