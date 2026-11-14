@@ -5,6 +5,9 @@ import { DISCIPLINE_LABELS, creatorSchema, fieldErrorsOf, looksLikeBot } from ".
 import { RATE_LIMIT_MESSAGE, leadIp, notifyAfterResponse, overLimit, saveRow } from "./deliver";
 import type { ActionResult } from "@/lib/types";
 
+/** Fallback for a database without the `areas` column: keep the answer at the top of the notes. */
+export const withAreasInNotes = (areas: string, notes: string | null) => [`Areas covered: ${areas}`, notes].filter(Boolean).join("\n\n");
+
 export type CreatorResult = ActionResult<{ name: string; delivered?: boolean }>;
 
 /**
@@ -22,24 +25,27 @@ export async function submitCreatorApplication(raw: Record<string, unknown>): Pr
   if (await overLimit("join", ip, ipHash, "creator_applicants", 3)) return { ok: false, error: RATE_LIMIT_MESSAGE };
 
   const availability = [d.availability.join(", "), d.availability_notes].filter(Boolean).join(" — ") || null;
-  const { id, saved } = await saveRow(
-    "creator_applicants",
-    {
-      name: d.name,
-      email: d.email,
-      phone: d.phone,
-      discipline: d.discipline,
-      portfolio_url: d.portfolio_url,
-      gear: d.gear,
-      day_rate: d.day_rate,
-      availability,
-      notes: d.notes,
-      status: "applied",
-      source_path: "/join",
-      ip_hash: ipHash,
-    },
-    "/join"
-  );
+  const row = {
+    name: d.name,
+    email: d.email,
+    phone: d.phone,
+    discipline: d.discipline,
+    portfolio_url: d.portfolio_url,
+    gear: d.gear,
+    day_rate: d.day_rate,
+    availability,
+    notes: d.notes,
+    status: "applied",
+    source_path: "/join",
+    ip_hash: ipHash,
+  };
+  let { id, saved } = await saveRow("creator_applicants", { ...row, areas: d.areas }, "/join");
+  // The `areas` column comes from a later migration (20261114000100). If the database doesn't
+  // have it yet the insert above fails, so save again with the areas written into the notes:
+  // the application still lands in Admin → Creators instead of only in the server log.
+  if (!saved && features.supabaseAdmin) {
+    ({ id, saved } = await saveRow("creator_applicants", { ...row, notes: withAreasInNotes(d.areas, d.notes) }, "/join"));
+  }
 
   notifyAfterResponse(
     "admin_creator_applicant",
@@ -51,6 +57,7 @@ export async function submitCreatorApplication(raw: Record<string, unknown>): Pr
         discipline: DISCIPLINE_LABELS[d.discipline],
         portfolioUrl: d.portfolio_url,
         gear: d.gear,
+        areas: d.areas,
         dayRate: `$${d.day_rate.toLocaleString("en-US")}/day`,
         availability,
         notes: d.notes,

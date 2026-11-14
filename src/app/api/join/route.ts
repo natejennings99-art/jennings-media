@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 /** GET is a cheap uptime probe; POST takes the same fields as the /join form. */
 export function GET() {
-  return describe("/api/join", ["name", "email", "phone", "discipline (photo|video|both)", "portfolio_url", "day_rate", "gear?", "availability[]?", "availability_notes?", "notes?"]);
+  return describe("/api/join", ["name", "email", "phone", "discipline (photo|video|both)", "portfolio_url", "areas", "day_rate", "gear?", "availability[]?", "availability_notes?", "notes?"]);
 }
 
 export async function POST(request: Request) {

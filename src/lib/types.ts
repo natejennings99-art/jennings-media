@@ -646,6 +646,8 @@ export interface CreatorApplicant {
   discipline: "photo" | "video" | "both";
   portfolio_url: string;
   gear: string | null;
+  /** Cities / neighbourhoods they cover, as typed. Null on applications sent before the field existed. */
+  areas?: string | null;
   /** Whole US dollars per day. */
   day_rate: number | null;
   availability: string | null;

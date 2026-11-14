@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getPortfolio } from "@/lib/data/public";
 import { AGENCY_SERVICES, ARTICLES } from "@/lib/content/agency";
 import { LOCATIONS } from "@/lib/content/seo";
+import { INDUSTRY_PAGES } from "@/lib/content/industries";
 import { env } from "@/lib/env";
 
 export const revalidate = 3600;
@@ -20,8 +21,8 @@ function ownImages(src: string | null | undefined) {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getPortfolio();
   const now = new Date();
-  const top = new Set(["", "/work", "/real-estate", "/drone-real-estate-tampa", "/events", "/services", "/plans", "/content-package", "/contact"]);
-  const staticPages = ["", "/work", "/real-estate", "/drone-real-estate-tampa", "/events", "/services", "/plans", "/content-package", "/free-listing-reel", "/test-reel", "/about", "/insights", "/contact", "/join", "/pricing", "/book", "/privacy", "/terms"].map((path) => ({
+  const top = new Set(["", "/work", "/real-estate", "/drone-real-estate-tampa", "/events", "/services", "/plans", "/content-package", "/book-a-call", "/contact"]);
+  const staticPages = ["", "/work", "/real-estate", "/drone-real-estate-tampa", "/events", "/services", "/plans", "/content-package", "/book-a-call", "/industries", "/free-listing-reel", "/test-reel", "/about", "/insights", "/contact", "/join", "/pricing", "/book", "/privacy", "/terms"].map((path) => ({
     url: `${env.siteUrl}${path}`,
     lastModified: now,
     changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),
@@ -30,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...staticPages,
     ...AGENCY_SERVICES.map((s) => ({ url: `${env.siteUrl}/services/${s.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.85, ...ownImages(s.image) })),
+    ...INDUSTRY_PAGES.map((i) => ({ url: `${env.siteUrl}/industries/${i.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8, ...ownImages(i.examples[0]?.src) })),
     ...LOCATIONS.map((l) => ({ url: `${env.siteUrl}/locations/${l.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 })),
     ...projects.map((p) => ({
       url: `${env.siteUrl}/work/${p.slug}`,

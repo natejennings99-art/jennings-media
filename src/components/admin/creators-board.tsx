@@ -106,6 +106,12 @@ export function CreatorsBoard({ applicants, focus, timezone }: { applicants: Cre
                 <dd className="mt-1 text-sm">{applicant.availability}</dd>
               </div>
             )}
+            {applicant.areas && (
+              <div className="rounded-xl bg-white/[0.03] p-3 sm:col-span-3">
+                <dt className="text-[11px] tracking-wide text-mist-500 uppercase">Areas covered</dt>
+                <dd className="mt-1 text-sm">{applicant.areas}</dd>
+              </div>
+            )}
             {applicant.gear && (
               <div className="rounded-xl bg-white/[0.03] p-3 sm:col-span-2">
                 <dt className="text-[11px] tracking-wide text-mist-500 uppercase">Gear</dt>

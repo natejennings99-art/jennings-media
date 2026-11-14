@@ -6,6 +6,7 @@ import { SectionLabel } from "@/components/agency/section-label";
 import { InquiryForm } from "@/components/agency/inquiry-form";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 import { formatPhone } from "@/lib/utils";
+import { TransitionLink } from "@/components/experience/transition";
 
 export const metadata: Metadata = {
   title: "Contact Us: Start a Project",
@@ -45,11 +46,15 @@ export default async function ContactPage() {
           <div id="call" className="scroll-mt-32">
             <SectionLabel className="mb-4">Free 15-minute call</SectionLabel>
             <p className="text-[15.5px] leading-relaxed text-mist-300">
-              Rather talk it through first? Text{" "}
+              Rather talk it through first?{" "}
+              <TransitionLink href={BRAND.callHref} className="text-bone-50 underline underline-offset-4 hover:text-accent-300">
+                Book a free call
+              </TransitionLink>{" "}
+              or text{" "}
               <a href={BRAND.phoneHref.replace("tel:", "sms:")} className="whitespace-nowrap text-bone-50 underline underline-offset-4 hover:text-accent-300">
                 {BRAND.phone}
               </a>{" "}
-              with a time that works, or send the form and say you&rsquo;d like a call. Nate calls you back.
+              with a time that works. Nate calls you back.
             </p>
           </div>
           <div>

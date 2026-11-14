@@ -2,6 +2,7 @@ import { BRAND } from "@/lib/brand";
 import { AGENCY_SERVICES } from "@/lib/content/agency";
 import { PACKAGES, RETAINERS } from "@/lib/content/plans";
 import { LOCATIONS } from "@/lib/content/seo";
+import { INDUSTRY_PAGES } from "@/lib/content/industries";
 import { env } from "@/lib/env";
 
 export const dynamic = "force-static";
@@ -29,6 +30,9 @@ export function GET() {
     `- [Drone real estate photography & aerial listing video in Tampa](${u}/drone-real-estate-tampa)`,
     `- [Free 30-second listing reel for Tampa Bay agents (one per agent)](${u}/free-listing-reel)`,
     `- [Monthly content package for local businesses](${u}/content-package)`,
+    ...INDUSTRY_PAGES.map((i) => `- [${i.seoTitle}](${u}/industries/${i.slug})`),
+    `- [Book a free 15-minute call](${u}/book-a-call)`,
+    `- [Join our creator network (photographers & videographers)](${u}/join)`,
     `- [Pricing](${u}/plans)`,
     `- [Book a real estate shoot](${u}/book)`,
     `- [Contact](${u}/contact)`,

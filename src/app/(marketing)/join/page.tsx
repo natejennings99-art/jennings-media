@@ -8,17 +8,17 @@ import { JoinForm } from "@/components/agency/join-form";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
-  title: "Join: Photographers & Videographers",
-  description: `Shoot with ${BRAND.name}. We're building a network of photographers and videographers in Tampa Bay and Washington, DC for real estate, short-form video and events. Paid trial shoot, no exclusivity.`,
+  title: "Join Our Creator Network",
+  description: `Join the ${BRAND.name} creator network. Photographers and videographers: send your portfolio, gear, rates and the areas you cover. Paid trial shoot.`,
   alternates: { canonical: "/join" },
 };
 
 export default function JoinPage() {
   return (
     <>
-      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Join", path: "/join" }])} />
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Join our creator network", path: "/join" }])} />
       <PageIntro
-        label="For photographers & videographers"
+        label="Join our creator network"
         title={
           <>
             Shoot with

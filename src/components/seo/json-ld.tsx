@@ -2,6 +2,7 @@ import type { BusinessSettings, PortfolioProject } from "@/lib/types";
 import type { AgencyService, Article } from "@/lib/content/agency";
 import type { Plan } from "@/lib/content/plans";
 import type { Location } from "@/lib/content/seo";
+import type { IndustryPage } from "@/lib/content/industries";
 import { env } from "@/lib/env";
 import { BRAND } from "@/lib/brand";
 
@@ -115,6 +116,24 @@ export function serviceSchema(s: AgencyService, description: string, path: strin
     provider: { "@id": ORG_ID },
     areaServed: AREAS.map((name) => ({ "@type": "Place", name })),
     offers: { "@type": "Offer", url: `${env.siteUrl}/plans`, priceCurrency: "USD" },
+  };
+}
+
+/** /industries/[slug] — photo and video for one kind of client. No price here unless one is set. */
+export function industryServiceSchema(i: IndustryPage) {
+  const path = `/industries/${i.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${env.siteUrl}${path}#service`,
+    name: i.seoTitle,
+    serviceType: "Photography and video production",
+    description: i.description,
+    url: `${env.siteUrl}${path}`,
+    ...(i.examples[0] ? { image: abs(i.examples[0].src) } : {}),
+    audience: { "@type": "BusinessAudience", name: i.name },
+    provider: { "@id": ORG_ID, "@type": "ProfessionalService", name: BRAND.name, url: env.siteUrl, telephone: BRAND.phone },
+    areaServed: AREAS.slice(0, 4).map((name) => ({ "@type": "Place", name })),
   };
 }
 

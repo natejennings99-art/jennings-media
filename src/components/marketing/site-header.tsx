@@ -93,7 +93,7 @@ export function SiteHeader({ email, socials }: { email: string | null; socials: 
         )}
         aria-hidden={!open}
       >
-        <nav className="gutter flex flex-1 flex-col justify-center pt-24" aria-label="Mobile">
+        <nav className="gutter flex min-h-0 flex-1 flex-col justify-center-safe overflow-y-auto pt-24" aria-label="Mobile">
           {NAV.map((item, i) => (
             <div key={item.href} className="overflow-hidden border-b border-white/[0.07]">
               <TransitionLink
@@ -112,6 +112,9 @@ export function SiteHeader({ email, socials }: { email: string | null; socials: 
         <div className={cn("gutter pb-10 transition-opacity delay-300 duration-500", open ? "opacity-100" : "opacity-0")}>
           <TransitionLink href="/contact" onClick={close} tabIndex={open ? 0 : -1} className="flex h-15 items-center justify-between rounded-full bg-accent-300 px-7 text-[15px] font-semibold tracking-wide text-ink-950 uppercase">
             Start a project <ArrowUpRight className="size-5" />
+          </TransitionLink>
+          <TransitionLink href={BRAND.callHref} onClick={close} tabIndex={open ? 0 : -1} className="mt-3 flex h-13 items-center justify-between rounded-full border border-white/20 px-7 text-[14px] font-semibold tracking-wide text-bone-50 uppercase">
+            Book a free call <ArrowUpRight className="size-5" />
           </TransitionLink>
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-mist-400">
             {email && <a href={`mailto:${email}`}>{email}</a>}

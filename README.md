@@ -190,7 +190,8 @@ Secrets never reach the browser: only `NEXT_PUBLIC_*` values are bundled, and al
    4. `supabase/migrations/20260929000400_storage.sql`
    5. `supabase/migrations/20260929000500_agency.sql`
    6. `supabase/migrations/20261104000100_creator_applicants.sql` (the `/join` applicants table — needed by Admin → Creators and `/api/stats`)
-   7. `supabase/seed.sql` (catalog, packages, add-ons, settings, example service areas, real work, **sample** case studies/clients)
+   7. `supabase/migrations/20261114000100_creator_areas.sql` (adds "areas covered" to `/join` applicants; until it is applied the answer is written into the applicant's notes)
+   8. `supabase/seed.sql` (catalog, packages, add-ons, settings, example service areas, real work, **sample** case studies/clients)
 3. **Auth → URL Configuration:** set Site URL to your domain and add `http://localhost:3000/**` and `https://YOUR-DOMAIN/**` to Redirect URLs.
 4. **Auth → Email templates** (recommended for cross-device magic links): change the Magic Link / Confirm signup link to
    `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/dashboard`
@@ -245,8 +246,9 @@ Every public form validates with zod, rate-limits by IP, **saves to Supabase, th
 | Page | What it is | Stored in | Also available as JSON |
 | --- | --- | --- | --- |
 | `/contact` | Project inquiry | `contact_leads` (source `/contact`) | `POST /api/contact` |
-| `/join` | Photographer / videographer application | `creator_applicants` (status `applied`) | `POST /api/join` |
+| `/join` | Creator network application: portfolio link, gear, day rate, areas covered, availability | `creator_applicants` (status `applied`) | `POST /api/join` |
 | `/content-package` | Monthly content package, "book a call" | `contact_leads` (source `/content-package`) | `POST /api/content-package` |
+| `/book-a-call` and `/industries/*` | Free 15-minute call (name, phone, best time; business, email, topic and note optional) | `contact_leads` (source = the page the form was on, need `Free 15-minute call`) | `POST /api/book-a-call` |
 
 A `GET` on any `/api/*` endpoint above returns a small `{ ok: true, fields: [...] }` description, so they can be used as uptime checks.
 
@@ -258,6 +260,10 @@ A `GET` on any `/api/*` endpoint above returns a small `{ ok: true, fields: [...
 ```
 
 `leads_this_week` counts every `contact_leads` row (all forms); `contact_submissions_this_week` only those from `/contact`. Returns 401 for a bad key and 503 when `REPORT_KEY` or the database isn't configured.
+
+Every "Book a free 15-minute call" link points at `BRAND.callHref` in `src/lib/brand.ts` (`/book-a-call`).
+
+**Placeholders.** A content tier with no price (`price: null` in `src/lib/content/offers.ts`) shows `[PRICE]`, and an industry with no real shoot yet shows an `[ADD REAL PROJECT]` box, but only in `npm run dev` (or with `SHOW_PLACEHOLDERS=true`). On the live site a missing price reads "Quoted on your call" and empty project boxes are left out. Industry pages live in `src/lib/content/industries.ts`; examples there must be our own files in `public/media`.
 
 Admin: contact leads under **Admin → Contact leads**; `/join` applicants under **Admin → Creators** (status dropdown applied → contacted → trial shoot → active / no).
 

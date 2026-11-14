@@ -122,7 +122,7 @@ export const INDUSTRIES = [
   { name: "Events & Sports", image: "/media/video/stadium.jpg", video: "/media/video/stadium.mp4", href: "/events", match: ["event", "sport"] },
   { name: "Consumer Brands", image: "/media/stock/consumer-brands.jpg", video: "/media/stock/consumer-brands.mp4", match: ["grooming", "consumer", "beauty"] },
   { name: "Fashion & Retail", image: "/media/video/isaia.jpg", video: "/media/video/isaia.mp4", match: ["fashion", "retail"] },
-  { name: "Restaurants", image: "/media/stock/restaurants.jpg", video: "/media/stock/restaurants.mp4", match: ["restaurant", "food", "dining"] },
+  { name: "Restaurants", image: "/media/stock/restaurants.jpg", video: "/media/stock/restaurants.mp4", href: "/industries/restaurants", match: ["restaurant", "food", "dining"] },
   { name: "Professional Services", image: "/media/video/smart-settlements.jpg", video: "/media/video/smart-settlements.mp4", match: ["professional", "settlement", "services"] },
   { name: "E-Commerce", image: "/media/stock/e-commerce.jpg", video: "/media/stock/e-commerce.mp4", match: ["e-commerce", "ecommerce", "online store"] },
 ] as const;

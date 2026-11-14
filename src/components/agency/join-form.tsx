@@ -12,7 +12,7 @@ import type { ActionResult } from "@/lib/types";
 import { Chip, field } from "./inquiry-form";
 
 const smsHref = BRAND.phoneHref.replace(/^tel:/, "sms:");
-const DRAFT_KEYS = ["name", "email", "phone", "discipline", "portfolio_url", "gear", "day_rate", "availability", "availability_notes", "notes"] as const;
+const DRAFT_KEYS = ["name", "email", "phone", "discipline", "portfolio_url", "gear", "areas", "day_rate", "availability", "availability_notes", "notes"] as const;
 
 /** Photographer / videographer application (/join). Saves to creator_applicants and emails Nate. */
 export function JoinForm() {
@@ -120,6 +120,7 @@ export function JoinForm() {
           <textarea id="j-gear" name="gear" rows={2} className={cn(field, "resize-none")} placeholder="Bodies, lenses, gimbal, drone, lighting…" aria-invalid={Boolean(err("gear"))} />
           {err("gear") && <p className="mt-2 text-[13px] text-red-300">{err("gear")}</p>}
         </div>
+        {input({ name: "areas", label: "Areas you cover", auto: "off", type: "text", placeholder: "Tampa, St. Pete, Clearwater…", required: true })}
         {input({ name: "day_rate", label: "Day rate (USD)", auto: "off", type: "number", inputMode: "numeric", placeholder: "500", prefix: "$", required: true })}
       </div>
 

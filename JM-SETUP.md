@@ -72,7 +72,8 @@ case you're in first:
    4. `migrations/20260929000400_storage.sql`
    5. `migrations/20260929000500_agency.sql`
    6. `migrations/20261104000100_creator_applicants.sql`
-   7. `seed.sql`
+   7. `migrations/20261114000100_creator_areas.sql`
+   8. `seed.sql`
 4. **Authentication** → **URL Configuration**: set **Site URL** to
    `https://jennings-media.com`. Under **Redirect URLs** add
    `https://jennings-media.com/**` and `http://localhost:3000/**`.

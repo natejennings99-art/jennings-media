@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { contactSchema, contentPackageSchema, creatorSchema, fieldErrorsOf, looksLikeBot } from "@/lib/leads/schemas";
+import { contactSchema, contentPackageSchema, callSchema, creatorSchema, fieldErrorsOf, looksLikeBot } from "@/lib/leads/schemas";
 import { NEEDS, BUDGETS } from "@/lib/content/agency";
 import { countByStage, sinceDays } from "@/lib/leads/stats";
 
@@ -26,12 +26,17 @@ test("bot heuristics: honeypot or an instant submit", () => {
 });
 
 test("/join requires a real portfolio URL and a numeric day rate", () => {
-  const base = { name: "Sam Shooter", email: "sam@example.com", phone: "(813) 555-0100", discipline: "both", gear: "R5, 24-70", day_rate: "650", availability: ["Weekends"], notes: "" };
+  const base = { name: "Sam Shooter", email: "sam@example.com", phone: "(813) 555-0100", discipline: "both", gear: "R5, 24-70", areas: "Tampa, St. Pete", day_rate: "650", availability: ["Weekends"], notes: "" };
   const ok = creatorSchema.safeParse({ ...base, portfolio_url: "instagram.com/samshoots" });
   assert.ok(ok.success);
   assert.equal(ok.data.portfolio_url, "https://instagram.com/samshoots");
   assert.equal(ok.data.day_rate, 650);
   assert.equal(ok.data.notes, null);
+  assert.equal(ok.data.areas, "Tampa, St. Pete");
+
+  const noAreas = creatorSchema.safeParse({ ...base, portfolio_url: "instagram.com/samshoots", areas: "" });
+  assert.ok(!noAreas.success);
+  assert.ok(fieldErrorsOf(noAreas.error).areas);
 
   const bad = creatorSchema.safeParse({ ...base, portfolio_url: "not a link", day_rate: "lots", discipline: "drone" });
   assert.ok(!bad.success);
@@ -55,6 +60,32 @@ test("/content-package call request needs name, business, phone and a time", () 
   assert.ok(!bad.success);
   const errors = fieldErrorsOf(bad.error);
   for (const k of ["name", "business", "phone", "best_time"]) assert.ok(errors[k], `expected an error for ${k}`);
+});
+
+test("book a call needs only a name, a phone and a time", () => {
+  const ok = callSchema.safeParse({ name: "Maria Lopez", phone: "813-555-0100", best_time: "Morning", business: "", email: "", topic: "", note: "" });
+  assert.ok(ok.success);
+  assert.equal(ok.data.business, null);
+  assert.equal(ok.data.email, null);
+  assert.equal(ok.data.topic, undefined);
+  assert.equal(ok.data.page, "/book-a-call");
+
+  const bad = callSchema.safeParse({ name: "", phone: "123", best_time: "Whenever", email: "nope" });
+  assert.ok(!bad.success);
+  const errors = fieldErrorsOf(bad.error);
+  for (const k of ["name", "phone", "best_time", "email"]) assert.ok(errors[k], `expected an error for ${k}`);
+});
+
+test("book a call keeps the page it was sent from, but only pages that carry the form", () => {
+  const base = { name: "Sam", phone: "(813) 555-0100", best_time: "Evening", topic: "Video" };
+  const fromIndustry = callSchema.safeParse({ ...base, page: "/industries/gyms" });
+  assert.ok(fromIndustry.success);
+  assert.equal(fromIndustry.data.page, "/industries/gyms");
+  assert.equal(fromIndustry.data.topic, "Video");
+  const spoofed = callSchema.safeParse({ ...base, page: "https://evil.example/x" });
+  assert.ok(spoofed.success);
+  assert.equal(spoofed.data.page, "/book-a-call");
+  assert.ok(!callSchema.safeParse({ ...base, topic: "Crypto" }).success);
 });
 
 test("/api/stats groups applicants by stage with zeros for empty stages", () => {

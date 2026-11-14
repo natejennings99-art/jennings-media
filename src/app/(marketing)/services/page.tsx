@@ -6,6 +6,7 @@ import { PageIntro } from "@/components/agency/page-intro";
 import { SectionLabel } from "@/components/agency/section-label";
 import { ProcessTimeline } from "@/components/agency/process-timeline";
 import { FinalCta } from "@/components/agency/final-cta";
+import { ContentPackages } from "@/components/agency/content-packages";
 import { ClipReveal } from "@/components/experience/parallax";
 import { SplitReveal } from "@/components/experience/split-reveal";
 import { JsonLd, agencyServicesSchema, breadcrumbSchema } from "@/components/seo/json-ld";
@@ -14,8 +15,8 @@ import { cn } from "@/lib/utils";
 import { TransitionLink } from "@/components/experience/transition";
 
 export const metadata: Metadata = {
-  title: "Services: Lead Gen, Ads, AI & Content",
-  description: "Lead generation, Meta & Google Ads, AI agents, social media, content production, websites, branding and SEO — one marketing team for your growth.",
+  title: "Services: Photo, Video, Social Content & Ads",
+  description: "Photo, video and social content packages, plus lead generation, Meta & Google Ads, AI agents, websites and SEO. One team in Tampa Bay.",
   alternates: { canonical: "/services" },
 };
 
@@ -45,6 +46,8 @@ export default function ServicesPage() {
       >
         Eight disciplines under one roof. Start with one, or let them work together — strategy, creative, media and technology pointed at the same number.
       </PageIntro>
+
+      <ContentPackages />
 
       <div className="gutter space-y-4">
         {AGENCY_SERVICES.map((s, i) => (

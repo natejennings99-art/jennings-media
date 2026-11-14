@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { BRAND, NAV } from "@/lib/brand";
+import { INDUSTRY_PAGES } from "@/lib/content/industries";
 import { TransitionLink } from "@/components/experience/transition";
 import { RollText } from "./nav-link";
 
@@ -17,8 +18,12 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
             </span>
             <ArrowUpRight className="size-[0.8em] text-accent-300 transition-transform duration-500 group-hover:rotate-45" strokeWidth={2.2} />
           </TransitionLink>
+          <TransitionLink href={BRAND.callHref} className="group mt-6 flex w-fit items-center gap-1.5 text-lg text-bone-50 underline underline-offset-4 hover:text-accent-300">
+            Or book a free 15-minute call
+            <ArrowUpRight className="size-4" />
+          </TransitionLink>
           {email && (
-            <a href={`mailto:${email}`} className="mt-6 block text-lg text-mist-300 transition hover:text-bone-50">
+            <a href={`mailto:${email}`} className="mt-4 block text-lg text-mist-300 transition hover:text-bone-50">
               {email}
             </a>
           )}
@@ -91,9 +96,15 @@ export function SiteFooter({ email, socials }: { email: string | null; socials: 
               <ArrowUpRight className="size-3.5" />
             </TransitionLink>
             <TransitionLink href="/join" className="group mt-3 flex items-center gap-1.5 text-[15px] text-mist-300 hover:text-bone-50">
-              <RollText>Shoot with us</RollText>
+              <RollText>Join our creator network</RollText>
               <ArrowUpRight className="size-3.5" />
             </TransitionLink>
+            <p className="label mt-8 mb-4 text-mist-500">Who we work with</p>
+            {INDUSTRY_PAGES.map((i) => (
+              <TransitionLink key={i.slug} href={`/industries/${i.slug}`} className="block text-[15px] leading-7 text-mist-300 hover:text-bone-50">
+                {i.name}
+              </TransitionLink>
+            ))}
           </div>
         </div>
       </div>

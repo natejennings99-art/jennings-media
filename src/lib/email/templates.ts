@@ -319,7 +319,7 @@ export function adminEvent(brand: Brand, title: string, lines: string[], url: st
 /** /join — a photographer or videographer applied to the creator network. */
 export function adminCreatorApplicant(
   brand: Brand,
-  a: { name: string; email: string; phone: string; discipline: string; portfolioUrl: string; gear: string | null; dayRate: string; availability: string | null; notes: string | null; adminUrl: string }
+  a: { name: string; email: string; phone: string; discipline: string; portfolioUrl: string; gear: string | null; areas?: string | null; dayRate: string; availability: string | null; notes: string | null; adminUrl: string }
 ): EmailContent {
   const title = `Creator application: ${a.name} (${a.discipline})`;
   const rows: [string, string | null | undefined][] = [
@@ -329,6 +329,7 @@ export function adminCreatorApplicant(
     ["Discipline", a.discipline],
     ["Portfolio", a.portfolioUrl],
     ["Day rate", a.dayRate],
+    ["Areas covered", a.areas],
     ["Availability", a.availability],
     ["Gear", a.gear],
   ];
@@ -339,20 +340,27 @@ export function adminCreatorApplicant(
   };
 }
 
-/** /content-package — a local business asked for a call about the monthly package. */
-export function adminCallRequest(brand: Brand, r: { name: string; business: string; phone: string; bestTime: string; email: string | null; packageName: string; price: string; adminUrl: string }): EmailContent {
-  const title = `Call request: ${r.business} (${r.packageName})`;
+/** /content-package and /book-a-call — someone asked for a call. */
+export function adminCallRequest(
+  brand: Brand,
+  r: { name: string; business: string | null; phone: string; bestTime: string; email: string | null; packageName?: string; price?: string; topic?: string | null; note?: string | null; source?: string; adminUrl: string }
+): EmailContent {
+  const who = r.business || r.name;
+  const title = `Call request: ${who}${r.packageName ? ` (${r.packageName})` : ""}`;
   const rows: [string, string | null | undefined][] = [
     ["Business", r.business],
     ["Contact", r.name],
     ["Phone", r.phone],
     ["Best time to call", r.bestTime],
     ["Email", r.email],
-    ["Package", `${r.packageName} — ${r.price}`],
+    ["Package", r.packageName ? `${r.packageName}${r.price ? ` — ${r.price}` : ""}` : null],
+    ["Wants to talk about", r.topic],
+    ["Note", r.note],
+    ["Sent from", r.source],
   ];
   return {
     subject: title,
-    html: layout(brand, `${r.name} at ${r.business} · call ${r.bestTime.toLowerCase()} · ${r.phone}`, `${h1(title)}${details(rows)}${p(`<a href="tel:${esc(r.phone.replace(/[^\d+]/g, ""))}" style="color:#d43d0a;">Call ${esc(r.phone)} &rarr;</a>`)}${button(r.adminUrl, "View lead")}`),
+    html: layout(brand, `${r.name}${r.business ? ` at ${r.business}` : ""} · call ${r.bestTime.toLowerCase()} · ${r.phone}`, `${h1(title)}${details(rows)}${p(`<a href="tel:${esc(r.phone.replace(/[^\d+]/g, ""))}" style="color:#d43d0a;">Call ${esc(r.phone)} &rarr;</a>`)}${button(r.adminUrl, "View lead")}`),
     text: text(title, ...rows.filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`), r.adminUrl),
   };
 }

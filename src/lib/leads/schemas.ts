@@ -8,6 +8,7 @@ import { clean, optionalClean } from "@/lib/booking/schema";
 import { BUDGETS, INQUIRY_SERVICES, NEEDS } from "@/lib/content/agency";
 import { AVAILABILITY_OPTIONS, DISCIPLINES } from "@/lib/content/creators";
 import { BEST_TIMES } from "@/lib/content/content-package";
+import { CALL_PAGES, CALL_TOPICS } from "@/lib/content/call";
 
 export { AVAILABILITY_OPTIONS, DISCIPLINES, DISCIPLINE_LABELS, type Discipline } from "@/lib/content/creators";
 export { BEST_TIMES } from "@/lib/content/content-package";
@@ -72,6 +73,7 @@ export const creatorSchema = z.object({
   discipline: z.enum(DISCIPLINES, { error: "Pick photo, video or both" }),
   portfolio_url: portfolioUrl,
   gear: optionalText(1500),
+  areas: z.preprocess((v) => (v == null ? "" : v), clean(300).pipe(z.string().min(2, "Tell us which areas you cover"))),
   day_rate: z.coerce.number({ error: "Enter your day rate as a number" }).int("Whole dollars, please").min(0, "Enter your day rate").max(100000, "That day rate looks too high"),
   availability: z.array(z.enum(AVAILABILITY_OPTIONS)).max(AVAILABILITY_OPTIONS.length).default([]),
   availability_notes: optionalText(500),
@@ -91,6 +93,23 @@ export const contentPackageSchema = z.object({
   ...botFields,
 });
 export type ContentPackageInput = z.infer<typeof contentPackageSchema>;
+
+/* ------------------------------------------------------------ /book-a-call */
+
+/** The free 15-minute call. Phone is the only contact detail we need; the rest helps Nate prepare. */
+export const callSchema = z.object({
+  name: clean(120).pipe(z.string().min(2, "Enter your name")),
+  business: optionalText(160),
+  phone: requiredPhone,
+  email: optionalEmail,
+  best_time: z.enum(BEST_TIMES, { error: "Pick the best time to call" }),
+  topic: z.preprocess((v) => (v === "" || v == null ? undefined : v), z.enum(CALL_TOPICS).optional()),
+  note: optionalText(1000),
+  /** The page the form was on. Anything we don't recognise is filed under /book-a-call. */
+  page: z.preprocess((v) => (typeof v === "string" && CALL_PAGES.includes(v) ? v : "/book-a-call"), z.string()),
+  ...botFields,
+});
+export type CallInput = z.infer<typeof callSchema>;
 
 /** zod issues → { field: message } for the forms. */
 export function fieldErrorsOf(error: z.ZodError) {

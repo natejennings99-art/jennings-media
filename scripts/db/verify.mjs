@@ -315,9 +315,10 @@ check("project inquiries accepted", leadErr === null, leadErr ?? "");
 
 console.log("\n▶ Creator applicants (/join)");
 const [applicant] = await rows(
-  `insert into public.creator_applicants (name, email, phone, discipline, portfolio_url, day_rate, availability)
-   values ('Sam Shooter', 'sam@example.com', '8135550100', 'both', 'https://instagram.com/samshoots', 650, 'Weekends') returning id, status`
+  `insert into public.creator_applicants (name, email, phone, discipline, portfolio_url, day_rate, availability, areas)
+   values ('Sam Shooter', 'sam@example.com', '8135550100', 'both', 'https://instagram.com/samshoots', 650, 'Weekends', 'Tampa, St. Pete') returning id, status, areas`
 );
+check("applicant keeps the areas they cover", applicant.areas === "Tampa, St. Pete");
 check("applicant defaults to status 'applied'", applicant.status === "applied");
 const badStage = await throws(`update public.creator_applicants set status = 'hired' where id = $1`, [applicant.id]);
 check("applicant status is constrained to the pipeline", Boolean(badStage));
