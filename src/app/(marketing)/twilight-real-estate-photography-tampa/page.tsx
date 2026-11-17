@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Check, Moon, Sunset } from "lucide-react";
-import { getCatalog } from "@/lib/data/public";
+import { getCatalog, getServiceAreas } from "@/lib/data/public";
 import { sortTiers, startingPrice } from "@/lib/pricing/engine";
 import { formatMoney } from "@/lib/utils";
 import { env } from "@/lib/env";
@@ -57,8 +57,9 @@ function addedTo(catalog: Catalog, service: Service | undefined) {
 }
 
 export default async function TwilightTampaPage() {
-  const catalog = await getCatalog();
+  const [catalog, areas] = await Promise.all([getCatalog(), getServiceAreas()]);
   const { onsite, virtual, photo } = twilightOffer(catalog);
+  const freeCore = areas.some((a) => a.is_active && a.market === "Tampa Bay" && a.travel_fee_cents === 0 && a.per_mile_cents === 0);
   const onsitePrice = onsite ? formatMoney(startingPrice(onsite)) : null;
   const virtualPrice = virtual ? `${formatMoney(startingPrice(virtual))} per ${virtual.unit_label ?? "image"}` : null;
   const images = onsite?.features.find((f) => /images/i.test(f));
@@ -274,7 +275,7 @@ export default async function TwilightTampaPage() {
               {photoTiers
                 .map((t, i) => `${formatMoney(t.price_cents)} ${t.max_sqft !== null ? `up to ${t.max_sqft.toLocaleString("en-US")} sq ft` : `over ${(photoTiers[i - 1]?.max_sqft ?? 0).toLocaleString("en-US")} sq ft`}`)
                 .join(", ")}
-              . There&rsquo;s no travel fee in our Tampa Bay core area, including Tampa, St. Petersburg and Clearwater. See every price on the{" "}
+              .{freeCore && " There\u2019s no travel fee in our Tampa Bay core area, including Tampa, St. Petersburg and Clearwater."} See every price on the{" "}
               <TransitionLink href="/pricing" className={link}>pricing page</TransitionLink> or{" "}
               <TransitionLink href="/real-estate-photography-cost-tampa" className={link}>what real estate photography costs in Tampa</TransitionLink>.
             </p>
