@@ -18,7 +18,7 @@ photo is already there under that name, so nothing breaks until you swap it.
 |---|---|---|
 | Home / Services → **Meta & Google Ads** card | `public/photos/ads-card.jpg` | A screenshot of an ad you ran, or a phone showing one of our reels as an ad |
 | Home / Services → **AI Agents** card | `public/photos/ai-agents-card.jpg` | A screenshot of the lead auto-reply or the chat agent working |
-| Home / Services → **Websites & Funnels** card | `public/photos/websites-card.jpg` | A laptop shot of tampamaidscleaning.com or jennings-media.com |
+| Home / Services → **Websites & Funnels** card | `public/photos/websites-card.jpg` | **Done 2026-11-16:** laptop shot of tampamaidscleaning.com (raw screenshot: `public/media/work/tampa-maids-home.jpg`) |
 | Home / Services → **SEO + Content** card | `public/photos/seo-card.jpg` | A Search Console graph, or a Tampa skyline drone still once you have one |
 | Insights → **ROAS is a lagging indicator** | `public/photos/roas-article.jpg` | An ads screenshot (can be the same picture as the Ads card) |
 | Insights → **Fewer campaigns, more systems** | `public/photos/fewer-campaigns-article.jpg` | You at a whiteboard or planning a shoot |
