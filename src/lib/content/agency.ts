@@ -124,7 +124,7 @@ export const INDUSTRIES = [
   { name: "Fashion & Retail", image: "/media/video/isaia.jpg", video: "/media/video/isaia.mp4", match: ["fashion", "retail"] },
   { name: "Restaurants", image: "/media/stock/restaurants.jpg", video: "/media/stock/restaurants.mp4", href: "/industries/restaurants", match: ["restaurant", "food", "dining"] },
   { name: "Professional Services", image: "/media/video/smart-settlements.jpg", video: "/media/video/smart-settlements.mp4", match: ["professional", "settlement", "services"] },
-  { name: "E-Commerce", image: "/media/stock/e-commerce.jpg", video: "/media/stock/e-commerce.mp4", match: ["e-commerce", "ecommerce", "online store"] },
+  { name: "E-Commerce", image: "/media/stock/e-commerce.jpg", video: "/media/stock/e-commerce.mp4", href: "/industries/e-commerce", match: ["e-commerce", "ecommerce", "online store"] },
 ] as const;
 
 export const BUDGETS = ["Under $2,500", "$2,500–$5,000", "$5,000–$10,000", "$10,000–$25,000", "$25,000+"] as const;

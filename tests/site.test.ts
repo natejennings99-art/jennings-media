@@ -8,8 +8,8 @@ import { CONTENT_PACKAGE_PRICE, RETAINERS } from "@/lib/content/plans";
 import { CALL_PAGES } from "@/lib/content/call";
 import { industryServiceSchema } from "@/components/seo/json-ld";
 
-test("the five industry pages exist, each with its own title and description", () => {
-  assert.deepEqual(INDUSTRY_PAGES.map((i) => i.slug).sort(), ["airbnb-hosts", "gyms", "realtors", "restaurants", "salons"]);
+test("the six industry pages exist, each with its own title and description", () => {
+  assert.deepEqual(INDUSTRY_PAGES.map((i) => i.slug).sort(), ["airbnb-hosts", "e-commerce", "gyms", "realtors", "restaurants", "salons"]);
   assert.equal(new Set(INDUSTRY_PAGES.map((i) => i.seoTitle)).size, 5);
   assert.equal(new Set(INDUSTRY_PAGES.map((i) => i.description)).size, 5);
   for (const i of INDUSTRY_PAGES) {

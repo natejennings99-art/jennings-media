@@ -1,6 +1,6 @@
 /**
- * /industries/[slug] — five short pages, one per kind of client: restaurants, gyms,
- * realtors, salons and Airbnb hosts.
+ * /industries/[slug] — six short pages, one per kind of client: restaurants, gyms,
+ * realtors, salons, Airbnb hosts and e-commerce brands.
  *
  * Rules for this file:
  *  - Plain words. Say what they get and how to book a call.
@@ -135,6 +135,25 @@ export const INDUSTRY_PAGES: IndustryPage[] = [
       { src: "/media/photos/spa-bath.jpg", alt: "Spa bath with freestanding tub, 3605 17th Street N", caption: "Bathroom from a home we shot for a sale listing", w: 1600, h: 1067 },
     ],
     related: { href: "/real-estate", label: "See our home photography" },
+  },
+  {
+    slug: "e-commerce",
+    name: "E-Commerce",
+    seoTitle: "Product Photo & Video for Online Stores in Tampa Bay",
+    description: `Product photos and short videos for online stores and e-commerce brands in ${AREA}. Ready for your store, ads and social. Book a free 15-minute call.`,
+    label: "For online stores and e-commerce brands",
+    h1: ["Photos and video", "for online stores."],
+    intro: "Shoppers can't pick up your product, so the photos and video have to do the selling. We shoot your products and short videos you can use on your store, in ads and on social.",
+    gets: [
+      "Photos of your products, sized for your store and marketplaces",
+      "Short vertical videos for Instagram, TikTok and ads",
+      "Lifestyle shots of your product in use",
+      "Everything edited and ready to upload",
+    ],
+    price: { kind: "ask" },
+    // [ADD REAL PROJECT] — no e-commerce shoot in /public/media yet.
+    examples: [],
+    related: { href: "/services", label: "See all our services" },
   },
 ];
 
