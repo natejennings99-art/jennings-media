@@ -48,7 +48,7 @@ export default async function IndustryPage({ params }: PageProps<"/industries/[s
           <>
             {ind.h1[0]}
             <br />
-            <span className="text-accent-300">{ind.h1[1]}</span>
+            <span className="text-accent-300 text-[0.8em] sm:text-[1em]">{ind.h1[1]}</span>
           </>
         }
         aside={

@@ -128,7 +128,8 @@ export function Hero({ videoUrl, trustLine, clients, priceLine }: { videoUrl: st
                 );
               })}
               {li === 2 && (
-                <span className="inline-block animate-[rise_1.2s_var(--ease-expo)_both]" style={{ animationDelay: `${120 + word * 90}ms` }}>
+                // Smaller on phones so the longest word ("SCROLL PAST.") isn't cut off.
+                <span className="inline-block animate-[rise_1.2s_var(--ease-expo)_both] text-[0.75em] sm:text-[1em]" style={{ animationDelay: `${120 + word * 90}ms` }}>
                   <KeywordRoll words={HERO_KEYWORDS} />
                 </span>
               )}
