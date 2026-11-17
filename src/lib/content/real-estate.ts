@@ -74,10 +74,16 @@ export const REQUEST_BOOKING_ANSWER =
   "Send the address, your phone number and a day that suits you, or just call or text. Within one business day we confirm the time, the home's size and your exact price, including any travel fee, by text or call.";
 export const REQUEST_PAY_ANSWER = "We confirm your exact price, including any travel fee, by text or call before the shoot, and sort out payment with you then.";
 export const REQUEST_RESCHEDULE_ANSWER = "Yes. Text or call to reschedule.";
+export const REQUEST_AREAS_ANSWER =
+  "Tampa Bay — Tampa, St. Petersburg, Clearwater and the surrounding cities — plus Washington, D.C., Northern Virginia and the Maryland suburbs. Inside our core areas there's no travel fee; farther out adds a small per-mile fee, and we confirm your exact price, including any travel fee, by text or call.";
 
-/** RE_FAQ with the booking and payment answers swapped for request mode. */
-export const RE_FAQ_REQUEST = RE_FAQ.map((f) =>
-  f.q === "How does booking work?" ? { ...f, a: REQUEST_BOOKING_ANSWER } : f.q === "How do I pay?" ? { ...f, a: REQUEST_PAY_ANSWER } : f
+/** RE_FAQ with the booking, payment and travel-fee answers swapped for request mode. */
+const REQUEST_ANSWERS: Record<string, string> = {
+  "How does booking work?": REQUEST_BOOKING_ANSWER,
+  "How do I pay?": REQUEST_PAY_ANSWER,
+  "What areas do you cover?": REQUEST_AREAS_ANSWER,
+};
+export const RE_FAQ_REQUEST = RE_FAQ.map((f) => (REQUEST_ANSWERS[f.q] ? { ...f, a: REQUEST_ANSWERS[f.q] } : f)
 );
 
 export const RE_AREAS = ["Tampa Bay, FL", "Washington, DC", "Northern Virginia", "Maryland suburbs"] as const;

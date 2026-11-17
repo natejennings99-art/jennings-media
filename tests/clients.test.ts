@@ -25,7 +25,7 @@ test("real estate path match: same list for the phone bar and the header", () =>
 
 test("request-mode booking copy promises no online checkout, dashboard or card payment", async () => {
   const { RE_FAQ, RE_FAQ_REQUEST, RE_STEPS_REQUEST, REQUEST_PAY_ANSWER, REQUEST_RESCHEDULE_ANSWER } = await import("@/lib/content/real-estate");
-  const text = [...RE_STEPS_REQUEST.map((s) => `${s.title} ${s.text}`), REQUEST_PAY_ANSWER, REQUEST_RESCHEDULE_ANSWER, ...RE_FAQ_REQUEST.filter((f) => /booking|pay/i.test(f.q)).map((f) => f.a)].join(" ");
+  const text = [...RE_STEPS_REQUEST.map((s) => `${s.title} ${s.text}`), REQUEST_PAY_ANSWER, REQUEST_RESCHEDULE_ANSWER, ...RE_FAQ_REQUEST.filter((f) => /booking|pay|areas/i.test(f.q)).map((f) => f.a)].join(" ");
   assert.doesNotMatch(text, /dashboard|stripe|online|checkout|card|apple pay|google pay|deposit/i);
   assert.deepEqual(RE_FAQ_REQUEST.map((f) => f.q), RE_FAQ.map((f) => f.q), "same questions, so the FAQ schema matches the page");
   // Wording matches /book's "What happens next" in request mode.

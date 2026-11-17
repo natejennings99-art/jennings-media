@@ -59,11 +59,15 @@ const AIRSPACE_FAQ = [
     q: "What happens if the weather is bad on shoot day?",
     a: FAQS.find((f) => /weather/i.test(f.q))?.a ?? "We reschedule the aerial portion if conditions aren't safe to fly.",
   },
-  {
-    q: "Can I add drone to a photo or video booking?",
-    a: "Yes. Drone photos and drone video can be booked on their own or added to any package at checkout, and your total updates as you choose.",
-  },
 ];
+
+/** The add-on answer, in request mode when the booking database is off (same check as /book). */
+const addDroneFaq = (requestMode: boolean) => ({
+  q: "Can I add drone to a photo or video booking?",
+  a: requestMode
+    ? "Yes. Drone photos and drone video can be booked on their own or added to any package. Ask for drone when you send the address, and within one business day we confirm the time and your exact price, including any travel fee, by text or call."
+    : "Yes. Drone photos and drone video can be booked on their own or added to any package at checkout, and your total updates as you choose.",
+});
 
 export default async function DroneRealEstateTampaPage() {
   const [catalog, settings] = await Promise.all([getCatalog(), getSettings()]);
@@ -72,6 +76,8 @@ export default async function DroneRealEstateTampaPage() {
   const packagesWithDrone = catalog.packages
     .filter((p) => p.is_active && p.services.some((x) => droneIds.has(x.service_id)))
     .sort((a, b) => a.sort_order - b.sort_order);
+  const requestMode = bookingRequestMode();
+  const faq = [...AIRSPACE_FAQ, addDroneFaq(requestMode)];
   const video = drone.find((s) => s.slug === "drone-video") ?? drone[0];
   const payLater = settings.payment_options.allow_pay_later;
 
@@ -93,7 +99,7 @@ export default async function DroneRealEstateTampaPage() {
       <JsonLd
         data={[
           serviceLd,
-          faqSchema(AIRSPACE_FAQ),
+          faqSchema(faq),
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Real estate", path: "/real-estate" },
@@ -282,7 +288,7 @@ export default async function DroneRealEstateTampaPage() {
             <li key={a} className="rounded-full border border-white/10 px-4 py-2 text-[14px] text-mist-300">{a}</li>
           ))}
         </ul>
-        <p className="mt-6 max-w-[62ch] text-[15px] leading-relaxed text-mist-400">Every address subject to the airspace check above. Farther-out addresses add a per-mile travel fee, shown at checkout.</p>
+        <p className="mt-6 max-w-[62ch] text-[15px] leading-relaxed text-mist-400">Every address subject to the airspace check above. Farther-out addresses add a per-mile travel fee, {requestMode ? "confirmed with your exact price by text or call" : "shown at checkout"}.</p>
       </section>
 
       {/* ───────────── FAQ ───────────── */}
@@ -290,7 +296,7 @@ export default async function DroneRealEstateTampaPage() {
         <SectionLabel index="06" className="mb-8">Questions</SectionLabel>
         <h2 id="faq-title" className="font-display text-[clamp(2rem,4.5vw,4rem)] text-bone-50">Good to know.</h2>
         <div className="mt-10 divide-y divide-white/10 border-y border-white/10">
-          {AIRSPACE_FAQ.map((f) => (
+          {faq.map((f) => (
             <details key={f.q} className="group py-6">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-[19px] font-semibold tracking-tight text-bone-50 marker:hidden [&::-webkit-details-marker]:hidden">
                 {f.q}
