@@ -25,7 +25,7 @@ export default function InsightsPage() {
       <div className="gutter">
         <TransitionLink href={`/insights/${featured.slug}`} data-cursor="view" data-cursor-label="Read" className="group grid gap-8 border-t border-white/10 pt-10 lg:grid-cols-12">
           <div className="relative aspect-[16/10] overflow-hidden rounded-md lg:col-span-7">
-            <Image src={featured.image} alt="" fill priority sizes="(min-width:1024px) 58vw, 100vw" className="object-cover transition-transform duration-[1400ms] ease-(--ease-expo) group-hover:scale-105" />
+            <Image src={featured.image} alt={`Cover image for ${featured.title}`} fill priority sizes="(min-width:1024px) 58vw, 100vw" className="object-cover transition-transform duration-[1400ms] ease-(--ease-expo) group-hover:scale-105" />
           </div>
           <div className="flex flex-col justify-between gap-6 lg:col-span-5">
             <p className="label text-mist-400">
@@ -44,7 +44,7 @@ export default function InsightsPage() {
           {rest.map((a) => (
             <TransitionLink key={a.slug} href={`/insights/${a.slug}`} data-cursor="view" data-cursor-label="Read" className="group block border-t border-white/10 pt-8">
               <div className="relative aspect-[16/10] overflow-hidden rounded-md">
-                <Image src={a.image} alt="" fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover transition-transform duration-[1400ms] ease-(--ease-expo) group-hover:scale-105" />
+                <Image src={a.image} alt={`Cover image for ${a.title}`} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover transition-transform duration-[1400ms] ease-(--ease-expo) group-hover:scale-105" />
               </div>
               <p className="label mt-6 text-mist-400">
                 <span className="text-accent-300">{a.category}</span> · {a.minutes} min read

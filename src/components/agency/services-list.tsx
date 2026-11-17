@@ -59,7 +59,7 @@ export function ServicesList({ services }: { services: AgencyService[] }) {
                 <div className="overflow-hidden">
                   <div className="grid gap-6 pb-8 pl-[3.5rem] sm:pl-[6rem] lg:grid-cols-12 lg:gutter lg:pl-[calc(5rem+2rem)]">
                     <div className="relative aspect-[16/10] overflow-hidden rounded-md lg:hidden">
-                      <Image src={s.image} alt="" fill sizes="100vw" className="object-cover" />
+                      <Image src={s.image} alt={`${s.title} by Jennings Media`} fill sizes="100vw" className="object-cover" />
                     </div>
                     <p className="text-[16px] leading-relaxed text-mist-300 lg:col-span-5">{s.body}</p>
                     <ul className="flex flex-wrap content-start gap-2 lg:col-span-5">

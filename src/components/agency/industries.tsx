@@ -59,7 +59,7 @@ export function Industries({ projectIndustries = [] }: { projectIndustries?: (st
             >
               <span className="flex min-w-0 items-center gap-4 sm:gap-8">
                 <span className="relative size-14 shrink-0 overflow-hidden rounded-md sm:hidden">
-                  <Image src={ind.image} alt="" fill sizes="56px" className="object-cover" />
+                  <Image src={ind.image} alt={`${ind.name} work`} fill sizes="56px" className="object-cover" />
                 </span>
                 <span className={cn("min-w-0 font-display text-[clamp(1.45rem,6.2vw,5.5rem)] break-words transition-all duration-500 ease-(--ease-expo)", active === null || active === i ? "text-bone-50" : "text-bone-50/25", active === i && "sm:translate-x-6 sm:text-accent-300")}>
                   {ind.name}

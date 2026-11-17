@@ -48,7 +48,7 @@ export default async function ArticlePage({ params }: PageProps<"/insights/[slug
         <p className="mt-10 max-w-2xl animate-fade-up text-[clamp(1.2rem,2vw,1.6rem)] leading-snug text-mist-300 [animation-delay:500ms]">{a.excerpt}</p>
       </header>
       <div className="relative mt-16 aspect-[4/5] w-full sm:mt-24 sm:aspect-[21/9]">
-        <Image src={a.image} alt="" fill priority sizes="100vw" className="object-cover" />
+        <Image src={a.image} alt={`Cover image for ${a.title}`} fill priority sizes="100vw" className="object-cover" />
       </div>
       <div className="gutter grid gap-12 py-20 sm:py-28 lg:grid-cols-12">
         <aside className="lg:col-span-3">

@@ -66,7 +66,7 @@ export default function ServicesPage() {
             <div className={cn("space-y-10 lg:col-span-6 lg:col-start-7", i % 2 === 1 && "lg:order-first lg:col-start-1")}>
               <ClipReveal>
                 <div className="relative aspect-[16/10] overflow-hidden rounded-md">
-                  <Image src={s.image} alt="" fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
+                  <Image src={s.image} alt={`${s.title} by Jennings Media`} fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
                 </div>
               </ClipReveal>
               <p className="text-[18px] leading-relaxed text-bone-100">{s.body}</p>

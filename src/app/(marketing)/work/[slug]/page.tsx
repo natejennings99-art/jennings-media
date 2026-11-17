@@ -242,7 +242,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
       {next && next.slug !== p.slug && (
         <TransitionLink href={`/work/${next.slug}`} data-cursor="view" data-cursor-label="Next" className="group relative block overflow-hidden">
           <div className="relative aspect-[4/5] w-full sm:aspect-[21/9]">
-            {next.cover_image_url && <Image src={next.cover_image_url} alt="" fill sizes="100vw" className="object-cover opacity-50 transition-[transform,opacity] duration-[1400ms] ease-(--ease-expo) group-hover:scale-105 group-hover:opacity-70" />}
+            {next.cover_image_url && <Image src={next.cover_image_url} alt={`Next project: ${next.title}`} fill sizes="100vw" className="object-cover opacity-50 transition-[transform,opacity] duration-[1400ms] ease-(--ease-expo) group-hover:scale-105 group-hover:opacity-70" />}
             <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
             <div className="gutter absolute inset-x-0 bottom-0 pb-12 sm:pb-16">
               <p className="label text-mist-300">Next project{next.client_name && next.client_name !== next.title && !/listing/i.test(next.client_name) ? ` — ${next.client_name}` : ""}</p>

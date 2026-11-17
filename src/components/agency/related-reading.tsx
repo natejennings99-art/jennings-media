@@ -18,7 +18,7 @@ export function RelatedReading({ slugs, title = "Further reading" }: { slugs: st
         {articles.map((a) => (
           <TransitionLink key={a.slug} href={`/insights/${a.slug}`} className="group block overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] transition-colors hover:border-white/25">
             <div className="relative aspect-[16/10] overflow-hidden">
-              <Image src={a.image} alt="" fill sizes="(min-width:1024px) 30vw, (min-width:768px) 50vw, 100vw" className="object-cover transition-transform duration-[1400ms] ease-(--ease-expo) group-hover:scale-[1.05]" />
+              <Image src={a.image} alt={`Cover image for ${a.title}`} fill sizes="(min-width:1024px) 30vw, (min-width:768px) 50vw, 100vw" className="object-cover transition-transform duration-[1400ms] ease-(--ease-expo) group-hover:scale-[1.05]" />
             </div>
             <div className="p-6">
               <p className="label text-accent-300">

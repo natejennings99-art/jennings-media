@@ -23,7 +23,7 @@ export function ExploreTiles() {
       <div className="grid gap-4 md:grid-cols-3 md:gap-5">
         {TILES.map((t) => (
           <TransitionLink key={t.href} href={t.href} data-cursor="view" className="group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-ink-900 md:aspect-[3/4]">
-            <Image src={`/media/video/${t.slug}.jpg`} alt="" fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover transition-transform duration-[1400ms] ease-(--ease-expo) group-hover:scale-[1.05]" />
+            <Image src={`/media/video/${t.slug}.jpg`} alt={`${t.title} work by Jennings Media`} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover transition-transform duration-[1400ms] ease-(--ease-expo) group-hover:scale-[1.05]" />
             <AmbientVideo src={`/media/video/${t.slug}.mp4`} threshold={0.4} className="absolute inset-0 size-full object-cover" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/10 to-transparent" />
             <div className="absolute inset-x-6 bottom-6 sm:inset-x-8 sm:bottom-8">
