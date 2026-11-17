@@ -31,6 +31,10 @@ export const BRAND = {
   /** Nathaniel's vertical, cinematic work (rooftops, boats, drone, nights out). */
   tiktok: "https://www.tiktok.com/@nathanielproductions",
   tiktokHandle: "@nathanielproductions",
+  /** [ADD REAL URL from Google Business Profile > Ask for reviews] Listed in the site's schema (sameAs) once set. */
+  googleBusinessUrl: "" as string,
+  /** [ADD REAL URL from Google Business Profile > Ask for reviews] jennings-media.com/review redirects here once set. */
+  googleReviewUrl: "" as string,
 } as const;
 
 export const NAV = [

@@ -75,3 +75,21 @@ test("/book request form: email optional, mobile required, size field and calcul
   assert.match(src("src/components/booking/sqft-price.tsx"), /&sqft=\$\{sqft\}/);
   assert.match(src("src/components/booking/booking-soon.tsx"), /id="request"/);
 });
+
+test("reviews groundwork: no made-up reviews, /review redirects home until the Google link is set, schema lists only real profiles", async () => {
+  const { REAL_REVIEWS } = await import("@/lib/content/reviews");
+  const { BRAND } = await import("@/lib/brand");
+  const { organizationSchema } = await import("@/components/seo/json-ld");
+  const { DEFAULT_SETTINGS } = await import("@/lib/content/defaults");
+  const { GET } = await import("@/app/review/route");
+  for (const r of REAL_REVIEWS) assert.ok(!/\[(ADD|CLIENT)/.test(`${r.author_name} ${r.quote}`), "placeholder review left in the list");
+  const res = GET(new Request("https://jennings-media.com/review"));
+  assert.equal(res.status, 307);
+  assert.equal(res.headers.get("location"), BRAND.googleReviewUrl || "https://jennings-media.com/");
+  const sameAs = organizationSchema(DEFAULT_SETTINGS).sameAs as string[];
+  assert.ok(sameAs.every(Boolean), "no empty URLs in sameAs");
+  assert.ok(!JSON.stringify(organizationSchema(DEFAULT_SETTINGS)).includes("aggregateRating"));
+  assert.doesNotMatch(src("src/app/sitemap.ts"), /"\/review"/);
+  for (const p of ["real-estate", "free-listing-reel"]) assert.match(src(`src/app/(marketing)/${p}/page.tsx`), /<TestimonialsSlider items=\{testimonials\} \/>/);
+  assert.match(src("src/components/agency/testimonials-slider.tsx"), /if \(count === 0\) return null;/);
+});

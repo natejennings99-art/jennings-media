@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowDownRight, ArrowUpRight, Check, Minus } from "lucide-react";
-import { getCatalog } from "@/lib/data/public";
+import { getCatalog, getTestimonials } from "@/lib/data/public";
 import { startingPrice } from "@/lib/pricing/engine";
 import { priceSummary } from "@/lib/pricing/summary";
 import { formatMoney, cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ import { PhotoGallery } from "@/components/agency/photo-gallery";
 import { FilmGrid, ReelRail } from "@/components/agency/film-wall";
 import { SectionLabel } from "@/components/agency/section-label";
 import { FinalCta } from "@/components/agency/final-cta";
+import { TestimonialsSlider } from "@/components/agency/testimonials-slider";
 import { RE_BOOK_CTA } from "@/lib/content/real-estate-cta";
 import { SplitReveal } from "@/components/experience/split-reveal";
 import { HeroVideo } from "@/components/experience/hero-video";
@@ -51,7 +52,7 @@ const JUMP = [
 ] as const;
 
 export default async function RealEstatePage() {
-  const catalog = await getCatalog();
+  const [catalog, testimonials] = await Promise.all([getCatalog(), getTestimonials()]);
   const services = catalog.services.filter((s) => s.is_bookable);
   const packages = [...catalog.packages].filter((p) => p.is_active).sort((a, b) => a.sort_order - b.sort_order);
   const price = priceSummary(catalog);
@@ -346,6 +347,9 @@ export default async function RealEstatePage() {
           ))}
         </div>
       </section>
+
+      {/* Real client reviews only; renders nothing while the list is empty. */}
+      <TestimonialsSlider items={testimonials} />
 
       {/* ───────────── FAQ ───────────── */}
       <section id="faq" className="gutter scroll-mt-32 pb-24 sm:pb-36" aria-labelledby="faq-title">

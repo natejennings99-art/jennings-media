@@ -13,8 +13,8 @@ export function JsonLd({ data }: { data: Record<string, unknown> | Record<string
 
 const ORG_ID = `${env.siteUrl}/#organization`;
 
-/** Profiles that really exist. Add the Google Business Profile URL here once it's verified. */
-const SAME_AS = [BRAND.instagram, BRAND.tiktok];
+/** Profiles that really exist. The Google Business Profile joins once its URL is set in brand.ts. */
+const SAME_AS = [BRAND.instagram, BRAND.tiktok, BRAND.googleBusinessUrl, BRAND.googleReviewUrl].filter(Boolean);
 
 export function organizationSchema(settings: BusinessSettings) {
   const sameAs = Object.values(settings.social_links).filter(Boolean);

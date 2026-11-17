@@ -12,6 +12,7 @@ import {
 } from "@/lib/content/defaults";
 import { SAMPLE_AGENCY_TESTIMONIALS as SAMPLE_TESTIMONIALS, SAMPLE_CASE_STUDIES, SAMPLE_CLIENTS as SAMPLE_CLIENT_LIST } from "@/lib/content/samples";
 import { REAL_CASE_STUDIES, REAL_CLIENTS } from "@/lib/content/work";
+import { REAL_REVIEWS } from "@/lib/content/reviews";
 
 const SAMPLE_PORTFOLIO = [...REAL_CASE_STUDIES, ...SAMPLE_CASE_STUDIES];
 const SAMPLE_CLIENTS = [...REAL_CLIENTS, ...SAMPLE_CLIENT_LIST];
@@ -187,7 +188,8 @@ export async function getPortfolioProject(slug: string) {
 }
 
 async function loadTestimonials(): Promise<Testimonial[]> {
-  if (!features.supabase) return visible(SAMPLE_TESTIMONIALS);
+  // No database: only the real reviews in content/reviews.ts (samples stay hidden outside local previews).
+  if (!features.supabase) return [...REAL_REVIEWS, ...visible(SAMPLE_TESTIMONIALS)];
   const { data, error } = await createPublicClient()
     .from("testimonials")
     .select("*")
@@ -195,7 +197,7 @@ async function loadTestimonials(): Promise<Testimonial[]> {
     .order("sort_order");
   if (error) {
     console.error("[testimonials]", error.message);
-    return visible(SAMPLE_TESTIMONIALS);
+    return [...REAL_REVIEWS, ...visible(SAMPLE_TESTIMONIALS)];
   }
   return visible((data ?? []) as Testimonial[]);
 }

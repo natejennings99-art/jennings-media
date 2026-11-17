@@ -9,6 +9,8 @@ import { ListingReelForm } from "@/components/agency/listing-reel-form";
 import { ListingReelSamples } from "@/components/agency/listing-reel-samples";
 import { TransitionLink } from "@/components/experience/transition";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
+import { TestimonialsSlider } from "@/components/agency/testimonials-slider";
+import { getTestimonials } from "@/lib/data/public";
 
 const TITLE = "Free Listing Reel for Tampa Bay Agents";
 const DESCRIPTION = "Tampa, St. Pete and Clearwater agents: get a free 30-second vertical reel of your next listing, delivered within 48 hours. One per agent, no contract.";
@@ -45,7 +47,10 @@ const offerLd = {
   offers: { "@type": "Offer", price: 0, priceCurrency: "USD", url: `${env.siteUrl}/free-listing-reel#claim`, description: "One free reel per real estate agent." },
 };
 
-export default function FreeListingReelPage() {
+export const revalidate = 300;
+
+export default async function FreeListingReelPage() {
+  const testimonials = await getTestimonials();
   return (
     <>
       <JsonLd data={[offerLd, breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Real estate", path: "/real-estate" }, { name: "Free listing reel", path: "/free-listing-reel" }])]} />
@@ -127,6 +132,9 @@ export default function FreeListingReelPage() {
           ))}
         </ol>
       </section>
+
+      {/* Real client reviews only; renders nothing while the list is empty. */}
+      <TestimonialsSlider items={testimonials} />
 
       <section id="claim" className="gutter grid scroll-mt-28 gap-16 pb-24 lg:grid-cols-12" aria-labelledby="claim-title">
         <div className="lg:col-span-8">
