@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
 import { submitInquiry } from "@/app/(marketing)/contact/actions";
 import { BUDGETS, INQUIRY_SERVICES, NEEDS } from "@/lib/content/agency";
@@ -26,6 +27,7 @@ export function Chip({ name, value, type, defaultChecked }: { name: string; valu
 export function InquiryForm() {
   const [startedAt] = useState(() => Date.now());
   const [draft, setDraft] = useState<Record<string, string>>({});
+  const [need, setNeed] = useState("");
   const [state, action, pending] = useActionState<ActionResult<{ name: string; delivered?: boolean }> | null, FormData>(async (prev, form) => {
     setDraft({
       name: String(form.get("name") ?? ""),
@@ -56,7 +58,7 @@ export function InquiryForm() {
         {state.data.delivered === false && (
           <LeadHandoff
             subject={`Project inquiry from ${draft.company || draft.name}`}
-            lines={[`Name: ${draft.name}`, draft.company && `Company: ${draft.company}`, `Email: ${draft.email}`, draft.phone && `Phone: ${draft.phone}`, `Need: ${draft.need}`, draft.services && `Services: ${draft.services}`, `Budget: ${draft.budget}`, draft.message]}
+            lines={[`Name: ${draft.name}`, draft.company && `Company: ${draft.company}`, `Email: ${draft.email}`, draft.phone && `Phone: ${draft.phone}`, `Need: ${draft.need}`, draft.services && `Services: ${draft.services}`, draft.budget && `Budget: ${draft.budget}`, draft.message]}
           />
         )}
         <ol className="mt-12 grid animate-fade-up gap-6 border-t border-white/10 pt-8 [animation-delay:320ms] sm:grid-cols-3">
@@ -97,13 +99,21 @@ export function InquiryForm() {
         ))}
       </div>
 
-      <fieldset>
+      <fieldset onChange={(e) => { const t = e.target; if (t instanceof HTMLInputElement) setNeed(t.value); }}>
         <legend className="label mb-4 text-mist-500">What do you need?</legend>
         <div className="flex flex-wrap gap-2">
           {NEEDS.map((n) => (
             <Chip key={n} name="need" value={n} type="radio" />
           ))}
         </div>
+        {need === "Real estate photos / video" && (
+          <p className="mt-4 text-[15px] text-mist-300">
+            Booking a listing shoot? It&apos;s faster here:{" "}
+            <Link href="/book" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">
+              book a shoot
+            </Link>
+          </p>
+        )}
         {err("need") && <p className="mt-2 text-[13px] text-red-300">{err("need")}</p>}
       </fieldset>
 
@@ -117,7 +127,7 @@ export function InquiryForm() {
       </fieldset>
 
       <fieldset>
-        <legend className="label mb-4 text-mist-500">Estimated monthly marketing budget</legend>
+        <legend className="label mb-4 text-mist-500">Estimated monthly marketing budget (optional)</legend>
         <div className="flex flex-wrap gap-2">
           {BUDGETS.map((b) => (
             <Chip key={b} name="budget" value={b} type="radio" />
@@ -128,7 +138,7 @@ export function InquiryForm() {
 
       <div>
         <label htmlFor="i-message" className="label text-mist-500">
-          Tell us about the project
+          Tell us about the project (optional)
         </label>
         <textarea id="i-message" name="message" rows={4} className={cn(field, "resize-none")} placeholder="Goals, timeline, what's working, what isn't…" aria-invalid={Boolean(err("message"))} />
         {err("message") && <p className="mt-2 text-[13px] text-red-300">{err("message")}</p>}
@@ -141,7 +151,7 @@ export function InquiryForm() {
             <a
               className="inline-block text-[14px] text-bone-50 underline underline-offset-4 hover:text-accent-300"
               href={`mailto:${BRAND.email}?subject=${encodeURIComponent(`Project inquiry — ${draft.company || draft.name || "Jennings Media"}`)}&body=${encodeURIComponent(
-                [`Name: ${draft.name}`, `Company: ${draft.company}`, `Email: ${draft.email}`, `Phone: ${draft.phone}`, `Need: ${draft.need}`, `Services: ${draft.services}`, `Budget: ${draft.budget}`, "", draft.message].join("\n")
+                [`Name: ${draft.name}`, `Company: ${draft.company || "-"}`, `Email: ${draft.email}`, `Phone: ${draft.phone || "-"}`, `Need: ${draft.need}`, `Services: ${draft.services || "-"}`, `Budget: ${draft.budget || "-"}`, "", draft.message].join("\n")
               )}`}
             >
               Email this brief to {BRAND.email} instead →

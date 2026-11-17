@@ -15,7 +15,23 @@ test("contact form reports per-field errors", () => {
   const r = contactSchema.safeParse({ name: "A", email: "nope", need: "?", budget: "?", services: [], message: "short" });
   assert.ok(!r.success);
   const errors = fieldErrorsOf(r.error);
-  for (const k of ["name", "email", "need", "budget", "message"]) assert.ok(errors[k], `expected an error for ${k}`);
+  for (const k of ["name", "email", "need", "budget"]) assert.ok(errors[k], `expected an error for ${k}`);
+  assert.ok(!errors.message, "a short message is fine");
+});
+
+test("contact form: budget and message are optional, real estate is a need, 'Not sure yet' is a budget", () => {
+  const base = { name: "Ada Lovelace", email: "ada@example.com", need: NEEDS[0], services: [] };
+  const noBudget = contactSchema.safeParse({ ...base, message: "Hi" });
+  assert.ok(noBudget.success);
+  assert.equal(noBudget.data.budget, undefined);
+  assert.ok(contactSchema.safeParse({ ...base, budget: "", message: "" }).success, "empty budget radio and empty message pass");
+  assert.ok(contactSchema.safeParse(base).success, "JSON posts may leave out budget and message");
+  assert.equal(NEEDS[0], "Real estate photos / video");
+  assert.ok(contactSchema.safeParse({ ...base, need: "Real estate photos / video" }).success);
+  assert.equal(BUDGETS.at(-1), "Not sure yet");
+  assert.ok(contactSchema.safeParse({ ...base, budget: "Not sure yet" }).success);
+  assert.ok(!contactSchema.safeParse({ ...base, email: "" }).success, "email still required");
+  assert.ok(!contactSchema.safeParse({ ...base, need: "" }).success, "need still required");
 });
 
 test("bot heuristics: honeypot or an instant submit", () => {

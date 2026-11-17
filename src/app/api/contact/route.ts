@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 /** GET is a cheap uptime probe; POST takes the same fields as the contact form. */
 export function GET() {
-  return describe("/api/contact", ["name", "email", "need", "budget", "message", "company?", "phone?", "services[]?"]);
+  return describe("/api/contact", ["name", "email", "need", "budget?", "message?", "company?", "phone?", "services[]?"]);
 }
 
 export async function POST(request: Request) {

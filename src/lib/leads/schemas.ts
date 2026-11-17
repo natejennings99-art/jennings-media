@@ -45,8 +45,8 @@ export const contactSchema = z.object({
   phone: optionalText(30),
   need: z.enum(NEEDS, { error: "Pick what you need most" }),
   services: z.array(z.enum(INQUIRY_SERVICES as [string, ...string[]])).max(8),
-  budget: z.enum(BUDGETS, { error: "Choose a budget range" }),
-  message: clean(4000).pipe(z.string().min(10, "Tell us a little about the project")),
+  budget: z.preprocess((v) => (v === "" || v == null ? undefined : v), z.enum(BUDGETS, { error: "Choose a budget range" }).optional()),
+  message: z.preprocess((v) => (v == null ? "" : v), clean(4000)),
   ...botFields,
 });
 export type ContactInput = z.infer<typeof contactSchema>;

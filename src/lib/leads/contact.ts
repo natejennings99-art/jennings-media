@@ -23,9 +23,10 @@ export async function submitContactLead(raw: Record<string, unknown>): Promise<L
   const { ip, ipHash } = await leadIp();
   if (await overLimit("inquiry", ip, ipHash, "contact_leads")) return { ok: false, error: RATE_LIMIT_MESSAGE };
 
-  const summary = `${[`Need: ${data.need}`, data.services.length ? `Services: ${data.services.join(", ")}` : null, `Budget: ${data.budget}`].filter(Boolean).join("\n")}\n\n${data.message}`;
+  const lines = [`Need: ${data.need}`, data.services.length ? `Services: ${data.services.join(", ")}` : null, data.budget ? `Budget: ${data.budget}` : null].filter(Boolean).join("\n");
+  const summary = data.message ? `${lines}\n\n${data.message}` : lines;
   const { id, saved } = await saveContactLead(
-    { name: data.name, company: data.company, email: data.email, phone: data.phone, need: data.need, services: data.services, budget: data.budget, message: data.message, source_path: "/contact" },
+    { name: data.name, company: data.company, email: data.email, phone: data.phone, need: data.need, services: data.services, budget: data.budget ?? null, message: data.message, source_path: "/contact" },
     ipHash
   );
 

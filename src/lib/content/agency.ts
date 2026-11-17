@@ -127,11 +127,11 @@ export const INDUSTRIES = [
   { name: "E-Commerce", image: "/media/stock/e-commerce.jpg", video: "/media/stock/e-commerce.mp4", href: "/industries/e-commerce", match: ["e-commerce", "ecommerce", "online store"] },
 ] as const;
 
-export const BUDGETS = ["Under $2,500", "$2,500–$5,000", "$5,000–$10,000", "$10,000–$25,000", "$25,000+"] as const;
+export const BUDGETS = ["Under $2,500", "$2,500–$5,000", "$5,000–$10,000", "$10,000–$25,000", "$25,000+", "Not sure yet"] as const;
 
 export const INQUIRY_SERVICES = AGENCY_SERVICES.map((s) => s.title);
 
-export const NEEDS = ["More leads & clients", "Meta & Google Ads", "An AI agent or automation", "Content & social media", "A new website or brand", "Something else"] as const;
+export const NEEDS = ["Real estate photos / video", "More leads & clients", "Meta & Google Ads", "An AI agent or automation", "Content & social media", "A new website or brand", "Something else"] as const;
 
 /* ------------------------------------------------------------------ insights */
 
