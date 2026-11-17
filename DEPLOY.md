@@ -53,6 +53,7 @@ Migrations are SQL files in `supabase/migrations/`, applied **in filename order*
 
 - Supabase CLI: `supabase link` then `supabase db push`, or
 - Supabase dashboard → **SQL Editor** → paste the file → Run.
+- New project: paste `supabase/ALL-IN-ONE.sql` once instead (all migrations, in order).
 
 Each file is safe to run once. The newest one, `20261104000100_creator_applicants.sql`, creates the table behind `/join` and Admin → Creators; until it is applied, `/join` still works (applications go to the log and email) but the admin page and `/api/stats` report that the table is missing. `20261114000100_creator_areas.sql` adds the "areas covered" answer to that table; until it is applied the answer is saved inside the applicant's notes.
 

@@ -61,7 +61,13 @@ case you're in first:
    | `ADMIN_BOOTSTRAP_EMAILS` | `natejennings99@gmail.com` |
 
 3. Apply the database. In the left sidebar click **SQL Editor** → **New
-   query**. For **each file below, in this order**: open it on GitHub
+   query**. **Easiest (Nov 16):** open `supabase/ALL-IN-ONE.sql`, copy all of
+   it, paste it once, and click **Run**. It is the 7 files below joined in
+   order and is safe to run twice. (Not test-run yet, because there was no
+   database on the Mac to try it on. If it shows an error, use the
+   file-by-file steps below and tell Claude which file failed.)
+
+   Or file by file: for **each file below, in this order**: open it on GitHub
    (<https://github.com/natejennings99-art/jennings-media/tree/main/supabase>),
    click **Raw**, select all and copy, paste into the editor, and click
    **Run**. Wait for "Success. No rows returned" before starting the next
