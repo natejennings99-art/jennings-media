@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import { ArrowUpRight, Check } from "lucide-react";
 import { BRAND } from "@/lib/brand";
-import { CONTENT_PACKAGE } from "@/lib/content/content-package";
+import { CONTENT_PACKAGE, CONTENT_PACKAGE_FAQS } from "@/lib/content/content-package";
 import { PageIntro } from "@/components/agency/page-intro";
 import { SectionLabel } from "@/components/agency/section-label";
 import { ContentPackageExamples } from "@/components/agency/content-package-examples";
 import { ContentPackageForm } from "@/components/agency/content-package-form";
-import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
+import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
+import { Faq } from "@/components/marketing/faq";
 import { env } from "@/lib/env";
 
 export const metadata: Metadata = {
-  title: `Monthly Content Package: ${CONTENT_PACKAGE.priceLabel}`,
-  description: `One shoot a month, edited photos and four short vertical videos for ${CONTENT_PACKAGE.priceLabel}. For restaurants, gyms, salons and local shops in Tampa Bay and Washington, DC.`,
+  title: `Tampa Restaurant Content Creator, ${CONTENT_PACKAGE.priceLabel.replace("/month", "/mo")}`,
+  description: `Content for Tampa Bay restaurants, gyms, salons and shops: one shoot a month, edited photos and four vertical videos for ${CONTENT_PACKAGE.priceLabel}. Also in DC.`,
   alternates: { canonical: "/content-package" },
 };
 
@@ -28,6 +29,7 @@ export default function ContentPackagePage() {
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Monthly content package", path: "/content-package" }])} />
       <JsonLd data={offer} />
+      <JsonLd data={faqSchema(CONTENT_PACKAGE_FAQS)} />
       <PageIntro
         label={`For local businesses · ${CONTENT_PACKAGE.priceLabel}`}
         title={
@@ -96,6 +98,14 @@ export default function ContentPackagePage() {
             </li>
           ))}
         </ol>
+      </section>
+
+      <section className="gutter pb-24" aria-labelledby="cp-faq-title">
+        <SectionLabel className="mb-6">Questions</SectionLabel>
+        <h2 id="cp-faq-title" className="mb-10 font-display text-[clamp(2rem,4vw,3.5rem)] text-bone-50">
+          Before you book.
+        </h2>
+        <Faq items={CONTENT_PACKAGE_FAQS} />
       </section>
 
       <section id="book" className="gutter grid scroll-mt-28 gap-14 pb-32 lg:grid-cols-12" aria-labelledby="book-title">

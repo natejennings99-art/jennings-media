@@ -97,7 +97,33 @@ export const SERVICE_SEO: Record<string, ServiceSeo> = {
   },
 };
 
-export type Location = { slug: string; city: string; locality: string; region: string; seoTitle: string; description: string; headline: string; intro: string; areas: string[]; work: string[] };
+/**
+ * City landing pages. Real estate photography and listing video lead; marketing services sit
+ * underneath. `description` may contain "{price}", which the page fills from the live catalog
+ * (e.g. "Photos from $175 · packages from $250") so no page quotes a stale floor price.
+ * Keep `seoTitle` at 43 characters or fewer: the " | Jennings Media" suffix takes the rest of 60.
+ */
+export type Location = {
+  slug: string;
+  city: string;
+  locality: string;
+  region: string;
+  seoTitle: string;
+  description: string;
+  /** Short city name for headings ("St. Pete"). */
+  short: string;
+  headline: string;
+  intro: string;
+  areas: string[];
+  /** What the housing stock looks like and how we shoot it. */
+  local: string[];
+  /** Notes on how listings in this market get marketed. */
+  market: string[];
+  faqs: Faq[];
+  work: string[];
+};
+
+const TRAVEL_FL = "Inside our core Tampa Bay area there's no travel fee. Addresses farther out add a small per-mile fee, and the exact total is shown before you pay.";
 
 export const LOCATIONS: Location[] = [
   {
@@ -105,11 +131,26 @@ export const LOCATIONS: Location[] = [
     city: "Tampa, FL",
     locality: "Tampa",
     region: "FL",
-    seoTitle: "Marketing Agency in Tampa, FL",
-    description: "Lead generation, Meta & Google Ads, AI agents and 4K content for brokerages, realtors and entrepreneurs across Tampa Bay.",
-    headline: "Tampa Bay's content & growth team.",
-    intro: "Based in Tampa, we film, photograph and market for realtors, brokerages and local businesses across Tampa Bay — from South Tampa and Westchase to St. Petersburg and Clearwater — with the same team and playbook we built in Washington, D.C.: content that stops the scroll, ads that bring in leads and AI that follows up instantly.",
-    areas: ["Tampa", "South Tampa", "Westchase", "St. Petersburg", "Clearwater", "Largo", "Brandon", "Riverview", "Wesley Chapel", "Lakeland", "Sarasota"],
+    short: "Tampa",
+    seoTitle: "Real Estate Photographer in Tampa, FL",
+    description: "Tampa real estate photography, cinematic listing video and drone for agents. {price}. Next-day photos. Call or text to book.",
+    headline: "Tampa real estate photography & listing video.",
+    intro: "We're based in Tampa and shoot listing photos, cinematic property films, vertical reels and drone for agents, teams and builders across the city, from Seminole Heights bungalows to Westshore condos and new builds in New Tampa. We also run ads and social content for local businesses.",
+    areas: ["Downtown Tampa", "Channelside", "Harbour Island", "Hyde Park", "Davis Islands", "Seminole Heights", "Tampa Heights", "Westshore", "Carrollwood", "New Tampa", "Temple Terrace", "Brandon", "Riverview", "Wesley Chapel"],
+    local: [
+      "Tampa listings range widely in a short drive. Historic bungalows in Seminole Heights and Tampa Heights have smaller rooms, original wood floors and front porches, so we shoot them with careful lens choices that keep rooms honest and verticals straight. Downtown, Channelside and Harbour Island condos sell on the view and the building, so we time the shoot for good window light and add amenity and skyline frames.",
+      "Farther out, New Tampa, Carrollwood, Brandon and Riverview are mostly newer single-family homes on larger lots with pools and screened lanais. Those sell on space and outdoor living, which is where a drone frame of the lot and a short walk-through film help most. Every photo is bracketed and edited by hand so windows, skies and color look the way the home looks in person.",
+    ],
+    market: [
+      "Most buyers first see a Tampa listing as a thumbnail on a phone, so the first photo and the first second of video do the heavy lifting. We deliver MLS-sized photos the next morning, and a vertical reel you can post to Instagram, TikTok and Shorts the day the listing goes live.",
+      "Parts of the city sit close to Tampa International, Peter O. Knight and MacDill Air Force Base, so drone shoots need an airspace check. We look up every address before booking and tell you up front if it can't be flown.",
+    ],
+    faqs: [
+      { q: "How much does real estate photography cost in Tampa?", a: "Our listing photography starts from the price shown on this page and scales with the size of the home. Packages that add a floor plan, drone, a property website or a film start higher. Your exact total, including any travel fee, is shown before you pay." },
+      { q: "How fast do I get my photos?", a: "Photos are delivered the next morning, ready for the MLS. Films and reels take about 48 hours." },
+      { q: "Do you charge a travel fee in Tampa?", a: TRAVEL_FL },
+      { q: "Can you fly a drone at my Tampa listing?", a: "Usually, but not always. Much of Tampa sits in controlled airspace around Tampa International, Peter O. Knight and MacDill. We check the exact address before booking, request FAA authorization where it's needed, and tell you up front if the address can't be flown." },
+    ],
     work: [],
   },
   {
@@ -117,11 +158,25 @@ export const LOCATIONS: Location[] = [
     city: "St. Petersburg, FL",
     locality: "St. Petersburg",
     region: "FL",
-    seoTitle: "Listing Media & Marketing in St. Petersburg, FL",
-    description: "Listing photos, films and drone for St. Pete agents, plus reels, Meta & Google Ads for local businesses. Old Northeast, Snell Isle, downtown and the beaches.",
-    headline: "St. Pete's listing media & growth team.",
-    intro: "From Old Northeast bungalows and Snell Isle waterfront to the downtown condo towers on Beach Drive, we shoot listing photos, cinematic films and drone for St. Petersburg agents, and we make reels and run ads for the restaurants, studios and shops opening across the Grand Central and Edge districts. We're a short drive across the bay in Tampa.",
+    short: "St. Pete",
+    seoTitle: "St. Pete Real Estate Photography & Video",
+    description: "St. Petersburg real estate photos, listing films and drone for agents in Old Northeast, Snell Isle, downtown and the beaches. {price}.",
+    headline: "St. Pete real estate photography & listing video.",
+    intro: "From Old Northeast bungalows and Snell Isle waterfront to the downtown condo towers on Beach Drive, we shoot listing photos, cinematic films and drone for St. Petersburg agents. We also make reels and run ads for restaurants, studios and shops in the Grand Central and Edge districts. We're a short drive across the bay in Tampa.",
     areas: ["Old Northeast", "Snell Isle", "Downtown St. Pete", "Shore Acres", "Riviera Bay", "Crescent Lake", "Grand Central", "Kenwood", "Gulfport", "St. Pete Beach", "Treasure Island"],
+    local: [
+      "St. Pete's older neighborhoods, like Old Northeast, Kenwood and Crescent Lake, are full of 1920s bungalows and Mediterranean Revival homes with brick streets out front. Those homes sell on character, so we photograph the details buyers come for, such as original floors, built-ins and porches, alongside clean, bright room shots.",
+      "Snell Isle, Shore Acres and Riviera Bay are about the water: docks, seawalls and canal or bay views. There, the exterior and aerial frames often matter more than the kitchen. Downtown and beach condos sell on the view and the building, so we plan around window light and include the amenities.",
+    ],
+    market: [
+      "Waterfront and beach listings in Pinellas often draw out-of-town buyers who tour online first. A walk-through film and a vertical reel give them a feel for the home and the neighborhood before they book a flight.",
+      "Downtown St. Pete sits next to Albert Whitted Airport, and the north end of the county is near St. Pete–Clearwater International, so drone work is checked address by address before we book it.",
+    ],
+    faqs: [
+      { q: "Do you charge to travel from Tampa to St. Pete?", a: `St. Petersburg is inside our core service area. ${TRAVEL_FL}` },
+      { q: "Can you fly a drone over downtown St. Pete or the beaches?", a: "Often, with the right authorization. Downtown is close to Albert Whitted Airport, so many addresses need FAA approval through LAANC. We check every address before booking and tell you up front if it can't be flown." },
+      { q: "Do you shoot condos?", a: "Yes. For condos we focus on the view, natural light and the building's amenities, and we coordinate access with the association or front desk if needed." },
+    ],
     work: [],
   },
   {
@@ -129,11 +184,25 @@ export const LOCATIONS: Location[] = [
     city: "Clearwater, FL",
     locality: "Clearwater",
     region: "FL",
-    seoTitle: "Listing Media & Marketing in Clearwater, FL",
-    description: "Listing photos, films and drone for Clearwater Beach and Pinellas agents, plus reels and Meta & Google Ads for local businesses and vacation rentals.",
-    headline: "Clearwater's listing media & growth team.",
-    intro: "Clearwater Beach condos, Island Estates waterfront and Belleair homes sell on visuals. We shoot the photos, aerials and listing films that make them stand out, and we create content and run ads for Clearwater businesses and vacation-rental owners. We're based in Tampa, about 30 minutes across the Courtney Campbell.",
+    short: "Clearwater",
+    seoTitle: "Clearwater Real Estate Photography & Video",
+    description: "Clearwater real estate photos, listing films and drone for agents on Clearwater Beach, Island Estates, Sand Key and Belleair. {price}.",
+    headline: "Clearwater real estate photography & listing video.",
+    intro: "Clearwater Beach condos, Island Estates waterfront and Belleair homes sell on visuals. We shoot the photos, aerials and listing films that make them stand out, and we create content for local businesses and vacation-rental owners. We're based in Tampa, about 30 minutes across the Courtney Campbell.",
     areas: ["Clearwater Beach", "Island Estates", "Sand Key", "Belleair", "Belleair Bluffs", "Dunedin", "Safety Harbor", "Largo", "Palm Harbor", "Oldsmar", "Indian Rocks Beach"],
+    local: [
+      "Clearwater Beach and Sand Key are mostly condos and townhomes where the Gulf view is the selling point. We shoot those around the best light for the view and include the pool, beach access and building amenities. Island Estates homes sit on canals with docks and boat lifts, so we show the water access clearly from the ground and, where airspace allows, from the air.",
+      "Inland, Belleair, Dunedin, Safety Harbor and Palm Harbor have a mix of older ranch homes, renovated cottages and larger estates. Those listings sell on condition and lot, so we keep rooms bright and true to size and add exterior frames that show the yard and the street.",
+    ],
+    market: [
+      "Many Clearwater buyers are second-home and out-of-state buyers who shortlist from photos and video. Vacation-rental owners need the same visuals for their listing pages, and the same shoot can cover both.",
+      "Parts of Clearwater sit near St. Pete–Clearwater International and Clearwater Air Park, so we check each address for drone airspace before booking.",
+    ],
+    faqs: [
+      { q: "Is Clearwater in your service area?", a: `Yes. Clearwater is inside our core service area. ${TRAVEL_FL}` },
+      { q: "Can you shoot a vacation rental?", a: "Yes. The same photos, film and reel work for a sale listing or a rental listing page. Tell us how the property will be listed and we'll plan the shot list around it." },
+      { q: "Can you fly a drone on Clearwater Beach?", a: "Often, but every address is checked first because parts of the area sit near St. Pete–Clearwater International and Clearwater Air Park. We request FAA authorization where it's needed and tell you up front if an address can't be flown." },
+    ],
     work: [],
   },
   {
@@ -141,11 +210,25 @@ export const LOCATIONS: Location[] = [
     city: "South Tampa, FL",
     locality: "Tampa",
     region: "FL",
-    seoTitle: "Listing Media & Marketing in South Tampa",
-    description: "Listing photos, films and drone for South Tampa agents: Hyde Park, Palma Ceia, Bayshore, Davis Islands and Beach Park. Packages from $450.",
-    headline: "South Tampa's listing media team.",
-    intro: "South Tampa is home base. We shoot listing photos, cinematic films and drone for agents selling in Hyde Park, Palma Ceia, Bayshore Beautiful, Davis Islands, Beach Park and Ballast Point, from bungalows to new-build moderns, and we make reels and run ads for the shops and restaurants on Howard and MacDill.",
+    short: "South Tampa",
+    seoTitle: "South Tampa Real Estate Photos & Video",
+    description: "Real estate photos, listing films and drone for South Tampa agents: Hyde Park, Palma Ceia, Bayshore, Davis Islands and Beach Park. {price}.",
+    headline: "South Tampa real estate photography & listing video.",
+    intro: "South Tampa is home base. We shoot listing photos, cinematic films and drone for agents selling in Hyde Park, Palma Ceia, Bayshore Beautiful, Davis Islands, Beach Park and Ballast Point, from bungalows to new-build moderns. We also make reels and run ads for shops and restaurants on Howard and MacDill.",
     areas: ["Hyde Park", "Palma Ceia", "Bayshore Beautiful", "Davis Islands", "Beach Park", "Ballast Point", "Sunset Park", "Parkland Estates", "SoHo", "Port Tampa", "Interbay"],
+    local: [
+      "South Tampa is a mix of 1920s bungalows and Mediterranean homes in Hyde Park and Palma Ceia, and newer two-story moderns built where older homes stood. The older homes sell on character, so we photograph original details and keep smaller rooms looking true to size. The new builds sell on finishes, height and light, so we shoot them bright with wide, straight lines.",
+      "Bayshore, Davis Islands, Beach Park and Ballast Point add water to the story: bay views, seawalls and docks. Those listings get exterior and twilight frames, and a short film that shows how the home sits on the water.",
+    ],
+    market: [
+      "South Tampa listings often compete with several similar homes on nearby streets, so the photos and the first seconds of the film decide which one buyers open. A vertical reel helps the listing travel on Instagram and in neighborhood groups.",
+      "MacDill Air Force Base sits at the tip of the peninsula and Peter O. Knight Airport is on Davis Islands. Some South Tampa addresses can't be flown at all, so we check every address before booking a drone and shoot from the ground if needed.",
+    ],
+    faqs: [
+      { q: "Can you fly a drone in South Tampa?", a: "It depends on the address. South Tampa sits close to MacDill Air Force Base and Peter O. Knight Airport, and some addresses can't be flown. We check yours before booking, request FAA authorization where it's allowed, and tell you up front if the film has to be shot from the ground." },
+      { q: "Do you charge a travel fee in South Tampa?", a: "No. South Tampa is home base and inside our core service area, so there's no travel fee." },
+      { q: "Can you do twilight photos for a bayfront listing?", a: "Yes. Twilight photography is booked as its own shoot around sunset, or you can add a virtual twilight edit to your best exterior photo." },
+    ],
     work: [],
   },
   {
@@ -153,11 +236,25 @@ export const LOCATIONS: Location[] = [
     city: "Westchase, FL",
     locality: "Tampa",
     region: "FL",
-    seoTitle: "Listing Media & Event Photography in Westchase",
-    description: "Listing photos, video and drone for Westchase-area agents, plus corporate and event photography for Westchase, Town 'n' Country and Citrus Park.",
-    headline: "Westchase listing & event media.",
-    intro: "From Westchase golf-course homes to Town 'n' Country and Citrus Park, we shoot listing photos, films and drone for agents, and we photograph and film corporate events, team outings and community nights across northwest Tampa, with same-week recaps.",
+    short: "Westchase",
+    seoTitle: "Westchase Real Estate & Event Photography",
+    description: "Real estate photos, video and drone for Westchase-area agents, plus event photography across northwest Tampa. {price}.",
+    headline: "Westchase real estate & event photography.",
+    intro: "From Westchase golf-course homes to Town 'n' Country and Citrus Park, we shoot listing photos, films and drone for agents. We also photograph and film corporate events, team outings and community nights across northwest Tampa.",
     areas: ["Westchase", "Town 'n' Country", "Citrus Park", "Carrollwood", "Northdale", "Oldsmar", "Odessa", "Keystone"],
+    local: [
+      "Westchase is mostly planned neighborhoods of single-family homes and townhomes built from the 1990s on, many backing onto the golf course, ponds or preserve. Those listings sell on layout, light and the view out the back, so we shoot the main rooms wide and bright and make sure the backyard, pool and lanai get their own frames.",
+      "Town 'n' Country and Carrollwood have more ranch homes from earlier decades, often renovated. For those we show the updates clearly and keep rooms true to size. Odessa and Keystone add larger lots and lakefront homes, where a drone frame of the property and the water helps buyers understand the land.",
+    ],
+    market: [
+      "Many Westchase-area buyers are families relocating for schools and commute, and they compare several similar homes online before touring. A floor plan and a walk-through film help a listing stand out from homes with the same builder layout.",
+      "Westchase sits northwest of Tampa International, so drone shoots in parts of the area need an airspace check and sometimes FAA authorization. We check every address before booking.",
+    ],
+    faqs: [
+      { q: "Do you shoot events in Westchase?", a: "Yes. We photograph and film corporate events, team outings and community nights across northwest Tampa. See our event page for examples and how booking works." },
+      { q: "Do you include a floor plan?", a: "Floor plans are included in every package and can be added to a photo-only booking. They help buyers compare homes with similar builder layouts." },
+      { q: "Is there a travel fee to Westchase?", a: TRAVEL_FL },
+    ],
     work: [],
   },
   {
@@ -165,12 +262,26 @@ export const LOCATIONS: Location[] = [
     city: "Washington, DC",
     locality: "Washington",
     region: "DC",
-    seoTitle: "Marketing Agency in Washington, DC",
-    description: "A Washington, DC marketing agency for brokerages, realtors and entrepreneurs across the DMV: lead generation, Meta & Google Ads, AI agents and 4K content.",
-    headline: "The DMV's content & growth team.",
-    intro: "We've been filming, photographing and marketing across Washington, D.C., Northern Virginia and Maryland since 2024 — from Great Falls estates to the District Cup.",
+    short: "DC",
+    seoTitle: "DC Real Estate Photography & Listing Video",
+    description: "Real estate photography, cinematic listing films and vertical reels across Washington, DC, Northern Virginia and Maryland. {price}.",
+    headline: "DC real estate photography & listing video.",
+    intro: "We've been filming and photographing listings across Washington, D.C., Northern Virginia and Maryland since 2024, from Great Falls estates to rowhouses and penthouses in the District. Most of the films on this site were shot here. We also make content for DMV brands and events.",
     areas: ["Washington, DC", "Arlington", "Alexandria", "Falls Church", "McLean", "Great Falls", "Fairfax", "Leesburg", "Dumfries", "Bethesda", "Silver Spring", "Takoma Park"],
-    work: ["district-cup", "great-falls-estate", "2933-north-fairmont-street"],
+    local: [
+      "DC listings are often rowhouses and condos where space is tight and light comes from one or two sides. We shoot those with careful lens choices so rooms look true to size, and we lean on natural window light. Penthouses and condos with terraces sell on the outdoor space and the view, so those get their own frames and film moments.",
+      "Across the river and out in the suburbs, homes in McLean, Great Falls and Falls Church are larger, with long driveways, wooded lots and finished basements. Those listings get a fuller shot list and a cinematic film that walks buyers through the home in the order they'd tour it.",
+    ],
+    market: [
+      "You can see our DC work in the listing films on this site, including Great Falls, Falls Church and Tunlaw Road penthouse projects.",
+      "Most of the District sits inside the Washington DC Flight Restricted Zone, where drone flights generally aren't possible without special federal approval. We check every address, and most DC listings are shot from the ground.",
+    ],
+    faqs: [
+      { q: "Can you fly a drone in DC?", a: "Usually not. Most of the District and nearby Virginia and Maryland sit inside the Washington DC Flight Restricted Zone. We check every address before booking and shoot from the ground where flying isn't allowed." },
+      { q: "Is there a travel fee in the DMV?", a: "There's no travel fee inside the District. Addresses farther out in Virginia and Maryland may add a small per-mile fee, shown before you pay." },
+      { q: "Do you make vertical reels for DC listings?", a: "Yes. Alongside the widescreen film we cut a 9:16 reel for Instagram, TikTok and Shorts." },
+    ],
+    work: ["great-falls-estate", "2933-north-fairmont-street", "tunlaw-penthouse", "district-cup"],
   },
 ];
 

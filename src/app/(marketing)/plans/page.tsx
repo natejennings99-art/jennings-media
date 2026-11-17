@@ -13,7 +13,7 @@ import { JsonLd, breadcrumbSchema, offerCatalogSchema } from "@/components/seo/j
 import { checkoutPlan } from "./actions";
 
 export const metadata: Metadata = {
-  title: "Pricing: Marketing Retainers & Packages",
+  title: "Marketing Retainers & Monthly Plans",
   alternates: { canonical: "/plans" },
   description: `Monthly growth retainers and fixed-price packages from ${BRAND.name}: lead generation, Meta & Google Ads, AI agents, content and brand films.`,
 };

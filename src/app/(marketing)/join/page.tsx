@@ -8,8 +8,8 @@ import { JoinForm } from "@/components/agency/join-form";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
-  title: "Join Our Creator Network",
-  description: `Join the ${BRAND.name} creator network. Photographers and videographers: send your portfolio, gear, rates and the areas you cover. Paid trial shoot.`,
+  title: "Join: Photographers & Videographers",
+  description: `Photographers and videographers in Tampa Bay and DC: shoot real estate, short-form video and events with ${BRAND.name}. Paid trial shoot, no exclusivity.`,
   alternates: { canonical: "/join" },
 };
 

@@ -29,7 +29,8 @@ function droneOffer(catalog: Catalog) {
 export async function generateMetadata(): Promise<Metadata> {
   const { from } = droneOffer(await getCatalog());
   const price = from ? ` from ${formatMoney(from)}` : "";
-  const title = `Tampa Drone Real Estate Photo & Video${price}`;
+  // Kept at 60 characters or fewer with the " | Jennings Media" suffix.
+  const title = `Tampa Drone Real Estate Photos${price}`;
   const description = `FAA Part 107 certified drone photos and aerial listing video for Tampa Bay agents${price}. Every address is checked for airspace before you book. Book online.`;
   return {
     title,

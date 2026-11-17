@@ -13,12 +13,13 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export const metadata: Metadata = {
   metadataBase: new URL(env.siteUrl),
   title: {
-    default: `${BRAND.name} | Marketing Agency in Tampa, FL`,
+    // 59 characters: brand first (other "Jennings Media" businesses exist), then the money service.
+    default: `${BRAND.name} | Tampa Real Estate Photo, Video & Marketing`,
     template: `%s | ${BRAND.name}`,
   },
   description: BRAND.description,
   applicationName: BRAND.name,
-  keywords: ["marketing agency Washington DC", "marketing agency Tampa", "lead generation agency", "Meta ads agency", "Google Ads management", "AI agents for business", "social media agency", "real estate marketing", "video production DC", "real estate photography"],
+  keywords: ["real estate photography Tampa", "real estate photographer Tampa", "listing video Tampa", "drone real estate photography Tampa", "marketing agency Tampa", "marketing agency Washington DC", "lead generation agency", "Meta ads agency", "Google Ads management", "AI agents for business", "social media agency", "real estate marketing", "video production DC"],
   authors: [{ name: BRAND.name }],
   creator: BRAND.name,
   category: "business",

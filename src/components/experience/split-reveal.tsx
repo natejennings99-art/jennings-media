@@ -31,6 +31,8 @@ export function SplitReveal({
   useGSAP(
     () => {
       if (!ref.current || prefersReducedMotion()) return;
+      // Above-the-fold headings stay put on phones: masking them hides the H1 on first paint.
+      if (immediate && window.matchMedia("(max-width: 767px)").matches) return;
       const split = SplitText.create(ref.current, {
         type: "lines",
         mask: "lines",

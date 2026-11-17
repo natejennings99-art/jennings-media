@@ -223,6 +223,8 @@ export const REAL_CASE_STUDIES: PortfolioProject[] = [
     cover_image_url: W("polo-01"),
     hover_video_url: V("polo"),
     gallery: [W("polo-00"), W("polo-01")],
+    city: "Washington",
+    state: "DC",
     is_featured: false,
     sort_order: 45,
   }),

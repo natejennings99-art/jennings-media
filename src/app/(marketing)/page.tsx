@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { getClients, getMarketing, getPortfolio, getSettings, getTestimonials } from "@/lib/data/public";
+import { getCatalog, getClients, getMarketing, getPortfolio, getSettings, getTestimonials } from "@/lib/data/public";
+import { priceSummary } from "@/lib/pricing/summary";
 import { AGENCY_SERVICES } from "@/lib/content/agency";
 import { FRAMES, REEL_CLIPS, REELS } from "@/lib/content/work";
 import { FramesGallery } from "@/components/agency/frames-gallery";
@@ -24,21 +25,25 @@ import { Industries } from "@/components/agency/industries";
 import { FinalCta } from "@/components/agency/final-cta";
 import { SectionLabel } from "@/components/agency/section-label";
 import { SplitReveal } from "@/components/experience/split-reveal";
-import { JsonLd, organizationSchema } from "@/components/seo/json-ld";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = { alternates: { canonical: "/" } };
+export async function generateMetadata(): Promise<Metadata> {
+  const { line } = priceSummary(await getCatalog());
+  return {
+    alternates: { canonical: "/" },
+    description: `Tampa Bay real estate photography, listing video and drone for agents${line ? `: ${line.charAt(0).toLowerCase()}${line.slice(1)}` : ""}. Plus marketing for local businesses.`,
+  };
+}
 
 export default async function HomePage() {
-  const [projects, testimonials, clients, marketing, settings] = await Promise.all([getPortfolio(), getTestimonials(), getClients(), getMarketing(), getSettings()]);
+  const [projects, testimonials, clients, marketing, settings, catalog] = await Promise.all([getPortfolio(), getTestimonials(), getClients(), getMarketing(), getSettings(), getCatalog()]);
   const featured = [...projects].sort((a, b) => Number(b.is_featured) - Number(a.is_featured) || a.sort_order - b.sort_order);
   const showreel = process.env.NEXT_PUBLIC_SHOWREEL_URL || marketing.showreel_url || null;
 
   return (
     <>
-      <JsonLd data={organizationSchema(settings)} />
-      <Hero videoUrl={settings.hero_video_url} trustLine={marketing.trust_line} clients={clients.map((c) => c.name)} />
+      <Hero videoUrl={settings.hero_video_url} trustLine={marketing.trust_line} clients={clients.map((c) => c.name)} priceLine={priceSummary(catalog).line} />
       <LogoMarquee clients={clients} />
       <TestReelOffer />
       <ExploreTiles />

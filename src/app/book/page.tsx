@@ -13,7 +13,8 @@ export default async function BookPage({ searchParams }: PageProps<"/book">) {
   // Until the booking database is connected, don't let visitors fill in eight steps that fail at the end.
   if (!features.supabaseAdmin && process.env.NODE_ENV === "production") {
     const pick = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v)?.slice(0, 60);
-    return <BookingSoon email={(await getSettings()).email || BRAND.email} pkg={pick(params.package)} service={pick(params.service)} />;
+    const [settings, catalog] = await Promise.all([getSettings(), getCatalog()]);
+    return <BookingSoon email={settings.email || BRAND.email} pkg={pick(params.package)} service={pick(params.service)} catalog={catalog} />;
   }
   const [catalog, settings, viewer] = await Promise.all([getCatalog(), getSettings(), getViewer()]);
   const c = viewer?.customer;

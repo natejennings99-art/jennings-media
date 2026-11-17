@@ -33,3 +33,31 @@ export const CONTENT_PACKAGE_EXAMPLES = [
 ] as const;
 
 export const BEST_TIMES = ["Morning", "Midday", "Afternoon", "Evening"] as const;
+
+/**
+ * Questions a Tampa restaurant or shop owner asks before hiring a content creator.
+ * Shown on /content-package with FAQPage schema. Answers state only what the package
+ * includes; no contract terms, results or market-rate claims we can't back up.
+ */
+export const CONTENT_PACKAGE_FAQS = [
+  {
+    q: "How much does a content creator cost for a Tampa restaurant?",
+    a: `Our package is ${CONTENT_PACKAGE.priceLabel}, flat: one on-site shoot a month, a set of edited photos of your space, your people and your food, and four short vertical videos for Instagram, TikTok and Facebook. No ad spend is required.`,
+  },
+  {
+    q: "When do you shoot at a restaurant?",
+    a: "Around your opening hours. Before service suits plated dishes and the empty room; a busy service suits the energy and the people. We agree the time on the first call so the shoot never gets in the way of the kitchen.",
+  },
+  {
+    q: "Do you post the content for us?",
+    a: "The package delivers everything ready to post and sized for every platform, and you post it. If you want someone to run the accounts as well, that's our social media management service, quoted separately.",
+  },
+  {
+    q: "Is it only for restaurants?",
+    a: "No. The same package works for gyms, salons, cafés, breweries and local shops: anywhere the space, the people and the product are worth showing.",
+  },
+  {
+    q: "Where do you shoot?",
+    a: "Across Tampa Bay, including Tampa, St. Petersburg and Clearwater, and in the Washington, DC area.",
+  },
+] as const;

@@ -2,12 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Lock, X } from "lucide-react";
 import { Logo } from "@/components/ui/misc";
+import { getCatalog } from "@/lib/data/public";
+import { priceSummary } from "@/lib/pricing/summary";
 
-export const metadata: Metadata = {
-  title: "Book a Real Estate Shoot",
-  description: "Book real estate photography, video, drone, floor plans and 3D tours online in minutes with instant pricing.",
-  alternates: { canonical: "/book" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { line } = priceSummary(await getCatalog());
+  return {
+    title: "Book a Real Estate Shoot",
+    description: `Request a Tampa Bay real estate photo, video or drone shoot.${line ? ` ${line}, priced by home size.` : ""} We confirm within one business day.`,
+    alternates: { canonical: "/book" },
+    openGraph: { url: "/book" },
+  };
+}
 
 export default function BookLayout({ children }: LayoutProps<"/book">) {
   return (

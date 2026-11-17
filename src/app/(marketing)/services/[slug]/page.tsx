@@ -67,8 +67,10 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         label={`Service ${s.number}`}
         title={
           <>
-            {s.title}
-            <span className="text-accent-300">.</span>
+            {s.title}{" "}
+            <span className="mt-3 block text-[0.35em] text-mist-300">
+              in Tampa, FL<span className="text-accent-300">.</span>
+            </span>
           </>
         }
       >
