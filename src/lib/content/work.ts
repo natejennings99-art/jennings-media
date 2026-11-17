@@ -421,9 +421,11 @@ export const REELS: Reel[] = [
   { slug: "garland", label: "7906 Garland Ave", kind: "Listing film", href: "/work/7906-garland-avenue" },
   { slug: "cobble-pond", label: "8182 Cobble Pond Way", kind: "Listing film", href: "/work/8182-cobble-pond-way" },
   { slug: "kagera", label: "Lopez Realtors", kind: "Listing film", href: "/work/17455-kagera-drive" },
-  { slug: "lake-shore", label: "1701 Lake Shore Crest", kind: "Listing reel", href: BRAND.instagram },
-  { slug: "fall-festival", label: "Fall Festival", kind: "Event recap", href: BRAND.instagram },
-  { slug: "sugarberry", label: "10465 Sugarberry", kind: "Listing film", href: BRAND.instagram },
+  // These three had no project page or reel link in the repo, so they point at the matching
+  // section of the site instead of the Instagram profile. [ADD REEL LINK] for each when known.
+  { slug: "lake-shore", label: "1701 Lake Shore Crest", kind: "Listing reel", href: "/real-estate#films" },
+  { slug: "fall-festival", label: "Fall Festival", kind: "Event recap", href: "/events" },
+  { slug: "sugarberry", label: "10465 Sugarberry", kind: "Listing film", href: "/real-estate#films" },
 ];
 
 /** Horizontal clips for the showreel preview montage. */
