@@ -1,20 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BRAND } from "@/lib/brand";
 
 // Dev StrictMode unmounts and remounts immediately; only a real unmount should clear the intro.
 let pendingClear = 0;
 
 /**
- * First-visit intro: emblem, wordmark and a 000→100 counter, then a curtain
+ * First-visit intro: emblem, wordmark and a 000→100 counter (pure CSS, see globals.css), then a curtain
  * lift. Visibility is decided by INTRO_GATE before paint (CSS keeps it hidden
  * otherwise, so no-JS visitors never see it); hero animations wait underneath.
  */
 export function Intro() {
-  const [count, setCount] = useState(0);
-
   useEffect(() => {
     const root = document.documentElement;
     clearTimeout(pendingClear);
@@ -25,7 +23,6 @@ export function Intro() {
     let timer = 0;
     const tick = (t: number) => {
       const p = Math.min(1, (t - start) / total);
-      setCount(Math.round(100 * (1 - Math.pow(1 - p, 3))));
       if (p < 1) {
         raf = requestAnimationFrame(tick);
         return;
@@ -50,7 +47,7 @@ export function Intro() {
           <span className="text-accent-300">.</span>
         </p>
       </div>
-      <p className="intro-count label tabular-nums">{String(count).padStart(3, "0")}</p>
+      <p className="intro-count label tabular-nums" />
     </div>
   );
 }

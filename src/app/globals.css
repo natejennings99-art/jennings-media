@@ -349,6 +349,12 @@ html.intro-on:not(.intro-leaving) [data-hero] * { animation-play-state: paused !
 .intro-emblem { animation: intro-pop 1s var(--ease-expo) both; }
 .intro-word { font-size: clamp(2.25rem, 6.5vw, 5rem); color: var(--color-bone-50); animation: fade-up 1s var(--ease-expo) 0.15s both; }
 .intro-count { position: absolute; right: clamp(1.25rem, 4vw, 4rem); bottom: 2rem; color: var(--color-mist-400); }
+/* The 000→100 count runs in CSS from the first paint, so it never sits on "000" while the
+   page's JavaScript loads. Browsers without @property jump straight to 100 halfway through. */
+@property --intro-n { syntax: "<integer>"; inherits: false; initial-value: 0; }
+@counter-style intro-pad3 { system: extends decimal; pad: 3 "0"; }
+.intro-count::after { content: counter(intro-n, intro-pad3); counter-reset: intro-n var(--intro-n); --intro-n: 100; animation: intro-count 1.15s cubic-bezier(0.33, 1, 0.68, 1) both; }
+@keyframes intro-count { from { --intro-n: 0; } to { --intro-n: 100; } }
 @keyframes intro-pop {
   from { opacity: 0; transform: scale(0.55) rotate(-24deg); }
   to { opacity: 1; transform: none; }
