@@ -271,6 +271,7 @@ export default async function RealEstatePhotographyCostTampaPage() {
           <TransitionLink href="/real-estate" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">real estate photo &amp; video</TransitionLink>,{" "}
           <TransitionLink href="/listing-video-tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">listing video</TransitionLink>,{" "}
           <TransitionLink href="/drone-real-estate-tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">drone in Tampa</TransitionLink>,{" "}
+          <TransitionLink href="/twilight-real-estate-photography-tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">twilight photos</TransitionLink>,{" "}
           <TransitionLink href="/locations/tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">Tampa</TransitionLink>,{" "}
           <TransitionLink href="/locations/st-petersburg" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">St. Pete</TransitionLink> and{" "}
           <TransitionLink href="/locations/clearwater" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">Clearwater</TransitionLink>.

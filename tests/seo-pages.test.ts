@@ -4,7 +4,7 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 /** Tampa SEO landing pages added from the fact-checked drafts. */
-const PAGES = ["matterport-3d-tour-tampa", "how-to-prepare-home-for-real-estate-photos-tampa"];
+const PAGES = ["matterport-3d-tour-tampa", "how-to-prepare-home-for-real-estate-photos-tampa", "twilight-real-estate-photography-tampa"];
 
 const ROOT = process.cwd();
 const src = (p: string) => readFileSync(join(ROOT, p), "utf8");

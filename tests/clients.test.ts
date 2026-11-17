@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { REAL_ESTATE_PATH, RE_BOOK_CTA } from "@/lib/content/real-estate-cta";
 
-const RE_PAGES = ["real-estate", "pricing", "locations/[city]", "listing-video-tampa", "drone-real-estate-tampa", "real-estate-photography-cost-tampa", "luxury-presence-alternative", "matterport-3d-tour-tampa", "how-to-prepare-home-for-real-estate-photos-tampa"];
+const RE_PAGES = ["real-estate", "pricing", "locations/[city]", "listing-video-tampa", "drone-real-estate-tampa", "real-estate-photography-cost-tampa", "luxury-presence-alternative", "matterport-3d-tour-tampa", "how-to-prepare-home-for-real-estate-photos-tampa", "twilight-real-estate-photography-tampa"];
 const src = (p: string) => readFileSync(join(process.cwd(), p), "utf8");
 
 test("real estate end-of-page button books a shoot at /book, with the free reel as the second link", () => {
@@ -18,7 +18,7 @@ test("real estate end-of-page button books a shoot at /book, with the free reel 
 });
 
 test("real estate path match: same list for the phone bar and the header", () => {
-  for (const p of ["/real-estate", "/pricing", "/locations/tampa", "/listing-video-tampa", "/drone-real-estate-tampa", "/real-estate-photography-cost-tampa", "/matterport-3d-tour-tampa", "/how-to-prepare-home-for-real-estate-photos-tampa"]) assert.ok(REAL_ESTATE_PATH.test(p), p);
+  for (const p of ["/real-estate", "/pricing", "/locations/tampa", "/listing-video-tampa", "/drone-real-estate-tampa", "/real-estate-photography-cost-tampa", "/matterport-3d-tour-tampa", "/how-to-prepare-home-for-real-estate-photos-tampa", "/twilight-real-estate-photography-tampa"]) assert.ok(REAL_ESTATE_PATH.test(p), p);
   for (const p of ["/", "/contact", "/services", "/real-estate-x", "/free-listing-reel"]) assert.ok(!REAL_ESTATE_PATH.test(p), p);
   for (const f of ["src/components/marketing/mobile-cta.tsx", "src/components/marketing/site-header.tsx"]) assert.match(src(f), /REAL_ESTATE_PATH\.test/, f);
 });
