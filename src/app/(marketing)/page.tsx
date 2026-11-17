@@ -45,12 +45,12 @@ export default async function HomePage() {
     <>
       <Hero videoUrl={settings.hero_video_url} trustLine={marketing.trust_line} clients={clients.map((c) => c.name)} priceLine={priceSummary(catalog).line} />
       <LogoMarquee clients={clients} />
-      <TestReelOffer />
       <ExploreTiles />
       <Showreel videoUrl={showreel} clips={REEL_CLIPS} />
       <FeaturedWork projects={featured} />
       <ClientsSection clients={clients} />
       <RealEstateTeaser />
+      <TestReelOffer />
       <PhotoWall />
       <ReelsWall reels={REELS} />
       <FramesGallery frames={FRAMES} />
