@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getPortfolio();
   const now = new Date();
   const top = new Set(["", "/work", "/real-estate", "/pricing", "/listing-video-tampa", "/real-estate-photography-cost-tampa", "/drone-real-estate-tampa", "/matterport-3d-tour-tampa", "/events", "/services", "/plans", "/content-package", "/book-a-call", "/contact"]);
-  const staticPages = ["", "/work", "/real-estate", "/drone-real-estate-tampa", "/events", "/services", "/plans", "/content-package", "/book-a-call", "/industries", "/free-listing-reel", "/test-reel", "/about", "/insights", "/contact", "/join", "/pricing", "/book", "/listing-video-tampa", "/real-estate-photography-cost-tampa", "/matterport-3d-tour-tampa", "/luxury-presence-alternative", "/privacy", "/terms"].map((path) => ({
+  const staticPages = ["", "/work", "/real-estate", "/drone-real-estate-tampa", "/events", "/services", "/plans", "/content-package", "/book-a-call", "/industries", "/free-listing-reel", "/test-reel", "/about", "/insights", "/contact", "/join", "/pricing", "/book", "/listing-video-tampa", "/real-estate-photography-cost-tampa", "/matterport-3d-tour-tampa", "/how-to-prepare-home-for-real-estate-photos-tampa", "/luxury-presence-alternative", "/privacy", "/terms"].map((path) => ({
     url: `${env.siteUrl}${path}`,
     lastModified: now,
     changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),

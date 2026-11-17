@@ -373,6 +373,7 @@ export default async function RealEstatePage() {
           <TransitionLink href="/real-estate-photography-cost-tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">what real estate photography costs in Tampa</TransitionLink>,{" "}
           <TransitionLink href="/listing-video-tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">listing video</TransitionLink>,{" "}
           <TransitionLink href="/matterport-3d-tour-tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">Matterport 3D tours</TransitionLink>,{" "}
+          <TransitionLink href="/how-to-prepare-home-for-real-estate-photos-tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">how to get a home ready for photos</TransitionLink>,{" "}
           <TransitionLink href="/locations/tampa" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">Tampa</TransitionLink>,{" "}
           <TransitionLink href="/locations/st-petersburg" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">St. Pete</TransitionLink> and{" "}
           <TransitionLink href="/locations/clearwater" className="text-bone-50 underline underline-offset-4 hover:text-accent-300">Clearwater</TransitionLink>. Comparing vendors?{" "}
