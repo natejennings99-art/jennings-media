@@ -10,8 +10,8 @@ import { industryServiceSchema } from "@/components/seo/json-ld";
 
 test("the six industry pages exist, each with its own title and description", () => {
   assert.deepEqual(INDUSTRY_PAGES.map((i) => i.slug).sort(), ["airbnb-hosts", "e-commerce", "gyms", "realtors", "restaurants", "salons"]);
-  assert.equal(new Set(INDUSTRY_PAGES.map((i) => i.seoTitle)).size, 5);
-  assert.equal(new Set(INDUSTRY_PAGES.map((i) => i.description)).size, 5);
+  assert.equal(new Set(INDUSTRY_PAGES.map((i) => i.seoTitle)).size, INDUSTRY_PAGES.length);
+  assert.equal(new Set(INDUSTRY_PAGES.map((i) => i.description)).size, INDUSTRY_PAGES.length);
   for (const i of INDUSTRY_PAGES) {
     assert.ok(i.seoTitle.length <= 60, `${i.slug} title is ${i.seoTitle.length} characters`);
     assert.ok(i.description.length >= 70 && i.description.length <= 165, `${i.slug} description is ${i.description.length} characters`);

@@ -140,7 +140,7 @@ export const INDUSTRY_PAGES: IndustryPage[] = [
     slug: "e-commerce",
     name: "E-Commerce",
     seoTitle: "Product Photo & Video for Online Stores in Tampa Bay",
-    description: `Product photos and short videos for online stores and e-commerce brands in ${AREA}. Ready for your store, ads and social. Book a free 15-minute call.`,
+    description: `Product photos and short videos for online stores in ${AREA}, ready for your store, ads and social. Book a free 15-minute call.`,
     label: "For online stores and e-commerce brands",
     h1: ["Photos and video", "for online stores."],
     intro: "Shoppers can't pick up your product, so the photos and video have to do the selling. We shoot your products and short videos you can use on your store, in ads and on social.",
