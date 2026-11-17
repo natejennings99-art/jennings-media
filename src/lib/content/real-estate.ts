@@ -3,6 +3,8 @@
  * (web copies in /public/media). Place names are only given where the
  * listing's city is known; everything else stays on the street name.
  */
+import { features } from "@/lib/env";
+
 export type Film = { slug: string; title: string; place?: string };
 
 /** Widescreen cinematic tours (16:9 loops). */
@@ -50,5 +52,32 @@ export const RE_FAQ = [
   { q: "How do I pay?", a: "You can pay in full online, put down a deposit, or choose pay-later where it's offered. Payments are processed securely by Stripe." },
   { q: "Who is this for?", a: "Agents, teams, brokerages, builders and homeowners. If you're listing a property and want it to stand out, we'll make it look its best." },
 ] as const;
+
+/*
+ * Request mode: until the booking database is connected, /book shows a short shoot request
+ * instead of online checkout (see app/book/page.tsx). The copy below matches that page's
+ * "What happens next" so nothing promises online payment or a dashboard that isn't there yet.
+ * Online-booking copy comes back on its own once the keys are added.
+ */
+export function bookingRequestMode() {
+  return !features.supabaseAdmin && process.env.NODE_ENV === "production";
+}
+
+export const RE_STEPS_REQUEST = [
+  { n: "01", title: "Send the address", text: "Name, phone, the property address and a day that suits you. It takes about 30 seconds." },
+  { n: "02", title: "We confirm by text or call", text: "Within one business day we confirm the time, the home's size and your exact price, including any travel fee." },
+  { n: "03", title: "We shoot", text: "Photos, film and drone in one visit. Drone addresses are checked for airspace before the day." },
+  { n: "04", title: "You get your files", text: "Photos the next morning, films and reels in about 48 hours, ready for the MLS and social." },
+] as const;
+
+export const REQUEST_BOOKING_ANSWER =
+  "Send the address, your phone number and a day that suits you, or just call or text. Within one business day we confirm the time, the home's size and your exact price, including any travel fee, by text or call.";
+export const REQUEST_PAY_ANSWER = "We confirm your exact price, including any travel fee, by text or call before the shoot, and sort out payment with you then.";
+export const REQUEST_RESCHEDULE_ANSWER = "Yes. Text or call to reschedule.";
+
+/** RE_FAQ with the booking and payment answers swapped for request mode. */
+export const RE_FAQ_REQUEST = RE_FAQ.map((f) =>
+  f.q === "How does booking work?" ? { ...f, a: REQUEST_BOOKING_ANSWER } : f.q === "How do I pay?" ? { ...f, a: REQUEST_PAY_ANSWER } : f
+);
 
 export const RE_AREAS = ["Tampa Bay, FL", "Washington, DC", "Northern Virginia", "Maryland suburbs"] as const;

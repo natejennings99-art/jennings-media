@@ -15,6 +15,7 @@ import { ServiceIcon } from "@/components/ui/icon";
 import { buttonStyles } from "@/components/ui/button";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
 import { FAQS } from "@/lib/content/site";
+import { REQUEST_PAY_ANSWER, REQUEST_RESCHEDULE_ANSWER, RE_STEPS_REQUEST, bookingRequestMode } from "@/lib/content/real-estate";
 import { TransitionLink } from "@/components/experience/transition";
 
 export const revalidate = 300;
@@ -30,6 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const PRICING_FAQ = FAQS.filter((f) => /pay|fast|reschedule|weather|drone/i.test(f.q));
+/** Request mode: no online payment or dashboard yet, so those two answers change. */
+const PRICING_FAQ_REQUEST = PRICING_FAQ.map((f) => (/payment/i.test(f.q) ? { ...f, a: REQUEST_PAY_ANSWER } : /reschedule/i.test(f.q) ? { ...f, a: REQUEST_RESCHEDULE_ANSWER } : f));
 
 export default async function PricingPage() {
   const [catalog, areas, settings] = await Promise.all([getCatalog(), getServiceAreas(), getSettings()]);
@@ -38,6 +41,9 @@ export default async function PricingPage() {
   const standaloneAddOns = catalog.addOns.filter((a) => !a.service_id);
   const pay = settings.payment_options;
   const price = priceSummary(catalog);
+  // Same check as /book: without the booking database, booking is a short request, not online checkout.
+  const requestMode = bookingRequestMode();
+  const faq = requestMode ? PRICING_FAQ_REQUEST : PRICING_FAQ;
   const catalogLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -58,7 +64,7 @@ export default async function PricingPage() {
 
   return (
     <>
-      <JsonLd data={[catalogLd, faqSchema(PRICING_FAQ), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Real estate", path: "/real-estate" }, { name: "Pricing", path: "/pricing" }])]} />
+      <JsonLd data={[catalogLd, faqSchema(faq), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Real estate", path: "/real-estate" }, { name: "Pricing", path: "/pricing" }])]} />
       <PageHero
         eyebrow="Real estate media"
         title={
@@ -117,7 +123,7 @@ export default async function PricingPage() {
       </section>
 
       <section className="container-page py-16 sm:py-24">
-        <SectionHeading eyebrow="Add-ons" title="Finishing touches" description="Offered at checkout based on what you book." className="mb-10" />
+        <SectionHeading eyebrow="Add-ons" title="Finishing touches" description={requestMode ? "Ask for any of these when you send the address." : "Offered at checkout based on what you book."} className="mb-10" />
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {catalog.addOns.map((a) => (
             <div key={a.id} className="surface rounded-[22px] p-5">
@@ -143,7 +149,7 @@ export default async function PricingPage() {
             </span>
             <p className="mt-4 font-medium text-bone-50">Travel fee</p>
             <p className="mt-1 text-[13px] leading-relaxed text-mist-400">
-              Calculated automatically from the property address.{" "}
+              {requestMode ? "Confirmed by text with your exact price." : "Calculated automatically from the property address."}{" "}
               {areas.filter((a) => a.travel_fee_cents === 0).length > 0 &&
                 `Free inside ${areas.filter((a) => a.travel_fee_cents === 0).map((a) => a.name).join(", ")}.`}
             </p>
@@ -154,16 +160,29 @@ export default async function PricingPage() {
 
       <section className="container-page grid gap-10 py-16 sm:py-24 lg:grid-cols-12">
         <div className="lg:col-span-4">
-          <SectionHeading eyebrow="Payment" title="Flexible checkout" />
-          <ul className="mt-6 space-y-2 text-[15px] text-mist-300">
-            {pay.allow_full && <li>· Pay in full by card, Apple Pay or Google Pay</li>}
-            {pay.allow_deposit && (
-              <li>
-                · Or reserve with a {pay.deposit_type === "percent" ? `${pay.deposit_value}%` : formatMoney(pay.deposit_value)} deposit
-              </li>
-            )}
-            {pay.allow_pay_later && <li>· Or pay after the shoot, before download</li>}
-          </ul>
+          {requestMode ? (
+            <>
+              <SectionHeading eyebrow="Booking" title="Send the address" />
+              <ul className="mt-6 space-y-2 text-[15px] text-mist-300">
+                {RE_STEPS_REQUEST.slice(0, 2).map((s) => (
+                  <li key={s.n}>· {s.text}</li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <>
+              <SectionHeading eyebrow="Payment" title="Flexible checkout" />
+              <ul className="mt-6 space-y-2 text-[15px] text-mist-300">
+                {pay.allow_full && <li>· Pay in full by card, Apple Pay or Google Pay</li>}
+                {pay.allow_deposit && (
+                  <li>
+                    · Or reserve with a {pay.deposit_type === "percent" ? `${pay.deposit_value}%` : formatMoney(pay.deposit_value)} deposit
+                  </li>
+                )}
+                {pay.allow_pay_later && <li>· Or pay after the shoot, before download</li>}
+              </ul>
+            </>
+          )}
           <TransitionLink href="/book" className={buttonStyles({ className: "mt-8" })}>
             Start booking <ArrowRight className="size-4" />
           </TransitionLink>
@@ -177,10 +196,10 @@ export default async function PricingPage() {
           </p>
         </div>
         <div className="lg:col-span-8">
-          <Faq items={PRICING_FAQ} />
+          <Faq items={faq} />
         </div>
       </section>
-      <FinalCta title="Ready to book your shoot?" kicker="Two minutes, online." {...RE_BOOK_CTA} />
+      <FinalCta title="Ready to book your shoot?" kicker={requestMode ? "Send the address." : "Two minutes, online."} {...RE_BOOK_CTA} />
     </>
   );
 }

@@ -10,6 +10,7 @@ import { SectionLabel } from "@/components/agency/section-label";
 import { PageIntro } from "@/components/agency/page-intro";
 import { FilmGrid } from "@/components/agency/film-wall";
 import { FinalCta } from "@/components/agency/final-cta";
+import { bookingRequestMode } from "@/lib/content/real-estate";
 import { RE_BOOK_CTA } from "@/lib/content/real-estate-cta";
 import { TransitionLink } from "@/components/experience/transition";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
@@ -32,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const price = from ? ` from ${formatMoney(from)}` : "";
   // Kept at 60 characters or fewer with the " | Jennings Media" suffix.
   const title = `Tampa Drone Real Estate Photos${price}`;
-  const description = `FAA Part 107 certified drone photos and aerial listing video for Tampa Bay agents${price}. Every address is checked for airspace before you book. Book online.`;
+  const description = `FAA Part 107 certified drone photos and aerial listing video for Tampa Bay agents${price}. Every address is checked for airspace before you book. ${bookingRequestMode() ? "Call, text or send the address." : "Book online."}`;
   return {
     title,
     description,

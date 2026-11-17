@@ -7,7 +7,7 @@ import { priceSummary } from "@/lib/pricing/summary";
 import { formatMoney, cn } from "@/lib/utils";
 import { env } from "@/lib/env";
 import { BRAND } from "@/lib/brand";
-import { CINEMATIC_FILMS, LISTING_REELS, RE_AREAS, RE_FAQ, RE_STEPS } from "@/lib/content/real-estate";
+import { CINEMATIC_FILMS, LISTING_REELS, RE_AREAS, RE_FAQ, RE_FAQ_REQUEST, RE_STEPS, RE_STEPS_REQUEST, bookingRequestMode } from "@/lib/content/real-estate";
 import { RE_PHOTOS } from "@/lib/content/photos";
 import { PhotoGallery } from "@/components/agency/photo-gallery";
 import { FilmGrid, ReelRail } from "@/components/agency/film-wall";
@@ -55,6 +55,10 @@ export default async function RealEstatePage() {
   const services = catalog.services.filter((s) => s.is_bookable);
   const packages = [...catalog.packages].filter((p) => p.is_active).sort((a, b) => a.sort_order - b.sort_order);
   const price = priceSummary(catalog);
+  // Same check as /book: without the booking database, booking is a short request, not online checkout.
+  const requestMode = bookingRequestMode();
+  const steps = requestMode ? RE_STEPS_REQUEST : RE_STEPS;
+  const faq = requestMode ? RE_FAQ_REQUEST : RE_FAQ;
   const serviceLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -70,7 +74,7 @@ export default async function RealEstatePage() {
 
   return (
     <>
-      <JsonLd data={[serviceLd, faqSchema(RE_FAQ), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Real estate", path: "/real-estate" }])]} />
+      <JsonLd data={[serviceLd, faqSchema(faq), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Real estate", path: "/real-estate" }])]} />
 
       {/* ───────────── Hero ───────────── */}
       <section className="relative isolate flex min-h-[85svh] flex-col justify-center overflow-hidden sm:min-h-[100svh] sm:justify-end" aria-label="Real estate media">
@@ -322,12 +326,12 @@ export default async function RealEstatePage() {
       <section id="process" className="gutter scroll-mt-32 pb-24 sm:pb-36" aria-labelledby="process-title">
         <SectionLabel index="06" className="mb-8">How it works</SectionLabel>
         <SplitReveal as="h2" id="process-title" className="font-display text-section text-bone-50">
-          Book in
+          {requestMode ? "Send the" : "Book in"}
           <br />
-          <span className="text-accent-300">two minutes.</span>
+          <span className="text-accent-300">{requestMode ? "address." : "two minutes."}</span>
         </SplitReveal>
         <ol className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-white/10 md:grid-cols-2 lg:grid-cols-4">
-          {RE_STEPS.map((s) => (
+          {steps.map((s) => (
             <li key={s.n} className="bg-ink-950 p-7 sm:p-8">
               <p className="font-mono text-sm text-accent-300">{s.n}</p>
               <h3 className="mt-10 text-[22px] font-semibold tracking-tight text-bone-50">{s.title}</h3>
@@ -350,7 +354,7 @@ export default async function RealEstatePage() {
           Good to know.
         </SplitReveal>
         <div className="mt-14 divide-y divide-white/10 border-y border-white/10">
-          {RE_FAQ.map((f) => (
+          {faq.map((f) => (
             <details key={f.q} className="group py-6">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-[19px] font-semibold tracking-tight text-bone-50 marker:hidden [&::-webkit-details-marker]:hidden">
                 {f.q}
