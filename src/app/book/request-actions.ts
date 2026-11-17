@@ -13,7 +13,12 @@ import type { ActionResult } from "@/lib/types";
 const schema = z.object({
   name: clean(120).pipe(z.string().min(2, "Enter your name")),
   phone: clean(30).pipe(z.string().min(7, "Enter a phone number we can text")),
-  email: clean(254).transform((s) => s.toLowerCase()).pipe(z.email("Enter a valid email")),
+  email: z
+    .preprocess((v) => (v == null ? "" : v), clean(254))
+    .transform((s) => s.toLowerCase())
+    .refine((s) => s === "" || z.email().safeParse(s).success, "Enter a valid email")
+    .transform((s) => s || null),
+  sqft: optionalClean(10),
   address: clean(200).pipe(z.string().min(5, "Enter the property address")),
   when: optionalClean(120),
   pkg: optionalClean(60),
@@ -39,13 +44,15 @@ export async function requestShoot(_: unknown, form: FormData): Promise<ActionRe
   const ip = await clientIp();
   if (!rateLimit(`shoot:${ip}`, 5, 60 * 60 * 1000)) return { ok: false, error: "You've sent a few requests already — we'll be in touch soon." };
 
-  console.log(`[lead] ${JSON.stringify({ at: new Date().toISOString(), kind: "shoot_request", name: d.name, phone: d.phone, email: d.email, address: d.address, when: d.when, package: d.pkg, notes: d.notes })}`);
+  console.log(`[lead] ${JSON.stringify({ at: new Date().toISOString(), kind: "shoot_request", name: d.name, phone: d.phone, email: d.email, address: d.address, sqft: d.sqft, when: d.when, package: d.pkg, notes: d.notes })}`);
 
   if (features.email) {
     const settings = await getSettings();
-    const message = [`Shoot request${d.pkg ? ` (${d.pkg})` : ""}`, `Property: ${d.address}`, d.when ? `Preferred: ${d.when}` : "", d.notes ?? ""].filter(Boolean).join("\n");
+    const message = [`Shoot request${d.pkg ? ` (${d.pkg})` : ""}`, `Property: ${d.address}`, d.sqft ? `Home size: ${d.sqft} sq ft` : "", d.when ? `Preferred: ${d.when}` : "", d.notes ?? ""].filter(Boolean).join("\n");
+    // No email given: the button calls the phone instead, and there is no reply-to.
+    const adminUrl = d.email ? `mailto:${d.email}` : `tel:${d.phone.replace(/[^\d+]/g, "")}`;
     after(() =>
-      sendLogged("admin_new_lead", adminRecipients(settings), adminNewLead(brandOf(settings), { name: d.name, email: d.email, phone: d.phone, reason: "shoot_request", message, adminUrl: `mailto:${d.email}` }), {
+      sendLogged("admin_new_lead", adminRecipients(settings), adminNewLead(brandOf(settings), { name: d.name, email: d.email ?? "no email given", phone: d.phone, reason: "shoot_request", message, adminUrl }), {
         replyTo: d.email,
       })
     );

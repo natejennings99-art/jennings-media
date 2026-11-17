@@ -7,6 +7,7 @@ import { startingPrice } from "@/lib/pricing/engine";
 import { priceSummary } from "@/lib/pricing/summary";
 import { formatMoney } from "@/lib/utils";
 import { ShootRequestForm } from "@/components/booking/shoot-request-form";
+import { SqftPrice } from "@/components/booking/sqft-price";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 
 const title = (slug?: string) => (slug ? slug.replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : "");
@@ -23,7 +24,7 @@ const NEXT_STEPS = [
  * (captured server-side) plus one-tap call/text, prices and what happens next, instead of a
  * wizard that fails on its last step.
  */
-export function BookingSoon({ email, pkg, service, catalog }: { email: string; pkg?: string; service?: string; catalog: Pick<Catalog, "services" | "packages"> }) {
+export function BookingSoon({ email, pkg, service, sqft, catalog }: { email: string; pkg?: string; service?: string; sqft?: string; catalog: Pick<Catalog, "services" | "packages"> }) {
   const price = priceSummary(catalog);
   const chosenPkg = pkg ? price.packages.find((p) => p.slug === pkg) : undefined;
   const chosenSvc = !chosenPkg && service ? catalog.services.find((s) => s.slug === service && s.is_bookable) : undefined;
@@ -79,18 +80,7 @@ export function BookingSoon({ email, pkg, service, catalog }: { email: string; p
         Send the address and a time that works, and we&rsquo;ll text or call to confirm within one business day. Photography, cinematic video, drone and floor plans across Tampa Bay and the D.C. area.
       </p>
 
-      {price.packages.length > 0 && (
-        <ul className="mt-8 grid gap-3 sm:grid-cols-3" aria-label="Packages">
-          {price.packages.map((p) => (
-            <li key={p.id}>
-              <Link href={`/book?package=${p.slug}#request`} className={`flex h-full flex-col gap-1 rounded-md border px-4 py-3 hover:border-accent-300 ${p.slug === pkg ? "border-accent-300" : "border-white/10"}`}>
-                <span className="text-[15px] font-semibold text-bone-50">{p.name}</span>
-                <span className="text-[14px] text-mist-300">from {formatMoney(startingPrice(p))}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <SqftPrice packages={price.packages} photo={catalog.services.find((s) => s.slug === "photography" && s.is_bookable)} selected={pkg} initialSqft={sqft} />
       <ul className="mt-3 grid gap-3 text-[15px] text-mist-300 sm:grid-cols-3">
         {[
           [Camera, price.photo ? `Photos from ${formatMoney(price.photo)}` : "HDR photography"],
@@ -108,7 +98,7 @@ export function BookingSoon({ email, pkg, service, catalog }: { email: string; p
       </ul>
 
       <div id="request" className="mt-14 scroll-mt-24">
-        <ShootRequestForm pkg={chosen || undefined} />
+        <ShootRequestForm pkg={chosen || undefined} sqft={sqft} />
       </div>
 
       <h2 className="label mt-16 mb-6 text-mist-400">What happens next</h2>

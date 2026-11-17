@@ -10,8 +10,8 @@ import type { ActionResult } from "@/lib/types";
 const field = "w-full border-0 border-b border-white/15 bg-transparent px-0 py-4 text-[17px] text-bone-50 placeholder:text-mist-600 transition-colors focus:border-accent-300 focus:ring-0 focus:outline-none aria-[invalid=true]:border-red-400";
 const label = "label text-mist-400";
 
-/** Short shoot request (name, phone, email, address, timing): the whole thing takes about 30 seconds. */
-export function ShootRequestForm({ pkg }: { pkg?: string }) {
+/** Short shoot request (name, phone, optional email, address, optional home size, timing): the whole thing takes about 30 seconds. */
+export function ShootRequestForm({ pkg, sqft }: { pkg?: string; sqft?: string }) {
   const [startedAt] = useState(() => Date.now());
   const [draft, setDraft] = useState<Record<string, string>>({});
   const [state, action, pending] = useActionState<ActionResult<{ name: string; delivered?: boolean }> | null, FormData>(async (prev, form) => {
@@ -57,10 +57,18 @@ export function ShootRequestForm({ pkg }: { pkg?: string }) {
         {input("phone", "Mobile", { type: "tel", autoComplete: "tel", required: true })}
       </div>
       <div className="grid gap-8 sm:grid-cols-2">
-        {input("email", "Email", { type: "email", autoComplete: "email", required: true })}
+        {input("email", "Email (optional)", { type: "email", autoComplete: "email" })}
         {input("when", "Preferred date / time", { placeholder: "e.g. Thu morning" })}
       </div>
-      {input("address", "Property address", { autoComplete: "street-address", required: true })}
+      <div className="grid gap-8 sm:grid-cols-[2fr_1fr]">
+        {input("address", "Property address", { autoComplete: "street-address", required: true })}
+        {/* key: picking a size in the price list above re-fills this box */}
+        <label className="block" key={sqft ?? ""}>
+          <span className={label}>Home size (sq ft)</span>
+          <input name="sqft" defaultValue={sqft ?? ""} inputMode="numeric" placeholder="optional" maxLength={10} className={field} aria-invalid={Boolean(err("sqft"))} />
+          {err("sqft") && <span className="mt-2 block text-[13px] text-red-300">{err("sqft")}</span>}
+        </label>
+      </div>
       {input("notes", "Anything else? (optional)", { placeholder: "Twilight, drone, 3D tour, lockbox…" })}
       {state && !state.ok && !state.fieldErrors && <p className="text-[14px] text-red-300">{state.error}</p>}
       <button

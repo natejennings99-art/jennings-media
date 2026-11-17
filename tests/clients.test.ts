@@ -32,3 +32,46 @@ test("request-mode booking copy promises no online checkout, dashboard or card p
   const soon = src("src/components/booking/booking-soon.tsx");
   for (const s of RE_STEPS_REQUEST) assert.ok(soon.includes(s.text), `step ${s.n} reuses /book wording`);
 });
+
+test("/book size calculator: exact prices for 1,500, 2,500 and 4,000 sq ft match the /pricing tiers", async () => {
+  const { DEFAULT_PACKAGES, DEFAULT_SERVICES } = await import("@/lib/content/defaults");
+  const { sortTiers, packagePrice, servicePrice, startingPrice } = await import("@/lib/pricing/engine");
+  const { sqftPrices, parseSqft } = await import("@/components/booking/sqft-price");
+  const packages = DEFAULT_PACKAGES.filter((p) => p.is_active).sort((a, b) => a.sort_order - b.sort_order);
+  const photo = DEFAULT_SERVICES.find((s) => s.slug === "photography" && s.is_bookable);
+  assert.ok(packages.length > 0 && photo, "default catalog has packages and photography");
+  // The /pricing table lists sorted tiers ("≤2.5k sq ft · $X"); a home uses the first tier it fits under.
+  const tableRow = (item: { base_price_cents: number; price_tiers: { max_sqft: number | null; price_cents: number }[] }, sqft: number) => {
+    const tiers = sortTiers(item.price_tiers);
+    if (!tiers.length) return item.base_price_cents;
+    return (tiers.find((t) => t.max_sqft === null || sqft <= t.max_sqft) ?? tiers[tiers.length - 1]).price_cents;
+  };
+  for (const sqft of [1500, 2500, 4000]) {
+    const got = sqftPrices(packages, photo, sqft);
+    packages.forEach((p, i) => {
+      assert.equal(got.packages[i].cents, tableRow(p, sqft), `${p.slug} at ${sqft}`);
+      assert.equal(got.packages[i].cents, packagePrice(p, sqft));
+    });
+    assert.equal(got.photo, tableRow(photo!, sqft), `photography at ${sqft}`);
+    assert.equal(got.photo, servicePrice(photo!, sqft));
+  }
+  // No size typed: the same "from" prices /book showed before.
+  const none = sqftPrices(packages, photo, parseSqft(""));
+  packages.forEach((p, i) => assert.equal(none.packages[i].cents, startingPrice(p)));
+  assert.equal(parseSqft("2,400"), 2400);
+  assert.equal(parseSqft("abc"), null);
+});
+
+test("/book request form: email optional, mobile required, size field and calculator links carry sqft", () => {
+  const actions = src("src/app/book/request-actions.ts");
+  assert.match(actions, /sqft: optionalClean\(10\)/);
+  assert.match(actions, /s === "" \|\| z\.email\(\)/);
+  assert.match(actions, /sqft: d\.sqft/, "size goes in the [lead] log line");
+  assert.doesNotMatch(actions, /adminUrl: `mailto:\$\{d\.email\}`/, "no empty mailto when email is blank");
+  const form = src("src/components/booking/shoot-request-form.tsx");
+  assert.match(form, /"Email \(optional\)"/);
+  assert.match(form, /"Mobile", \{[^}]*required: true/);
+  assert.match(form, /name="sqft"/);
+  assert.match(src("src/components/booking/sqft-price.tsx"), /&sqft=\$\{sqft\}/);
+  assert.match(src("src/components/booking/booking-soon.tsx"), /id="request"/);
+});

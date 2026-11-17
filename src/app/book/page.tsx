@@ -14,7 +14,7 @@ export default async function BookPage({ searchParams }: PageProps<"/book">) {
   if (!features.supabaseAdmin && process.env.NODE_ENV === "production") {
     const pick = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v)?.slice(0, 60);
     const [settings, catalog] = await Promise.all([getSettings(), getCatalog()]);
-    return <BookingSoon email={settings.email || BRAND.email} pkg={pick(params.package)} service={pick(params.service)} catalog={catalog} />;
+    return <BookingSoon email={settings.email || BRAND.email} pkg={pick(params.package)} service={pick(params.service)} sqft={pick(params.sqft)?.replace(/[^\d]/g, "").slice(0, 6) || undefined} catalog={catalog} />;
   }
   const [catalog, settings, viewer] = await Promise.all([getCatalog(), getSettings(), getViewer()]);
   const c = viewer?.customer;
