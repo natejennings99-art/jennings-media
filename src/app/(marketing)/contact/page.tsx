@@ -9,7 +9,7 @@ import { formatPhone } from "@/lib/utils";
 import { TransitionLink } from "@/components/experience/transition";
 
 export const metadata: Metadata = {
-  title: "Contact Us: Start a Project",
+  title: "Contact Us: Tampa, St. Pete & Clearwater",
   description: `Tell us what you're building. ${BRAND.name} replies to every project inquiry within one business day.`,
   alternates: { canonical: "/contact" },
 };

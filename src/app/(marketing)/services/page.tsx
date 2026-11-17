@@ -15,8 +15,8 @@ import { cn } from "@/lib/utils";
 import { TransitionLink } from "@/components/experience/transition";
 
 export const metadata: Metadata = {
-  title: "Services: Photo, Video, Social Content & Ads",
-  description: "Photo, video and social content packages, plus lead generation, Meta & Google Ads, AI agents, websites and SEO. One team in Tampa Bay.",
+  title: "Photo, Video & Ads in Tampa, St. Pete & Clearwater",
+  description: "Photo, video and social content packages, plus lead generation, Meta & Google Ads, AI agents, websites and SEO. One team serving Tampa, St. Pete and Clearwater.",
   alternates: { canonical: "/services" },
 };
 

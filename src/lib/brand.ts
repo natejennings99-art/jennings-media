@@ -9,7 +9,7 @@ export const BRAND = {
   descriptor: "Media & Marketing Agency",
   tagline: "Creative. Media. Growth.",
   description:
-    "Tampa Bay real estate photography, listing video and drone for agents, plus ads, social content and lead generation for local businesses. Also serving Washington, DC.",
+    "Real estate photography, listing video and drone for agents in Tampa, St. Pete and Clearwater, plus ads, social content and lead generation for local businesses. Also serving Washington, DC.",
   location: "Tampa, FL & Washington, DC",
   locationNote: "Serving Tampa Bay, the DMV and brands everywhere",
   /** Same number and hours as the Google Business Profile and Yelp page. */

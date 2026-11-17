@@ -33,7 +33,7 @@ export type IndustryPage = {
   related: { href: string; label: string };
 };
 
-const AREA = "Tampa and St. Petersburg";
+const AREA = "Tampa, St. Pete and Clearwater";
 
 export const INDUSTRY_PAGES: IndustryPage[] = [
   {

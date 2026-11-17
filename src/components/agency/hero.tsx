@@ -97,7 +97,7 @@ export function Hero({ videoUrl, trustLine, clients, priceLine }: { videoUrl: st
       <div ref={content} className="gutter flex flex-1 flex-col justify-end pt-32 pb-10 sm:pb-14">
         <div className="mb-8 flex items-center justify-between gap-6 sm:mb-12">
           <h1 className="label animate-fade-in text-[13px] text-bone-50 [animation-delay:200ms] sm:text-[15px]">
-            <span className="text-accent-300" aria-hidden>●</span> Tampa real estate photography &amp; video
+            <span className="text-accent-300" aria-hidden>●</span> Tampa, St. Pete &amp; Clearwater real estate photography &amp; video
           </h1>
           <p className="label hidden animate-fade-in text-mist-400 [animation-delay:300ms] sm:block">
             {BRAND.location} — Worldwide

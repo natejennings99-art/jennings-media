@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { line } = priceSummary(await getCatalog());
   return {
     alternates: { canonical: "/" },
-    description: `Tampa Bay real estate photography, listing video and drone for agents${line ? `: ${line.charAt(0).toLowerCase()}${line.slice(1)}` : ""}. Plus marketing for local businesses.`,
+    description: `Real estate photography, listing video and drone for agents in Tampa, St. Pete and Clearwater${line ? `: ${line.charAt(0).toLowerCase()}${line.slice(1)}` : ""}. Plus marketing for local businesses.`,
   };
 }
 
