@@ -63,9 +63,9 @@ case you're in first:
 3. Apply the database. In the left sidebar click **SQL Editor** → **New
    query**. **Easiest (Nov 16):** open `supabase/ALL-IN-ONE.sql`, copy all of
    it, paste it once, and click **Run**. It is the 7 files below joined in
-   order and is safe to run twice. (Not test-run yet, because there was no
-   database on the Mac to try it on. If it shows an error, use the
-   file-by-file steps below and tell Claude which file failed.)
+   order and is safe to run twice. (Tested Nov 16 on a real Postgres engine:
+   it runs clean, runs clean again, and builds exactly what the 7 files build.
+   Re-check any time with `node scripts/db/verify-all-in-one.mjs`.)
 
    Or file by file: for **each file below, in this order**: open it on GitHub
    (<https://github.com/natejennings99-art/jennings-media/tree/main/supabase>),
