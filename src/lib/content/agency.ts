@@ -2,7 +2,7 @@
  * Agency site copy & structure. Case studies, testimonials, client logos and
  * stats live in the database (Admin → Work / Testimonials / Clients / Settings).
  */
-import { AGENCY_IMAGES as A } from "./agency-images";
+import { PHOTO_SPOTS } from "./photo-spots";
 
 export const HERO_KEYWORDS = ["IGNORE.", "FORGET.", "SKIP.", "SCROLL PAST."] as const;
 
@@ -36,7 +36,7 @@ export const AGENCY_SERVICES: AgencyService[] = [
     body: "Full-funnel campaigns across Meta and Google \u2014 creative, targeting, retargeting and tracking \u2014 managed weekly against cost per lead, not vanity metrics.",
     deliverables: ["Meta (Facebook & Instagram) ads", "Google Search, Maps & YouTube ads", "Retargeting & lookalike audiences", "Pixel, conversions & reporting"],
     outcome: "A predictable cost per lead you can scale.",
-    image: A.earthNight,
+    image: PHOTO_SPOTS.adsCard,
   },
   {
     slug: "ai-automation",
@@ -46,7 +46,7 @@ export const AGENCY_SERVICES: AgencyService[] = [
     body: "We design, train and deploy AI agents on your website, inbox and DMs \u2014 trained on your services and your tone \u2014 so every lead gets an instant, on-brand reply and a clear next step.",
     deliverables: ["Website & DM chat agents", "Lead qualification & booking", "CRM & calendar integrations", "Workflow automations"],
     outcome: "Every lead answered in seconds, day or night.",
-    image: A.circuit,
+    image: PHOTO_SPOTS.aiAgentsCard,
   },
   {
     slug: "social-media",
@@ -76,7 +76,7 @@ export const AGENCY_SERVICES: AgencyService[] = [
     body: "Websites and landing pages with clear offers, tracking and speed built in \u2014 designed to capture the leads your ads and content create.",
     deliverables: ["Website design & build", "Landing pages", "Analytics & tracking", "Speed & SEO foundations"],
     outcome: "A site that turns traffic into inquiries.",
-    image: A.retroTech,
+    image: PHOTO_SPOTS.websitesCard,
   },
   {
     slug: "brand-strategy",
@@ -96,7 +96,7 @@ export const AGENCY_SERVICES: AgencyService[] = [
     body: "Technical SEO, Google Business Profile, local pages and content that ranks \u2014 so clients find you when they're ready to buy.",
     deliverables: ["Technical & local SEO", "Google Business Profile", "Content that ranks", "Reviews strategy"],
     outcome: "Inbound leads that don't depend on ad spend.",
-    image: A.towersUp,
+    image: PHOTO_SPOTS.seoCard,
   },
 ];
 
@@ -244,7 +244,7 @@ export const ARTICLES: Article[] = [
     category: "Performance",
     date: "2026-09-03",
     minutes: 5,
-    image: A.earthNight,
+    image: PHOTO_SPOTS.roasArticle,
     body: [
       { type: "p", text: "ROAS is a scoreboard, not a steering wheel. It tells you how the last few weeks went, blends new and returning customers, and hides fatigue until it's expensive. Teams that manage to ROAS alone are always reacting." },
       { type: "h2", text: "Watch attention first" },
@@ -264,7 +264,7 @@ export const ARTICLES: Article[] = [
     category: "Strategy",
     date: "2026-08-12",
     minutes: 4,
-    image: A.teamWhiteboard,
+    image: PHOTO_SPOTS.fewerCampaignsArticle,
     body: [
       { type: "p", text: "The launch campaign is where most marketing budgets peak and most learning stops. A creative system flips that: smaller bets, shipped constantly, with every result feeding the next brief." },
       { type: "h2", text: "Build in modules" },

@@ -18,6 +18,7 @@ import type {
 import { IMAGES } from "./images";
 import { BRAND } from "@/lib/brand";
 import { HERO_VIDEO, SHOWREEL_FILM } from "./work";
+import { PHOTO_SPOTS } from "./photo-spots";
 
 const $ = (dollars: number) => Math.round(dollars * 100);
 const tiers = (...pairs: [number | null, number][]): PriceTier[] =>
@@ -292,7 +293,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Laser-measured floor plans drawn to scale, with room names, dimensions and total living area. Delivered as high-resolution PNG and PDF.",
     features: ["Laser-measured", "Room dimensions & totals", "PNG + PDF", "Branded or unbranded"],
     icon: "ruler",
-    image_url: IMAGES.blueprint,
+    image_url: PHOTO_SPOTS.floorPlans,
     pricing_model: "sqft",
     base_price_cents: $(89),
     price_tiers: tiers([2000, 89], [3500, 119], [null, 149]),

@@ -1,6 +1,6 @@
 # Spots that still use a placeholder photo
 
-Updated 2026-11-06. Our own footage in `public/media` replaced these:
+Updated 2026-11-16. Our own footage in `public/media` replaced these:
 
 | Where | Was | Now |
 |---|---|---|
@@ -9,18 +9,24 @@ Updated 2026-11-06. Our own footage in `public/media` replaced these:
 | Home / Services → **Brand Strategy** card | Unsplash architecture | `/media/photos/isaia-styling.jpg` (the Isaia store shoot) |
 | Insights → **The first three seconds** | Unsplash film set | `/media/video/film.jpg` (the opening frame of our film) |
 
-These are still Unsplash, because nothing in our footage shows the subject.
-Each one needs a real photo or a screenshot of real work:
+These 7 spots still show a stock (Unsplash) photo. Each one now loads a fixed file
+from **`public/photos/`**. To replace one, save your photo into that folder with
+**exactly the same file name** (JPG, about 2000 px wide, landscape). The current stock
+photo is already there under that name, so nothing breaks until you swap it.
 
-| Where it shows | Image key (`src/lib/content/…`) | What would fit |
+| Where it shows | File to replace | What would fit |
 |---|---|---|
-| Home / Services → **Meta & Google Ads** card | `agency.ts` → `A.earthNight` | A screenshot of an ad you ran, or a phone showing one of our reels as an ad |
-| Home / Services → **AI Agents** card | `agency.ts` → `A.circuit` | A screenshot of the lead auto-reply or the chat agent working |
-| Home / Services → **Websites & Funnels** card | `agency.ts` → `A.retroTech` | A laptop shot of tampamaidscleaning.com or jennings-media.com |
-| Home / Services → **SEO + Content** card | `agency.ts` → `A.towersUp` | A Search Console graph, or a Tampa skyline drone still once you have one |
-| Insights → **ROAS is a lagging indicator** | `agency.ts` → `A.earthNight` | The same ads screenshot as above |
-| Insights → **Fewer campaigns, more systems** | `agency.ts` → `A.teamWhiteboard` | You at a whiteboard or planning a shoot |
-| Services → **Floor plans** | `images.ts` → `IMAGES.blueprint` | A clean export of one of our floor plans. `video/jennings-ad.jpg` shows one, but it is portrait and mostly black, so it crops badly into a card |
+| Home / Services → **Meta & Google Ads** card | `public/photos/ads-card.jpg` | A screenshot of an ad you ran, or a phone showing one of our reels as an ad |
+| Home / Services → **AI Agents** card | `public/photos/ai-agents-card.jpg` | A screenshot of the lead auto-reply or the chat agent working |
+| Home / Services → **Websites & Funnels** card | `public/photos/websites-card.jpg` | A laptop shot of tampamaidscleaning.com or jennings-media.com |
+| Home / Services → **SEO + Content** card | `public/photos/seo-card.jpg` | A Search Console graph, or a Tampa skyline drone still once you have one |
+| Insights → **ROAS is a lagging indicator** | `public/photos/roas-article.jpg` | An ads screenshot (can be the same picture as the Ads card) |
+| Insights → **Fewer campaigns, more systems** | `public/photos/fewer-campaigns-article.jpg` | You at a whiteboard or planning a shoot |
+| Services → **Floor plans** | `public/photos/floor-plans.jpg` | A clean export of one of our floor plans. `video/jennings-ad.jpg` shows one, but it is portrait and mostly black, so it crops badly into a card |
+
+The file names are set in `src/lib/content/photo-spots.ts`. The Floor plans photo is
+the starting value; if a database is connected, Admin → Services can override it.
+After swapping a file, redeploy so the new photo goes live.
 
 Not live: `src/lib/content/samples.ts` (sample case studies for hotels, cafés,
 gyms and skincare) also uses Unsplash. It only shows in development, or if
