@@ -8,7 +8,7 @@ import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
   title: "Photo & Video by Industry in Tampa Bay",
-  description: "Photo, video and social content for restaurants, gyms, realtors, salons, Airbnb hosts and online stores in Tampa, St. Pete and Clearwater. Pick your business to see what you get.",
+  description: "Photo, video and social content for restaurants, gyms, realtors, salons, Airbnb hosts and online stores in Tampa, St. Pete and Clearwater.",
   alternates: { canonical: "/industries" },
 };
 

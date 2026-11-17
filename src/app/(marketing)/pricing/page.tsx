@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { packageLine, line } = priceSummary(await getCatalog());
   return {
     title: "Real Estate Photography & Video Pricing",
-    description: `Tampa Bay real estate media prices: ${packageLine || line}. Packages scale with home size; à-la-carte services and add-ons listed.`,
+    description: `Tampa Bay real estate media prices: ${packageLine || line}. Scales with home size; add-ons listed.`,
     alternates: { canonical: "/pricing" },
     openGraph: { url: "/pricing" },
   };

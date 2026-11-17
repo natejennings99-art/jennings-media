@@ -177,7 +177,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "tampa-small-business-ads",
     title: "Meta and Google ads for Tampa businesses",
-    excerpt: "Where a Tampa Bay business should start with paid ads: tracking first, tight local targeting, creative that looks like it belongs in the feed, and fast follow-up.",
+    excerpt: "Where a Tampa Bay business should start with paid ads: tracking first, tight local targeting, creative that fits the feed, and fast follow-up.",
     category: "Paid Media",
     date: "2026-09-30",
     minutes: 5,
