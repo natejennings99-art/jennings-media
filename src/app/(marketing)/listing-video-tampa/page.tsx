@@ -9,6 +9,7 @@ import { SectionLabel } from "@/components/agency/section-label";
 import { PageIntro } from "@/components/agency/page-intro";
 import { FilmGrid, ReelRail } from "@/components/agency/film-wall";
 import { FinalCta } from "@/components/agency/final-cta";
+import { RE_BOOK_CTA } from "@/lib/content/real-estate-cta";
 import { TransitionLink } from "@/components/experience/transition";
 import { BookCtaRow } from "@/components/marketing/book-cta-row";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
@@ -282,7 +283,7 @@ export default async function ListingVideoTampaPage() {
         </p>
       </section>
 
-      <FinalCta title="Listing going live soon?" kicker="Book the film." />
+      <FinalCta title="Listing going live soon?" kicker="Book the film." {...RE_BOOK_CTA} />
     </>
   );
 }

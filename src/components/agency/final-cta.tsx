@@ -10,7 +10,20 @@ import { BRAND } from "@/lib/brand";
 
 const HeroCanvas = dynamic(() => import("@/components/webgl/hero-canvas"), { ssr: false });
 
-export function FinalCta({ title = "Got something ambitious in mind?", kicker = "Let's build it." }: { title?: string; kicker?: string }) {
+export function FinalCta({
+  title = "Got something ambitious in mind?",
+  kicker = "Let's build it.",
+  href = "/contact",
+  label = "Start a project",
+  secondary,
+}: {
+  title?: string;
+  kicker?: string;
+  href?: string;
+  label?: string;
+  /** Optional small link under the big button (e.g. the free listing reel on real estate pages). */
+  secondary?: { href: string; label: string };
+}) {
   return (
     <section className="relative isolate flex min-h-[100svh] items-center overflow-hidden" aria-labelledby="cta-title">
       <div className="absolute inset-0 -z-10 bg-ink-950">
@@ -25,18 +38,25 @@ export function FinalCta({ title = "Got something ambitious in mind?", kicker = 
         <div className="mt-14 flex justify-center">
           <Magnetic strength={0.4}>
             <TransitionLink
-              href="/contact"
+              href={href}
               data-cursor="cta"
               className="group grid size-44 place-items-center rounded-full bg-accent-300 text-ink-950 transition-[background-color,transform] duration-500 hover:bg-bone-50 sm:size-56"
             >
               <span className="flex flex-col items-center gap-2 text-[14px] font-bold tracking-[0.12em] uppercase">
                 <ArrowUpRight className="size-9 transition-transform duration-500 group-hover:rotate-45" strokeWidth={2} />
-                Start a project
+                {label}
               </span>
             </TransitionLink>
           </Magnetic>
         </div>
-        <p className="mt-10 text-[15px] text-mist-300">
+        {secondary && (
+          <p className="mt-10 text-[15px]">
+            <TransitionLink href={secondary.href} className="text-bone-50 underline underline-offset-4 hover:text-accent-300">
+              {secondary.label}
+            </TransitionLink>
+          </p>
+        )}
+        <p className={secondary ? "mt-3 text-[15px] text-mist-300" : "mt-10 text-[15px] text-mist-300"}>
           Not sure yet?{" "}
           <Link href={BRAND.callHref} className="text-bone-50 underline underline-offset-4 hover:text-accent-300">
             Book a free 15-minute call

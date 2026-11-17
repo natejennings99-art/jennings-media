@@ -8,6 +8,7 @@ import { env } from "@/lib/env";
 import { SectionLabel } from "@/components/agency/section-label";
 import { PageIntro } from "@/components/agency/page-intro";
 import { FinalCta } from "@/components/agency/final-cta";
+import { RE_BOOK_CTA } from "@/lib/content/real-estate-cta";
 import { TransitionLink } from "@/components/experience/transition";
 import { BookCtaRow } from "@/components/marketing/book-cta-row";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
@@ -276,7 +277,7 @@ export default async function RealEstatePhotographyCostTampaPage() {
         </p>
       </section>
 
-      <FinalCta title="Know your square footage?" kicker="Book your shoot." />
+      <FinalCta title="Know your square footage?" kicker="Book your shoot." {...RE_BOOK_CTA} />
     </>
   );
 }

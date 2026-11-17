@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight, MessageSquare, Phone } from "lucide-react";
 import { TransitionLink } from "@/components/experience/transition";
 import { BRAND } from "@/lib/brand";
+import { REAL_ESTATE_PATH } from "@/lib/content/real-estate-cta";
 import { cn } from "@/lib/utils";
 
 const smsHref = BRAND.phoneHref.replace(/^tel:/, "sms:");
@@ -19,7 +20,7 @@ export function MobileCta() {
   const onPage = path?.startsWith("/industries/") ? bookCall : ({ "/join": { href: "#apply", label: "Apply now" }, "/content-package": bookCall, "/book-a-call": bookCall } as Record<string, { href: string; label: string }>)[path ?? ""];
   // Real estate landings: the bar books a shoot and shows from the first paint, so the price-led
   // pages always have a tap target in reach.
-  const realEstate = /^\/(real-estate|pricing|drone-real-estate-tampa|listing-video-tampa|real-estate-photography-cost-tampa|locations)(\/|$)/.test(path ?? "");
+  const realEstate = REAL_ESTATE_PATH.test(path ?? "");
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const onScroll = () => {

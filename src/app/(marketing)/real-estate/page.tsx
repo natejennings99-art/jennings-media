@@ -13,6 +13,7 @@ import { PhotoGallery } from "@/components/agency/photo-gallery";
 import { FilmGrid, ReelRail } from "@/components/agency/film-wall";
 import { SectionLabel } from "@/components/agency/section-label";
 import { FinalCta } from "@/components/agency/final-cta";
+import { RE_BOOK_CTA } from "@/lib/content/real-estate-cta";
 import { SplitReveal } from "@/components/experience/split-reveal";
 import { HeroVideo } from "@/components/experience/hero-video";
 import { TransitionLink } from "@/components/experience/transition";
@@ -371,7 +372,7 @@ export default async function RealEstatePage() {
       </section>
 
       <RelatedReading slugs={["tampa-listing-media-guide", "the-first-three-seconds"]} title="Plan your next listing" />
-      <FinalCta title="Ready to list?" kicker="Book your shoot." />
+      <FinalCta title="Ready to list?" kicker="Book your shoot." {...RE_BOOK_CTA} />
     </>
   );
 }

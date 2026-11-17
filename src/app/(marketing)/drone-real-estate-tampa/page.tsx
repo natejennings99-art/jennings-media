@@ -10,6 +10,7 @@ import { SectionLabel } from "@/components/agency/section-label";
 import { PageIntro } from "@/components/agency/page-intro";
 import { FilmGrid } from "@/components/agency/film-wall";
 import { FinalCta } from "@/components/agency/final-cta";
+import { RE_BOOK_CTA } from "@/lib/content/real-estate-cta";
 import { TransitionLink } from "@/components/experience/transition";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
 import type { Catalog } from "@/lib/types";
@@ -300,7 +301,7 @@ export default async function DroneRealEstateTampaPage() {
         </div>
       </section>
 
-      <FinalCta title="Listing near the water?" kicker="Send us the address." />
+      <FinalCta title="Listing near the water?" kicker="Send us the address." {...RE_BOOK_CTA} />
     </>
   );
 }

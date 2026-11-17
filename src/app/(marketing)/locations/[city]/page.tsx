@@ -10,6 +10,7 @@ import { PageIntro } from "@/components/agency/page-intro";
 import { SectionLabel } from "@/components/agency/section-label";
 import { CaseCard } from "@/components/agency/case-card";
 import { FinalCta } from "@/components/agency/final-cta";
+import { RE_BOOK_CTA } from "@/lib/content/real-estate-cta";
 import { TransitionLink } from "@/components/experience/transition";
 import { BookCtaRow } from "@/components/marketing/book-cta-row";
 import { JsonLd, breadcrumbSchema, faqSchema, localBusinessSchema } from "@/components/seo/json-ld";
@@ -222,7 +223,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[ci
         </div>
       </section>
       <RelatedReading slugs={fl ? ["tampa-listing-media-guide", "tampa-small-business-ads", "ai-lead-follow-up-tampa"] : ["the-first-three-seconds", "fewer-campaigns-more-systems"]} title={fl ? "Guides for Tampa Bay agents" : "Further reading"} />
-      <FinalCta title={`Listing in ${l.short}?`} kicker="Book your shoot." />
+      <FinalCta title={`Listing in ${l.short}?`} kicker="Book your shoot." {...RE_BOOK_CTA} />
     </>
   );
 }

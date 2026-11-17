@@ -7,6 +7,7 @@ import { BRAND } from "@/lib/brand";
 import { COMPARE_FAQ, COMPARE_ROWS } from "@/lib/content/compare";
 import { SectionLabel } from "@/components/agency/section-label";
 import { FinalCta } from "@/components/agency/final-cta";
+import { RE_BOOK_CTA } from "@/lib/content/real-estate-cta";
 import { TransitionLink } from "@/components/experience/transition";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
 
@@ -132,7 +133,7 @@ export default async function LuxuryPresenceAlternativePage() {
         </div>
       </section>
 
-      <FinalCta title="Got a listing to shoot?" kicker="No demo required." />
+      <FinalCta title="Got a listing to shoot?" kicker="No demo required." {...RE_BOOK_CTA} />
     </>
   );
 }

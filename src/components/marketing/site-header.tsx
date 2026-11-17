@@ -9,6 +9,7 @@ import { TransitionLink } from "@/components/experience/transition";
 import { Magnetic } from "@/components/experience/magnetic";
 import { RollText } from "./nav-link";
 import { cn } from "@/lib/utils";
+import { REAL_ESTATE_PATH } from "@/lib/content/real-estate-cta";
 
 export function SiteHeader({ email, socials }: { email: string | null; socials: { label: string; href: string }[] }) {
   const pathname = usePathname();
@@ -33,6 +34,8 @@ export function SiteHeader({ email, socials }: { email: string | null; socials: 
   }, [open]);
 
   const close = () => setOpen(false);
+  // Real estate pages: the main button books a shoot instead of opening the project brief.
+  const cta = REAL_ESTATE_PATH.test(pathname ?? "") ? { href: "/book", label: "Book a shoot" } : { href: "/contact", label: "Start a project" };
 
   return (
     <>
@@ -59,11 +62,11 @@ export function SiteHeader({ email, socials }: { email: string | null; socials: 
             })}
             <Magnetic>
               <TransitionLink
-                href="/contact"
+                href={cta.href}
                 data-cursor="cta"
                 className="group inline-flex h-11 items-center gap-2 rounded-full bg-bone-50 px-5 text-[13px] font-semibold tracking-[0.02em] text-ink-950 uppercase transition-colors hover:bg-accent-300"
               >
-                <RollText>Start a project</RollText>
+                <RollText>{cta.label}</RollText>
                 <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:rotate-45" />
               </TransitionLink>
             </Magnetic>
@@ -110,8 +113,8 @@ export function SiteHeader({ email, socials }: { email: string | null; socials: 
           ))}
         </nav>
         <div className={cn("gutter pb-10 transition-opacity delay-300 duration-500", open ? "opacity-100" : "opacity-0")}>
-          <TransitionLink href="/contact" onClick={close} tabIndex={open ? 0 : -1} className="flex h-15 items-center justify-between rounded-full bg-accent-300 px-7 text-[15px] font-semibold tracking-wide text-ink-950 uppercase">
-            Start a project <ArrowUpRight className="size-5" />
+          <TransitionLink href={cta.href} onClick={close} tabIndex={open ? 0 : -1} className="flex h-15 items-center justify-between rounded-full bg-accent-300 px-7 text-[15px] font-semibold tracking-wide text-ink-950 uppercase">
+            {cta.label} <ArrowUpRight className="size-5" />
           </TransitionLink>
           <TransitionLink href={BRAND.callHref} onClick={close} tabIndex={open ? 0 : -1} className="mt-3 flex h-13 items-center justify-between rounded-full border border-white/20 px-7 text-[14px] font-semibold tracking-wide text-bone-50 uppercase">
             Book a free call <ArrowUpRight className="size-5" />

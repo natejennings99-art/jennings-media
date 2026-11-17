@@ -9,6 +9,7 @@ import { PageHero } from "@/components/marketing/page-hero";
 import { PackageCards } from "@/components/marketing/package-cards";
 import { Faq } from "@/components/marketing/faq";
 import { FinalCta } from "@/components/agency/final-cta";
+import { RE_BOOK_CTA } from "@/lib/content/real-estate-cta";
 import { Accent, SectionHeading } from "@/components/ui/misc";
 import { ServiceIcon } from "@/components/ui/icon";
 import { buttonStyles } from "@/components/ui/button";
@@ -179,7 +180,7 @@ export default async function PricingPage() {
           <Faq items={PRICING_FAQ} />
         </div>
       </section>
-      <FinalCta title="Ready to book your shoot?" kicker="Two minutes, online." />
+      <FinalCta title="Ready to book your shoot?" kicker="Two minutes, online." {...RE_BOOK_CTA} />
     </>
   );
 }
